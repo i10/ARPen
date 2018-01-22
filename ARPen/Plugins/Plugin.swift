@@ -8,6 +8,9 @@
 
 import ARKit
 
+/**
+ The Plugin protocol. If you want to write a new plugin you must use this protocol.
+ */
 protocol Plugin {
     
     func didUpdateFrame(scene: PenScene, buttons: [Button: Bool])

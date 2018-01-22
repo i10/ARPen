@@ -8,16 +8,22 @@
 
 import CoreBluetooth
 
+/**
+ PenManager 
+ */
 protocol PenManagerDelegate {
     func button(_ button: Button, pressed: Bool)
     func connect(successfully: Bool)
 }
 
+/**
+ The PenManager manages the bluetooth connection to the bluetooth chip of the hardware ARPen.
+ */
 class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
-    let centralManager: CBCentralManager
-    let serviceUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
-    var peripheral: CBPeripheral?
+    private let centralManager: CBCentralManager
+    private let serviceUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
+    private var peripheral: CBPeripheral?
     var delegate: PenManagerDelegate?
     
     override init() {
@@ -83,7 +89,6 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         default:
             print("Unkown Button pressed")
         }
-        
         
     }
     

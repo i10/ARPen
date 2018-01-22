@@ -14,6 +14,9 @@ protocol PluginManagerDelegate {
     
 }
 
+/**
+ The PluginManager holds every plugin that is used. Furthermore the PluginManager holds the AR- and PenManager.
+ */
 class PluginManager: ARManagerDelegate, PenManagerDelegate {
 
     var arManager: ARManager
@@ -22,6 +25,9 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var plugins: [Plugin] = [PaintPlugin(), ObjectCreationPlugin()]
     var delegate: PluginManagerDelegate?
     
+    /**
+     inits every plugin
+     */
     init(scene: PenScene) {
         self.arManager = ARManager(scene: scene)
         self.arPenManager = PenManager()
@@ -30,16 +36,25 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.arPenManager.delegate = self
     }
     
+    /**
+     Callback from PenManager
+     */
     func button(_ button: Button, pressed: Bool) {
         self.buttons[button] = pressed
     }
     
+    /**
+     Callback from PenManager
+     */
     func connect(successfully: Bool) {
         if successfully {
             self.delegate?.penConnected()
         }
     }
     
+    /**
+     Callback form ARCamera
+     */
     func didChangeTrackingState(cam: ARCamera) {
         switch cam.trackingState {
         case .normal:
@@ -49,16 +64,12 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         }
     }
     
+    /**
+     This is the callback from ARManager.
+     */
     func finishedCalculation() {
         for plugin in plugins {
-            plugin.didUpdateFrame(scene: self.arManager.scene, buttons: buttons)
+            plugin.didUpdateFrame(scene: self.arManager.scene!, buttons: buttons)
         }
     }
-    
-    
-    
-    
-    
-    
-    
 }

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ All our buttons!
+ */
 enum Button {
     case Button1, Button2, Button3
 }

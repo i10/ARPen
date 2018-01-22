@@ -14,9 +14,13 @@ protocol ARManagerDelegate {
     func finishedCalculation()
 }
 
+/**
+ The ARManager is the the ARSessionDelegate, the ARSessionObserver and the OpenCVWrapperDelegate of ARPen
+ It holds the openCVWrapper
+ */
 class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDelegate {
     
-    var scene: PenScene
+    private weak var scene: PenScene?
     var opencvWrapper: OpenCVWrapper
     var delegate: ARManagerDelegate?
     
@@ -38,12 +42,10 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
-        
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
@@ -52,27 +54,36 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
     }
     
     // MARK: - OpenCVWrapperDelegate
-    
+    /**
+     Callback of the OpenCVWrapper
+     */
     func markerTranslation(_ translation: [NSValue]!, rotation: [NSValue]!, ids: [NSNumber]!) {
+        guard let scene = self.scene else {
+            return
+        }
         let positions = translation.map({$0.scnVector3Value})
         let eulerAngles = rotation.map({$0.scnVector3Value})
         let ids = ids.map({$0.intValue})
         
         for (position, (eulerAngle, id)) in zip(positions, zip(eulerAngles, ids)) {
             //self.scene.markerBox.setPosition(position, rotation: eulerAngle, forId: Int32(id))
-            self.scene.markerBox.set(position: position, rotation: eulerAngle, forID: id)
+            scene.markerBox.set(position: position, rotation: eulerAngle, forID: id)
         }
+        scene.markerFound = true
         //self.scene.pencilPoint.position = self.scene.markerBox.position(withIds: UnsafeMutablePointer(mutating: ids), count: Int32(ids.count))
-        self.scene.pencilPoint.position = self.scene.markerBox.posititonWith(ids: ids)
+        scene.pencilPoint.position = scene.markerBox.posititonWith(ids: ids)
         
         self.delegate?.finishedCalculation()
-        
-        self.scene.previousPoint = self.scene.pencilPoint.position
-        
     }
     
+    /**
+     Callback of OpenCVWrapper
+     */
     func noMarkerFound() {
-        self.scene.previousPoint = nil
+        guard let scene = self.scene else {
+            return
+        }
+        scene.markerFound = false
     }
     
 }

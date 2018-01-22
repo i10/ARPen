@@ -8,9 +8,12 @@
 
 import SceneKit
 
+/**
+ The MarkerBox represents the Box on the ARPen. It simplifies some mathamtics.
+ */
 class MarkerBox: SCNNode {
     
-    var markerArray: [SCNNode]
+    private var markerArray: [SCNNode]
     
     override init() {
         markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
@@ -68,11 +71,18 @@ class MarkerBox: SCNNode {
         
     }
     
+    /**
+     Sets the position and rotation (in euler angles) for a specific ID.
+     */
     func set(position: SCNVector3, rotation: SCNVector3, forID id: Int) {
         self.markerArray[id-1].position = position
         self.markerArray[id-1].eulerAngles = rotation
     }
     
+    /**
+     Determine the position of the pin point by ONLY considering the specified IDs
+     - parameter ids: A list of marker IDs that are used to determine the position
+     */
     func posititonWith(ids: [Int]) -> SCNVector3 {
         var vector = SCNVector3Zero
         

@@ -13,7 +13,6 @@ func normalizeVector(_ iv: SCNVector3) -> SCNVector3 {
 }
 
 extension SCNNode {
-    
     @discardableResult
     func buildLineInTwoPointsWithRotation(from startPoint: SCNVector3,
                                           to endPoint: SCNVector3,

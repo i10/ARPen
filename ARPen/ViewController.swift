@@ -10,6 +10,10 @@ import UIKit
 import SceneKit
 import ARKit
 
+/**
+ The "Main" ViewController. This ViewController holds the instance of the PluginManager.
+ Furthermore it holds the ARKitView.
+ */
 class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate {
 
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
@@ -17,12 +21,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var arPenActivity: UIActivityIndicatorView!
     @IBOutlet weak var arKitLabel: UILabel!
     @IBOutlet weak var arKitActivity: UIActivityIndicatorView!
-    
-    
     @IBOutlet var arSceneView: ARSCNView!
     
+    /**
+     The PluginManager instance
+     */
     var pluginManager: PluginManager!
     
+    /**
+     A quite standard viewDidLoad
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set the view's delegate
@@ -47,6 +55,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arSceneView.scene = scene
     }
     
+    /**
+     viewWillAppear. Init the ARSession
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -64,22 +75,36 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arSceneView.session.pause()
     }
     
+    /**
+     Convert the whole scene into an stl file and present a shareViewController for AirDrop
+     */
     func share() {
         let filePath = (self.arSceneView.scene as! PenScene).share()
         let view = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)
         self.present(view, animated: true, completion: nil)
     }
     
+    // Mark: - ARManager Delegate
+    /**
+     Callback from the ARManager
+     */
     func arKitInitialiazed() {
         self.arKitActivity.isHidden = true
         checkVisualEffectView()
     }
     
+    // Mark: - PenManager delegate
+    /**
+     Callback from PenManager
+     */
     func penConnected() {
         self.arPenActivity.isHidden = true
         checkVisualEffectView()
     }
     
+    /**
+     This method will be called after `penConnected` and `arKitInitialized` to may hide the blurry overlay
+     */
     func checkVisualEffectView() {
         if self.arPenActivity.isHidden && self.arKitActivity.isHidden {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
@@ -91,17 +116,4 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             })
         }
     }
-    
-    /*
-     if (self.btIndicatior.isHidden && self.arkitIndicator.isHidden) {
-     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-     [UIView animateWithDuration:0.5 animations:^{
-     self.visualEffectView.alpha = 0.0;
-     } completion:^(BOOL finished) {
-     [self.visualEffectView removeFromSuperview];
-     }];
-     });
-     }
- */
-    
 }

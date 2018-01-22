@@ -8,10 +8,13 @@
 
 import Foundation
 
+/**
+ The object creation plugin can create a 3d object in space.
+ */
 class ObjectCreationPlugin: Plugin {
     
-    var pointArray: [SCNVector3] = []
-    var alreadyAdded = false
+    private var pointArray: [SCNVector3] = []
+    private var alreadyAdded = false
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         if alreadyAdded {
