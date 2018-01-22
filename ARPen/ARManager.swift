@@ -20,7 +20,7 @@ protocol ARManagerDelegate {
  */
 class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDelegate {
     
-    private weak var scene: PenScene?
+    private(set) weak var scene: PenScene?
     var opencvWrapper: OpenCVWrapper
     var delegate: ARManagerDelegate?
     

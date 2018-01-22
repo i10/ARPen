@@ -78,7 +78,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     /**
      Convert the whole scene into an stl file and present a shareViewController for AirDrop
      */
-    func share() {
+    @IBAction func share() {
         let filePath = (self.arSceneView.scene as! PenScene).share()
         let view = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)
         self.present(view, animated: true, completion: nil)

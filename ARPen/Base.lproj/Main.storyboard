@@ -24,6 +24,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-U4-mJN">
                                 <rect key="frame" x="20" y="20" width="40" height="30"/>
                                 <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="share" destination="BV1-FR-VrT" eventType="touchUpInside" id="w6U-gj-H5g"/>
+                                </connections>
                             </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYd-yH-V3o">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
@@ -40,8 +43,8 @@
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="McQ-JC-bMI">
                                                         <rect key="frame" x="213" y="153" width="240" height="68"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Searching for ARPen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kR-hm-tXz">
-                                                                <rect key="frame" x="37" y="8" width="196" height="21"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for ARPen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kR-hm-tXz">
+                                                                <rect key="frame" x="36" y="8" width="196" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -129,12 +132,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leading" id="4R4-hk-6Gk"/>
-                            <constraint firstItem="iYd-yH-V3o" firstAttribute="leading" secondItem="EIQ-Ip-Tyt" secondAttribute="leading" id="96J-6E-dhy"/>
+                            <constraint firstItem="iYd-yH-V3o" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leading" id="96J-6E-dhy"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="bottom" secondItem="EIQ-Ip-Tyt" secondAttribute="bottom" id="DLC-mq-LKi"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="leading" secondItem="EIQ-Ip-Tyt" secondAttribute="leading" constant="20" id="ExD-AQ-aFu"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="20" id="H70-5L-CCb"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" id="LBk-3V-d3Y"/>
-                            <constraint firstItem="iYd-yH-V3o" firstAttribute="trailing" secondItem="EIQ-Ip-Tyt" secondAttribute="trailing" id="Un0-kz-gbv"/>
+                            <constraint firstItem="iYd-yH-V3o" firstAttribute="trailing" secondItem="YSQ-pH-N6L" secondAttribute="trailing" id="Un0-kz-gbv"/>
                             <constraint firstAttribute="trailing" secondItem="Z1i-B5-dqO" secondAttribute="trailing" id="ZCc-G1-ORQ"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" id="ZUV-Sl-MuL"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="EIQ-Ip-Tyt" secondAttribute="bottom" id="cqj-y5-Wso"/>
