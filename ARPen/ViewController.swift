@@ -88,7 +88,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     /**
      Callback from the ARManager
      */
-    func arKitInitialiazed() {
+    func arKitInitialiazed() {          
         self.arKitActivity.isHidden = true
         checkVisualEffectView()
     }

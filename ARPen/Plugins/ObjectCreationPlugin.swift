@@ -17,11 +17,11 @@ class ObjectCreationPlugin: Plugin {
     private var alreadyAdded = false
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
-        if alreadyAdded {
-            return
-        }
         if !buttons[.Button3]!{
             alreadyAdded = false
+            return
+        }
+        if alreadyAdded {
             return
         }
         alreadyAdded = true

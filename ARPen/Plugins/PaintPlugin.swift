@@ -25,7 +25,7 @@ class PaintPlugin: Plugin {
         
         if pressed, let previousPoint = self.previousPoint {
             let cylinderNode = SCNNode()
-            cylinderNode.buildLineInTwoPointsWithRotation(from: previousPoint, to: scene.pencilPoint.position, radius: 0.01, color: UIColor.red)
+            cylinderNode.buildLineInTwoPointsWithRotation(from: previousPoint, to: scene.pencilPoint.position, radius: 0.001, color: UIColor.red)
             cylinderNode.name = "cylinderLine"
             scene.rootNode.addChildNode(cylinderNode)
         }
