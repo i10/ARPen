@@ -26,6 +26,7 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     private var peripheral: CBPeripheral?
     var delegate: PenManagerDelegate?
     
+    
     override init() {
         centralManager = CBCentralManager()
         super.init()
@@ -95,6 +96,14 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
+            
+            // After 3 seconds stop scanning :/
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                if self.peripheral == nil {
+                    self.delegate?.connect(successfully: false)
+                    self.centralManager.stopScan()
+                }
+            })
             centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
         default:
             break
@@ -104,6 +113,7 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     deinit {
         if let peripheral = self.peripheral {
             self.centralManager.cancelPeripheralConnection(peripheral)
+            self.centralManager.stopScan()
         }
     }
 

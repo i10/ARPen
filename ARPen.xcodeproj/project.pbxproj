@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC18B2B62023797000884920 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2B52023797000884920 /* SettingsViewController.swift */; };
+		DC18B2BA20237A7300884920 /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC18B2B920237A7300884920 /* Eureka.framework */; };
+		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
 		DC28B444200E4353008B77AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B443200E4353008B77AB /* ViewController.swift */; };
@@ -32,6 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC18B2B52023797000884920 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DC18B2B920237A7300884920 /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
+		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC28B441200E4353008B77AB /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -66,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC18B2BA20237A7300884920 /* Eureka.framework in Frameworks */,
 				DC28B458200E4435008B77AB /* opencv2.framework in Frameworks */,
 				DC28B457200E4435008B77AB /* aruco.framework in Frameworks */,
 			);
@@ -74,11 +81,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC18B2B820237A7200884920 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC18B2B920237A7300884920 /* Eureka.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DC28B433200E4353008B77AB = {
 			isa = PBXGroup;
 			children = (
 				DC28B43E200E4353008B77AB /* ARPen */,
 				DC28B43D200E4353008B77AB /* Products */,
+				DC18B2B820237A7200884920 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +112,8 @@
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B441200E4353008B77AB /* art.scnassets */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
+				DC18B2B52023797000884920 /* SettingsViewController.swift */,
+				DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */,
 				DC28B477200E6640008B77AB /* Extensions */,
 				DC28B464200E4825008B77AB /* PenScene.swift */,
 				DC28B453200E4389008B77AB /* ARManager.swift */,
@@ -157,6 +175,7 @@
 				DC28B438200E4353008B77AB /* Sources */,
 				DC28B439200E4353008B77AB /* Frameworks */,
 				DC28B43A200E4353008B77AB /* Resources */,
+				DC18B2B720237A1F00884920 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -216,6 +235,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DC18B2B720237A1F00884920 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Eureka.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DC28B438200E4353008B77AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -225,6 +261,7 @@
 				DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */,
 				DC28B45F200E4561008B77AB /* PenManager.swift in Sources */,
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
+				DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
@@ -233,6 +270,7 @@
 				DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */,
 				DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */,
 				DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */,
+				DC18B2B62023797000884920 /* SettingsViewController.swift in Sources */,
 				DC28B463200E471F008B77AB /* PluginManager.swift in Sources */,
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
 				DC28B46B200E4C78008B77AB /* Button.swift in Sources */,
@@ -379,6 +417,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -401,6 +440,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

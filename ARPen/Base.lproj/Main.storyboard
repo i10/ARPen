@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,9 +22,9 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1i-B5-dqO">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-U4-mJN">
-                                <rect key="frame" x="20" y="20" width="40" height="30"/>
-                                <state key="normal" title="Share"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-U4-mJN">
+                                <rect key="frame" x="20" y="20" width="38" height="38"/>
+                                <state key="normal" image="cog"/>
                                 <connections>
                                     <action selector="share" destination="BV1-FR-VrT" eventType="touchUpInside" id="w6U-gj-H5g"/>
                                 </connections>
@@ -131,24 +132,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="A5z-U4-mJN" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" constant="20" symbolic="YES" id="3bg-0T-BZU"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leading" id="4R4-hk-6Gk"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leading" id="96J-6E-dhy"/>
-                            <constraint firstItem="Z1i-B5-dqO" firstAttribute="bottom" secondItem="EIQ-Ip-Tyt" secondAttribute="bottom" id="DLC-mq-LKi"/>
-                            <constraint firstItem="A5z-U4-mJN" firstAttribute="leading" secondItem="EIQ-Ip-Tyt" secondAttribute="leading" constant="20" id="ExD-AQ-aFu"/>
-                            <constraint firstItem="A5z-U4-mJN" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="20" id="H70-5L-CCb"/>
-                            <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" id="LBk-3V-d3Y"/>
+                            <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="trailing" secondItem="A5z-U4-mJN" secondAttribute="trailing" constant="609" id="CMI-vn-wNc"/>
+                            <constraint firstItem="Z1i-B5-dqO" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="DLC-mq-LKi"/>
+                            <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" id="LBk-3V-d3Y"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="trailing" secondItem="YSQ-pH-N6L" secondAttribute="trailing" id="Un0-kz-gbv"/>
+                            <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="bottom" secondItem="A5z-U4-mJN" secondAttribute="bottom" constant="317" id="WGm-yx-Qne"/>
                             <constraint firstAttribute="trailing" secondItem="Z1i-B5-dqO" secondAttribute="trailing" id="ZCc-G1-ORQ"/>
-                            <constraint firstItem="iYd-yH-V3o" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" id="ZUV-Sl-MuL"/>
-                            <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="EIQ-Ip-Tyt" secondAttribute="bottom" id="cqj-y5-Wso"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A5z-U4-mJN" secondAttribute="trailing" constant="20" symbolic="YES" id="oym-tr-kIi"/>
+                            <constraint firstItem="iYd-yH-V3o" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" id="ZUV-Sl-MuL"/>
+                            <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="cqj-y5-Wso"/>
+                            <constraint firstItem="A5z-U4-mJN" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leadingMargin" id="tvT-3X-kRl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EIQ-Ip-Tyt"/>
                     </view>
                     <connections>
                         <outlet property="arKitActivity" destination="KO4-Ne-Cwh" id="kP4-Wh-juI"/>
+                        <outlet property="arKitImage" destination="D0X-YH-HF7" id="CGi-Li-sso"/>
                         <outlet property="arKitLabel" destination="cLj-hG-Yqr" id="Kwd-NW-B29"/>
                         <outlet property="arPenActivity" destination="px8-Ix-0v1" id="WsU-dY-Y73"/>
+                        <outlet property="arPenImage" destination="Z1N-qB-Uok" id="Ffr-Fr-nlm"/>
                         <outlet property="arPenLabel" destination="4kR-hm-tXz" id="WxC-sC-hY1"/>
                         <outlet property="arSceneView" destination="Z1i-B5-dqO" id="iVk-um-itv"/>
                         <outlet property="visualEffectView" destination="iYd-yH-V3o" id="9t5-aF-3w7"/>
@@ -156,9 +160,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="34.632683658170919" y="16.800000000000001"/>
         </scene>
     </scenes>
     <resources>
         <image name="Checkmark" width="37" height="37"/>
+        <image name="cog" width="128" height="128"/>
     </resources>
 </document>

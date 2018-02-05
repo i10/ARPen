@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         application.isIdleTimerDisabled = true
+        UserDefaults.standard.register(defaults: [UserDefaultsKeys.penLength.rawValue: 0.15])
+        
         return true
     }
 

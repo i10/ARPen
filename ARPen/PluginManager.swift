@@ -11,7 +11,7 @@ import ARKit
 protocol PluginManagerDelegate {
     func arKitInitialiazed()
     func penConnected()
-    
+    func penFailed()
 }
 
 /**
@@ -21,7 +21,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
 
     var arManager: ARManager
     var arPenManager: PenManager
-    var buttons: [Button: Bool]
+    var buttons: [Button: Bool] = [.Button1: false, .Button2: false, .Button3: false]
     var plugins: [Plugin] = [PaintPlugin(), ObjectCreationPlugin()]
     var delegate: PluginManagerDelegate?
     
@@ -31,7 +31,6 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     init(scene: PenScene) {
         self.arManager = ARManager(scene: scene)
         self.arPenManager = PenManager()
-        self.buttons = [.Button1: false, .Button2: false, .Button3: false]
         self.arManager.delegate = self
         self.arPenManager.delegate = self
     }
@@ -49,6 +48,8 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     func connect(successfully: Bool) {
         if successfully {
             self.delegate?.penConnected()
+        } else {
+            self.delegate?.penFailed()
         }
     }
     

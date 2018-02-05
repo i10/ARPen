@@ -15,12 +15,16 @@ class MarkerBox: SCNNode {
     
     private var markerArray: [SCNNode]
     
-    override init() {
+    override convenience init() {
+        self.init(length: UserDefaults.standard.double(forKey: UserDefaultsKeys.penLength.rawValue))
+    }
+    
+    init(length: Double) {
         markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
         super.init()
         self.name = "MarkerBox"
         
-        let a: Double = 0.15
+        let a: Double = length
         var xs, ys, zs, xl, yl, zl: Double
         
         let angle = 35.3.degreesToRadians
