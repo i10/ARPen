@@ -16,12 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         application.isIdleTimerDisabled = true
-        UserDefaults.standard.register(defaults: [UserDefaultsKeys.penLength.rawValue: 0.15])
+        UserDefaults.standard.register(defaults: [
+            UserDefaultsKeys.penLength.rawValue: 0.15,
+            UserDefaultsKeys.arPenName.rawValue: "BLE Serial"
+        ])
         
         return true
     }

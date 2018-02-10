@@ -30,12 +30,25 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     override init() {
         centralManager = CBCentralManager()
         super.init()
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaultsKeys.arPenName.rawValue, options: NSKeyValueObservingOptions.new, context: nil)
         centralManager.delegate = self
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if let peripheral = self.peripheral {
+            self.centralManager.cancelPeripheralConnection(peripheral)
+            self.peripheral = nil
+        }
+        
+        if UserDefaults.standard.string(forKey: UserDefaultsKeys.arPenName.rawValue) != "" {
+            self.centralManagerDidUpdateState(self.centralManager)
+        }
+        //do your changes with for key
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print(peripheral)
-        if peripheral.name == "BLE Serial" {
+        if peripheral.name == UserDefaults.standard.string(forKey: UserDefaultsKeys.arPenName.rawValue) {
             self.centralManager.stopScan()
             self.peripheral = peripheral
             peripheral.delegate = self
@@ -115,6 +128,7 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             self.centralManager.cancelPeripheralConnection(peripheral)
             self.centralManager.stopScan()
         }
+        UserDefaults.standard.removeObserver(self, forKeyPath: UserDefaultsKeys.arPenName.rawValue)
     }
 
     

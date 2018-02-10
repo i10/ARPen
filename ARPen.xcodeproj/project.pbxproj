@@ -65,6 +65,7 @@
 		DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCreationPlugin.swift; sourceTree = "<group>"; };
 		DC28B478200E7E89008B77AB /* MarkerBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerBox.m; sourceTree = "<group>"; };
 		DC28B479200E7E89008B77AB /* MarkerBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerBox.h; sourceTree = "<group>"; };
+		DCE5A37E202F504B005F4186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 		DC28B433200E4353008B77AB = {
 			isa = PBXGroup;
 			children = (
+				DCE5A37E202F504B005F4186 /* README.md */,
 				DC28B43E200E4353008B77AB /* ARPen */,
 				DC28B43D200E4353008B77AB /* Products */,
 				DC18B2B820237A7200884920 /* Frameworks */,

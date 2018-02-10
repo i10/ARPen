@@ -9,5 +9,5 @@
 import Foundation
 
 enum UserDefaultsKeys: String {
-    case penLength
+    case penLength, arPenName
 }

@@ -35,11 +35,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set the view's delegate
-        // arSceneView.delegate = arManager
-        
-        // Show statistics such as fps and timing information
-        // arSceneView.showsStatistics = true
         
         // Create a new scene
         let scene = PenScene(named: "art.scnassets/ship.scn")!

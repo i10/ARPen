@@ -12,8 +12,6 @@ import CoreBluetooth
 
 class SettingsViewController: FormViewController, CBCentralManagerDelegate {
 
-    
-    
     var scene: PenScene!
     var manager: CBCentralManager!
     var peripherals = Set<CBPeripheral>()
@@ -58,10 +56,16 @@ class SettingsViewController: FormViewController, CBCentralManagerDelegate {
                 $0.selectorTitle = "Choose a lazy Emoji!"
                 $0.tag = "Bluetooth"
                 $0.options = ["No Bluetooth devices"]
+                $0.onChange({ (row) in
+                    guard let string = row.value else {
+                        return
+                    }
+                    UserDefaults.standard.set(string, forKey: UserDefaultsKeys.arPenName.rawValue)
+                })
             } <<< ButtonRow() {
                 $0.title = "Verbindung trennen"
                 $0.onCellSelection({ (_, _) in
-                    
+                    UserDefaults.standard.set("", forKey: UserDefaultsKeys.arPenName.rawValue)
                 })
         }
     }
@@ -79,7 +83,11 @@ class SettingsViewController: FormViewController, CBCentralManagerDelegate {
             break
         }
     }
+    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        guard let name = peripheral.name else {
+            return
+        }
         self.peripherals.insert(peripheral)
         let bluetoothRow: PushRow = self.form.rowBy(tag: "Bluetooth") as! PushRow<String>
         bluetoothRow.options = self.peripherals.map({$0.name ?? "No Name"})
