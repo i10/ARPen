@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PenManager Class Reference</title>
+    <title>SettingsViewController Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/PenManager" class="dashAnchor"></a>
-    <a title="PenManager Class Reference"></a>
+    <a name="//apple_ref/swift/Class/SettingsViewController" class="dashAnchor"></a>
+    <a title="SettingsViewController Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (47% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        PenManager Class Reference
+        SettingsViewController Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -180,14 +180,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PenManager</h1>
+            <h1>SettingsViewController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">PenManager</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">CBCentralManagerDelegate</span><span class="p">,</span> <span class="kt">CBPeripheralDelegate</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">SettingsViewController</span><span class="p">:</span> <span class="kt">FormViewController</span><span class="p">,</span> <span class="kt">CBCentralManagerDelegate</span></code></pre>
 
                 </div>
               </div>
-            <p>The PenManager manages the bluetooth connection to the bluetooth chip of the hardware ARPen.</p>
+            <p>Undocumented</p>
 
           </section>
           <section class="section task-group-section">
@@ -196,9 +196,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5ARPen10PenManagerC8delegateAA0bC8Delegate_pSgv"></a>
-                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5ARPen10PenManagerC8delegateAA0bC8Delegate_pSgv">delegate</a>
+                    <a name="/s:5ARPen22SettingsViewControllerC5sceneSQyAA8PenSceneCGv"></a>
+                    <a name="//apple_ref/swift/Property/scene" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5ARPen22SettingsViewControllerC5sceneSQyAA8PenSceneCGv">scene</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -213,7 +213,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PenManagerDelegate.html">PenManagerDelegate</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">scene</span><span class="p">:</span> <span class="kt"><a href="../Classes/PenScene.html">PenScene</a></span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -223,9 +223,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)init"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)init">init()</a>
+                    <a name="/s:5ARPen22SettingsViewControllerC7managerSQySo16CBCentralManagerCGv"></a>
+                    <a name="//apple_ref/swift/Property/manager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5ARPen22SettingsViewControllerC7managerSQySo16CBCentralManagerCGv">manager</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -240,7 +240,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">override</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -250,9 +250,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)observeValueForKeyPath:ofObject:change:context:"></a>
-                    <a name="//apple_ref/swift/Method/observeValue(forKeyPath:of:change:context:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)observeValueForKeyPath:ofObject:change:context:">observeValue(forKeyPath:of:change:context:)</a>
+                    <a name="/s:5ARPen22SettingsViewControllerC11peripheralss3SetVySo12CBPeripheralCGv"></a>
+                    <a name="//apple_ref/swift/Property/peripherals" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5ARPen22SettingsViewControllerC11peripheralss3SetVySo12CBPeripheralCGv">peripherals</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -267,7 +267,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">observeValue</span><span class="p">(</span><span class="n">forKeyPath</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">of</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span> <span class="nv">change</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSKeyValueChangeKey</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">UnsafeMutableRawPointer</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">peripherals</span> <span class="o">=</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">CBPeripheral</span><span class="o">&gt;</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -277,9 +277,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)centralManager:didDiscoverPeripheral:advertisementData:RSSI:"></a>
-                    <a name="//apple_ref/swift/Method/centralManager(_:didDiscover:advertisementData:rssi:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)centralManager:didDiscoverPeripheral:advertisementData:RSSI:">centralManager(_:didDiscover:advertisementData:rssi:)</a>
+                    <a name="/c:@M@ARPen@objc(cs)SettingsViewController(im)viewDidLoad"></a>
+                    <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ARPen@objc(cs)SettingsViewController(im)viewDidLoad">viewDidLoad()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -294,7 +294,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didDiscover</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="nv">advertisementData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="n">rssi</span> <span class="kt">RSSI</span><span class="p">:</span> <span class="kt">NSNumber</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -304,9 +304,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)centralManager:didConnectPeripheral:"></a>
-                    <a name="//apple_ref/swift/Method/centralManager(_:didConnect:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)centralManager:didConnectPeripheral:">centralManager(_:didConnect:)</a>
+                    <a name="/c:@M@ARPen@objc(cs)SettingsViewController(im)dismissVC"></a>
+                    <a name="//apple_ref/swift/Method/dismissVC()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ARPen@objc(cs)SettingsViewController(im)dismissVC">dismissVC()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -321,7 +321,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didConnect</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">func</span> <span class="nf">dismissVC</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -331,117 +331,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)peripheral:didDiscoverServices:"></a>
-                    <a name="//apple_ref/swift/Method/peripheral(_:didDiscoverServices:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)peripheral:didDiscoverServices:">peripheral(_:didDiscoverServices:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didDiscoverServices</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)centralManager:didFailToConnectPeripheral:error:"></a>
-                    <a name="//apple_ref/swift/Method/centralManager(_:didFailToConnect:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)centralManager:didFailToConnectPeripheral:error:">centralManager(_:didFailToConnect:error:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didFailToConnect</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)peripheral:didDiscoverCharacteristicsForService:error:"></a>
-                    <a name="//apple_ref/swift/Method/peripheral(_:didDiscoverCharacteristicsFor:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)peripheral:didDiscoverCharacteristicsForService:error:">peripheral(_:didDiscoverCharacteristicsFor:error:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didDiscoverCharacteristicsFor</span> <span class="nv">service</span><span class="p">:</span> <span class="kt">CBService</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)peripheral:didUpdateValueForCharacteristic:error:"></a>
-                    <a name="//apple_ref/swift/Method/peripheral(_:didUpdateValueFor:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)peripheral:didUpdateValueForCharacteristic:error:">peripheral(_:didUpdateValueFor:error:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">peripheral</span><span class="p">(</span><span class="n">_</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="n">didUpdateValueFor</span> <span class="nv">characteristic</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)centralManagerDidUpdateState:"></a>
+                    <a name="/c:@M@ARPen@objc(cs)SettingsViewController(im)centralManagerDidUpdateState:"></a>
                     <a name="//apple_ref/swift/Method/centralManagerDidUpdateState(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)centralManagerDidUpdateState:">centralManagerDidUpdateState(_:)</a>
+                    <a class="token" href="#/c:@M@ARPen@objc(cs)SettingsViewController(im)centralManagerDidUpdateState:">centralManagerDidUpdateState(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -466,9 +358,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ARPen@objc(cs)PenManager(im)dealloc"></a>
-                    <a name="//apple_ref/swift/Method/deinit" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ARPen@objc(cs)PenManager(im)dealloc">deinit</a>
+                    <a name="/c:@M@ARPen@objc(cs)SettingsViewController(im)centralManager:didDiscoverPeripheral:advertisementData:RSSI:"></a>
+                    <a name="//apple_ref/swift/Method/centralManager(_:didDiscover:advertisementData:rssi:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ARPen@objc(cs)SettingsViewController(im)centralManager:didDiscoverPeripheral:advertisementData:RSSI:">centralManager(_:didDiscover:advertisementData:rssi:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -483,7 +375,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">deinit</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">centralManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">central</span><span class="p">:</span> <span class="kt">CBCentralManager</span><span class="p">,</span> <span class="n">didDiscover</span> <span class="nv">peripheral</span><span class="p">:</span> <span class="kt">CBPeripheral</span><span class="p">,</span> <span class="nv">advertisementData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">],</span> <span class="n">rssi</span> <span class="kt">RSSI</span><span class="p">:</span> <span class="kt">NSNumber</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
