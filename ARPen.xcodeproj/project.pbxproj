@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A8EF895203AE3F800E53E85 /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8EF892203AE3F300E53E85 /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DC18B2B62023797000884920 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2B52023797000884920 /* SettingsViewController.swift */; };
-		DC18B2BA20237A7300884920 /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC18B2B920237A7300884920 /* Eureka.framework */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
@@ -34,9 +34,23 @@
 		DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */ = {isa = PBXBuildFile; fileRef = DC28B478200E7E89008B77AB /* MarkerBox.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4A8EF891203AE2FA00E53E85 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4A8EF895203AE3F800E53E85 /* Eureka.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4A8EF892203AE3F300E53E85 /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = ARPen/Eureka.framework; sourceTree = "<group>"; };
 		DC18B2B52023797000884920 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		DC18B2B920237A7300884920 /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC18B2BA20237A7300884920 /* Eureka.framework in Frameworks */,
 				DC28B458200E4435008B77AB /* opencv2.framework in Frameworks */,
 				DC28B457200E4435008B77AB /* aruco.framework in Frameworks */,
 			);
@@ -85,7 +98,7 @@
 		DC18B2B820237A7200884920 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC18B2B920237A7300884920 /* Eureka.framework */,
+				4A8EF892203AE3F300E53E85 /* Eureka.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -177,7 +190,7 @@
 				DC28B438200E4353008B77AB /* Sources */,
 				DC28B439200E4353008B77AB /* Frameworks */,
 				DC28B43A200E4353008B77AB /* Resources */,
-				DC18B2B720237A1F00884920 /* ShellScript */,
+				4A8EF891203AE2FA00E53E85 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -236,23 +249,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		DC18B2B720237A1F00884920 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Eureka.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DC28B438200E4353008B77AB /* Sources */ = {
@@ -415,7 +411,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZXT6586FS8;
+				DEVELOPMENT_TEAM = 44GTV4NJA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
@@ -438,7 +434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZXT6586FS8;
+				DEVELOPMENT_TEAM = 44GTV4NJA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
