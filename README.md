@@ -1,9 +1,12 @@
 # ARPen
 
-## Build ARPen iOS App
-To build the project first run `carthage bootstrap`. After carthage finished you can start building the project like every other iOS project.
+ARPen uses the ARKit framework to track a pen in 3D. This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).
 
-## Build the ARPen
+## Building the ARPen iOS App
+1. To build the project, first run `carthage bootstrap`.
+2. After carthage has finished, you can start building the project like every other iOS project.
+
+## Building the ARPen
 You can 3D print the whole ARPen by your own. Follow these instructions to get your own pen:
 
 ### If you use a multi-material printer
