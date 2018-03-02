@@ -1,20 +1,16 @@
 # ARPen
 
-ARPen uses the ARKit framework to track a pen in 3D. This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).
+ARPen uses the ARKit framework to track a special 3D-printed pen (ARPen) in 3D. This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).
 
-## Building the ARPen iOS App
-1. You can start building the project like every other iOS project.
+## Step 2: iOS App
+You can build the ARPen iOS app like every other iOS project. 
 
-## Building the ARPen
-You can 3D print the whole ARPen by your own. Follow these instructions to get your own pen:
+## Step 1: Build the ARPen
+You can 3D print the whole ARPen on your own. To do so, follow these instructions:
 
-### If you use a multi-material printer
+### If you are using a multi-material printer, print the part `Pen.stl`. Then print `Box_white.stl` (in _white_ color) and `Box_black.stl` (in _black_ color) in one part. Repeat this process for `Cap_white.stl` and `Cap_black.stl`.
 
-1. Print the part Pen.stl. Then print Box_white.stl (in white color) and Box_black.stl (in black color) in one part. Also do this for Cap_white.stl and Cap_black.stl
-
-### If you use a single-material printer
-1. 3D print the part Pen.stl, Box.stl and Cap.stl
-2. 2D print the Sticker.pdf cut it out and put it around the box.
+### If you use a single-material printer, first 3D print the parts `Pen.stl`, `Box.stl` and `Cap.stl`. Then, 2D print  `Sticker.pdf`, cut it out, and put it around the box.
 
 ---
 
