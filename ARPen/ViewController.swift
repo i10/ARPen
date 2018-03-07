@@ -63,6 +63,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
 
         // Run the view's session
         arSceneView.session.run(configuration)
+        
+        // Hide navigation bar
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,17 +73,29 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Pause the view's session
         arSceneView.session.pause()
+        
+        // Show navigation bar
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     /**
-     Convert the whole scene into an stl file and present a shareViewController for AirDrop
+     Prepare the SettingsViewController by passing the scene
      */
-    @IBAction func share() {
-        let vc = SettingsViewController()
-        vc.scene = self.arSceneView.scene as! PenScene
-        let navVC = UINavigationController(rootViewController: vc)
-        self.present(navVC, animated: true, completion: nil)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueIdentifier = segue.identifier else { return }
+        
+        if segueIdentifier == "ShowSettingsSegue" {
+            let destinationVC = segue.destination as! UINavigationController
+            guard let destinationSettingsController = destinationVC.viewControllers.first as? SettingsTableViewController else {
+                return
+                
+            }
+            destinationSettingsController.scene = self.arSceneView.scene as! PenScene
+        }
+        
     }
+    
     
     // Mark: - ARManager Delegate
     /**
