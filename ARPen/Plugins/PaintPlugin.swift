@@ -10,6 +10,8 @@ import Foundation
 
 class PaintPlugin: Plugin {
     
+    var pluginImage : UIImage? = UIImage.init(named: "Cross")
+    var pluginIdentifier: String = "Paint"
     /**
      The previous point is the point of the pencil one frame before.
      If this var is nil, there was no last point
@@ -28,6 +30,21 @@ class PaintPlugin: Plugin {
             cylinderNode.buildLineInTwoPointsWithRotation(from: previousPoint, to: scene.pencilPoint.position, radius: 0.001, color: UIColor.red)
             cylinderNode.name = "cylinderLine"
             scene.rootNode.addChildNode(cylinderNode)
+        }
+        
+        let pressed2 = buttons[Button.Button2]!
+        if pressed2 {
+            guard let boxNode = scene.rootNode.childNode(withName: "BoxNode", recursively: false) else {
+                var boxNode = SCNNode()
+                boxNode = SCNNode.init(geometry: SCNBox.init(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.0))
+                boxNode.name = "BoxNode"
+                boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+                boxNode.position = scene.pencilPoint.position
+                scene.rootNode.addChildNode(boxNode)
+                return
+            }
+            boxNode.position = scene.pencilPoint.position
+            
         }
         
         self.previousPoint = scene.pencilPoint.position

@@ -23,6 +23,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var arPenManager: PenManager
     var buttons: [Button: Bool] = [.Button1: false, .Button2: false, .Button3: false]
     var plugins: [Plugin] = [PaintPlugin(), ObjectCreationPlugin()]
+    var activePlugin: Plugin?
     var delegate: PluginManagerDelegate?
     
     /**
@@ -31,6 +32,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     init(scene: PenScene) {
         self.arManager = ARManager(scene: scene)
         self.arPenManager = PenManager()
+        self.activePlugin = plugins.first
         self.arManager.delegate = self
         self.arPenManager.delegate = self
     }
@@ -69,7 +71,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
      This is the callback from ARManager.
      */
     func finishedCalculation() {
-        for plugin in plugins {
+        if let plugin = self.activePlugin {
             plugin.didUpdateFrame(scene: self.arManager.scene!, buttons: buttons)
         }
     }

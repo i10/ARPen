@@ -13,7 +13,8 @@ import ARKit
  */
 protocol Plugin {
     
-    
+    var pluginImage : UIImage? { get }
+    var pluginIdentifier : String { get }
     /**
      This method must be implemented by all protocols.
      Params:

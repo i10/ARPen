@@ -13,11 +13,14 @@ import Foundation
  */
 class ObjectCreationPlugin: Plugin {
     
+    var pluginImage: UIImage? = UIImage.init(named: "Cross")
+    var pluginIdentifier: String = "Object Creation"
+    
     private var pointArray: [SCNVector3] = []
     private var alreadyAdded = false
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
-        if !buttons[.Button3]!{
+        if !buttons[.Button2]!{
             alreadyAdded = false
             return
         }
