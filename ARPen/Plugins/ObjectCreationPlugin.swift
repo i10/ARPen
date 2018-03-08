@@ -52,7 +52,7 @@ class ObjectCreationPlugin: Plugin {
             node.eulerAngles = SCNVector3(x: .pi/2, y: 0, z: 0)
             node.position = SCNVector3(x: Float(pathRect.midX), y: pointArray.first!.y + height/2, z: Float(pathRect.midY))
             node.name = "createdObject"
-            scene.rootNode.addChildNode(node)
+            scene.drawingNode.addChildNode(node)
             
             pointArray.removeAll()
         }

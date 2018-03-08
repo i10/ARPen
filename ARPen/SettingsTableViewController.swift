@@ -54,6 +54,13 @@ class SettingsTableViewController: UITableViewController  {
         parent?.addChildNode(self.scene.markerBox)
     }
     
+    @IBAction func clearSceneButtonPressed(_ sender: Any) {
+        //remove all child nodes from drawing node
+        self.scene.drawingNode.enumerateChildNodes {(node, pointer) in
+            node.removeFromParentNode()
+        }
+    }
+    
     @IBAction func shareAsSTLPressed(_ sender: Any) {
         let filePath = self.scene.share()
         let activityView = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)

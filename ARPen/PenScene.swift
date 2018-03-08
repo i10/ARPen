@@ -23,6 +23,9 @@ class PenScene: SCNScene {
      `pencilPoint.position` is always the best known position of the pencil point.
      */
     var pencilPoint: SCNNode
+    
+    //Node that carries all the drawing operations
+    let drawingNode: SCNNode
     /**
      If a marker was found in the current frame the var is true
      */
@@ -45,6 +48,7 @@ class PenScene: SCNScene {
      */
     override init() {
         self.pencilPoint = SCNNode()
+        self.drawingNode = SCNNode()
         super.init()
     }
     
@@ -53,14 +57,19 @@ class PenScene: SCNScene {
      */
     required init?(coder aDecoder: NSCoder) {
         self.pencilPoint = SCNNode()
+        self.drawingNode = SCNNode()
         super.init(coder: aDecoder)
         
+        setupPencilPoint()
+    }
+    
+    func setupPencilPoint() {
         self.pencilPoint.geometry = SCNSphere(radius: 0.002)
         self.pencilPoint.name = "PencilPoint"
         self.pencilPoint.geometry?.materials.first?.diffuse.contents = UIColor.red
         
         self.rootNode.addChildNode(self.pencilPoint)
+        self.rootNode.addChildNode(self.drawingNode)
     }
-    
     
 }

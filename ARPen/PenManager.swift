@@ -85,7 +85,10 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             return
         }
         
-        let string = String(data: data, encoding: .utf8)!
+        guard let string = String(data: data, encoding: .utf8) else {
+            print("Problem with data")
+            return
+        }
         let array = string.split(separator: ":")
         
         guard array.count == 2 else {
