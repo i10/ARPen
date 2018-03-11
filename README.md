@@ -31,4 +31,4 @@ You can build the ARPen iOS app like every other iOS project.
 ---- 
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/images/Buttons.JPG "Momentary Buttons "
-[image-2]:	https://github.com/i10/ARPen/blob/master/images/Bluetooth-setup.pdf "Bluetooth Setup"
+[image-2]:	https://github.com/i10/ARPen/blob/master/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
