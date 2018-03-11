@@ -4,9 +4,9 @@ Ever wanted to 3d print a dock for your phone? Or maybe a coffee cup holder that
 
 ARPen is an iOS app that allows you to use a mobile pen to perform free-hand 3D modeling _directly in the real world_. The app uses the in-built iPhone camera to do the tracking. ARPen uses the ARKit framework to track a special 3D-printed pen, called ARPen, in 3D. Instructions to build this pen can be found *below*.  
 
-This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).
----- 
-# Instructions 
+This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).  
+
+# Instructions
 ## 1. Building the ARPen
 You can 3D print the whole ARPen on your own. The 3d models can be found under the `ARPen 3d Models and Marker` folder.  
 
@@ -20,7 +20,7 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 	* If you are using a single-material printer:
 		* Print these models: `Pen.stl`, `Box.stl`, and `Cap.stl`.
 		* Print `Sticker.pdf` on an A4 paper using a normal 2D printer, cut out the individual marker codes (6x), and paste them around the printed box. 
-2. Insert three momentary switches or buttons into the holes in the ARPen as shown below and solder them to cables, which will be connected to a Bluetooth chip as described in step 4.    
+2. Insert three momentary switches or buttons into the holes in the ARPen as shown below and solder them to cables, which will be connected to a Bluetooth chip as described in step 4.  
 	![][image-1]
 3. Glue the box to the pen. 
 4. Connect a Bluetooth chip (such as [RedBear Nano v2][1]) with the buttons as shown below, and put it in the box. You can find the software for the Bluetooth chip in the `Bluetooth Software` folder. 
@@ -29,7 +29,12 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 ## 2. Using the iOS App
 You can build the ARPen iOS app like every other iOS project.  
 
+---- 
+
+Have a feature request or want to report a bug? Please add it [here][2], so that we may get back to you. 
+
 [1]:	https://redbear.cc/product/ble-nano-2.html "RedBear Nano v2"
+[2]:	https://github.com/i10/ARPen/issues/new "Add an issue"
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/images/Buttons.JPG "Momentary Buttons "
 [image-2]:	https://github.com/i10/ARPen/blob/master/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
