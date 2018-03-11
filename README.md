@@ -30,5 +30,5 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 You can build the ARPen iOS app like every other iOS project. 
 ---- 
 
-[image-1]:	https://github.com/i10/ARPen/images/Buttons.JPG
-[image-2]:	https://github.com/i10/ARPen/images/Bluetooth-setup.pdf "Bluetooth Setup"
+[image-1]:	https://github.com/i10/ARPen/blob/master/images/Buttons.JPG "Momentary Buttons "
+[image-2]:	https://github.com/i10/ARPen/blob/master/images/Bluetooth-setup.pdf "Bluetooth Setup"
