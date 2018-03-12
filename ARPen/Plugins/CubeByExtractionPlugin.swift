@@ -10,7 +10,7 @@ import Foundation
 
 class CubeByExtractionPlugin: Plugin {
 
-    var pluginImage : UIImage? = UIImage.init(named: "Cross")
+    var pluginImage : UIImage? = UIImage.init(named: "CubeByExtractionPlugin")
     var pluginIdentifier: String = "CubeByExtraction"
     /**
      The starting point is the point of the pencil where the button was first pressed.
@@ -83,7 +83,7 @@ class CubeByExtractionPlugin: Plugin {
             
             //calculate the heigth of the box and the new position (y-dimension)
             let boxHeight = abs(scene.pencilPoint.position.y - (boxNode.position.y - Float(boxNodeGeometry.height)/2))
-            let boxCenterYPosition = boxNode.position.y + (boxHeight - Float(boxNodeGeometry.height))/
+            let boxCenterYPosition = boxNode.position.y + (boxHeight - Float(boxNodeGeometry.height))
             
             //update box geometry and position to show changes
             boxNodeGeometry.height = CGFloat(boxHeight)

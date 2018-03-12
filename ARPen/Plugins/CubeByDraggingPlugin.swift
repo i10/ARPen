@@ -10,7 +10,7 @@ import Foundation
 
 class CubeByDraggingPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "Cross")
+    var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
     var pluginIdentifier: String = "CubeByDragging"
     /**
      The starting point is the point of the pencil where the button was first pressed.
