@@ -31,7 +31,9 @@ You can build the ARPen iOS app like every other iOS project.
 
 ---- 
 
-Have a feature request or want to report a bug? Please add it [here][2], so that we may get back to you. 
+# Contributions
+
+Feel free to submit pull requests, [create issues][2] or spread the word. 
 
 [1]:	https://redbear.cc/product/ble-nano-2.html "RedBear Nano v2"
 [2]:	https://github.com/i10/ARPen/issues/new "Add an issue"
