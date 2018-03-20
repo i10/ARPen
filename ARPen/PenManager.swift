@@ -86,13 +86,13 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         guard let string = String(data: data, encoding: .utf8) else {
-            print("Problem with data")
+            print("Problem with data: Data is not a string: \(data)")
             return
         }
         let array = string.split(separator: ":")
         
         guard array.count == 2 else {
-            print("wrongData")
+            print("Problem with data: string has too many elements: \(array)")
             return
         }
         

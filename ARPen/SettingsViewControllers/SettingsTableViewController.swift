@@ -8,17 +8,19 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController  {
+class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
 
     var scene: PenScene!
+    var userStudyRecordManager: UserStudyRecordManager!
     
     @IBOutlet weak var penSizeLabel: UILabel!
     @IBOutlet weak var penSizeSlider: UISlider!
     @IBOutlet weak var bluetoothDeviceTableViewCell: UITableViewCell!
+    @IBOutlet weak var userIDTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.userIDTextField.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,6 +30,14 @@ class SettingsTableViewController: UITableViewController  {
         self.penSizeLabel.text = "\(currentPenSize) cm"
         
         self.setCurrentBluetoothDeviceLabel()
+        
+        //if there is a currently active user ID set in the record manager, use this in the ID text field. Otherwise, use placeholder
+        if let currentActiveUserID = self.userStudyRecordManager.currentActiveUserID {
+            self.userIDTextField.text = String(currentActiveUserID)
+        } else {
+            self.userIDTextField.text = ""
+            self.userIDTextField.placeholder = "Enter a number"
+        }
         
     }
     
@@ -75,6 +85,7 @@ class SettingsTableViewController: UITableViewController  {
     @IBAction func doneButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     func setCurrentBluetoothDeviceLabel() {
         var bluetoothTableViewText = "No Bluetooth device connected"
         if let currentBluetoothDevice = UserDefaults.standard.string(forKey: UserDefaultsKeys.arPenName.rawValue), !currentBluetoothDevice.isEmpty{
@@ -82,5 +93,73 @@ class SettingsTableViewController: UITableViewController  {
         }
         self.bluetoothDeviceTableViewCell.textLabel?.text = bluetoothTableViewText
     }
-
+    
+    //ask the user Study Record Manager for the URL to a plist (only returned, if the creation of a plist was successfull). Use this URL to show the share dialog
+    @IBAction func exportAsPlistButtonPressed(_ sender: Any) {
+        guard let filePath = self.userStudyRecordManager.urlToPlist() else {
+            print("Filepath was not created")
+            return
+        }
+        let activityView = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)
+        self.present(activityView, animated: true, completion: nil)
+    }
+    
+    //ask the user Study Record Manager for the URL to a CSV (only returned, if the creation of a CSV was successfull). Use this URL to show the share dialog
+    @IBAction func exportAsCSVButtonPressed(_ sender: Any) {
+//        let filePath = self.userStudyRecordManager.shareCSV()
+//        let activityView = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)
+//        self.present(activityView, animated: true, completion: nil)
+    }
+    
+    //show an alert warning of the deletion of all records. Only after confirmation, delete all records in the user study records manager.
+    @IBAction func deleteAllRecordsButtonPressed(_ sender: Any) {
+        let alertController = UIAlertController(title: "Delete all Records?", message: "Should all records be deleted? This can not be undone.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {action in
+            self.userStudyRecordManager.deleteAllRecords()
+            self.userIDTextField.text = ""
+            })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    //TextFieldDelegate Methods
+    //taken from: https://stackoverflow.com/questions/26919854/how-can-i-declare-that-a-text-field-can-only-contain-an-integer
+    //restrict possible inputs only to numbers. Other input will be ignored
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let invalidCharacters = CharacterSet(charactersIn: "0123456789").inverted
+        return string.rangeOfCharacter(from: invalidCharacters, options: [], range: string.startIndex ..< string.endIndex) == nil
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //after return has been pressed, check if current text value is an int.
+        guard let newText = textField.text, let newUserID = Int(newText) else {
+            //otherwise, set placeholder text for text field
+            textField.text = ""
+            textField.placeholder = "Enter a number"
+            return true
+        }
+        //set the currently active UserID to entered userID
+        self.userStudyRecordManager.currentActiveUserID = newUserID
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //check if segue leads to the table view that displays the recorded user ids
+        if segue.identifier == "showUserStudyUserIDs" {
+            guard let destinationVC = segue.destination as? UserStudyIDListTableViewController else {
+                return
+            }
+            //pass the reference to the record manager to the new VC
+            destinationVC.userStudyRecordManager = self.userStudyRecordManager
+        }
+    }
+    
 }

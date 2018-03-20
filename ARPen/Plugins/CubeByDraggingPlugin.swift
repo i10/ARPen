@@ -8,7 +8,10 @@
 
 import Foundation
 
-class CubeByDraggingPlugin: Plugin {
+//include the UserStudyRecordPluginProtocol to demo recording of user study data
+class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
+    //reference to userStudyRecordManager to add new records
+    var recordManager: UserStudyRecordManager!
     
     var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
     var pluginIdentifier: String = "CubeByDragging"
@@ -66,8 +69,13 @@ class CubeByDraggingPlugin: Plugin {
             //if the button is not pressed, check if a startingPoint is set -> released button. Reset the startingPoint to nil and set the name of the drawn box to "finished"
             if self.startingPoint != nil {
                 self.startingPoint = nil
-                if let boxNode = scene.drawingNode.childNode(withName: "currentDragBoxNode", recursively: false) {
+                if let boxNode = scene.drawingNode.childNode(withName: "currentDragBoxNode", recursively: false), let boxNodeGeometry = boxNode.geometry as? SCNBox {
                     boxNode.name = "FinishedBoxNode"
+                    
+                    //store a new record with the size of the finished box
+                    let boxDimensionsDict = ["Width" : String(describing: boxNodeGeometry.width), "Height" : String(describing: boxNodeGeometry.height), "Length" : String(describing: boxNodeGeometry.length)]
+                    print(boxDimensionsDict)
+                    self.recordManager.addNewRecord(withIdentifier: "BoxFinished", andData: boxDimensionsDict)
                 }
             }
             
