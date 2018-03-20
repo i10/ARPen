@@ -10,7 +10,7 @@ import Foundation
 
 //the record manager keeps track of all records stored for all participants. These information can be exported to plist and csv
 class UserStudyRecordManager : NSObject{
-    var userStudyData : [Int:[UserStudyRecord]]
+    fileprivate var userStudyData : [Int:[UserStudyRecord]]
     
     var currentActiveUserID : Int? = nil {
         //if a new userID is set, create an empty array for the records for this new userID (key)
@@ -20,6 +20,8 @@ class UserStudyRecordManager : NSObject{
             }
         }
     }
+    
+    fileprivate var headerNames = ["CreationTime", "UserID", "Identifier"]
     
     override init() {
         userStudyData = [:]
@@ -127,8 +129,15 @@ class UserStudyRecordManager : NSObject{
         try data.write(to: url)
     }
     
-    func shareCSV() -> URL? {
+    func urlToCSV() -> URL? {
         let filePath = URL(fileURLWithPath: NSTemporaryDirectory() + "/\(self.getCurrentDateString())-StudyData.csv")
+        do {
+            let csvString = generateCSVStringOfCurrentData()
+            try csvString.write(to: filePath, atomically: true, encoding: .utf8)
+        } catch {
+            print("Error while saving csv: \(error)")
+            return nil
+        }
         return filePath
     }
     
@@ -138,5 +147,84 @@ class UserStudyRecordManager : NSObject{
         dateFormatter.dateFormat = "yyyyMMdd-HH:mm:ss"
         let returnString = dateFormatter.string(from: Date())
         return returnString
+    }
+    
+    func generateCSVStringOfCurrentData() -> String {
+        let dictOfData = generateFullDictFromCurrentData()
+        var csvString = ""
+        //generate header row
+        for key in headerNames {
+            csvString.append("\(key),")
+        }
+        csvString.removeLast()
+        csvString.append("\n")
+        
+        let totalNumberOfLines = totalNumberOfRecords()
+        for currentLineNumber in 0..<totalNumberOfLines {
+            for columnName in headerNames {
+                guard let currentEntry = dictOfData[columnName]?[currentLineNumber] else {
+                    csvString.append(",")
+                    continue
+                }
+                csvString.append("\(currentEntry),")
+            }
+            csvString.removeLast()
+            csvString.append("\n")
+        }
+        
+        return csvString
+    }
+    
+    //collect names of all header colums
+    func generateHeaderNamesArray() {
+        
+        //iterate over all users in the user study dictionary
+        for (_, records) in self.userStudyData {
+            //iterate over all records for a particular user
+            for record in records {
+                //iterate over all keys in the data dictionary of a particular record
+                for (key, _) in record.data {
+                    //if the name of the key is not already in the headerNames array, add it
+                    if !headerNames.contains(key) {
+                        headerNames.append(key)
+                    }
+                }
+            }
+        }
+    }
+    func generateFullDictFromCurrentData() -> [String:[String]] {
+        generateHeaderNamesArray()
+        
+        //define number of lines (elements in each array)
+        let totalNumberOfLines = totalNumberOfRecords()
+        
+        var returnDictionary : [String:[String]] = [:]
+        for columnName in headerNames {
+            returnDictionary[columnName] = [String].init(repeating: "", count: totalNumberOfLines)
+        }
+        
+        //fill returnDictionary
+        var currentIndex = 0
+        for (userID, records) in self.userStudyData {
+            for record in records {
+                returnDictionary["CreationTime"]?[currentIndex] = record.creationTime.description
+                returnDictionary["UserID"]?[currentIndex] = String(userID)
+                returnDictionary["Identifier"]?[currentIndex] = record.identifier
+                for (key, value) in record.data {
+                    returnDictionary[key]?[currentIndex] = value
+                }
+                currentIndex += 1
+            }
+        }
+        
+        return returnDictionary
+    }
+    
+    func totalNumberOfRecords() -> Int {
+        var numberOfRecords = 0
+        for (_, recordsArray) in self.userStudyData {
+            numberOfRecords += recordsArray.count
+        }
+        return numberOfRecords
     }
 }

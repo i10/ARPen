@@ -97,7 +97,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
     //ask the user Study Record Manager for the URL to a plist (only returned, if the creation of a plist was successfull). Use this URL to show the share dialog
     @IBAction func exportAsPlistButtonPressed(_ sender: Any) {
         guard let filePath = self.userStudyRecordManager.urlToPlist() else {
-            print("Filepath was not created")
+            print("Filepath to plist was not created")
             return
         }
         let activityView = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)
@@ -106,9 +106,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
     
     //ask the user Study Record Manager for the URL to a CSV (only returned, if the creation of a CSV was successfull). Use this URL to show the share dialog
     @IBAction func exportAsCSVButtonPressed(_ sender: Any) {
-//        let filePath = self.userStudyRecordManager.shareCSV()
-//        let activityView = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)
-//        self.present(activityView, animated: true, completion: nil)
+        guard let filePath = self.userStudyRecordManager.urlToCSV() else {
+            print("Filepath to csv was not created")
+            return
+        }
+        let activityView = UIActivityViewController(activityItems: [filePath], applicationActivities: nil)
+        self.present(activityView, animated: true, completion: nil)
     }
     
     //show an alert warning of the deletion of all records. Only after confirmation, delete all records in the user study records manager.
