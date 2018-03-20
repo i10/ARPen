@@ -74,7 +74,6 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                     
                     //store a new record with the size of the finished box
                     let boxDimensionsDict = ["Width" : String(describing: boxNodeGeometry.width), "Height" : String(describing: boxNodeGeometry.height), "Length" : String(describing: boxNodeGeometry.length)]
-                    print(boxDimensionsDict)
                     self.recordManager.addNewRecord(withIdentifier: "BoxFinished", andData: boxDimensionsDict)
                 }
             }

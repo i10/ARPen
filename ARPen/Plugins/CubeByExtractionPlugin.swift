@@ -8,7 +8,9 @@
 
 import Foundation
 
-class CubeByExtractionPlugin: Plugin {
+class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
+    var recordManager: UserStudyRecordManager!
+    
 
     var pluginImage : UIImage? = UIImage.init(named: "CubeByExtractionPlugin")
     var pluginIdentifier: String = "CubeByExtraction"
@@ -63,6 +65,11 @@ class CubeByExtractionPlugin: Plugin {
                 //if there is a current active box node, set this to finished as now a new box will be created
                 if let boxNode = scene.drawingNode.childNode(withName: "currentExtractionBoxNode", recursively: false) {
                     boxNode.name = "FinishedBoxNode"
+                    
+                    //store a new record with the position of the finished box
+                    let boxPositionsDict = ["X" : String(describing: boxNode.position.x), "Y" : String(describing: boxNode.position.y), "Z" : String(describing: boxNode.position.z)]
+                    self.recordManager.addNewRecord(withIdentifier: "ExtrusionBoxFinished", andData: boxPositionsDict)
+                    
                 }
             }
         } else {
@@ -83,7 +90,7 @@ class CubeByExtractionPlugin: Plugin {
             
             //calculate the heigth of the box and the new position (y-dimension)
             let boxHeight = abs(scene.pencilPoint.position.y - (boxNode.position.y - Float(boxNodeGeometry.height)/2))
-            let boxCenterYPosition = boxNode.position.y + (boxHeight - Float(boxNodeGeometry.height))
+            let boxCenterYPosition = boxNode.position.y + (boxHeight - Float(boxNodeGeometry.height))/2
             
             //update box geometry and position to show changes
             boxNodeGeometry.height = CGFloat(boxHeight)
