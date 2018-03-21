@@ -12,11 +12,9 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 
 1. Print the 3d models for the ARPen.
 	* If you are using a multi-material printer, which allows you to use more than one print material, print the following models
-		* `Pen.stl`,
-		* `Box_white.stl` in _white_ color,
-		* `Box_black.stl` in _black_ color, 
-		* `Cap_white.stl` in _white_ color, and 
-		* `Cap_black.stl` in _black_ color. 
+		* `Pen.stl` in black __or__ white color. 
+		* `Box_white.stl` in _white_ color and `Box_black.stl` in _black_ color. Note: These two models may need to be merged before printing using appropriate software.  
+		* `Cap_white.stl` in _white_ color and `Cap_black.stl` in _black_ color. Note: These two models may need to be merged before printing using appropriate software.  
 	* If you are using a single-material printer:
 		* Print these models: `Pen.stl`, `Box.stl`, and `Cap.stl`.
 		* Print `Sticker.pdf` on an A4 paper using a normal 2D printer, cut out the individual marker codes (6x), and paste them around the printed box. 
