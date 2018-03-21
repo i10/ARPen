@@ -34,6 +34,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
      */
     var pluginManager: PluginManager!
     
+    //Manager for user study data
+    let userStudyRecordManager = UserStudyRecordManager()
+    
+    
     /**
      A quite standard viewDidLoad
      */
@@ -57,6 +61,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         setupPluginMenu()
         activatePlugin(withID: currentActivePluginID)
+        
+        // set user study record manager reference in the app delegate (for saving state when leaving the app)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.userStudyRecordManager = self.userStudyRecordManager
+        } else {
+            print("Record manager was not set up in App Delegate")
+        }
     }
     
     /**
@@ -142,9 +153,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         newActivePluginButton.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
         
         //activate plugin in plugin manager and update currently active plugin property
-        self.pluginManager.activePlugin = self.pluginManager.plugins[pluginID-1] //-1 needed since the tag is one larger than index of plugin in the array (to avoid tag 0)
-        currentActivePluginID = pluginID
+        let newActivePlugin = self.pluginManager.plugins[pluginID-1] //-1 needed since the tag is one larger than index of plugin in the array (to avoid tag 0)
+        self.pluginManager.activePlugin = newActivePlugin
+        //if the new plugin conforms to the user study record plugin protocol, then pass a reference to the record manager (allowing to save data to it)
+        if var pluginConformingToUserStudyProtocol = newActivePlugin as? UserStudyRecordPluginProtocol {
+            pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
+        }
         
+        currentActivePluginID = pluginID
     }
     
     /**
@@ -160,6 +176,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                 
             }
             destinationSettingsController.scene = self.arSceneView.scene as! PenScene
+            //pass reference to the record manager (to show active user ID and export data)
+            destinationSettingsController.userStudyRecordManager = self.userStudyRecordManager
         }
         
     }

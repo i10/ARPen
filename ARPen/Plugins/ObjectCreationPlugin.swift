@@ -13,7 +13,7 @@ import Foundation
  */
 class ObjectCreationPlugin: Plugin {
     
-    var pluginImage: UIImage? = UIImage.init(named: "Cross")
+    var pluginImage: UIImage? = UIImage.init(named: "ObjectCreationPlugin")
     var pluginIdentifier: String = "Object Creation"
     
     private var pointArray: [SCNVector3] = []

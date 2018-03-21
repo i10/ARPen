@@ -10,7 +10,7 @@ import Foundation
 
 class PaintPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "Cross")
+    var pluginImage : UIImage? = UIImage.init(named: "PaintPlugin")
     var pluginIdentifier: String = "Paint"
     /**
      The previous point is the point of the pencil one frame before.
