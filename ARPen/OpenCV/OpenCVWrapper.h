@@ -20,5 +20,5 @@
 @interface OpenCVWrapper : NSObject
 
 @property id<OpenCVWrapperDelegate> delegate;
--(void)findMarker:(CVPixelBufferRef)pixelBuffer;
+-(void)findMarker:(CVPixelBufferRef)pixelBuffer withCameraIntrinsics:(matrix_float3x3)intrinsics  cameraSize:(CGSize)cameraSize;
 @end
