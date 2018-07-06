@@ -37,7 +37,7 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        self.opencvWrapper.findMarker(frame.capturedImage)
+        self.opencvWrapper.findMarker(frame.capturedImage, withCameraIntrinsics: frame.camera.intrinsics, cameraSize: frame.camera.imageResolution)
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

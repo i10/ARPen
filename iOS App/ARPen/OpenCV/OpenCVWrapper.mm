@@ -27,28 +27,18 @@ float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Ide
 @property BOOL isSearching;
 @property BOOL isVisible;
 
-@property cv::Mat cameraMatrix;
-@property cv::Mat distCoeffs;
-@property aruco::CameraParameters camParams;
-@property cv::Ptr<aruco::Dictionary> dictionary;
 @end
 
 @implementation OpenCVWrapper
 
-@synthesize delegate, queue, cameraMatrix, distCoeffs, dictionary, camParams;
+@synthesize delegate, queue;
 
 -(instancetype)init {
     self = [super init];
     if (self) {
         self.queue = [NSOperationQueue new];
-        
+
         self.isSearching = false;
-        
-        self.cameraMatrix = (cv::Mat_<double>(3, 3) << 1040.96448, 0, 637.761353, 0, 1040.96448, 342.999512, 0, 0, 1);
-        
-        self.distCoeffs = (cv::Mat_<double>(5, 1) << 0.1602283526150372, -0.5865095996896726, -0.001668440699994218, -0.002807711696797711, 0.4250556879059129);
-        cv::Size camSize = cv::Size(1280, 720);
-        self.camParams = aruco::CameraParameters(self.cameraMatrix, self.distCoeffs, camSize);
         mDetector.setDictionary("ARUCO_MIP_36h12");
     }
     return self;
@@ -57,7 +47,26 @@ float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Ide
 /**
  Finds a marker in a given CVPixelBufferRef
  */
--(void)findMarker:(CVPixelBufferRef)pixelBuffer {
+-(void)findMarker:(CVPixelBufferRef)pixelBuffer withCameraIntrinsics:(matrix_float3x3)intrinsics cameraSize:(CGSize)cameraSize {
+    
+    //Convert intrinsics into cv::Mat
+    //Took that from https://github.com/pukeanddie/aruco-arkit-localizer
+    cv::Mat cameraMatrix(3,3,CV_64F);
+    
+    cameraMatrix.at<Float64>(0,0) = intrinsics.columns[0][0];
+    cameraMatrix.at<Float64>(0,1) = intrinsics.columns[1][0];
+    cameraMatrix.at<Float64>(0,2) = intrinsics.columns[2][0];
+    cameraMatrix.at<Float64>(1,0) = intrinsics.columns[0][1];
+    cameraMatrix.at<Float64>(1,1) = intrinsics.columns[1][1];
+    cameraMatrix.at<Float64>(1,2) = intrinsics.columns[2][1];
+    cameraMatrix.at<Float64>(2,0) = intrinsics.columns[0][2];
+    cameraMatrix.at<Float64>(2,1) = intrinsics.columns[1][2];
+    cameraMatrix.at<Float64>(2,2) = intrinsics.columns[2][2];
+    
+    //Assuming zero distortions as in aruco-arkit-localizer seem to work pretty good
+    cv::Mat distCoeffs = cv::Mat::zeros(5, 1, CV_64F);
+    aruco::CameraParameters camParams = aruco::CameraParameters(cameraMatrix, distCoeffs, cv::Size(cameraSize.width, cameraSize.height));
+    
     // Check if we are alone in the queue
     if(self.queue.operationCount != 0) {
         return;
