@@ -18,25 +18,14 @@ class MarkerBox: SCNNode {
     
     /**
      * Describes in which landscape orientation the device is currently hold
-     * If the device is hold in portrait orientation, the state keeps in the last landscape mode
+     * If the device is hold in portrait orientation, the state keeps in the last landscape state
      */
     private var orientationState: DeviceOrientationState = .HomeButtonRight {
         didSet {
-            if orientationState == .HomeButtonLeft {
-                reverseXY = -1
-            } else if orientationState == .HomeButtonRight {
-                reverseXY = 1
-            }
             //For each orientation the pen tip has to be calculated
             calculatePenTip(length: penLength)
         }
     }
-    
-    
-    /// Factor for marker x and y coordinates. If the device is rotated, the coordinates of the aruco marker must be inverted, which is done by multiplying with this variable
-    
-    /// This must be either 1 or -1!
-    private var reverseXY: Float = 1
     
     override convenience init() {
         self.init(length: UserDefaults.standard.double(forKey: UserDefaultsKeys.penLength.rawValue))
@@ -48,7 +37,7 @@ class MarkerBox: SCNNode {
         super.init()
         self.name = "MarkerBox"
         
-        //Observe device orientation. If orientaion changed rotated() is called
+        //Observe device orientation. If orientation changes rotated() is called
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         //Make pen tip calculation
@@ -109,10 +98,11 @@ class MarkerBox: SCNNode {
                 break
             }
             
-            //Rotate the coordinates if landscape oriention needs that
-            point.position.x *= reverseXY
-            point.position.y *= reverseXY
-            
+            //Invert the coordinates in landscape homebutton left
+            if orientationState == .HomeButtonLeft {
+                point.position.x *= -1
+                point.position.y *= -1
+            }
             
             marker.addChildNode(point)
             if !self.childNodes.contains(marker){
@@ -130,12 +120,14 @@ class MarkerBox: SCNNode {
         self.markerArray[id-1].position = position
         self.markerArray[id-1].eulerAngles = rotation
         
-        //If orientation is LandscapeRight we have to revert x and y axis and marker orientation
-        self.markerArray[id-1].position.x *= reverseXY
-        self.markerArray[id-1].position.y *= reverseXY
-        
-        self.markerArray[id-1].eulerAngles.x *= reverseXY
-        self.markerArray[id-1].eulerAngles.y *= reverseXY
+        //If orientation is Landscape with home button left we have to revert x and y axis and marker orientation
+        if orientationState == .HomeButtonLeft {
+            self.markerArray[id-1].position.x *= -1
+            self.markerArray[id-1].position.y *= -1
+            
+            self.markerArray[id-1].eulerAngles.x *= -1
+            self.markerArray[id-1].eulerAngles.y *= -1
+        }
     }
     
     /**
