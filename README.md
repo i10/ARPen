@@ -21,7 +21,7 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 2. Insert three momentary switches or buttons into the holes in the ARPen as shown below and solder them to cables, which will be connected to a Bluetooth chip as described in step 4.  
 	![][image-1]
 3. Glue the box to the pen. 
-4. Connect a Bluetooth chip (such as [RedBear Nano v2][1]) with the buttons as shown below, and put it in the box. You can find the software for the Bluetooth chip in the `Bluetooth Software` folder. 
+4. Connect a Bluetooth chip (such as [RedBear Nano v2][1]) with the buttons as shown below, and put it in the box. You can find the software for the Bluetooth chip in the `Bluetooth Software` folder. Note: RedBear has been acquired by Particle Mesh and is currently not available for sale. It is expected to appear on the [Particle Mesh catalog][4].
 	![][image-2] 
 
 ## 2. Using the iOS App
@@ -35,7 +35,8 @@ Feel free to [submit pull requests][3], [create issues][2] or spread the word.
 
 [1]:	https://redbear.cc/product/ble-nano-2.html "RedBear Nano v2"
 [2]:	https://github.com/i10/ARPen/issues/new "Add an issue"
-[3]:    https://github.com/i10/ARPen/compare 
+[3]:    https://github.com/i10/ARPen/compare
+[4]:    https://www.particle.io/mesh/
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/images/Buttons.JPG "Momentary Buttons "
 [image-2]:	https://github.com/i10/ARPen/blob/master/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
