@@ -38,5 +38,5 @@ Feel free to [submit pull requests][3], [create issues][2] or spread the word.
 [3]:    https://github.com/i10/ARPen/compare
 [4]:    https://www.particle.io/mesh/
 
-[image-1]:	https://github.com/i10/ARPen/blob/master/images/Buttons.JPG "Momentary Buttons "
-[image-2]:	https://github.com/i10/ARPen/blob/master/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
+[image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons "
+[image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
