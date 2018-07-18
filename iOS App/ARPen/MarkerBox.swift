@@ -14,6 +14,7 @@ import SceneKit
 class MarkerBox: SCNNode {
     
     private var markerArray: [SCNNode]
+    var penTipPositionHistory: [SCNVector3] = []
     var penLength: Double = 12
     
     /**
@@ -136,12 +137,47 @@ class MarkerBox: SCNNode {
      */
     func posititonWith(ids: [Int]) -> SCNVector3 {
         var vector = SCNVector3Zero
+        var mutableIds = ids
         
-        for id in ids {
+        if mutableIds.count == 3 {
+            let allowedDeviation: Float = 1.2 //Don't forget that some markers are not perfectly in the middle of the cube's face!
+            
+            //Calculate distances
+            let distance12 = markerArray[0].position.distance(vector: markerArray[1].position)
+            let distance13 = markerArray[0].position.distance(vector: markerArray[2].position)
+            let distance23 = markerArray[1].position.distance(vector: markerArray[2].position)
+            
+            //If distance of one marker to another one deviates too much from the other inter-marker distances, this point is removed from calculation
+            if distance12 > allowedDeviation * distance23 && distance13 > allowedDeviation * distance23 {
+                //Point 1 offsetted
+                mutableIds.remove(at: 0)
+            } else if distance12 > allowedDeviation * distance13 && distance23 > allowedDeviation * distance13 {
+                //Point 2 offsetted
+                mutableIds.remove(at: 1)
+            } else if distance13 > 1.3 * distance12 && distance23 > 1.3 * distance12 {
+                //Point 3 offsetted
+                mutableIds.remove(at: 2)
+            }
+        }
+        
+        for id in mutableIds {
             let point = self.markerArray[id-1].childNodes.first!.convertPosition(SCNVector3Zero, to: nil)
             vector += point
         }
-        vector /= Float(ids.count)
+        vector /= Float(mutableIds.count)
+        
+        //Average with past n tip positions
+        let n = 1
+        for pastPenTip in penTipPositionHistory {
+            vector += pastPenTip
+        }
+        vector /= Float(penTipPositionHistory.count + 1)
+        penTipPositionHistory.append(vector)
+        
+        //Remove latest item if too much items are in penTipPositionHistory
+        if penTipPositionHistory.count > n {
+            penTipPositionHistory.remove(at: 0)
+        }
         return vector
     }
     
