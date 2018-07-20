@@ -21,7 +21,10 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 2. Insert three momentary switches or buttons into the holes in the ARPen as shown below and solder them to cables, which will be connected to a Bluetooth chip as described in step 4.  
 	![][image-1]
 3. Glue the box to the pen. 
-4. Add the Arduino Sketch under `ARPen/Bluetooth Software` to a Bluetooth chip. We used [RedBear BLE Nano v2][1]. To add the Arduino Sketch to the RedBear BLE Nano v2, please follow the instructions [here][5]. _Note_: RedBear has been acquired by Particle Mesh and is currently not available for sale. It is expected to be available for purchase on the [Particle Mesh catalog][4] soon.
+4. Add the Arduino Sketch under `ARPen/Bluetooth Software` to a Bluetooth chip. We used [RedBear BLE Nano v2][1]. To add the Arduino Sketch to the RedBear BLE Nano v2, please follow the instructions [here][5]. 
+	* _Note_: RedBear has been acquired by Particle Mesh and is currently not available for sale. It is expected to be available for purchase on the [Particle Mesh catalog][4] soon.
+	* Make sure that the BLE chip is inserted into the loader as shown in below -- inserting it the other way would cause the BLE chip to heat up and won't allow you to load your Arduino Sketch to the BLE chip. 
+		![][image-3]
 5. Connect the Bluetooth chip with the momentary buttons as shown below, and put it in the box. 
 	![][image-2] 
 
@@ -40,5 +43,6 @@ Feel free to [submit pull requests][3], [create issues][2] or spread the word.
 [4]: https://www.particle.io/mesh/ "Particle Mesh"
 [5]: https://github.com/redbear/nRF5x/blob/master/nRF52832/docs/Arduino_Board_Package_Installation_Guide.md "Arduino Board Package Installation Guide"
 
-[image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons "
+[image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons"
 [image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
+[image-3]:  https://github.com/i10/ARPen/blob/master/Documentation/images/BLE%20mount%20setup.png" "BLE Mount Setup"
