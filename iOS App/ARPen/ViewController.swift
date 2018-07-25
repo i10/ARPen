@@ -233,4 +233,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             })
         }
     }
+    
+    //Software Pen Button Actions
+    @IBAction func softwarePenButtonPressed(_ sender: Any) {
+        self.pluginManager.button(.Button1, pressed: true)
+    }
+    @IBAction func softwarePenButtonReleased(_ sender: Any) {
+        self.pluginManager.button(.Button1, pressed: true)
+    }
+    
+    
 }
