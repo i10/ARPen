@@ -239,7 +239,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.pluginManager.button(.Button1, pressed: true)
     }
     @IBAction func softwarePenButtonReleased(_ sender: Any) {
-        self.pluginManager.button(.Button1, pressed: true)
+        self.pluginManager.button(.Button1, pressed: false)
     }
     
     
