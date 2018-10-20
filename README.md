@@ -25,8 +25,9 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 	* _Note_: RedBear has been acquired by Particle Mesh and is currently not available for sale. It is expected to be available for purchase on the [Particle Mesh catalog][4] soon.
 	* Make sure that the BLE chip is inserted into the loader as shown in below -- inserting it the other way would cause the BLE chip to heat up and won't allow you to load your Arduino Sketch to the BLE chip. 
 		![][image-3]
-5. Connect the Bluetooth chip with the momentary buttons as shown below, and put it in the box. 
-	![][image-2] 
+5. Connect the Bluetooth chip and lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to the momentary buttons as shown below. 
+	![][image-2] ![][image-4]
+6. Place the chip and battery inside the box, and then glue the pen to the box. 
 
 ## 2. Using the iOS App
 You can build the ARPen iOS app like every other iOS project.  
@@ -42,7 +43,9 @@ Feel free to [submit pull requests][3], [create issues][2] or spread the word.
 [3]: https://github.com/i10/ARPen/compare
 [4]: https://www.particle.io/mesh/ "Particle Mesh"
 [5]: https://github.com/redbear/nRF5x/blob/master/nRF52832/docs/Arduino_Board_Package_Installation_Guide.md "Arduino Board Package Installation Guide"
+[6]: https://www.sparkfun.com/products/13853 "Lithium-Ion Battery"
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons"
 [image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
 [image-3]:  https://github.com/i10/ARPen/blob/master/Documentation/images/BLE%20mount%20setup.png "BLE Mount Setup"
+[image-4]:  https://github.com/i10/ARPen/blob/master/Documentation/images/Soldering_Setup.pdf "Soldering Setup"
