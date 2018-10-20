@@ -25,7 +25,7 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 	* _Note_: RedBear has been acquired by Particle Mesh and is currently not available for sale. It is expected to be available for purchase on the [Particle Mesh catalog][4] soon.
 	* Make sure that the BLE chip is inserted into the loader as shown in below -- inserting it the other way would cause the BLE chip to heat up and won't allow you to load your Arduino Sketch to the BLE chip. 
 		![][image-3]
-5. Connect the Bluetooth chip and lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to the momentary buttons as shown below. 
+5. Connect the Bluetooth chip and lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to the momentary buttons as shown below.<br>
 	![][image-2] ![][image-4]
 6. Place the chip and battery inside the box, and then glue the pen to the box. 
 
