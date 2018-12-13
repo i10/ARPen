@@ -63,7 +63,11 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
         }
         let positions = translation.map({$0.scnVector3Value})
         let eulerAngles = rotation.map({$0.scnVector3Value})
-        let ids = ids.map({$0.intValue})
+        let ids = ids.map { MarkerFace(rawValue: $0.intValue) ?? .notExpected }
+        guard ids.contains(.notExpected) else {
+            fatalError("marker-id not recognized!")
+        }
+        
         
         for (position, (eulerAngle, id)) in zip(positions, zip(eulerAngles, ids)) {
             //self.scene.markerBox.setPosition(position, rotation: eulerAngle, forId: Int32(id))

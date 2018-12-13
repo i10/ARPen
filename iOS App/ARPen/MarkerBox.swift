@@ -79,21 +79,27 @@ class MarkerBox: SCNNode {
         for marker in markerArray {
             marker.name = "Marker #\(i+1)"
             marker.childNodes.first?.removeFromParentNode()
+            
+            let markerFace = MarkerFace(rawValue: i+1) ?? .notExpected
+            guard markerFace != .notExpected else {
+                fatalError("markerArray shouldn't be longer than 6 elements!")
+            }
+            
             let point = SCNNode()
             point.name = "Point from #\(i+1)"
             
-            switch i {
-            case 0:
+            switch markerFace {
+            case .backBottom:
                 point.position = SCNVector3(xs, ys, zs)
-            case 1:
+            case .frontRight:
                 point.position = SCNVector3(xs, ys, zs)
-            case 2:
+            case .frontLeft:
                 point.position = SCNVector3(xs, ys, zs)
-            case 3:
+            case .backRight:
                 point.position = SCNVector3(-xl, yl, zl)
-            case 4:
+            case .backLeft:
                 point.position = SCNVector3(xl, yl, zl)
-            case 5:
+            case .frontTop:
                 point.position = SCNVector3(-xl, yl, zl)
             default:
                 break
@@ -117,17 +123,17 @@ class MarkerBox: SCNNode {
     /**
      Sets the position and rotation (in euler angles) for a specific ID.
      */
-    func set(position: SCNVector3, rotation: SCNVector3, forID id: Int) {
-        self.markerArray[id-1].position = position
-        self.markerArray[id-1].eulerAngles = rotation
+    func set(position: SCNVector3, rotation: SCNVector3, forID id: MarkerFace) {
+        self.markerArray[id.rawValue-1].position = position
+        self.markerArray[id.rawValue-1].eulerAngles = rotation
         
         //If orientation is Landscape with home button left we have to revert x and y axis and marker orientation
         if orientationState == .HomeButtonLeft {
-            self.markerArray[id-1].position.x *= -1
-            self.markerArray[id-1].position.y *= -1
+            self.markerArray[id.rawValue-1].position.x *= -1
+            self.markerArray[id.rawValue-1].position.y *= -1
             
-            self.markerArray[id-1].eulerAngles.x *= -1
-            self.markerArray[id-1].eulerAngles.y *= -1
+            self.markerArray[id.rawValue-1].eulerAngles.x *= -1
+            self.markerArray[id.rawValue-1].eulerAngles.y *= -1
         }
     }
     
@@ -135,9 +141,9 @@ class MarkerBox: SCNNode {
      Determine the position of the pin point by ONLY considering the specified IDs
      - parameter ids: A list of marker IDs that are used to determine the position
      */
-    func posititonWith(ids: [Int]) -> SCNVector3 {
+    func posititonWith(ids: [MarkerFace]) -> SCNVector3 {
         var vector = SCNVector3Zero
-        var mutableIds = ids
+        var mutableIds : [MarkerFace] = ids
         
         if mutableIds.count == 3 {
             let allowedDeviation: Float = 1.2 //Don't forget that some markers are not perfectly in the middle of the cube's face!
@@ -161,7 +167,7 @@ class MarkerBox: SCNNode {
         }
         
         for id in mutableIds {
-            let point = self.markerArray[id-1].childNodes.first!.convertPosition(SCNVector3Zero, to: nil)
+            let point = self.markerArray[id.rawValue-1].childNodes.first!.convertPosition(SCNVector3Zero, to: nil)
             vector += point
         }
         vector /= Float(mutableIds.count)
@@ -189,4 +195,14 @@ class MarkerBox: SCNNode {
         case HomeButtonLeft
         case HomeButtonRight
     }
+
+}
+
+/**
+ The MarkerFace enum maps the marker-ids from OpenCV to the
+ respective faces of the physical marker-box
+ */
+enum MarkerFace: Int {
+    case backBottom = 1, frontRight, frontLeft, backRight, backLeft, frontTop
+    case notExpected = 0
 }
