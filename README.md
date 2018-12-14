@@ -34,9 +34,9 @@ You can build the ARPen iOS app like every other iOS project.
 
 ---- 
 
-# Contributions
+# Interested in Contributing to ARPen?
 
-Feel free to [submit pull requests][3], [create issues][2] or spread the word. 
+Feel free to [submit pull requests][3], [create issues][2] or spread the word. Also take a look at our [developer guide][7].
 
 [1]: https://redbear.cc/product/ble-nano-2.html "RedBear Nano v2"
 [2]: https://github.com/i10/ARPen/issues/new "Add an issue"
@@ -44,6 +44,7 @@ Feel free to [submit pull requests][3], [create issues][2] or spread the word.
 [4]: https://www.particle.io/mesh/ "Particle Mesh"
 [5]: https://github.com/redbear/nRF5x/blob/master/nRF52832/docs/Arduino_Board_Package_Installation_Guide.md "Arduino Board Package Installation Guide"
 [6]: https://www.sparkfun.com/products/13853 "Lithium-Ion Battery"
+[7]: https://github.com/i10/ARPen/wiki/Developing-for-ARPen "Developing for ARPen"
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons"
 [image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20Setup.jpg "Bluetooth Setup"
