@@ -459,7 +459,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
@@ -483,7 +482,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
