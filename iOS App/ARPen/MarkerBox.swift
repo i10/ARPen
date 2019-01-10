@@ -89,17 +89,17 @@ class MarkerBox: SCNNode {
             point.name = "Point from #\(i+1)"
             
             switch markerFace {
-            case .backBottom:
+            case .back:
                 point.position = SCNVector3(xs, ys, zs)
-            case .frontRight:
+            case .top:
                 point.position = SCNVector3(xs, ys, zs)
-            case .frontLeft:
+            case .right:
                 point.position = SCNVector3(xs, ys, zs)
-            case .backRight:
+            case .bottom:
                 point.position = SCNVector3(-xl, yl, zl)
-            case .backLeft:
+            case .left:
                 point.position = SCNVector3(xl, yl, zl)
-            case .frontTop:
+            case .front:
                 point.position = SCNVector3(-xl, yl, zl)
             default:
                 break
@@ -200,9 +200,10 @@ class MarkerBox: SCNNode {
 
 /**
  The MarkerFace enum maps the marker-ids from OpenCV to the
- respective faces of the physical marker-box
+ respective faces of the physical marker-box when it is placed in default position.
+ Default position: cube placed down with the pen pointing away from you towards top right. (See https://github.com/i10/ARPen/blob/master/Documentation/images/Default_Position.jpg)
  */
 enum MarkerFace: Int {
-    case backBottom = 1, frontRight, frontLeft, backRight, backLeft, frontTop
+    case back = 1, top, right, bottom, left, front
     case notExpected = 0
 }
