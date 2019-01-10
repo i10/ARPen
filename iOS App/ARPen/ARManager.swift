@@ -64,8 +64,9 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
         let positions = translation.map({$0.scnVector3Value})
         let eulerAngles = rotation.map({$0.scnVector3Value})
         let ids = ids.map { MarkerFace(rawValue: $0.intValue) ?? .notExpected }
-        guard ids.contains(.notExpected) else {
-            fatalError("marker-id not recognized!")
+        
+        guard !ids.contains(.notExpected) else {
+            fatalError("Marker IDs not recognized!")
         }
         
         
