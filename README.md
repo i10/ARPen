@@ -27,7 +27,7 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 		![][image-3]
 5. Connect the Bluetooth chip and lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to the momentary buttons as shown below.<br>
 	![][image-2] ![][image-4]
-6. Place the chip and battery inside the box, and then glue the pen to the box. 
+6. Place the chip and battery inside the box, and then glue the pen to the box. _Remember_ to disconnect the battery after using ARPen for sketching or modeling! 
 
 ## 2. Using the iOS App
 You can build the ARPen iOS app like every other iOS project.  
