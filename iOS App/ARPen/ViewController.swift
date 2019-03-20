@@ -152,6 +152,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
         newActivePluginButton.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
         
+        if let oldPlugin = self.pluginManager.activePlugin as? ARMenusPlugin {
+            oldPlugin.deactivatePlugin()
+        }
         //activate plugin in plugin manager and update currently active plugin property
         let newActivePlugin = self.pluginManager.plugins[pluginID-1] //-1 needed since the tag is one larger than index of plugin in the array (to avoid tag 0)
         self.pluginManager.activePlugin = newActivePlugin
@@ -159,7 +162,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if var pluginConformingToUserStudyProtocol = newActivePlugin as? UserStudyRecordPluginProtocol {
             pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
         }
-        
+        if let plugin = newActivePlugin as? ARMenusPlugin {
+            plugin.activatePlugin(sceneView: self.arSceneView)
+        }
         currentActivePluginID = pluginID
     }
     
