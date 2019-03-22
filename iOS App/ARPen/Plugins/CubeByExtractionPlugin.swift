@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ARKit
 
 class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
     var recordManager: UserStudyRecordManager!
@@ -14,6 +15,8 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
 
     var pluginImage : UIImage? = UIImage.init(named: "CubeByExtractionPlugin")
     var pluginIdentifier: String = "CubeByExtraction"
+    var currentScene : PenScene?
+    var currentView: ARSCNView?
     /**
      The starting point is the point of the pencil where the button was first pressed.
      If this var is nil, there was no initial point
@@ -97,4 +100,15 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
             boxNode.position.y = boxCenterYPosition
         }
     }
+    
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        self.currentScene = scene
+        self.currentView = view
+    }
+    
+    func deactivatePlugin() {
+        self.currentScene = nil
+        self.currentView = nil
+    }
+    
 }

@@ -14,6 +14,11 @@
 		4A56953720581B4500C8065E /* UserStudyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953620581B4500C8065E /* UserStudyRecord.swift */; };
 		4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953820581B6700C8065E /* UserStudyRecordManager.swift */; };
 		4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */; };
+		4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */; };
+		4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */; };
+		4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */; };
+		4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */; };
+		4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */; };
 		4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */; };
 		4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */; };
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
@@ -64,6 +69,11 @@
 		4A56953620581B4500C8065E /* UserStudyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecord.swift; sourceTree = "<group>"; };
 		4A56953820581B6700C8065E /* UserStudyRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecordManager.swift; sourceTree = "<group>"; };
 		4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecordPluginProtocol.swift; sourceTree = "<group>"; };
+		4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationDemoPlugin.swift; sourceTree = "<group>"; };
+		4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenDropTargetNode.swift; sourceTree = "<group>"; };
+		4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
+		4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenBoxNode.swift; sourceTree = "<group>"; };
+		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -207,7 +217,8 @@
 				4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */,
 				4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */,
 				AA935109224245CE002AEB00 /* ARMenusPlugin.swift */,
-				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
+				4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */,
+				4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -218,6 +229,10 @@
 				DC28B468200E4C43008B77AB /* CylinderLine.swift */,
 				DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */,
 				DC28B470200E592C008B77AB /* DegreesToRadians.swift */,
+				4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */,
+				4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */,
+				4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */,
+				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -310,8 +325,13 @@
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
+				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
+				4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */,
+				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
+				4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
+				4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,

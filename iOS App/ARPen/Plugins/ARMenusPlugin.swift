@@ -12,15 +12,15 @@ class ARMenusPlugin: Plugin, MenuDelegate {
     
     var pluginImage : UIImage? = UIImage.init(named: "Paint")
     var pluginIdentifier: String = "ARMenus"
-    var sceneView: ARSCNView? = nil
+    var currentView: ARSCNView?
     
     //You need to set this to nil when switching to another plugin!
-    var penScene: PenScene? = nil {
+    var currentScene: PenScene? {
         didSet {
-            if penScene != nil {
+            if currentScene != nil {
                 targetNode = SCNNode(geometry: SCNBox(width: 0.02, height: 0.02, length: 0.02, chamferRadius: 0.0))
                 targetNode!.position.z -= 0.3
-                penScene!.drawingNode.addChildNode(targetNode!)
+                currentScene!.drawingNode.addChildNode(targetNode!)
             } else {
                 targetNode?.removeFromParentNode()
             }
@@ -41,20 +41,21 @@ class ARMenusPlugin: Plugin, MenuDelegate {
             openMenuNode?.menuDelegate = self
         }
     }
-    func activatePlugin(sceneView: ARSCNView){
-        self.sceneView = sceneView
-        self.penScene = (sceneView.scene as! PenScene)
-        self.penScene!.pencilPoint.geometry?.firstMaterial?.readsFromDepthBuffer = false
-        self.penScene!.pencilPoint.renderingOrder = 120
+    
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        self.currentView = view
+        self.currentScene = scene
+        self.currentScene!.pencilPoint.geometry?.firstMaterial?.readsFromDepthBuffer = false
+        self.currentScene!.pencilPoint.renderingOrder = 120
     }
     
     func deactivatePlugin(){
-        self.penScene?.pencilPoint.geometry?.firstMaterial?.readsFromDepthBuffer = true
-        self.penScene?.pencilPoint.renderingOrder = 0
+        self.currentScene?.pencilPoint.geometry?.firstMaterial?.readsFromDepthBuffer = true
+        self.currentScene?.pencilPoint.renderingOrder = 0
         openMenuNode?.closeMenu(asAbort: true)
         targetNode?.removeFromParentNode()
-        self.sceneView = nil
-        self.penScene = nil
+        self.currentView = nil
+        self.currentScene = nil
     }
     
     
@@ -87,7 +88,7 @@ class ARMenusPlugin: Plugin, MenuDelegate {
                 billboardConstraint.freeAxes = SCNBillboardAxis(arrayLiteral: SCNBillboardAxis.X, SCNBillboardAxis.Y)
                 menuNode.constraints = [billboardConstraint]
                 menuNode.drawMenu()
-                var direction = sceneView!.pointOfView!.worldPosition - targetNode!.worldPosition
+                var direction = currentView!.pointOfView!.worldPosition - targetNode!.worldPosition
                 direction = direction.normalize() / 100 * 1.5
                 menuNode.position = direction
                 menuNode.geometry?.firstMaterial?.readsFromDepthBuffer = false
@@ -99,14 +100,14 @@ class ARMenusPlugin: Plugin, MenuDelegate {
     }
     
     func hitTest(pointerPosition: SCNVector3) -> [SCNHitTestResult] {
-        guard let sceneView = self.sceneView  else { return [] }
+        guard let sceneView = self.currentView  else { return [] }
         let projectedPencilPosition = sceneView.projectPoint(pointerPosition)
         let projectedCGPoint = CGPoint(x: CGFloat(projectedPencilPosition.x), y: CGFloat(projectedPencilPosition.y))
         
         //cast a ray from that position and find the first ARPenNode
         let hitResults = sceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
         
-        return hitResults.filter( { $0.node != penScene?.pencilPoint } )
+        return hitResults.filter( { $0.node != currentScene?.pencilPoint } )
     }
     
     func menuItemSelected(owner: SCNNode, label: String, indexPath: [Int], isLeaf: Bool) {
