@@ -111,8 +111,9 @@ class CombinationPlugin: Plugin {
         } else if pressed, self.previousButtonState {
             //move the currently active target
             if let previousPoint = self.previousPoint, let selectedBox = self.selectedBox {
-                let displacementVector = scene.pencilPoint.position - previousPoint
-                selectedBox.position = selectedBox.position + displacementVector
+//                let displacementVector = scene.pencilPoint.position - previousPoint
+//                selectedBox.position = selectedBox.position + displacementVector
+                selectedBox.position = sceneConstructionResults!.superNode.convertPosition(scene.pencilPoint.position, from: scene.drawingNode)
                 selectedBox.setCorners()
                 selectedBox.hightlighted = true
             }

@@ -21,20 +21,15 @@ struct ARPenSceneConstructor {
         let cubesPerDimension = Int(floor(pow(Double(numberOfBoxes), 1/3)))
         
         
-        if let nodeWithCamera = view.pointOfView {
-            let forwardVector = nodeWithCamera.worldFront
-            let xzVector = SCNVector3Make(forwardVector.x, 0, forwardVector.z)
-            let xzVectorUnit = SCNVector3Make(xzVector.x/xzVector.length(), 0, xzVector.z/xzVector.length())
-            superNode.position = nodeWithCamera.position
-            superNode.position.x += xzVectorUnit.x * 0.3
-            superNode.position.z += xzVectorUnit.z * 0.4
-            superNode.position.y -= 0.3
+        let screenCenterPosition = view.unprojectPoint(SCNVector3(x: Float(view.frame.width) / 2.0, y: Float(view.frame.height / 2.0), z: 0))
+        superNode.position = screenCenterPosition
+        superNode.position.z -= 0.4
+        superNode.position.y -= 0.3
+        
+        var lookAtPoint = screenCenterPosition
+        lookAtPoint.y = superNode.position.y
+        superNode.look(at: lookAtPoint)
             
-            var lookAtPoint = superNode.position - nodeWithCamera.position
-            lookAtPoint.y = superNode.position.y
-            superNode.look(at: lookAtPoint)
-            
-        }
         //let numberOfBoxesPerSize = numberOfBoxes/possibleSizes.count
         
         var x = -0.15
