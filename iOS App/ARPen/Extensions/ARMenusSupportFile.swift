@@ -56,17 +56,20 @@ class MidairPieMenu: SCNNode, ARMenu {
                     closeMenu(asAbort: true)
                     return
                 }
-                let childMenu = MidairPieMenu(menu: menu.subMenus[sliceIndex], path: newPath)
-                childMenu.menuDelegate = self.menuDelegate
-                var direction = cursor.cursorLocation - position
-                direction = direction.normalize() / 100 * 1.5
-                childMenu.position = position + direction
-                childMenu.drawMenu()
-                childMenu.geometry?.firstMaterial?.readsFromDepthBuffer = false
-                childMenu.renderingOrder = 110
-                self.addChildNode(childMenu)
-                self.subMenus.append(childMenu)
-                menuDelegate?.menuItemSelected(owner: owner, label: menu.subMenus[sliceIndex].label, indexPath: newPath, isLeaf: false)
+                DispatchQueue.main.async {
+                    let childMenu = MidairPieMenu(menu: self.menu.subMenus[sliceIndex], path: newPath)
+                    childMenu.menuDelegate = self.menuDelegate
+                    var direction = cursor.cursorLocation - position
+                    direction = direction.normalize() / 100 * 1.5
+                    childMenu.position = position + direction
+                    childMenu.drawMenu()
+                    childMenu.geometry?.firstMaterial?.readsFromDepthBuffer = false
+                    childMenu.renderingOrder = 110
+                    self.addChildNode(childMenu)
+                    self.subMenus.append(childMenu)
+                    self.menuDelegate?.menuItemSelected(owner: self.owner, label: self.menu.subMenus[sliceIndex].label, indexPath: newPath, isLeaf: false)
+                }
+                
             }
         }
     }

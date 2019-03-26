@@ -22,7 +22,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var arManager: ARManager
     var arPenManager: PenManager
     var buttons: [Button: Bool] = [.Button1: false, .Button2: false, .Button3: false]
-    var plugins: [Plugin] = [PaintPlugin(), ARMenusPlugin(), CubeByDraggingPlugin(), CubeByExtractionPlugin(), TranslationDemoPlugin(), CombinationPlugin()]
+    var plugins: [Plugin] = [PaintPlugin(), CubeByDraggingPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CubeByExtractionPlugin(), CombinationPlugin()]
     var activePlugin: Plugin?
     var delegate: PluginManagerDelegate?
     

@@ -81,20 +81,24 @@ class ARMenusPlugin: Plugin, MenuDelegate {
                 if result?.node != targetNode {
                     return
                 }
-                let menuNode = MidairPieMenu(menu: menu, path: [])
                 
+                DispatchQueue.main.async {
+                    
+                    let menuNode = MidairPieMenu(menu: self.menu, path: [])
                 
                 let billboardConstraint = SCNBillboardConstraint()
                 billboardConstraint.freeAxes = SCNBillboardAxis(arrayLiteral: SCNBillboardAxis.X, SCNBillboardAxis.Y)
                 menuNode.constraints = [billboardConstraint]
                 menuNode.drawMenu()
-                var direction = currentView!.pointOfView!.worldPosition - targetNode!.worldPosition
+                var direction = self.currentView!.pointOfView!.worldPosition - self.targetNode!.worldPosition
                 direction = direction.normalize() / 100 * 1.5
                 menuNode.position = direction
                 menuNode.geometry?.firstMaterial?.readsFromDepthBuffer = false
                 menuNode.renderingOrder = 100
-                targetNode?.addChildNode(menuNode)
-                openMenuNode = menuNode
+                self.targetNode?.addChildNode(menuNode)
+                self.openMenuNode = menuNode
+                    
+                }
             }
         }
     }
