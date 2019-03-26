@@ -229,13 +229,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
      */
     func checkVisualEffectView() {
         if self.arPenActivity.isHidden && self.arKitActivity.isHidden {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.visualEffectView.alpha = 0.0
-                }, completion: { (completion) in
-                    self.visualEffectView.removeFromSuperview()
-                })
-            })
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
+//                UIView.animate(withDuration: 0.5, animations: {
+//                    self.visualEffectView.alpha = 0.0
+//                }, completion: { (completion) in
+//                    self.visualEffectView.removeFromSuperview()
+//                })
+//            })
+            self.visualEffectView.removeFromSuperview()
         }
     }
     

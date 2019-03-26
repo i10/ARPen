@@ -10,7 +10,7 @@ import ARKit
 
 class ARMenusPlugin: Plugin, MenuDelegate {
     
-    var pluginImage : UIImage? = UIImage.init(named: "Paint")
+    var pluginImage : UIImage? = UIImage.init(named: "PaintPlugin")
     var pluginIdentifier: String = "ARMenus"
     var currentView: ARSCNView?
     
