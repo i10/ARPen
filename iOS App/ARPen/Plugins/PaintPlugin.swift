@@ -23,7 +23,8 @@ class PaintPlugin: Plugin {
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
-            self.previousPoint = nil
+            //Don't reset the previous point to avoid disconnected lines if the marker detection failed for some frames
+            //self.previousPoint = nil
             return
         }
         let pressed = buttons[Button.Button1]!
