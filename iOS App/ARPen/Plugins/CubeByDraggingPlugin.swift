@@ -27,7 +27,8 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
-            self.startingPoint = nil
+            //Don't reset the previous point to avoid restarting cube if the marker detection failed for some frames
+            //self.startingPoint = nil
             return
         }
         
