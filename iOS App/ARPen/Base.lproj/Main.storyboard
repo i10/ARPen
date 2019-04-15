@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -228,7 +228,7 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minValue="10" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="Mtg-ZS-EeL">
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minValue="7" maxValue="15" translatesAutoresizingMaskIntoConstraints="NO" id="Mtg-ZS-EeL">
                                                             <rect key="frame" x="-2" y="24.5" width="631" height="31"/>
                                                             <connections>
                                                                 <action selector="penSizeSliderChanged:" destination="bV6-Dl-H7K" eventType="valueChanged" id="DPw-ED-doN"/>
@@ -407,11 +407,11 @@
                                         <rect key="frame" x="0.0" y="578.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BuW-El-RmV" id="zqY-uW-cr3">
-                                            <rect key="frame" x="0.0" y="0.0" width="641" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="629" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="View Entries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AI9-fw-eBb">
-                                                    <rect key="frame" x="15" y="0.0" width="617" height="43.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="609" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -503,6 +503,52 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="ARPen Type" id="aly-6R-Lob">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ZzL-yK-6Ml">
+                                        <rect key="frame" x="0.0" y="810.5" width="667" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZzL-yK-6Ml" id="JDR-Ln-d6h">
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="FUZ-EZ-S1e">
+                                                    <rect key="frame" x="20" y="0.0" width="627" height="43.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ARPen Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-t9-OTU">
+                                                            <rect key="frame" x="0.0" y="0.0" width="129.5" height="43.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tfb-v7-b4f">
+                                                            <rect key="frame" x="129.5" y="0.0" width="497.5" height="44.5"/>
+                                                            <segments>
+                                                                <segment title="Fully Functional"/>
+                                                                <segment title="Without Bluetooth"/>
+                                                                <segment title="Cardboard Demo"/>
+                                                            </segments>
+                                                            <connections>
+                                                                <action selector="arPenTypeSegmentedControlChanged:" destination="bV6-Dl-H7K" eventType="valueChanged" id="QBw-eE-NmD"/>
+                                                            </connections>
+                                                        </segmentedControl>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43.5" id="Osw-8v-niy"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FUZ-EZ-S1e" firstAttribute="leading" secondItem="JDR-Ln-d6h" secondAttribute="leading" constant="20" id="DVS-mt-K45"/>
+                                                <constraint firstAttribute="trailing" secondItem="FUZ-EZ-S1e" secondAttribute="trailing" constant="20" id="IOd-65-Ewu"/>
+                                                <constraint firstItem="FUZ-EZ-S1e" firstAttribute="centerY" secondItem="JDR-Ln-d6h" secondAttribute="centerY" id="WpV-qW-n25"/>
+                                                <constraint firstItem="FUZ-EZ-S1e" firstAttribute="height" secondItem="JDR-Ln-d6h" secondAttribute="height" id="gBe-XK-r8H"/>
+                                                <constraint firstItem="FUZ-EZ-S1e" firstAttribute="centerX" secondItem="JDR-Ln-d6h" secondAttribute="centerX" id="kfk-8K-iiJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="bV6-Dl-H7K" id="jfO-XG-XaS"/>
@@ -517,6 +563,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="arPenTypeSegmentedControl" destination="tfb-v7-b4f" id="D8s-F3-tGA"/>
                         <outlet property="bluetoothDeviceTableViewCell" destination="hwo-f9-QtB" id="rbY-ic-vas"/>
                         <outlet property="penSizeLabel" destination="Yzh-ZR-qGb" id="DjM-j6-FHi"/>
                         <outlet property="penSizeSlider" destination="Mtg-ZS-EeL" id="6he-r6-tom"/>
@@ -657,6 +704,65 @@
             </objects>
             <point key="canvasLocation" x="3215" y="513"/>
         </scene>
+        <!--Pen Type Selection View Controller-->
+        <scene sceneID="ooR-YQ-6SA">
+            <objects>
+                <viewController storyboardIdentifier="arPenTypeSelection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uAB-ZR-Wrf" customClass="ARPenTypeSelectionViewController" customModule="ARPen" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RQR-TL-Cjb">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="kSV-jy-6t7">
+                                <rect key="frame" x="248" y="41.5" width="171" height="292"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K3L-ub-Qks">
+                                        <rect key="frame" x="0.0" y="0.0" width="171" height="70.5"/>
+                                        <state key="normal" title="Fully functional ARPen"/>
+                                        <connections>
+                                            <action selector="arPenTypeButtonPressed:" destination="uAB-ZR-Wrf" eventType="touchUpInside" id="XHf-XD-iA5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1mS-lI-wuF">
+                                        <rect key="frame" x="0.0" y="110.5" width="171" height="71"/>
+                                        <state key="normal" title="ARPen without Bluetooth"/>
+                                        <connections>
+                                            <action selector="arPenTypeButtonPressed:" destination="uAB-ZR-Wrf" eventType="touchUpInside" id="Q9D-mn-tGo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qp-N9-fYr">
+                                        <rect key="frame" x="0.0" y="221.5" width="171" height="70.5"/>
+                                        <state key="normal" title="Cardboard ARPen"/>
+                                        <connections>
+                                            <action selector="arPenTypeButtonPressed:" destination="uAB-ZR-Wrf" eventType="touchUpInside" id="L4W-uB-WeN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the ARPen you are using" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8F-ta-cpF">
+                                <rect key="frame" x="214" y="20" width="239" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kSV-jy-6t7" firstAttribute="firstBaseline" secondItem="g8F-ta-cpF" secondAttribute="baseline" constant="20" symbolType="layoutAnchor" id="GPb-J5-IJh"/>
+                            <constraint firstItem="kSV-jy-6t7" firstAttribute="centerX" secondItem="4uk-dq-EsZ" secondAttribute="centerX" id="Xqg-Ao-gXA"/>
+                            <constraint firstItem="kSV-jy-6t7" firstAttribute="centerY" secondItem="4uk-dq-EsZ" secondAttribute="centerY" id="j3X-p7-Nie"/>
+                            <constraint firstItem="g8F-ta-cpF" firstAttribute="centerX" secondItem="4uk-dq-EsZ" secondAttribute="centerX" id="luM-uN-bKT"/>
+                            <constraint firstItem="g8F-ta-cpF" firstAttribute="top" secondItem="4uk-dq-EsZ" secondAttribute="top" constant="20" id="wIs-EY-YXi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4uk-dq-EsZ"/>
+                    </view>
+                    <connections>
+                        <segue destination="zyT-qq-7YR" kind="show" identifier="showARPenView" id="YMz-5W-p1y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pTq-mL-rgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-309" y="-1119"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hLU-8i-5zo">
             <objects>
@@ -696,7 +802,7 @@
     </scenes>
     <resources>
         <image name="Checkmark" width="37" height="37"/>
-        <image name="SoftwareButton" width="434.39999389648438" height="434.39999389648438"/>
+        <image name="SoftwareButton" width="603.33331298828125" height="603.33331298828125"/>
         <image name="cog" width="128" height="128"/>
     </resources>
 </document>

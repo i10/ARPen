@@ -19,6 +19,8 @@
 		4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */; };
 		4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */; };
 		4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */; };
+		4A86D6A02264924900313CD7 /* ARPenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A86D69F2264924900313CD7 /* ARPenType.swift */; };
+		4A86D6A4226496E000313CD7 /* ARPenTypeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A86D6A3226496E000313CD7 /* ARPenTypeSelectionViewController.swift */; };
 		4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */; };
 		4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */; };
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
@@ -74,6 +76,8 @@
 		4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
 		4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenBoxNode.swift; sourceTree = "<group>"; };
 		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
+		4A86D69F2264924900313CD7 /* ARPenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPenType.swift; sourceTree = "<group>"; };
+		4A86D6A3226496E000313CD7 /* ARPenTypeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPenTypeSelectionViewController.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 			children = (
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
+				4A86D6A3226496E000313CD7 /* ARPenTypeSelectionViewController.swift */,
 				4A4B7F1B205817A200331810 /* SettingsViewControllers */,
 				DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */,
 				DC28B464200E4825008B77AB /* PenScene.swift */,
@@ -233,6 +238,7 @@
 				4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */,
 				4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */,
 				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
+				4A86D69F2264924900313CD7 /* ARPenType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -318,6 +324,7 @@
 				DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */,
 				4A5695342058195200C8065E /* UserStudyRecordsListTableViewController.swift in Sources */,
 				DC28B45F200E4561008B77AB /* PenManager.swift in Sources */,
+				4A86D6A02264924900313CD7 /* ARPenType.swift in Sources */,
 				4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */,
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
 				4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */,
@@ -330,6 +337,7 @@
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
 				4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
+				4A86D6A4226496E000313CD7 /* ARPenTypeSelectionViewController.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
 				4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
