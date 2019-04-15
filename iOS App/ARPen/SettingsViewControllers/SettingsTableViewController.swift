@@ -66,10 +66,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         let roundedValueInM = ((self.penSizeSlider.value*10).rounded()/10)/100
         
         UserDefaults.standard.set(roundedValueInM, forKey: UserDefaultsKeys.penLength.rawValue)
-        let parent = self.scene.markerBox.parent
-        self.scene.markerBox.removeFromParentNode()
-        self.scene.markerBox = MarkerBox(length: Double(roundedValueInM))
-        parent?.addChildNode(self.scene.markerBox)
+        self.scene.markerBox.updatePenTipCalculations()
     }
     
     @IBAction func clearSceneButtonPressed(_ sender: Any) {
@@ -149,6 +146,9 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         default:
             UserDefaults.standard.set(ARPenType.notSelected.rawValue, forKey: UserDefaultsKeys.arPenType.rawValue)
         }
+        
+        //update marker box with new translations
+        self.scene.markerBox.updatePenTipCalculations()
     }
     
     //TextFieldDelegate Methods

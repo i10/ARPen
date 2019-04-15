@@ -45,6 +45,14 @@ class MarkerBox: SCNNode {
         calculatePenTip(length: length)
     }
     
+    func updatePenTipCalculations()
+    {
+        //set current pen length stored in user defaults
+        penLength = Double(UserDefaults.standard.float(forKey: UserDefaultsKeys.penLength.rawValue))
+        //check current device rotation (which triggers pen tip recalculation)
+        rotated()
+    }
+    
     @objc func rotated(){
         if UIDevice.current.orientation.rawValue == 4 {
             orientationState = .HomeButtonLeft
