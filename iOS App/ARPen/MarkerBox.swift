@@ -33,7 +33,7 @@ class MarkerBox: SCNNode {
     }
     
     init(length: Double) {
-        markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
+        markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
         penLength = length
         super.init()
         self.name = "MarkerBox"
@@ -108,6 +108,8 @@ class MarkerBox: SCNNode {
                 point.position = SCNVector3(xl, yl, zl)
             case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
+            case (.cardboard):
+                point.position = SCNVector3(0, 0, 0)
             default:
                 break
             }
@@ -212,5 +214,6 @@ class MarkerBox: SCNNode {
  */
 enum MarkerFace: Int {
     case back = 1, top, right, bottom, left, front
+    case cardboard = 7
     case notExpected = 0
 }
