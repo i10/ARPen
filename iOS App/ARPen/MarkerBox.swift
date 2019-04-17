@@ -62,10 +62,6 @@ class MarkerBox: SCNNode {
     }
     
     func calculatePenTip(length: Double){
-        var cardboardDemo = false
-        let currentPenType = UserDefaults.standard.string(forKey: UserDefaultsKeys.arPenType.rawValue)
-        if currentPenType == ARPenType.cardboardDemo.rawValue {cardboardDemo = true}
-        
         let a: Double = length
         var xs, ys, zs, xl, yl, zl: Double
         
@@ -97,24 +93,21 @@ class MarkerBox: SCNNode {
             }
             
             let point = SCNNode()
-            point.position = SCNVector3(0,0,0)
             point.name = "Point from #\(i+1)"
             
-            switch (markerFace, cardboardDemo) {
-            case (.back, false):
+            switch (markerFace) {
+            case (.back):
                 point.position = SCNVector3(xs, ys, zs)
-            case (.top, false):
+            case (.top):
                 point.position = SCNVector3(xs, ys, zs)
-            case (.right, false):
+            case (.right):
                 point.position = SCNVector3(xs, ys, zs)
-            case (.bottom, false):
+            case (.bottom):
                 point.position = SCNVector3(-xl, yl, zl)
-            case (.left, false):
+            case (.left):
                 point.position = SCNVector3(xl, yl, zl)
-            case (.front, false):
+            case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
-            case (.front, true):
-                point.position = SCNVector3(length, 0, 0)
             default:
                 break
             }

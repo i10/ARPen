@@ -17,7 +17,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
     @IBOutlet weak var penSizeSlider: UISlider!
     @IBOutlet weak var bluetoothDeviceTableViewCell: UITableViewCell!
     @IBOutlet weak var userIDTextField: UITextField!
-    @IBOutlet weak var arPenTypeSegmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +30,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         self.penSizeLabel.text = "\(currentPenSize) cm"
         
         self.setCurrentBluetoothDeviceLabel()
-        
-        //Get current selected ARPenType
-        if let currentType = UserDefaults.standard.object(forKey: UserDefaultsKeys.arPenType.rawValue) as? String {
-            if currentType == ARPenType.fullyFunctional.rawValue {arPenTypeSegmentedControl.selectedSegmentIndex = 0}
-            else if currentType == ARPenType.penWithoutBluetooth.rawValue {arPenTypeSegmentedControl.selectedSegmentIndex = 1}
-            else if currentType == ARPenType.cardboardDemo.rawValue {arPenTypeSegmentedControl.selectedSegmentIndex = 2}
-        }
         
         //if there is a currently active user ID set in the record manager, use this in the ID text field. Otherwise, use placeholder
         if let currentActiveUserID = self.userStudyRecordManager.currentActiveUserID {
@@ -132,23 +124,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         alertController.addAction(deleteAction)
         
         present(alertController, animated: true, completion: nil)
-    }
-    
-  
-    @IBAction func arPenTypeSegmentedControlChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            UserDefaults.standard.set(ARPenType.fullyFunctional.rawValue, forKey: UserDefaultsKeys.arPenType.rawValue)
-        case 1:
-            UserDefaults.standard.set(ARPenType.penWithoutBluetooth.rawValue, forKey: UserDefaultsKeys.arPenType.rawValue)
-        case 2:
-            UserDefaults.standard.set(ARPenType.cardboardDemo.rawValue, forKey: UserDefaultsKeys.arPenType.rawValue)
-        default:
-            UserDefaults.standard.set(ARPenType.notSelected.rawValue, forKey: UserDefaultsKeys.arPenType.rawValue)
-        }
-        
-        //update marker box with new translations
-        self.scene.markerBox.updatePenTipCalculations()
     }
     
     //TextFieldDelegate Methods

@@ -23,14 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.isIdleTimerDisabled = true
         UserDefaults.standard.register(defaults: [
             UserDefaultsKeys.penLength.rawValue: 0.15,
-            UserDefaultsKeys.arPenName.rawValue: "BLE Serial",
-            UserDefaultsKeys.arPenType.rawValue: ARPenType.notSelected.rawValue
+            UserDefaultsKeys.arPenName.rawValue: "BLE Serial"
         ])
-        
-        //check if pen type is already set -> if not selected, show the pen selection screen
-        if let currentType = UserDefaults.standard.object(forKey: UserDefaultsKeys.arPenType.rawValue) as? String, currentType == ARPenType.notSelected.rawValue {
-            self.window?.rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewController(withIdentifier: "arPenTypeSelection")
-        }
         
         return true
     }
