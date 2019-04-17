@@ -63,7 +63,7 @@ class MarkerBox: SCNNode {
     
     func calculatePenTip(length: Double){
         let a: Double = length
-        var xs, ys, zs, xl, yl, zl: Double
+        var xs, ys, zs, xl, yl, zl, xc, yc: Double
         
         let angle = (35.3).degreesToRadians
         
@@ -81,6 +81,14 @@ class MarkerBox: SCNNode {
         zl += 0.02
         xl *= -1
         yl *= -1
+        
+        // Calculate the translation vector for cardboard marker face
+        let markerOffsetFromBottom: Double = 0.0226 // distance from the bottom of the card to the center of the marker
+        let cardWidth = 0.085
+        let cardHeight = 0.055
+        
+        xc = 0.75 * cardWidth // assuming marker center is at three-fourths of the card width
+        yc = cardHeight - markerOffsetFromBottom // height of the card is 5.5 cm
         
         var i = 0
         for marker in markerArray {
@@ -109,7 +117,7 @@ class MarkerBox: SCNNode {
             case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
             case (.cardboard):
-                point.position = SCNVector3(0, 0, 0)
+                point.position = SCNVector3(-xc, -yc, 0)
             default:
                 break
             }
