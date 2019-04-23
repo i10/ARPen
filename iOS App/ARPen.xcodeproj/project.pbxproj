@@ -76,6 +76,7 @@
 		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
+		4AC0B97D226F2B3F001B591D /* ARPen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARPen.entitlements; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
 		AA935109224245CE002AEB00 /* ARMenusPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMenusPlugin.swift; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 		DC28B43E200E4353008B77AB /* ARPen */ = {
 			isa = PBXGroup;
 			children = (
+				4AC0B97D226F2B3F001B591D /* ARPen.entitlements */,
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
 				4A4B7F1B205817A200331810 /* SettingsViewControllers */,
@@ -272,6 +274,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -483,7 +490,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 286L2EXR23;
+				DEVELOPMENT_TEAM = 44GTV4NJA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
@@ -491,7 +498,7 @@
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -506,7 +513,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 286L2EXR23;
+				DEVELOPMENT_TEAM = 44GTV4NJA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
@@ -514,7 +521,7 @@
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
