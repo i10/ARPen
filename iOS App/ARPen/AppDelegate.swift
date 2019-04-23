@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.isIdleTimerDisabled = true
         UserDefaults.standard.register(defaults: [
-            UserDefaultsKeys.penLength.rawValue: 0.15,
+            UserDefaultsKeys.penLength.rawValue: 0.12,
             UserDefaultsKeys.arPenName.rawValue: "BLE Serial"
         ])
         
