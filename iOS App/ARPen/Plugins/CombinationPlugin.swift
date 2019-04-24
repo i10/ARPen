@@ -11,8 +11,8 @@ import ARKit
 
 class CombinationPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "RecordPlugin")
-    var pluginIdentifier: String = "Combination"
+    var pluginImage : UIImage? = UIImage.init(named: "TranslationDemoPlugin")
+    var pluginIdentifier: String = "Touch+Pen"
     var currentScene : PenScene?
     var currentView: ARSCNView?
     var finishedView : UILabel?
