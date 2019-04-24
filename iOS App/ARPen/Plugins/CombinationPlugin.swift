@@ -70,14 +70,7 @@ class CombinationPlugin: Plugin {
         
         guard scene.markerFound else {
             //self.previousPoint = nil
-            DispatchQueue.main.async {
-                self.currentView?.superview?.layer.borderColor = UIColor.red.cgColor
-            }
             return
-        }
-        
-        DispatchQueue.main.async {
-            self.currentView?.superview?.layer.borderColor = UIColor.white.cgColor
         }
         
         guard let boxes = self.boxes else {return}
@@ -228,7 +221,6 @@ class CombinationPlugin: Plugin {
         
         self.currentScene = scene
         self.currentView = view
-        self.currentView?.superview?.layer.borderWidth = 10.0
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
     

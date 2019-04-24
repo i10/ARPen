@@ -69,16 +69,6 @@ class TranslationDemoPlugin: Plugin {
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         
-        if !scene.markerFound {
-            //self.previousPoint = nil
-            DispatchQueue.main.async {
-                self.currentView?.superview?.layer.borderColor = UIColor.red.cgColor
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.currentView?.superview?.layer.borderColor = UIColor.white.cgColor
-            }
-        }
         guard let boxes = self.boxes else {return}
         
         boxes.forEach({
@@ -243,7 +233,6 @@ class TranslationDemoPlugin: Plugin {
 
         self.currentScene = scene
         self.currentView = view
-        self.currentView?.superview?.layer.borderWidth = 10.0
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
         
