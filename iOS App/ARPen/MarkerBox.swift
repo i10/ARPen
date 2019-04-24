@@ -83,7 +83,7 @@ class MarkerBox: SCNNode {
         yl *= -1
         
         // Calculate the translation vector for cardboard marker face
-        let markerOffsetFromBottom: Double = 0.0226 // distance from the bottom of the card to the center of the marker
+        let markerOffsetFromBottom: Double = 0.01975 // distance from the bottom of the card to the center of the marker
         let cardWidth = 0.085
         let cardHeight = 0.055
         
