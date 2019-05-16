@@ -97,7 +97,7 @@ float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Ide
         int i = 0;
         
         for(it = allMarkers.begin(); it != allMarkers.end(); it++,i++) {
-            if (it->id < 1 || it->id > 6) {
+            if (it->id < 1 || it->id > 7) {
                 continue;
             }
             markers.push_back(*it);

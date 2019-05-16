@@ -33,7 +33,7 @@ class MarkerBox: SCNNode {
     }
     
     init(length: Double) {
-        markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
+        markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
         penLength = length
         super.init()
         self.name = "MarkerBox"
@@ -45,6 +45,14 @@ class MarkerBox: SCNNode {
         calculatePenTip(length: length)
     }
     
+    func updatePenTipCalculations()
+    {
+        //set current pen length stored in user defaults
+        penLength = Double(UserDefaults.standard.float(forKey: UserDefaultsKeys.penLength.rawValue))
+        //check current device rotation (which triggers pen tip recalculation)
+        rotated()
+    }
+    
     @objc func rotated(){
         if UIDevice.current.orientation.rawValue == 4 {
             orientationState = .HomeButtonLeft
@@ -54,9 +62,8 @@ class MarkerBox: SCNNode {
     }
     
     func calculatePenTip(length: Double){
-        
         let a: Double = length
-        var xs, ys, zs, xl, yl, zl: Double
+        var xs, ys, zs, xl, yl, zl, xc, yc: Double
         
         let angle = (35.3).degreesToRadians
         
@@ -75,6 +82,14 @@ class MarkerBox: SCNNode {
         xl *= -1
         yl *= -1
         
+        // Calculate the translation vector for cardboard marker face
+        let markerOffsetFromBottom: Double = 0.01975 // distance from the bottom of the card to the center of the marker
+        let cardWidth = 0.085
+        let cardHeight = 0.055
+        
+        xc = 0.75 * cardWidth // assuming marker center is at three-fourths of the card width
+        yc = cardHeight - markerOffsetFromBottom // height of the card is 5.5 cm
+        
         var i = 0
         for marker in markerArray {
             marker.name = "Marker #\(i+1)"
@@ -88,19 +103,21 @@ class MarkerBox: SCNNode {
             let point = SCNNode()
             point.name = "Point from #\(i+1)"
             
-            switch markerFace {
-            case .back:
+            switch (markerFace) {
+            case (.back):
                 point.position = SCNVector3(xs, ys, zs)
-            case .top:
+            case (.top):
                 point.position = SCNVector3(xs, ys, zs)
-            case .right:
+            case (.right):
                 point.position = SCNVector3(xs, ys, zs)
-            case .bottom:
+            case (.bottom):
                 point.position = SCNVector3(-xl, yl, zl)
-            case .left:
+            case (.left):
                 point.position = SCNVector3(xl, yl, zl)
-            case .front:
+            case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
+            case (.cardboard):
+                point.position = SCNVector3(-xc, -yc, 0)
             default:
                 break
             }
@@ -205,5 +222,6 @@ class MarkerBox: SCNNode {
  */
 enum MarkerFace: Int {
     case back = 1, top, right, bottom, left, front
+    case cardboard = 7
     case notExpected = 0
 }

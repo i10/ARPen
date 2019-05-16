@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import ARKit
 
 class PaintPlugin: Plugin {
     
     var pluginImage : UIImage? = UIImage.init(named: "PaintPlugin")
     var pluginIdentifier: String = "Paint"
+    var currentScene : PenScene?
+    var currentView: ARSCNView?
     /**
      The previous point is the point of the pencil one frame before.
      If this var is nil, there was no last point
@@ -20,7 +23,8 @@ class PaintPlugin: Plugin {
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
-            self.previousPoint = nil
+            //Don't reset the previous point to avoid disconnected lines if the marker detection failed for some frames
+            //self.previousPoint = nil
             return
         }
         let pressed = buttons[Button.Button1]!
@@ -49,6 +53,16 @@ class PaintPlugin: Plugin {
         
         self.previousPoint = scene.pencilPoint.position
         
+    }
+    
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        self.currentScene = scene
+        self.currentView = view
+    }
+    
+    func deactivatePlugin() {
+        self.currentScene = nil
+        self.currentView = nil
     }
     
 }

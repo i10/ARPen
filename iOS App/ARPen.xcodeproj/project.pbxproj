@@ -14,10 +14,17 @@
 		4A56953720581B4500C8065E /* UserStudyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953620581B4500C8065E /* UserStudyRecord.swift */; };
 		4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953820581B6700C8065E /* UserStudyRecordManager.swift */; };
 		4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */; };
+		4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */; };
+		4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */; };
+		4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */; };
+		4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */; };
+		4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */; };
 		4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */; };
 		4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */; };
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
 		4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */; };
+		AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA935109224245CE002AEB00 /* ARMenusPlugin.swift */; };
+		AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
@@ -62,10 +69,18 @@
 		4A56953620581B4500C8065E /* UserStudyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecord.swift; sourceTree = "<group>"; };
 		4A56953820581B6700C8065E /* UserStudyRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecordManager.swift; sourceTree = "<group>"; };
 		4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecordPluginProtocol.swift; sourceTree = "<group>"; };
+		4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationDemoPlugin.swift; sourceTree = "<group>"; };
+		4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenDropTargetNode.swift; sourceTree = "<group>"; };
+		4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
+		4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenBoxNode.swift; sourceTree = "<group>"; };
+		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
+		4AC0B97D226F2B3F001B591D /* ARPen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARPen.entitlements; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
+		AA935109224245CE002AEB00 /* ARMenusPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMenusPlugin.swift; sourceTree = "<group>"; };
+		AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMenusSupportFile.swift; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +174,7 @@
 		DC28B43E200E4353008B77AB /* ARPen */ = {
 			isa = PBXGroup;
 			children = (
+				4AC0B97D226F2B3F001B591D /* ARPen.entitlements */,
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
 				4A4B7F1B205817A200331810 /* SettingsViewControllers */,
@@ -202,6 +218,9 @@
 				DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */,
 				4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */,
 				4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */,
+				AA935109224245CE002AEB00 /* ARMenusPlugin.swift */,
+				4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */,
+				4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -212,6 +231,10 @@
 				DC28B468200E4C43008B77AB /* CylinderLine.swift */,
 				DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */,
 				DC28B470200E592C008B77AB /* DegreesToRadians.swift */,
+				4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */,
+				4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */,
+				4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */,
+				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -251,6 +274,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -303,8 +331,15 @@
 				DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
+				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
+				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
+				4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */,
+				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
+				4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
+				4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */,
+				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,
 				4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */,
@@ -455,7 +490,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 286L2EXR23;
+				DEVELOPMENT_TEAM = 44GTV4NJA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
@@ -463,12 +498,12 @@
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -478,7 +513,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 286L2EXR23;
+				DEVELOPMENT_TEAM = 44GTV4NJA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
@@ -486,11 +521,11 @@
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

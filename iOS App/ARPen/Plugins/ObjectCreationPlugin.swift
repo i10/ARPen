@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ARKit
 
 /**
  The object creation plugin can create a 3d object in space.
@@ -15,6 +16,8 @@ class ObjectCreationPlugin: Plugin {
     
     var pluginImage: UIImage? = UIImage.init(named: "ObjectCreationPlugin")
     var pluginIdentifier: String = "Object Creation"
+    var currentScene : PenScene?
+    var currentView: ARSCNView?
     
     private var pointArray: [SCNVector3] = []
     private var alreadyAdded = false
@@ -57,6 +60,16 @@ class ObjectCreationPlugin: Plugin {
             pointArray.removeAll()
         }
         
+    }
+    
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        self.currentScene = scene
+        self.currentView = view
+    }
+    
+    func deactivatePlugin() {
+        self.currentScene = nil
+        self.currentView = nil
     }
     
 }

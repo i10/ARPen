@@ -58,10 +58,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         let roundedValueInM = ((self.penSizeSlider.value*10).rounded()/10)/100
         
         UserDefaults.standard.set(roundedValueInM, forKey: UserDefaultsKeys.penLength.rawValue)
-        let parent = self.scene.markerBox.parent
-        self.scene.markerBox.removeFromParentNode()
-        self.scene.markerBox = MarkerBox(length: Double(roundedValueInM))
-        parent?.addChildNode(self.scene.markerBox)
+        self.scene.markerBox.updatePenTipCalculations()
     }
     
     @IBAction func clearSceneButtonPressed(_ sender: Any) {
@@ -154,6 +151,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         return true
     }
     
+    //open the application information page in safari
+    @IBAction func aboutButtonPressed(_ sender: Any) {
+        if let url = URL(string: "https://hci.rwth-aachen.de/arpen-ios") {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //check if segue leads to the table view that displays the recorded user ids
         if segue.identifier == "showUserStudyUserIDs" {

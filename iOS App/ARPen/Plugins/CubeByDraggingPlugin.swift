@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ARKit
 
 //include the UserStudyRecordPluginProtocol to demo recording of user study data
 class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
@@ -15,6 +16,9 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     
     var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
     var pluginIdentifier: String = "CubeByDragging"
+    var currentScene : PenScene?
+    var currentView: ARSCNView?
+    
     /**
      The starting point is the point of the pencil where the button was first pressed.
      If this var is nil, there was no initial point
@@ -23,7 +27,8 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
-            self.startingPoint = nil
+            //Don't reset the previous point to avoid restarting cube if the marker detection failed for some frames
+            //self.startingPoint = nil
             return
         }
         
@@ -83,4 +88,14 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         
     }
    
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        self.currentScene = scene
+        self.currentView = view
+    }
+    
+    func deactivatePlugin() {
+        self.currentScene = nil
+        self.currentView = nil
+    }
+    
 }
