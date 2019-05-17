@@ -158,7 +158,8 @@ class MarkerBox: SCNNode {
      Determine the position of the pin point by ONLY considering the specified IDs
      - parameter ids: A list of marker IDs that are used to determine the position
      */
-    func posititonWith(ids: [MarkerFace]) -> SCNVector3 {
+    func posititonWith(ids: [MarkerFace]) -> SCNNode {
+        var node = SCNNode()
         var vector = SCNVector3Zero
         var mutableIds : [MarkerFace] = ids
         
@@ -201,7 +202,8 @@ class MarkerBox: SCNNode {
         if penTipPositionHistory.count > n {
             penTipPositionHistory.remove(at: 0)
         }
-        return vector
+        node.position = vector
+        return node
     }
     
     required init?(coder aDecoder: NSCoder) {
