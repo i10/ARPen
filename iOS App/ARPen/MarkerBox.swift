@@ -104,34 +104,34 @@ class MarkerBox: SCNNode {
             point.name = "Point from #\(i+1)"
             
             //for rotation: for simplicity, take the top rotation as the basis. rotate other markers to fit the top orientation and then apply the same rotation to the pen tip
-            let rotationMatrix = SCNMatrix4MakeRotation(-35.3*Float.pi/180, 0.5, -0.5, 0)
+            let quaternionFromTopMarkerToPenTip = simd_quatf(angle: Float(-54.7.degreesToRadians), axis: float3(x: 0.707, y: -0.707, z: 0))
             switch (markerFace) {
             case (.back):
                 point.position = SCNVector3(xs, ys, zs)
-                let rotationToTopMatrix = SCNMatrix4Rotate(SCNMatrix4MakeRotation(-Float.pi/2, 0, 0, 1), -Float.pi/2, 1, 0, 0)
-                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
+                point.eulerAngles = SCNVector3(x: 0, y: -Float.pi/2, z: -Float.pi/2)
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.top):
                 point.position = SCNVector3(xs, ys, zs)
-                point.transform = SCNMatrix4Mult(rotationMatrix, point.transform)
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.right):
                 point.position = SCNVector3(xs, ys, zs)
-                let rotationToTopMatrix = SCNMatrix4Rotate(SCNMatrix4MakeRotation(Float.pi/2, 0, 0, 1), Float.pi/2, 0, 1, 0)
-                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
+                point.eulerAngles = SCNVector3(x: Float.pi/2, y: 0, z: Float.pi/2)
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.bottom):
                 point.position = SCNVector3(-xl, yl, zl)
-                let rotationToTopMatrix = SCNMatrix4MakeRotation(Float.pi, 0, 1, 0)
-                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
+                point.eulerAngles.y = Float.pi
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.left):
                 point.position = SCNVector3(xl, yl, zl)
-                let rotationToTopMatrix = SCNMatrix4MakeRotation(-Float.pi/2, 1,0,0)
-                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
+                point.eulerAngles.x = -Float.pi/2
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
-                let rotationToTopMatrix = SCNMatrix4Rotate(SCNMatrix4MakeRotation(Float.pi/2, 0, 1, 0), Float.pi/2, 0, 0, 1)
-                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
+                point.eulerAngles = SCNVector3(x: 0, y: Float.pi/2, z: Float.pi/2)
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.cardboard):
                 point.position = SCNVector3(-xc, -yc, 0)
-                point.eulerAngles = SCNVector3(-Float.pi/2, 0, -Float.pi/4)
+                point.eulerAngles = SCNVector3(x: 0, y: -Float.pi/2, z: Float(-135.degreesToRadians))
             default:
                 break
             }
@@ -173,9 +173,7 @@ class MarkerBox: SCNNode {
      - parameter ids: A list of marker IDs that are used to determine the position
      */
     func posititonWith(ids: [MarkerFace]) -> SCNNode {
-        var node = SCNNode()
-        //holds the computed pen tips for each marker -> can be averaged to return pen tip node
-        var penTipCandidates = [SCNNode]()
+        //hold the computed pen tip properties for each marker -> can be averaged to return pen tip node
         var penTipPosition = SCNVector3Zero
         var penTipRotation = SCNVector4Zero
         var mutableIds : [MarkerFace] = ids
@@ -206,7 +204,6 @@ class MarkerBox: SCNNode {
             let transform = self.markerArray[id.rawValue-1].childNodes.first!.convertTransform(SCNMatrix4Identity, to: nil)
             
             candidateNode.transform = transform
-            penTipCandidates.append(candidateNode)
             penTipPosition += candidateNode.position
             penTipRotation.x += candidateNode.rotation.x
             penTipRotation.y += candidateNode.rotation.y
@@ -232,10 +229,10 @@ class MarkerBox: SCNNode {
         if penTipPositionHistory.count > n {
             penTipPositionHistory.remove(at: 0)
         }
-
-        node.position = penTipPosition
-        node.rotation = penTipRotation
-        return node
+        let returnNode = SCNNode()
+        returnNode.position = penTipPosition
+        returnNode.rotation = penTipRotation
+        return returnNode
     }
     
     required init?(coder aDecoder: NSCoder) {
