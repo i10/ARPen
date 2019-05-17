@@ -5,7 +5,6 @@
 //  Created by Felix Wehnert on 16.01.18.
 //  Copyright © 2018 RWTH Aachen. All rights reserved.
 //
-
 import SceneKit
 
 /**
@@ -109,25 +108,43 @@ class MarkerBox: SCNNode {
             case (.back):
                 point.position = SCNVector3(xs, ys, zs)
                 point.eulerAngles = SCNVector3(x: 0, y: -Float.pi/2, z: -Float.pi/2)
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float(180.0).degreesToRadians
+                }
                 point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.top):
                 point.position = SCNVector3(xs, ys, zs)
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float(180.0).degreesToRadians
+                }
                 point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.right):
                 point.position = SCNVector3(xs, ys, zs)
                 point.eulerAngles = SCNVector3(x: Float.pi/2, y: 0, z: Float.pi/2)
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float(180.0).degreesToRadians
+                }
                 point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.bottom):
                 point.position = SCNVector3(-xl, yl, zl)
                 point.eulerAngles.y = Float.pi
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float(180.0).degreesToRadians
+                }
                 point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.left):
                 point.position = SCNVector3(xl, yl, zl)
                 point.eulerAngles.x = -Float.pi/2
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float(180.0).degreesToRadians
+                }
                 point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
                 point.eulerAngles = SCNVector3(x: 0, y: Float.pi/2, z: Float.pi/2)
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float(180.0).degreesToRadians
+                }
                 point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.cardboard):
                 point.position = SCNVector3(-xc, -yc, 0)
@@ -243,7 +260,7 @@ class MarkerBox: SCNNode {
         case HomeButtonLeft
         case HomeButtonRight
     }
-
+    
 }
 
 /**
