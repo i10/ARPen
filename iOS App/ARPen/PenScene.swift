@@ -68,6 +68,33 @@ class PenScene: SCNScene {
         self.pencilPoint.name = "PencilPoint"
         self.pencilPoint.geometry?.materials.first?.diffuse.contents = UIColor.red
         
+        //simple coordinate system on the pencil point
+        let coordSystemNode = SCNNode()
+        let cylinderRadius = CGFloat(0.0005)
+        let cylinderHeight = CGFloat(0.01)
+        
+        let xAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
+        xAxisGeometry.materials.first?.diffuse.contents = UIColor.red
+        let xAxisNode = SCNNode(geometry: xAxisGeometry)
+        xAxisNode.eulerAngles.z = -Float.pi/2
+        xAxisNode.position.x = Float(cylinderHeight/2)
+        coordSystemNode.addChildNode(xAxisNode)
+        
+        let yAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
+        yAxisGeometry.materials.first?.diffuse.contents = UIColor.green
+        let yAxisNode = SCNNode(geometry: yAxisGeometry)
+        yAxisNode.position.y = Float(cylinderHeight/2)
+        coordSystemNode.addChildNode(yAxisNode)
+        
+        let zAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
+        zAxisGeometry.materials.first?.diffuse.contents = UIColor.blue
+        let zAxisNode = SCNNode(geometry: zAxisGeometry)
+        zAxisNode.eulerAngles.x = Float.pi/2
+        zAxisNode.position.z = Float(cylinderHeight/2)
+        coordSystemNode.addChildNode(zAxisNode)
+        
+        self.pencilPoint.addChildNode(coordSystemNode)
+        
         self.rootNode.addChildNode(self.pencilPoint)
         self.rootNode.addChildNode(self.drawingNode)
     }
