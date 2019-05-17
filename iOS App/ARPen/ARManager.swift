@@ -77,7 +77,8 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
         scene.markerFound = true
         //self.scene.pencilPoint.position = self.scene.markerBox.position(withIds: UnsafeMutablePointer(mutating: ids), count: Int32(ids.count))
         let markerBoxNode = scene.markerBox.posititonWith(ids: ids)
-        scene.pencilPoint.position = markerBoxNode.position
+        scene.pencilPoint.transform = markerBoxNode.transform
+        
         
         self.delegate?.finishedCalculation()
     }

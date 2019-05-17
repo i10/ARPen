@@ -103,21 +103,35 @@ class MarkerBox: SCNNode {
             let point = SCNNode()
             point.name = "Point from #\(i+1)"
             
+            //for rotation: for simplicity, take the top rotation as the basis. rotate other markers to fit the top orientation and then apply the same rotation to the pen tip
+            let rotationMatrix = SCNMatrix4MakeRotation(-35.3*Float.pi/180, 0.5, -0.5, 0)
             switch (markerFace) {
             case (.back):
                 point.position = SCNVector3(xs, ys, zs)
+                let rotationToTopMatrix = SCNMatrix4Rotate(SCNMatrix4MakeRotation(-Float.pi/2, 0, 0, 1), -Float.pi/2, 1, 0, 0)
+                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
             case (.top):
                 point.position = SCNVector3(xs, ys, zs)
+                point.transform = SCNMatrix4Mult(rotationMatrix, point.transform)
             case (.right):
                 point.position = SCNVector3(xs, ys, zs)
+                let rotationToTopMatrix = SCNMatrix4Rotate(SCNMatrix4MakeRotation(Float.pi/2, 0, 0, 1), Float.pi/2, 0, 1, 0)
+                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
             case (.bottom):
                 point.position = SCNVector3(-xl, yl, zl)
+                let rotationToTopMatrix = SCNMatrix4MakeRotation(Float.pi, 0, 1, 0)
+                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
             case (.left):
                 point.position = SCNVector3(xl, yl, zl)
+                let rotationToTopMatrix = SCNMatrix4MakeRotation(-Float.pi/2, 1,0,0)
+                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
             case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
+                let rotationToTopMatrix = SCNMatrix4Rotate(SCNMatrix4MakeRotation(Float.pi/2, 0, 1, 0), Float.pi/2, 0, 0, 1)
+                point.transform = SCNMatrix4Mult(SCNMatrix4Mult(rotationMatrix, rotationToTopMatrix), point.transform)
             case (.cardboard):
                 point.position = SCNVector3(-xc, -yc, 0)
+                point.eulerAngles = SCNVector3(-Float.pi/2, 0, -Float.pi/4)
             default:
                 break
             }
@@ -160,7 +174,9 @@ class MarkerBox: SCNNode {
      */
     func posititonWith(ids: [MarkerFace]) -> SCNNode {
         var node = SCNNode()
-        var vector = SCNVector3Zero
+        //holds the computed pen tips for each marker -> can be averaged to return pen tip node
+        var penTipCandidates = [SCNNode]()
+        var penTipPosition = SCNVector3Zero
         var mutableIds : [MarkerFace] = ids
         
         if mutableIds.count == 3 {
@@ -185,24 +201,34 @@ class MarkerBox: SCNNode {
         }
         
         for id in mutableIds {
-            let point = self.markerArray[id.rawValue-1].childNodes.first!.convertPosition(SCNVector3Zero, to: nil)
-            vector += point
+            let candidateNode = SCNNode()
+            let transform = self.markerArray[id.rawValue-1].childNodes.first!.convertTransform(SCNMatrix4Identity, to: nil)
+            
+            candidateNode.transform = transform
+            penTipCandidates.append(candidateNode)
+            penTipPosition += candidateNode.position
         }
-        vector /= Float(mutableIds.count)
+        
+        penTipPosition /= Float(mutableIds.count)
         
         //Average with past n tip positions
         let n = 1
         for pastPenTip in penTipPositionHistory {
-            vector += pastPenTip
+            penTipPosition += pastPenTip
         }
-        vector /= Float(penTipPositionHistory.count + 1)
-        penTipPositionHistory.append(vector)
+        penTipPosition /= Float(penTipPositionHistory.count + 1)
+        penTipPositionHistory.append(penTipPosition)
         
         //Remove latest item if too much items are in penTipPositionHistory
         if penTipPositionHistory.count > n {
             penTipPositionHistory.remove(at: 0)
         }
-        node.position = vector
+        
+        if let orientation = penTipCandidates.first?.orientation {
+            node.orientation = orientation
+        }
+        
+        node.position = penTipPosition
         return node
     }
     
