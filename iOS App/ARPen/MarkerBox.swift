@@ -177,6 +177,7 @@ class MarkerBox: SCNNode {
         //holds the computed pen tips for each marker -> can be averaged to return pen tip node
         var penTipCandidates = [SCNNode]()
         var penTipPosition = SCNVector3Zero
+        var penTipRotation = SCNVector4Zero
         var mutableIds : [MarkerFace] = ids
         
         if mutableIds.count == 3 {
@@ -207,9 +208,17 @@ class MarkerBox: SCNNode {
             candidateNode.transform = transform
             penTipCandidates.append(candidateNode)
             penTipPosition += candidateNode.position
+            penTipRotation.x += candidateNode.rotation.x
+            penTipRotation.y += candidateNode.rotation.y
+            penTipRotation.z += candidateNode.rotation.z
+            penTipRotation.w += candidateNode.rotation.w
         }
         
         penTipPosition /= Float(mutableIds.count)
+        penTipRotation.x /= Float(mutableIds.count)
+        penTipRotation.y /= Float(mutableIds.count)
+        penTipRotation.z /= Float(mutableIds.count)
+        penTipRotation.w /= Float(mutableIds.count)
         
         //Average with past n tip positions
         let n = 1
@@ -223,12 +232,9 @@ class MarkerBox: SCNNode {
         if penTipPositionHistory.count > n {
             penTipPositionHistory.remove(at: 0)
         }
-        
-        if let orientation = penTipCandidates.first?.orientation {
-            node.orientation = orientation
-        }
-        
+
         node.position = penTipPosition
+        node.rotation = penTipRotation
         return node
     }
     
