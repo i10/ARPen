@@ -47,6 +47,6 @@ Feel free to [submit pull requests][3], [create issues][2] or spread the word. A
 [7]: https://github.com/i10/ARPen/wiki/Developing-for-ARPen "Developing for ARPen"
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons"
-[image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20Setup.png "Bluetooth Setup"
+[image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20setup.png "Bluetooth Setup"
 [image-3]:  https://github.com/i10/ARPen/blob/master/Documentation/images/BLE%20mount%20setup.png "BLE Mount Setup"
 [image-4]:  https://github.com/i10/ARPen/blob/master/Documentation/images/Soldering_Setup.png "Soldering Setup"
