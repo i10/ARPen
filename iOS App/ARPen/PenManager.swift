@@ -122,6 +122,7 @@ class PenManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             })
             centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
         default:
+            self.delegate?.connect(successfully: false)
             break
         }
     }
