@@ -33,7 +33,7 @@ class MarkerBox: SCNNode {
     }
     
     init(length: Double) {
-        markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
+        markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
         penLength = length
         super.init()
         self.name = "MarkerBox"
@@ -63,7 +63,9 @@ class MarkerBox: SCNNode {
     
     func calculatePenTip(length: Double){
         let a: Double = length
-        var xs, ys, zs, xl, yl, zl, xc, yc: Double
+        var xs, ys, zs, xl, yl, zl,
+            xCHIARPen, yCHIARPen,
+            xLMARPen, yLMARPen: Double
         
         let angle = (35.3).degreesToRadians
         
@@ -86,6 +88,12 @@ class MarkerBox: SCNNode {
         let markerOffsetFromBottom: Double = 0.01975 // distance from the bottom of the card to the center of the marker
         let cardWidth = 0.085
         let cardHeight = 0.055
+        // Calculate the translation vector for half-sized business card ARPen used for Laser Messe, Munich, 2019.
+        let markerOffsetFromBottomForLaserMesseARPen: Double = 0.01375; // distance from the bottom of the card to the center of the marker
+        let heightOfLaserMesseARPen = 0.0275;
+        
+        xLMARPen = 0.0713; // marker's center distance from the left edge of the card
+        yLMARPen = heightOfLaserMesseARPen/2 - markerOffsetFromBottomForLaserMesseARPen;
         
         xc = 0.75 * cardWidth // assuming marker center is at three-fourths of the card width
         yc = cardHeight - markerOffsetFromBottom // height of the card is 5.5 cm
@@ -118,6 +126,8 @@ class MarkerBox: SCNNode {
                 point.position = SCNVector3(-xl, yl, zl)
             case (.cardboard):
                 point.position = SCNVector3(-xc, -yc, 0)
+            case (.laserMesseARPen):
+                point.position = SCNVector3(-xLMARPen, -yLMARPen, 0)
             default:
                 break
             }
@@ -223,5 +233,6 @@ class MarkerBox: SCNNode {
 enum MarkerFace: Int {
     case back = 1, top, right, bottom, left, front
     case cardboard = 7
+    case laserMesseARPen = 8
     case notExpected = 0
 }
