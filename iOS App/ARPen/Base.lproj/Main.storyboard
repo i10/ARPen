@@ -317,11 +317,11 @@
                                         <rect key="frame" x="0.0" y="390.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hwo-f9-QtB" id="uZu-5d-27b">
-                                            <rect key="frame" x="0.0" y="0.0" width="641" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="629" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CjU-1l-hBX">
-                                                    <rect key="frame" x="15" y="0.0" width="617" height="43.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="609" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -523,6 +523,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bluetoothDeviceTableViewCell" destination="hwo-f9-QtB" id="rbY-ic-vas"/>
+                        <outlet property="clearSceneButton" destination="ujQ-ry-0ID" id="GcI-g4-r43"/>
                         <outlet property="penSizeLabel" destination="Yzh-ZR-qGb" id="DjM-j6-FHi"/>
                         <outlet property="penSizeSlider" destination="Mtg-ZS-EeL" id="6he-r6-tom"/>
                         <outlet property="userIDTextField" destination="eTC-7m-Ryy" id="QT2-SA-THK"/>
