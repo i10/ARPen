@@ -148,11 +148,6 @@
                                         <constraint firstAttribute="bottom" secondItem="25J-KE-Ech" secondAttribute="bottom" id="rca-1u-rWN"/>
                                         <constraint firstItem="25J-KE-Ech" firstAttribute="leading" secondItem="YXb-VB-vP4" secondAttribute="leading" id="svK-nk-Cbl"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="subviews">
-                                            <exclude reference="25J-KE-Ech"/>
-                                        </mask>
-                                    </variation>
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
@@ -176,11 +171,6 @@
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="cqj-y5-Wso"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EIQ-Ip-Tyt"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="iYd-yH-V3o"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="6Ro-dD-aza"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -716,7 +706,7 @@
     </scenes>
     <resources>
         <image name="Checkmark" width="37" height="37"/>
-        <image name="Ellipsis button" width="96" height="95.666664123535156"/>
+        <image name="Ellipsis button" width="108" height="106.33333587646484"/>
         <image name="Logos" width="457.33334350585938" height="69.666664123535156"/>
         <image name="SoftwareButton" width="603.33331298828125" height="603.33331298828125"/>
     </resources>
