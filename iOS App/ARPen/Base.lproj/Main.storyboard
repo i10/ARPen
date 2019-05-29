@@ -46,7 +46,7 @@
                                     <constraint firstAttribute="height" constant="38" id="NDD-B7-4pf"/>
                                     <constraint firstAttribute="width" constant="38" id="djM-fF-nxf"/>
                                 </constraints>
-                                <state key="normal" image="cog"/>
+                                <state key="normal" image="Ellipsis button"/>
                                 <connections>
                                     <segue destination="Lka-5d-7oi" kind="presentation" identifier="ShowSettingsSegue" id="6IN-xV-Gst"/>
                                 </connections>
@@ -321,11 +321,11 @@
                                         <rect key="frame" x="0.0" y="492.5" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hwo-f9-QtB" id="uZu-5d-27b">
-                                            <rect key="frame" x="0.0" y="0.0" width="629" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="641" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CjU-1l-hBX">
-                                                    <rect key="frame" x="20" y="0.0" width="609" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="617" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -706,8 +706,8 @@
     </scenes>
     <resources>
         <image name="Checkmark" width="37" height="37"/>
+        <image name="Ellipsis button" width="108" height="106.33333587646484"/>
         <image name="Logos" width="457.33334350585938" height="69.666664123535156"/>
         <image name="SoftwareButton" width="603.33331298828125" height="603.33331298828125"/>
-        <image name="cog" width="128" height="128"/>
     </resources>
 </document>
