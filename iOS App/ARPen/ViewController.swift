@@ -112,7 +112,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             buttonForCurrentPlugin.tag = index + 1 //+1 needed since finding a view with tag 0 does not work
             buttonForCurrentPlugin.addTarget(self, action: #selector(pluginButtonPressed), for: .touchUpInside)
             
-            buttonForCurrentPlugin.backgroundColor = UIColor.clear
             buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
             buttonForCurrentPlugin.imageEdgeInsets = UIEdgeInsets(top: CGFloat(menuButtonPadding), left: CGFloat(menuButtonPadding), bottom: CGFloat(menuButtonPadding+menuButtonHeight/3), right: CGFloat(menuButtonPadding))
             buttonForCurrentPlugin.imageView?.contentMode = .scaleAspectFit
@@ -130,6 +129,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             titleLabel.textAlignment = .center
             titleLabel.baselineAdjustment = .alignCenters
             buttonForCurrentPlugin.addSubview(titleLabel)
+            buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
             
             self.pluginMenuScrollView.addSubview(buttonForCurrentPlugin)
         }
@@ -142,7 +142,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     func activatePlugin(withID pluginID:Int) {
         //deactivate highlighting of the button from the currently active plugin
         if let currentActivePluginButton = self.pluginMenuScrollView.viewWithTag(currentActivePluginID) as? UIButton {
-            currentActivePluginButton.backgroundColor = UIColor.clear
+            currentActivePluginButton.layer.borderColor = UIColor.clear.cgColor
+            currentActivePluginButton.layer.borderWidth = 0
         }
         
         //find the button for the new active plugin and set the highlighted color
@@ -150,7 +151,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             print("Button for new plugin not found")
             return
         }
-        newActivePluginButton.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        
+        newActivePluginButton.layer.borderColor = UIColor(white: 0, alpha: 0.5).cgColor
+        newActivePluginButton.layer.borderWidth = 2
         
         if let currentActivePlugin = self.pluginManager.activePlugin {
             currentActivePlugin.deactivatePlugin()
