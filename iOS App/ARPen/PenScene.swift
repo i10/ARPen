@@ -38,7 +38,9 @@ class PenScene: SCNScene {
      */
     func share() -> URL {
         let filePath = URL(fileURLWithPath: NSTemporaryDirectory() + "/scene.stl")
-        let asset = MDLAsset(scnScene: self)
+        let drawingItems = MDLObject(scnNode: self.drawingNode)
+        let asset = MDLAsset()
+        asset.add(drawingItems)
         try! asset.export(to: filePath)
         return filePath
     }
