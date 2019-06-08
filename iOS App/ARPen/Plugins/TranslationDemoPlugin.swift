@@ -12,7 +12,7 @@ import ARKit
 class TranslationDemoPlugin: Plugin {
     
     var pluginImage : UIImage? = UIImage.init(named: "TranslationDemoPlugin")
-    var pluginIdentifier: String = "TranslationDemo"
+    var pluginIdentifier: String = "Explore ARTranslation"
     var currentScene : PenScene?
     var currentView: ARSCNView?
     var finishedView : UILabel?

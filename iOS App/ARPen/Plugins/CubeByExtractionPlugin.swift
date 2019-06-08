@@ -14,7 +14,7 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
     
 
     var pluginImage : UIImage? = UIImage.init(named: "CubeByExtractionPlugin")
-    var pluginIdentifier: String = "CubeByExtraction"
+    var pluginIdentifier: String = "Create Cube by Extraction"
     var currentScene : PenScene?
     var currentView: ARSCNView?
     /**

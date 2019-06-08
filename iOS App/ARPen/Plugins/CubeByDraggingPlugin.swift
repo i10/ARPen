@@ -15,7 +15,7 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     var recordManager: UserStudyRecordManager!
     
     var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
-    var pluginIdentifier: String = "CubeByDragging"
+    var pluginIdentifier: String = "Create Cube by Dragging"
     var currentScene : PenScene?
     var currentView: ARSCNView?
     

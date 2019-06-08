@@ -11,7 +11,7 @@ import ARKit
 class ARMenusPlugin: Plugin, MenuDelegate {
     
     var pluginImage : UIImage? = UIImage.init(named: "Menues")
-    var pluginIdentifier: String = "ARMenus"
+    var pluginIdentifier: String = "Explore ARMenus"
     var currentView: ARSCNView?
     
     //You need to set this to nil when switching to another plugin!
