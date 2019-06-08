@@ -46,6 +46,9 @@
 		DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */; };
 		DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */; };
 		DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */ = {isa = PBXBuildFile; fileRef = DC28B478200E7E89008B77AB /* MarkerBox.m */; };
+		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
+		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
+		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,6 +111,9 @@
 		DC28B478200E7E89008B77AB /* MarkerBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerBox.m; sourceTree = "<group>"; };
 		DC28B479200E7E89008B77AB /* MarkerBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerBox.h; sourceTree = "<group>"; };
 		DCE5A37E202F504B005F4186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereByDraggingPlugin.swift; sourceTree = "<group>"; };
+		E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderByDraggingPlugin.swift; sourceTree = "<group>"; };
+		E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyramidByDraggingPlugin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +227,9 @@
 				AA935109224245CE002AEB00 /* ARMenusPlugin.swift */,
 				4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */,
 				4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */,
+				E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */,
+				E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */,
+				E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -320,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC28B461200E46DC008B77AB /* Plugin.swift in Sources */,
+				E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */,
 				4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */,
 				4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */,
 				DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */,
@@ -329,6 +339,7 @@
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
 				4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */,
 				DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */,
+				E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
@@ -349,6 +360,7 @@
 				DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */,
 				DC28B463200E471F008B77AB /* PluginManager.swift in Sources */,
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
+				E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */,
 				4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */,
 				DC28B46B200E4C78008B77AB /* Button.swift in Sources */,
 				DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */,
