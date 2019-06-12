@@ -13,8 +13,8 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     //reference to userStudyRecordManager to add new records
     var recordManager: UserStudyRecordManager!
     
-    var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
-    var pluginIdentifier: String = "Create Sphere by Dragging"
+    var pluginImage : UIImage? = UIImage.init(named: "SpherePlugin")
+    var pluginIdentifier: String = "Sphere"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?

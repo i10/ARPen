@@ -13,8 +13,8 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     //reference to userStudyRecordManager to add new records
     var recordManager: UserStudyRecordManager!
     
-    var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
-    var pluginIdentifier: String = "Create Pyramid by Dragging"
+    var pluginImage : UIImage? = UIImage.init(named: "PyramidPlugin")
+    var pluginIdentifier: String = "Pyramid"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?
