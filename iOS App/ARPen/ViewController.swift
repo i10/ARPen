@@ -25,6 +25,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var arKitImage: UIImageView!
     @IBOutlet var arSceneView: ARSCNView!
     @IBOutlet weak var pluginMenuScrollView: UIScrollView!
+    @IBOutlet weak var imageForPluginInstructions: UIImageView!
+    @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     
     let menuButtonHeight = 70
     let menuButtonPadding = 5
@@ -59,6 +61,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         // Set the scene to the view
         arSceneView.scene = scene
         
+        // Setup tap gesture recognizer for imageForPluginInstructions
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action:  #selector(ViewController.imageForPluginInstructionsTapped(_:)))
+        self.imageForPluginInstructions.isUserInteractionEnabled = true
+        self.imageForPluginInstructions.addGestureRecognizer(tapGestureRecognizer)
+        
+        // Hide the imageForPluginInstructions
+        self.imageForPluginInstructions.isHidden = true
+        self.displayPluginInstructions(forPluginID: currentActivePluginID)
         
         // set user study record manager reference in the app delegate (for saving state when leaving the app)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -139,9 +149,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             self.pluginMenuScrollView.addSubview(buttonForCurrentPlugin)
         }
     }
-    
+     
     @objc func pluginButtonPressed(sender: UIButton!){
-        activatePlugin(withID: sender.tag)
+        let pluginID = sender.tag
+        activatePlugin(withID: pluginID)
+        
+        if (!self.pluginManager.pluginInstructionsCanBeHidden[pluginID-1]) {
+            displayPluginInstructions(forPluginID: pluginID)
+        } else {
+            self.imageForPluginInstructions.isHidden = true
+            self.pluginInstructionsLookupButton.isHidden = false
+        }
+        
     }
     
     func activatePlugin(withID pluginID:Int) {
@@ -157,8 +176,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             return
         }
         
-        newActivePluginButton.layer.borderColor = UIColor(white: 0, alpha: 0.5).cgColor
-        newActivePluginButton.layer.borderWidth = 2
         newActivePluginButton.layer.borderColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 0.75).cgColor
         newActivePluginButton.layer.borderWidth = 1
         
@@ -176,6 +193,29 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
         }
         currentActivePluginID = pluginID
+    }
+    
+    // Display the instructions for plugin by setting imageForPluginInstructions
+    func displayPluginInstructions(forPluginID pluginID: Int) {
+        let plugin = self.pluginManager.plugins[pluginID-1]
+        
+        self.imageForPluginInstructions.image = plugin.pluginInstructionsImage
+        self.imageForPluginInstructions.alpha = 0.75
+        self.imageForPluginInstructions.isHidden = false
+        
+        self.pluginInstructionsLookupButton.isHidden = true
+    }
+    
+    @objc func imageForPluginInstructionsTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        self.pluginManager.pluginInstructionsCanBeHidden[self.currentActivePluginID-1] = true
+        
+        tappedImage.isHidden = true
+        self.pluginInstructionsLookupButton.isHidden = false
+    }
+    
+    @IBAction func showPluginInstructions(_ sender: Any) {
+        self.displayPluginInstructions(forPluginID: self.currentActivePluginID)        
     }
     
     /**

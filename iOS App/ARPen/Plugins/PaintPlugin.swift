@@ -12,6 +12,7 @@ import ARKit
 class PaintPlugin: Plugin {
     
     var pluginImage : UIImage? = UIImage.init(named: "PaintPlugin")
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "PaintPluginInstructions")
     var pluginIdentifier: String = "Paint"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")

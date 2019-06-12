@@ -14,6 +14,7 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     var recordManager: UserStudyRecordManager!
     
     var pluginImage : UIImage? = UIImage.init(named: "CylinderPlugin")
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "PaintPluginInstructions")
     var pluginIdentifier: String = "Cylinder"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")

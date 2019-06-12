@@ -23,6 +23,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var arPenManager: PenManager
     var buttons: [Button: Bool] = [.Button1: false, .Button2: false, .Button3: false]
     var plugins: [Plugin] = [PaintPlugin(), CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CubeByExtractionPlugin(), CombinationPlugin()]
+    var pluginInstructionsCanBeHidden: [Bool] = Array(repeating: false, count: 9)
     var activePlugin: Plugin?
     var delegate: PluginManagerDelegate?
     
