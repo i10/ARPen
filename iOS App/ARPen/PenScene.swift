@@ -65,10 +65,10 @@ class PenScene: SCNScene {
         setupPencilPoint()
     }
     
-    func setupPencilPoint() {
+    func setupPencilPoint() {        
         self.pencilPoint.geometry = SCNSphere(radius: 0.002)
         self.pencilPoint.name = "PencilPoint"
-        self.pencilPoint.geometry?.materials.first?.diffuse.contents = UIColor.red
+        self.pencilPoint.geometry?.materials.first?.diffuse.contents = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
         
         self.rootNode.addChildNode(self.pencilPoint)
         self.rootNode.addChildNode(self.drawingNode)
