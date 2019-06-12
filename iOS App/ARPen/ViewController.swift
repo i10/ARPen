@@ -59,8 +59,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         // Set the scene to the view
         arSceneView.scene = scene
         
-        setupPluginMenu()
-        activatePlugin(withID: currentActivePluginID)
         
         // set user study record manager reference in the app delegate (for saving state when leaving the app)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -96,7 +94,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    func setupPluginMenu(){
+    func setupPluginMenu(bluetoothARPenConnected: Bool){
         //define target height and width for the scrollview to hold all buttons
         let targetWidth = Int(self.pluginMenuScrollView.frame.width)
         let targetHeight = self.pluginManager.plugins.count * (menuButtonHeight+2*menuButtonPadding)
@@ -104,15 +102,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         //iterate over plugin array from plugin manager and create a button for each in the scrollview
         for (index,plugin) in self.pluginManager.plugins.enumerated() {
-            //calculate position inside the scrollview for current button
+            // calculate position inside the scrollview for current button
             let frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding), width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
             let buttonForCurrentPlugin = UIButton(frame: frameForCurrentButton)
             
-            //define properties of the button: tag for identification & action when pressed
+            // Define properties of the button: tag for identification & action when pressed
             buttonForCurrentPlugin.tag = index + 1 //+1 needed since finding a view with tag 0 does not work
             buttonForCurrentPlugin.addTarget(self, action: #selector(pluginButtonPressed), for: .touchUpInside)
             
-            buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
+            // If plugin needs bluetooth ARPen, but it is not found, then disable the button and use a different image.
+            if (plugin.needsBluetoothARPen && !bluetoothARPenConnected) {
+                buttonForCurrentPlugin.isEnabled = false
+                buttonForCurrentPlugin.setImage(plugin.pluginDisabledImage, for: .normal)
+            } else {
+                buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
+            }
+            
             buttonForCurrentPlugin.imageEdgeInsets = UIEdgeInsets(top: CGFloat(menuButtonPadding), left: CGFloat(menuButtonPadding), bottom: CGFloat(menuButtonPadding+menuButtonHeight/3), right: CGFloat(menuButtonPadding))
             buttonForCurrentPlugin.imageView?.contentMode = .scaleAspectFit
             
@@ -216,6 +221,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
         arPenActivity.isHidden = true
         self.arPenImage.isHidden = false
+        self.setupPluginMenu(bluetoothARPenConnected: true)
+        activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
     
@@ -226,6 +233,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arPenActivity.isHidden = true
         self.arPenImage.image = UIImage(named: "Cross")
         self.arPenImage.isHidden = false
+        self.setupPluginMenu(bluetoothARPenConnected: false)
+        activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
     
