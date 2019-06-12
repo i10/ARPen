@@ -129,7 +129,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             titleLabel.textAlignment = .center
             titleLabel.baselineAdjustment = .alignCenters
             buttonForCurrentPlugin.addSubview(titleLabel)
-            buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+            buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
             
             self.pluginMenuScrollView.addSubview(buttonForCurrentPlugin)
         }
@@ -154,6 +154,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         newActivePluginButton.layer.borderColor = UIColor(white: 0, alpha: 0.5).cgColor
         newActivePluginButton.layer.borderWidth = 2
+        newActivePluginButton.layer.borderColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 0.75).cgColor
+        newActivePluginButton.layer.borderWidth = 1
         
         if let currentActivePlugin = self.pluginManager.activePlugin {
             currentActivePlugin.deactivatePlugin()
