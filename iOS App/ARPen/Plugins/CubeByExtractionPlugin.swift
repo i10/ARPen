@@ -15,6 +15,8 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
 
     var pluginImage : UIImage? = UIImage.init(named: "CubeByExtractionPlugin")
     var pluginIdentifier: String = "Create Cube by Extraction"
+    var needsBluetoothARPen: Bool = true
+    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?
     var currentView: ARSCNView?
     /**

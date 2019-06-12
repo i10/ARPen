@@ -16,6 +16,8 @@ class ObjectCreationPlugin: Plugin {
     
     var pluginImage: UIImage? = UIImage.init(named: "ObjectCreationPlugin")
     var pluginIdentifier: String = "Object Creation"
+    var needsBluetoothARPen: Bool = false
+    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?
     var currentView: ARSCNView?
     

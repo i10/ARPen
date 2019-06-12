@@ -12,6 +12,8 @@ class ARMenusPlugin: Plugin, MenuDelegate {
     
     var pluginImage : UIImage? = UIImage.init(named: "Menues")
     var pluginIdentifier: String = "Explore ARMenus"
+    var needsBluetoothARPen: Bool = true
+    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentView: ARSCNView?
     
     //You need to set this to nil when switching to another plugin!
