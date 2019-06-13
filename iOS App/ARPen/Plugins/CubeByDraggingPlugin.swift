@@ -16,7 +16,7 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     
     var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "CubePluginInstructions")
-    var pluginIdentifier: String = "Cube"
+    var pluginIdentifier: String = "Create Cube"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?

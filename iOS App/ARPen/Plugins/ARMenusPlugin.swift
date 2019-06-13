@@ -11,8 +11,8 @@ import ARKit
 class ARMenusPlugin: Plugin, MenuDelegate {
     
     var pluginImage : UIImage? = UIImage.init(named: "ARMenusPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "PaintPluginInstructions")
-    var pluginIdentifier: String = "Explore ARMenus"
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
+    var pluginIdentifier: String = "Explore Menus"
     var needsBluetoothARPen: Bool = true
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentView: ARSCNView?
