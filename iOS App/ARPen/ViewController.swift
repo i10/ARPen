@@ -135,9 +135,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             
             var titleLabelFrame : CGRect
             if let _ = buttonForCurrentPlugin.imageView?.frame {
-                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding) , y: CGFloat(menuButtonPadding+menuButtonHeight*2/3), width: CGFloat(targetWidth - 2*menuButtonPadding), height: CGFloat(menuButtonHeight/3))
+                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(menuButtonPadding+menuButtonHeight*2/3), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight/3))
             } else {
-                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding) , y: CGFloat(menuButtonPadding), width: CGFloat(targetWidth - 2*menuButtonPadding), height: CGFloat(menuButtonHeight))
+                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(menuButtonPadding), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight))
             }
             
             let titleLabel = UILabel(frame: titleLabelFrame)
