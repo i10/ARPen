@@ -31,6 +31,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     let menuButtonHeight = 70
     let menuButtonPadding = 5
     var currentActivePluginID = 1
+    
+    var bluetoothARPenConnected: Bool = false
     /**
      The PluginManager instance
      */
@@ -104,7 +106,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    func setupPluginMenu(bluetoothARPenConnected: Bool){
+    func setupPluginMenu(){
         //define target height and width for the scrollview to hold all buttons
         let targetWidth = Int(self.pluginMenuScrollView.frame.width)
         let targetHeight = self.pluginManager.plugins.count * (menuButtonHeight+2*menuButtonPadding)
@@ -121,8 +123,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             buttonForCurrentPlugin.addTarget(self, action: #selector(pluginButtonPressed), for: .touchUpInside)
             
             // If plugin needs bluetooth ARPen, but it is not found, then disable the button and use a different image.
-            if (plugin.needsBluetoothARPen && !bluetoothARPenConnected) {
-                buttonForCurrentPlugin.isEnabled = false
+            if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+//                buttonForCurrentPlugin.isEnabled = false
                 buttonForCurrentPlugin.setImage(plugin.pluginDisabledImage, for: .normal)
             } else {
                 buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
@@ -199,7 +201,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     func displayPluginInstructions(forPluginID pluginID: Int) {
         let plugin = self.pluginManager.plugins[pluginID-1]
         
-        self.imageForPluginInstructions.image = plugin.pluginInstructionsImage
+        if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+            self.imageForPluginInstructions.image = UIImage.init(named: "BluetoothARPenMissingInstructions")
+        } else
+        {
+            self.imageForPluginInstructions.image = plugin.pluginInstructionsImage
+        }
+        
         self.imageForPluginInstructions.alpha = 0.75
         self.imageForPluginInstructions.isHidden = false
         
@@ -261,7 +269,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
         arPenActivity.isHidden = true
         self.arPenImage.isHidden = false
-        self.setupPluginMenu(bluetoothARPenConnected: true)
+        self.bluetoothARPenConnected = true
+        self.setupPluginMenu()
         activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
@@ -273,7 +282,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arPenActivity.isHidden = true
         self.arPenImage.image = UIImage(named: "Cross")
         self.arPenImage.isHidden = false
-        self.setupPluginMenu(bluetoothARPenConnected: false)
+        self.bluetoothARPenConnected = false
+        self.setupPluginMenu()
         activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
