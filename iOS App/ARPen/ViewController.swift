@@ -122,14 +122,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             buttonForCurrentPlugin.tag = index + 1 //+1 needed since finding a view with tag 0 does not work
             buttonForCurrentPlugin.addTarget(self, action: #selector(pluginButtonPressed), for: .touchUpInside)
             
-            // If plugin needs bluetooth ARPen, but it is not found, then disable the button and use a different image.
-            if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
-//                buttonForCurrentPlugin.isEnabled = false
-                buttonForCurrentPlugin.setImage(plugin.pluginDisabledImage, for: .normal)
-            } else {
-                buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
-            }
-            
             buttonForCurrentPlugin.imageEdgeInsets = UIEdgeInsets(top: CGFloat(menuButtonPadding), left: CGFloat(menuButtonPadding), bottom: CGFloat(menuButtonPadding+menuButtonHeight/3), right: CGFloat(menuButtonPadding))
             buttonForCurrentPlugin.imageView?.contentMode = .scaleAspectFit
             
@@ -145,6 +137,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             titleLabel.font = UIFont.init(name: "Helvetica", size: 14)
             titleLabel.textAlignment = .center
             titleLabel.baselineAdjustment = .alignCenters
+            
+            // If plugin needs bluetooth ARPen, but it is not found, then disable the button, use a different image, and grey out the plugin label.
+            if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+                //                buttonForCurrentPlugin.isEnabled = false
+                buttonForCurrentPlugin.setImage(plugin.pluginDisabledImage, for: .normal)
+                titleLabel.textColor = UIColor.init(white: 0.4, alpha: 1)
+            } else {
+                buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
+            }
+            
             buttonForCurrentPlugin.addSubview(titleLabel)
             buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
             
