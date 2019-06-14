@@ -15,7 +15,7 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     
     var pluginImage : UIImage? = UIImage.init(named: "PyramidPlugin")
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
-    var pluginIdentifier: String = "Create Pyramid"
+    var pluginIdentifier: String = "Pyramid"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?

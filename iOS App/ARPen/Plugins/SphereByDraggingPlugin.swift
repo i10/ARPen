@@ -15,7 +15,7 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     
     var pluginImage : UIImage? = UIImage.init(named: "SpherePlugin")
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "SpherePluginInstructions")
-    var pluginIdentifier: String = "Create Sphere"
+    var pluginIdentifier: String = "Sphere"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?

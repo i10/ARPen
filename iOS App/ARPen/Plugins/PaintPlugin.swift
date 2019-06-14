@@ -13,7 +13,7 @@ class PaintPlugin: Plugin {
     
     var pluginImage : UIImage? = UIImage.init(named: "PaintPlugin")
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "PaintPluginInstructions")
-    var pluginIdentifier: String = "Paint"
+    var pluginIdentifier: String = "Draw"
     var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?

@@ -13,7 +13,7 @@ class CombinationPlugin: Plugin {
     
     var pluginImage : UIImage? = UIImage.init(named: "TranslationDemoPlugin")
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
-    var pluginIdentifier: String = "Touch+Pen"
+    var pluginIdentifier: String = "Move 2"
     var needsBluetoothARPen: Bool = true
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?
