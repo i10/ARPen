@@ -142,7 +142,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             
             let titleLabel = UILabel(frame: titleLabelFrame)
             titleLabel.text = plugin.pluginIdentifier
-            titleLabel.adjustsFontSizeToFitWidth = true
+            titleLabel.font = UIFont.init(name: "Helvetica", size: 14)
             titleLabel.textAlignment = .center
             titleLabel.baselineAdjustment = .alignCenters
             buttonForCurrentPlugin.addSubview(titleLabel)
