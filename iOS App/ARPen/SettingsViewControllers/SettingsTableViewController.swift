@@ -74,7 +74,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
     }
     
     @IBAction func clearSceneButtonPressed(_ sender: Any) {
-        let alertController = UIAlertController(title: "Clear Scene?", message: "Should all elements in the scene be removed? This can not be undone.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Clear Scene?", message: "Should all elements in the scene be deleted? This cannot be undone.", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {action in
             //remove all child nodes from drawing node

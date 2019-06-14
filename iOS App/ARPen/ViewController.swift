@@ -27,6 +27,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var pluginMenuScrollView: UIScrollView!
     @IBOutlet weak var imageForPluginInstructions: UIImageView!
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
     
     let menuButtonHeight = 70
     let menuButtonPadding = 5
@@ -47,6 +48,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.pluginInstructionsLookupButton.layer.masksToBounds = true
+        self.pluginInstructionsLookupButton.layer.cornerRadius = self.pluginInstructionsLookupButton.frame.width/2
+        
+        self.settingsButton.layer.masksToBounds = true
+        self.settingsButton.layer.cornerRadius = self.settingsButton.frame.width/2
         
         // Create a new scene
         let scene = PenScene(named: "art.scnassets/ship.scn")!
