@@ -201,7 +201,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
         }
         if let currentScene = self.pluginManager.arManager.scene {
-            newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
+            if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+                newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
+            }
         }
         currentActivePluginID = pluginID
     }
@@ -212,9 +214,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
             self.imageForPluginInstructions.image = UIImage.init(named: "BluetoothARPenMissingInstructions")
+            self.imageForPluginInstructions.isUserInteractionEnabled = false
         } else
         {
             self.imageForPluginInstructions.image = plugin.pluginInstructionsImage
+            self.imageForPluginInstructions.isUserInteractionEnabled = true
         }
         
         self.imageForPluginInstructions.alpha = 0.75
