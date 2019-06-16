@@ -13,8 +13,11 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     //reference to userStudyRecordManager to add new records
     var recordManager: UserStudyRecordManager!
     
-    var pluginImage : UIImage? = UIImage.init(named: "CubeByDraggingPlugin")
-    var pluginIdentifier: String = "Create Cylinder by Dragging"
+    var pluginImage : UIImage? = UIImage.init(named: "CylinderPlugin")
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "CylinderPluginInstructions")
+    var pluginIdentifier: String = "Cylinder"
+    var needsBluetoothARPen: Bool = false
+    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?
     var currentView: ARSCNView?
     

@@ -25,10 +25,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var arKitImage: UIImageView!
     @IBOutlet var arSceneView: ARSCNView!
     @IBOutlet weak var pluginMenuScrollView: UIScrollView!
+    @IBOutlet weak var imageForPluginInstructions: UIImageView!
+    @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var undoButton: UIButton!
     
     let menuButtonHeight = 70
     let menuButtonPadding = 5
     var currentActivePluginID = 1
+    
+    var bluetoothARPenConnected: Bool = false
     /**
      The PluginManager instance
      */
@@ -43,6 +49,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.pluginInstructionsLookupButton.layer.masksToBounds = true
+        self.pluginInstructionsLookupButton.layer.cornerRadius = self.pluginInstructionsLookupButton.frame.width/2
+        
+        self.settingsButton.layer.masksToBounds = true
+        self.settingsButton.layer.cornerRadius = self.settingsButton.frame.width/2
+        
+        self.undoButton.layer.masksToBounds = true
+        self.undoButton.layer.cornerRadius = self.undoButton.frame.width/2
+        
+        self.undoButton.isHidden = false
+        self.undoButton.isEnabled = true
         
         // Create a new scene
         let scene = PenScene(named: "art.scnassets/ship.scn")!
@@ -59,8 +77,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         // Set the scene to the view
         arSceneView.scene = scene
         
-        setupPluginMenu()
-        activatePlugin(withID: currentActivePluginID)
+        // Setup tap gesture recognizer for imageForPluginInstructions
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action:  #selector(ViewController.imageForPluginInstructionsTapped(_:)))
+        self.imageForPluginInstructions.isUserInteractionEnabled = true
+        self.imageForPluginInstructions.addGestureRecognizer(tapGestureRecognizer)
+        
+        // Hide the imageForPluginInstructions
+        self.imageForPluginInstructions.isHidden = true
+        self.displayPluginInstructions(forPluginID: currentActivePluginID)
         
         // set user study record manager reference in the app delegate (for saving state when leaving the app)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -99,44 +123,89 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     func setupPluginMenu(){
         //define target height and width for the scrollview to hold all buttons
         let targetWidth = Int(self.pluginMenuScrollView.frame.width)
-        let targetHeight = self.pluginManager.plugins.count * (menuButtonHeight+2*menuButtonPadding)
+        let experimentalPluginLabelHeight: Int = 40
+        
+        let targetHeight = self.pluginManager.plugins.count * (menuButtonHeight+2*menuButtonPadding) + experimentalPluginLabelHeight
         self.pluginMenuScrollView.contentSize = CGSize(width: targetWidth, height: targetHeight)
         
         //iterate over plugin array from plugin manager and create a button for each in the scrollview
         for (index,plugin) in self.pluginManager.plugins.enumerated() {
-            //calculate position inside the scrollview for current button
-            let frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding), width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
+            // calculate position inside the scrollview for current button
+            
+            let frameForCurrentButton: CGRect
+            if (index + 2 <= self.pluginManager.experimentalPluginsStartAtIndex) {
+                frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding), width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
+            } else {
+                frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding) + experimentalPluginLabelHeight, width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
+            }
             let buttonForCurrentPlugin = UIButton(frame: frameForCurrentButton)
             
-            //define properties of the button: tag for identification & action when pressed
+            // Define properties of the button: tag for identification & action when pressed
             buttonForCurrentPlugin.tag = index + 1 //+1 needed since finding a view with tag 0 does not work
             buttonForCurrentPlugin.addTarget(self, action: #selector(pluginButtonPressed), for: .touchUpInside)
             
-            buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
             buttonForCurrentPlugin.imageEdgeInsets = UIEdgeInsets(top: CGFloat(menuButtonPadding), left: CGFloat(menuButtonPadding), bottom: CGFloat(menuButtonPadding+menuButtonHeight/3), right: CGFloat(menuButtonPadding))
             buttonForCurrentPlugin.imageView?.contentMode = .scaleAspectFit
             
             var titleLabelFrame : CGRect
             if let _ = buttonForCurrentPlugin.imageView?.frame {
-                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding) , y: CGFloat(menuButtonPadding+menuButtonHeight*2/3), width: CGFloat(targetWidth - 2*menuButtonPadding), height: CGFloat(menuButtonHeight/3))
+                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(menuButtonPadding+menuButtonHeight*2/3), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight/3))
             } else {
-                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding) , y: CGFloat(menuButtonPadding), width: CGFloat(targetWidth - 2*menuButtonPadding), height: CGFloat(menuButtonHeight))
+                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(menuButtonPadding), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight))
             }
             
             let titleLabel = UILabel(frame: titleLabelFrame)
             titleLabel.text = plugin.pluginIdentifier
-            titleLabel.adjustsFontSizeToFitWidth = true
+            titleLabel.font = UIFont.init(name: "Helvetica", size: 14)
             titleLabel.textAlignment = .center
             titleLabel.baselineAdjustment = .alignCenters
+            
+            // If plugin needs bluetooth ARPen, but it is not found, then disable the button, use a different image, and grey out the plugin label.
+            if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+                //                buttonForCurrentPlugin.isEnabled = false
+                buttonForCurrentPlugin.setImage(plugin.pluginDisabledImage, for: .normal)
+                titleLabel.textColor = UIColor.init(white: 0.4, alpha: 1)
+            } else {
+                buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
+            }
+            
             buttonForCurrentPlugin.addSubview(titleLabel)
-            buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+            buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
             
             self.pluginMenuScrollView.addSubview(buttonForCurrentPlugin)
+            
+            // Add experimental plugins header
+            if (self.pluginManager.experimentalPluginsStartAtIndex == index + 2) {
+                let baseHeight = index*(menuButtonHeight+2*menuButtonPadding)
+                let textOffset = 5
+
+                let yPosition = menuButtonPadding+menuButtonHeight*2/3 + baseHeight + experimentalPluginLabelHeight + textOffset
+                
+                let headerLabelFrame: CGRect = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(yPosition), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight/3))
+                let headerLabel = UILabel(frame: headerLabelFrame)
+                
+                headerLabel.text = "Experimental"
+                headerLabel.font = UIFont.init(name: "Helvetica", size: 12)
+                headerLabel.textColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
+                headerLabel.textAlignment = .center
+                headerLabel.baselineAdjustment = .alignCenters
+                
+                self.pluginMenuScrollView.addSubview(headerLabel)
+            }
         }
     }
-    
+     
     @objc func pluginButtonPressed(sender: UIButton!){
-        activatePlugin(withID: sender.tag)
+        let pluginID = sender.tag
+        activatePlugin(withID: pluginID)
+        
+        if (!self.pluginManager.pluginInstructionsCanBeHidden[pluginID-1]) {
+            displayPluginInstructions(forPluginID: pluginID)
+        } else {
+            self.imageForPluginInstructions.isHidden = true
+            self.pluginInstructionsLookupButton.isHidden = false
+        }
+        
     }
     
     func activatePlugin(withID pluginID:Int) {
@@ -152,8 +221,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             return
         }
         
-        newActivePluginButton.layer.borderColor = UIColor(white: 0, alpha: 0.5).cgColor
-        newActivePluginButton.layer.borderWidth = 2
+        newActivePluginButton.layer.borderColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 0.75).cgColor
+        newActivePluginButton.layer.borderWidth = 1
         
         if let currentActivePlugin = self.pluginManager.activePlugin {
             currentActivePlugin.deactivatePlugin()
@@ -166,9 +235,42 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
         }
         if let currentScene = self.pluginManager.arManager.scene {
-            newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
+            if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+                newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
+            }
         }
         currentActivePluginID = pluginID
+    }
+    
+    // Display the instructions for plugin by setting imageForPluginInstructions
+    func displayPluginInstructions(forPluginID pluginID: Int) {
+        let plugin = self.pluginManager.plugins[pluginID-1]
+        
+        if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+            self.imageForPluginInstructions.image = UIImage.init(named: "BluetoothARPenMissingInstructions")
+            self.imageForPluginInstructions.isUserInteractionEnabled = false
+        } else
+        {
+            self.imageForPluginInstructions.image = plugin.pluginInstructionsImage
+            self.imageForPluginInstructions.isUserInteractionEnabled = true
+        }
+        
+        self.imageForPluginInstructions.alpha = 0.75
+        self.imageForPluginInstructions.isHidden = false
+        
+        self.pluginInstructionsLookupButton.isHidden = true
+    }
+    
+    @objc func imageForPluginInstructionsTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        self.pluginManager.pluginInstructionsCanBeHidden[self.currentActivePluginID-1] = true
+        
+        tappedImage.isHidden = true
+        self.pluginInstructionsLookupButton.isHidden = false
+    }
+    
+    @IBAction func showPluginInstructions(_ sender: Any) {
+        self.displayPluginInstructions(forPluginID: self.currentActivePluginID)        
     }
     
     /**
@@ -186,6 +288,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             destinationSettingsController.scene = self.arSceneView.scene as! PenScene
             //pass reference to the record manager (to show active user ID and export data)
             destinationSettingsController.userStudyRecordManager = self.userStudyRecordManager
+            destinationSettingsController.bluetoothARPenConnected = self.bluetoothARPenConnected
         }
         
     }
@@ -214,6 +317,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
         arPenActivity.isHidden = true
         self.arPenImage.isHidden = false
+        self.bluetoothARPenConnected = true
+        self.setupPluginMenu()
+        activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
     
@@ -224,6 +330,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arPenActivity.isHidden = true
         self.arPenImage.image = UIImage(named: "Cross")
         self.arPenImage.isHidden = false
+        self.bluetoothARPenConnected = false
+        self.setupPluginMenu()
+        activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
     
