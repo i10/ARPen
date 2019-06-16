@@ -22,10 +22,11 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var arManager: ARManager
     var arPenManager: PenManager
     var buttons: [Button: Bool] = [.Button1: false, .Button2: false, .Button3: false]
-    var plugins: [Plugin] = [PaintPlugin(), CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CubeByExtractionPlugin(), CombinationPlugin()]
+    var plugins: [Plugin] = [PaintPlugin(), CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin()]
     var pluginInstructionsCanBeHidden: [Bool] = Array(repeating: false, count: 9)
     var activePlugin: Plugin?
     var delegate: PluginManagerDelegate?
+    var experimentalPluginsStartAtIndex: Int = 7
     
     /**
      inits every plugin

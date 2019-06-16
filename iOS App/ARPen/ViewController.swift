@@ -116,13 +116,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     func setupPluginMenu(){
         //define target height and width for the scrollview to hold all buttons
         let targetWidth = Int(self.pluginMenuScrollView.frame.width)
-        let targetHeight = self.pluginManager.plugins.count * (menuButtonHeight+2*menuButtonPadding)
+        let experimentalPluginLabelHeight: Int = 40
+        
+        let targetHeight = self.pluginManager.plugins.count * (menuButtonHeight+2*menuButtonPadding) + experimentalPluginLabelHeight
         self.pluginMenuScrollView.contentSize = CGSize(width: targetWidth, height: targetHeight)
         
         //iterate over plugin array from plugin manager and create a button for each in the scrollview
         for (index,plugin) in self.pluginManager.plugins.enumerated() {
             // calculate position inside the scrollview for current button
-            let frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding), width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
+            
+            let frameForCurrentButton: CGRect
+            if (index + 2 <= self.pluginManager.experimentalPluginsStartAtIndex) {
+                frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding), width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
+            } else {
+                frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding) + experimentalPluginLabelHeight, width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
+            }
             let buttonForCurrentPlugin = UIButton(frame: frameForCurrentButton)
             
             // Define properties of the button: tag for identification & action when pressed
@@ -158,6 +166,25 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
             
             self.pluginMenuScrollView.addSubview(buttonForCurrentPlugin)
+            
+            // Add experimental plugins header
+            if (self.pluginManager.experimentalPluginsStartAtIndex == index + 2) {
+                let baseHeight = index*(menuButtonHeight+2*menuButtonPadding)
+                let textOffset = 5
+
+                let yPosition = menuButtonPadding+menuButtonHeight*2/3 + baseHeight + experimentalPluginLabelHeight + textOffset
+                
+                let headerLabelFrame: CGRect = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(yPosition), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight/3))
+                let headerLabel = UILabel(frame: headerLabelFrame)
+                
+                headerLabel.text = "Experimental"
+                headerLabel.font = UIFont.init(name: "Helvetica", size: 12)
+                headerLabel.textColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
+                headerLabel.textAlignment = .center
+                headerLabel.baselineAdjustment = .alignCenters
+                
+                self.pluginMenuScrollView.addSubview(headerLabel)
+            }
         }
     }
      
