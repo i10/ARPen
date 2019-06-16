@@ -12,10 +12,10 @@ import ARKit
 class CombinationPlugin: Plugin {
     
     var pluginImage : UIImage? = UIImage.init(named: "TranslationDemoPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "Move2PluginInstruction")
     var pluginIdentifier: String = "Move 2"
     var needsBluetoothARPen: Bool = true
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
+    var pluginDisabledImage: UIImage? = UIImage.init(named: "TranslationMenuPluginDisabled")
     var currentScene : PenScene?
     var currentView: ARSCNView?
     var finishedView : UILabel?
