@@ -12,6 +12,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
 
     var scene: PenScene!
     var userStudyRecordManager: UserStudyRecordManager!
+    var bluetoothARPenConnected: Bool!
     
     @IBOutlet weak var penSizeLabel: UILabel!
     @IBOutlet weak var penSizeSlider: UISlider!
@@ -29,6 +30,11 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         let currentPenSize = UserDefaults.standard.float(forKey: UserDefaultsKeys.penLength.rawValue) * 100
         self.penSizeSlider.value = currentPenSize
         self.penSizeLabel.text = "\(currentPenSize) cm"
+        
+        // If the Bluetooth ARPen is not connected, disable relevant menu items.
+        if(self.bluetoothARPenConnected == false) {
+            self.penSizeSlider.isEnabled = false
+        }
         
         self.setCurrentBluetoothDeviceLabel()
         self.setClearSceneButtonLabel()

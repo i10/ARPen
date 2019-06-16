@@ -254,6 +254,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             destinationSettingsController.scene = self.arSceneView.scene as! PenScene
             //pass reference to the record manager (to show active user ID and export data)
             destinationSettingsController.userStudyRecordManager = self.userStudyRecordManager
+            destinationSettingsController.bluetoothARPenConnected = self.bluetoothARPenConnected
         }
         
     }
