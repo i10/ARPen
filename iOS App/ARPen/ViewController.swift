@@ -28,6 +28,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var imageForPluginInstructions: UIImageView!
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var undoButton: UIButton!
     
     let menuButtonHeight = 70
     let menuButtonPadding = 5
@@ -54,6 +55,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         self.settingsButton.layer.masksToBounds = true
         self.settingsButton.layer.cornerRadius = self.settingsButton.frame.width/2
+        
+        self.undoButton.layer.masksToBounds = true
+        self.undoButton.layer.cornerRadius = self.undoButton.frame.width/2
+        
+        self.undoButton.isHidden = false
+        self.undoButton.isEnabled = true
         
         // Create a new scene
         let scene = PenScene(named: "art.scnassets/ship.scn")!
