@@ -83,7 +83,7 @@
                                 <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="↺"/>
                                 <connections>
-                                    <action selector="undoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="1E0-p5-FJW"/>
+                                    <action selector="undoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="QKz-fc-hZG"/>
                                 </connections>
                             </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYd-yH-V3o">
