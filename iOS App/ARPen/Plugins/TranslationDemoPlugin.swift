@@ -14,7 +14,7 @@ class TranslationDemoPlugin: Plugin {
     var pluginImage : UIImage? = UIImage.init(named: "TranslationDemoPlugin")
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "Move1PluginInstruction")
     var pluginIdentifier: String = "Move 1"
-    var needsBluetoothARPen: Bool = true
+    var needsBluetoothARPen: Bool = false
     var pluginDisabledImage: UIImage? = UIImage.init(named: "TranslationDemoPluginDisabled")
     var currentScene : PenScene?
     var currentView: ARSCNView?
