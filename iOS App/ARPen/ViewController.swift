@@ -240,6 +240,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             }
         }
         currentActivePluginID = pluginID
+        
+        // Enable/disable undo button based on current plugin
+        self.undoButton.isHidden = currentActivePluginID == 1 ? false : true
     }
     
     // Display the instructions for plugin by setting imageForPluginInstructions
