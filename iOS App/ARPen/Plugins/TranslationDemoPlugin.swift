@@ -18,7 +18,6 @@ class TranslationDemoPlugin: Plugin {
     var pluginDisabledImage: UIImage? = UIImage.init(named: "TranslationDemoPluginDisabled")
     var currentScene : PenScene?
     var currentView: ARSCNView?
-    var finishedView : UILabel?
     
     var sceneConstructionResults : (superNode: SCNNode, boxes: [ARPenBoxNode])?
     var boxes : [ARPenBoxNode]?
@@ -98,11 +97,8 @@ class TranslationDemoPlugin: Plugin {
         
         if pressed, !self.previousButtonState{
             
-            //deactivate overlay if boxes are still to be moved
+            //check if boxes are still to be moved and activate the initial box
             if self.activeTargetBox == nil, self.indexOfCurrentTargetBox < boxes.count {
-                DispatchQueue.main.async {
-                    self.finishedView?.removeFromSuperview()
-                }
                 self.activeTargetBox = boxes[self.indexOfCurrentTargetBox]
             } else {
                 if let arSceneView = self.currentView {
@@ -158,12 +154,6 @@ class TranslationDemoPlugin: Plugin {
                     } else {
                         self.activeTargetBox = nil
                         //print("Done")
-                        DispatchQueue.main.async {
-                            self.finishedView?.text = "Done"
-                            if let superview = self.currentView?.superview, let finishedView = self.finishedView {
-                                superview.addSubview(finishedView)
-                            }
-                        }
                     }
                 }
             }
@@ -190,11 +180,8 @@ class TranslationDemoPlugin: Plugin {
                 }
             }
             
-            //deactivate overlay if boxes are still to be moved
+            //check if boxes are still to be moved and activate the initial box
             if self.activeTargetBox == nil, self.indexOfCurrentTargetBox < boxes.count {
-                DispatchQueue.main.async {
-                    self.finishedView?.removeFromSuperview()
-                }
                 self.activeTargetBox = boxes[self.indexOfCurrentTargetBox]
             }
             //print("Selected Box Position: \(String(describing: self.selectedBox?.position))")
@@ -219,12 +206,6 @@ class TranslationDemoPlugin: Plugin {
                     } else {
                         self.activeTargetBox = nil
                         //print("Done")
-                        DispatchQueue.main.async {
-                            self.finishedView?.text = "Done"
-                            if let superview = self.currentView?.superview, let finishedView = self.finishedView {
-                                superview.addSubview(finishedView)
-                            }
-                        }
                     }
                 }
             }
@@ -258,23 +239,7 @@ class TranslationDemoPlugin: Plugin {
         scene.drawingNode.addChildNode(constructionResults.superNode)
         
         self.indexOfCurrentTargetBox = 0
-        //        self.activeTargetBox = self.boxes?.first
-        
-        DispatchQueue.main.async {
-            self.finishedView = UILabel.init()
-            self.finishedView?.text = "Press a button to start"
-            self.finishedView?.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-            self.finishedView?.textColor = UIColor.yellow
-            self.finishedView?.textAlignment = .center
-            self.finishedView?.layer.borderWidth = 20.0
-            self.finishedView?.layer.borderColor = UIColor.yellow.cgColor
-            if let superview = self.currentView?.superview, let finishedView = self.finishedView {
-                finishedView.frame.size = CGSize.init(width: 500, height: 300)
-                finishedView.center = superview.center
-                superview.addSubview(finishedView)
-            }
-        }
-        
+        self.activeTargetBox = self.boxes?.first
     }
     
     func lastTrialWasMarkedAsAnOutlier() {
@@ -282,12 +247,6 @@ class TranslationDemoPlugin: Plugin {
             self.indexOfCurrentTargetBox -= 1
         }
         self.activeTargetBox = nil
-        DispatchQueue.main.async {
-            self.finishedView?.text = "Press a button to continue"
-            if let superview = self.currentView?.superview, let finishedView = self.finishedView {
-                superview.addSubview(finishedView)
-            }
-        }
     }
     
     func deactivatePlugin() {
@@ -298,8 +257,6 @@ class TranslationDemoPlugin: Plugin {
             self.sceneConstructionResults = nil
         }
         self.currentScene = nil
-        self.finishedView?.removeFromSuperview()
-        self.finishedView = nil
         self.currentView?.superview?.layer.borderWidth = 0.0
         self.currentView = nil
     }
