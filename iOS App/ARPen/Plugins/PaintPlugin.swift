@@ -30,6 +30,19 @@ class PaintPlugin: Plugin {
     private var currentLine : [SCNNode]?
     private var removedOneLine = false
     
+    func undoPreviousAction() {
+        if (self.previousDrawnLineNodes!.count > 0) {
+            let lastLine = self.previousDrawnLineNodes?.last
+            
+            self.previousDrawnLineNodes?.removeLast()
+            
+            // Remove the previous line
+            for currentNode in lastLine! {
+                currentNode.removeFromParentNode()
+            }
+        }
+    }
+    
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
             //Don't reset the previous point to avoid disconnected lines if the marker detection failed for some frames
@@ -62,7 +75,7 @@ class PaintPlugin: Plugin {
             //undo last performed line if this is pressed
             for currentNode in lastLine {
                 currentNode.removeFromParentNode()
-            }
+            }            
         } else if !pressed2, removedOneLine {
             removedOneLine = false
         }
@@ -71,19 +84,6 @@ class PaintPlugin: Plugin {
         
     }
     
-    func undoPreviousAction() {
-        if !removedOneLine, let lastLine = self.previousDrawnLineNodes?.last {
-            removedOneLine = true
-            self.previousDrawnLineNodes?.removeLast()
-            
-            // Remove the previous line
-            for currentNode in lastLine {
-                currentNode.removeFromParentNode()
-            }
-            
-            removedOneLine = true;
-        }
-    }
     
     func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
         self.currentScene = scene
