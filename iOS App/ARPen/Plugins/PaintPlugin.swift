@@ -71,6 +71,20 @@ class PaintPlugin: Plugin {
         
     }
     
+    func undoPreviousAction() {
+        if !removedOneLine, let lastLine = self.previousDrawnLineNodes?.last {
+            removedOneLine = true
+            self.previousDrawnLineNodes?.removeLast()
+            
+            // Remove the previous line
+            for currentNode in lastLine {
+                currentNode.removeFromParentNode()
+            }
+            
+            removedOneLine = true;
+        }
+    }
+    
     func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
         self.currentScene = scene
         self.currentView = view

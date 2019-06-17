@@ -360,5 +360,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.pluginManager.button(.Button1, pressed: false)
     }
     
-    
+    @IBAction func undoButtonPressed(_ sender: Any) {
+        self.pluginManager.undoPreviousStep()
+    }
 }
