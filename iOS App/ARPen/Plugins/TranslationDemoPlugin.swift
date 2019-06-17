@@ -11,7 +11,7 @@ import ARKit
 
 class TranslationDemoPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "TranslationDemoPlugin")
+    var pluginImage : UIImage? = UIImage.init(named: "Move1DemoPlugin")
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "Move1PluginInstruction")
     var pluginIdentifier: String = "Move 1"
     var needsBluetoothARPen: Bool = false
