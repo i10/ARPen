@@ -15,7 +15,10 @@ import ARKit
 class ObjectCreationPlugin: Plugin {
     
     var pluginImage: UIImage? = UIImage.init(named: "ObjectCreationPlugin")
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
     var pluginIdentifier: String = "Object Creation"
+    var needsBluetoothARPen: Bool = false
+    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentScene : PenScene?
     var currentView: ARSCNView?
     

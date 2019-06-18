@@ -12,11 +12,13 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
 
     var scene: PenScene!
     var userStudyRecordManager: UserStudyRecordManager!
+    var bluetoothARPenConnected: Bool!
     
     @IBOutlet weak var penSizeLabel: UILabel!
     @IBOutlet weak var penSizeSlider: UISlider!
     @IBOutlet weak var bluetoothDeviceTableViewCell: UITableViewCell!
     @IBOutlet weak var userIDTextField: UITextField!
+    @IBOutlet weak var clearSceneButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,13 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         self.penSizeSlider.value = currentPenSize
         self.penSizeLabel.text = "\(currentPenSize) cm"
         
+        // If the Bluetooth ARPen is not connected, disable relevant menu items.
+        if(self.bluetoothARPenConnected == false) {
+            self.penSizeSlider.isEnabled = false
+        }
+        
         self.setCurrentBluetoothDeviceLabel()
+        self.setClearSceneButtonLabel()
         
         //if there is a currently active user ID set in the record manager, use this in the ID text field. Otherwise, use placeholder
         if let currentActiveUserID = self.userStudyRecordManager.currentActiveUserID {
@@ -61,11 +69,31 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         self.scene.markerBox.updatePenTipCalculations()
     }
     
-    @IBAction func clearSceneButtonPressed(_ sender: Any) {
-        //remove all child nodes from drawing node
-        self.scene.drawingNode.enumerateChildNodes {(node, pointer) in
-            node.removeFromParentNode()
+    func setClearSceneButtonLabel() {
+        if self.scene.drawingNode.childNodes.count > 0 {
+            self.clearSceneButton.setTitle("Clear Scene", for: UIControlState.normal)
+            self.clearSceneButton.isEnabled = true
+        } else {
+            self.clearSceneButton.setTitle("No objects in the scene", for: UIControlState.normal)
+            self.clearSceneButton.isEnabled = false
         }
+    }
+    
+    @IBAction func clearSceneButtonPressed(_ sender: Any) {
+        let alertController = UIAlertController(title: "Clear Scene?", message: "Should all elements in the scene be deleted? This cannot be undone.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {action in
+            //remove all child nodes from drawing node
+            self.scene.drawingNode.enumerateChildNodes {(node, pointer) in
+                node.removeFromParentNode()
+            }
+            self.setClearSceneButtonLabel()
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func shareAsSTLPressed(_ sender: Any) {

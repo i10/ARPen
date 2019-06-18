@@ -22,14 +22,23 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var arManager: ARManager
     var arPenManager: PenManager
     var buttons: [Button: Bool] = [.Button1: false, .Button2: false, .Button3: false]
-    var plugins: [Plugin] = [PaintPlugin(), CubeByDraggingPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CubeByExtractionPlugin(), CombinationPlugin()]
+    var paintPlugin: PaintPlugin
+    var plugins: [Plugin]
+    var pluginInstructionsCanBeHidden: [Bool]
     var activePlugin: Plugin?
     var delegate: PluginManagerDelegate?
+    var experimentalPluginsStartAtIndex: Int
     
     /**
      inits every plugin
      */
     init(scene: PenScene) {
+        self.paintPlugin = PaintPlugin()
+        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin()]
+        self.pluginInstructionsCanBeHidden = Array(repeating: false, count: self.plugins.count)
+        self.experimentalPluginsStartAtIndex = 7
+        
+        
         self.arManager = ARManager(scene: scene)
         self.arPenManager = PenManager()
         self.activePlugin = plugins.first
@@ -74,5 +83,10 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         if let plugin = self.activePlugin {
             plugin.didUpdateFrame(scene: self.arManager.scene!, buttons: buttons)
         }
+    }
+    
+    func undoPreviousStep() {
+        // Todo: Add undo functionality for all plugins.
+        self.paintPlugin.undoPreviousAction()
     }
 }
