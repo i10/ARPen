@@ -5,7 +5,6 @@
 //  Created by Felix Wehnert on 16.01.18.
 //  Copyright © 2018 RWTH Aachen. All rights reserved.
 //
-
 import SceneKit
 
 /**
@@ -113,23 +112,63 @@ class MarkerBox: SCNNode {
             let point = SCNNode()
             point.name = "Point from #\(i+1)"
             
+            //for rotation: for simplicity, take the top rotation as the basis. rotate other markers to fit the top orientation and then apply the same rotation to the pen tip
+            let quaternionFromTopMarkerToPenTip = simd_quatf(angle: Float(-54.7.degreesToRadians), axis: float3(x: 0.707, y: -0.707, z: 0))
             switch (markerFace) {
             case (.back):
                 point.position = SCNVector3(xs, ys, zs)
+                point.eulerAngles = SCNVector3(x: 0, y: -Float.pi/2, z: -Float.pi/2)
+                //in case of HomeButtonLeft the orientation has to be rotated another 180 degrees after Rotation to top marker
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.top):
                 point.position = SCNVector3(xs, ys, zs)
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.right):
                 point.position = SCNVector3(xs, ys, zs)
+                point.eulerAngles = SCNVector3(x: Float.pi/2, y: 0, z: Float.pi/2)
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.bottom):
                 point.position = SCNVector3(-xl, yl, zl)
+                point.eulerAngles.y = Float.pi
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.left):
                 point.position = SCNVector3(xl, yl, zl)
+                point.eulerAngles.x = -Float.pi/2
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.front):
                 point.position = SCNVector3(-xl, yl, zl)
+                point.eulerAngles = SCNVector3(x: 0, y: Float.pi/2, z: Float.pi/2)
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
+                point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.CHIARPen):
                 point.position = SCNVector3(-xCHIARPen, -yCHIARPen, 0)
+                point.eulerAngles = SCNVector3(x: 0, y: -Float.pi/2, z: Float(-135.degreesToRadians))
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
             case (.laserMesseARPen):
                 point.position = SCNVector3(-xLMARPen, -yLMARPen, 0)
+                point.eulerAngles = SCNVector3(x: 0, y: -Float.pi/2, z: Float(-135.degreesToRadians))
+                if orientationState == .HomeButtonLeft {
+                    point.eulerAngles.z += Float.pi
+                }
             default:
                 break
             }
@@ -170,8 +209,10 @@ class MarkerBox: SCNNode {
      Determine the position of the pin point by ONLY considering the specified IDs
      - parameter ids: A list of marker IDs that are used to determine the position
      */
-    func posititonWith(ids: [MarkerFace]) -> SCNVector3 {
-        var vector = SCNVector3Zero
+    func posititonWith(ids: [MarkerFace]) -> SCNNode {
+        //hold the computed pen tip properties for each marker -> can be averaged to return pen tip node
+        var penTipPosition = SCNVector3Zero
+        var penTipRotation = SCNVector4Zero
         var mutableIds : [MarkerFace] = ids
         
         if mutableIds.count == 3 {
@@ -195,25 +236,41 @@ class MarkerBox: SCNNode {
             }
         }
         
+        //average orientation between seen markers
         for id in mutableIds {
-            let point = self.markerArray[id.rawValue-1].childNodes.first!.convertPosition(SCNVector3Zero, to: nil)
-            vector += point
+            let candidateNode = SCNNode()
+            let transform = self.markerArray[id.rawValue-1].childNodes.first!.convertTransform(SCNMatrix4Identity, to: nil)
+            
+            candidateNode.transform = transform
+            penTipPosition += candidateNode.position
+            penTipRotation.x += candidateNode.rotation.x
+            penTipRotation.y += candidateNode.rotation.y
+            penTipRotation.z += candidateNode.rotation.z
+            penTipRotation.w += candidateNode.rotation.w
         }
-        vector /= Float(mutableIds.count)
+        
+        penTipPosition /= Float(mutableIds.count)
+        penTipRotation.x /= Float(mutableIds.count)
+        penTipRotation.y /= Float(mutableIds.count)
+        penTipRotation.z /= Float(mutableIds.count)
+        penTipRotation.w /= Float(mutableIds.count)
         
         //Average with past n tip positions
         let n = 1
         for pastPenTip in penTipPositionHistory {
-            vector += pastPenTip
+            penTipPosition += pastPenTip
         }
-        vector /= Float(penTipPositionHistory.count + 1)
-        penTipPositionHistory.append(vector)
+        penTipPosition /= Float(penTipPositionHistory.count + 1)
+        penTipPositionHistory.append(penTipPosition)
         
         //Remove latest item if too much items are in penTipPositionHistory
         if penTipPositionHistory.count > n {
             penTipPositionHistory.remove(at: 0)
         }
-        return vector
+        let returnNode = SCNNode()
+        returnNode.position = penTipPosition
+        returnNode.rotation = penTipRotation
+        return returnNode
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -224,7 +281,7 @@ class MarkerBox: SCNNode {
         case HomeButtonLeft
         case HomeButtonRight
     }
-
+    
 }
 
 /**
