@@ -19,7 +19,7 @@ class CombinationPlugin: Plugin {
     var currentScene : PenScene?
     var currentView: ARSCNView?
     
-    var sceneConstructionResults : (superNode: SCNNode, boxes: [ARPenBoxNode])?
+    var sceneConstructionResults : (superNode: SCNNode, studyNodes: [ARPenStudyNode])?
     var boxes : [ARPenBoxNode]?
     var activeTargetBox : ARPenBoxNode? {
         didSet {
@@ -52,8 +52,8 @@ class CombinationPlugin: Plugin {
     
     private var selectedBox : ARPenBoxNode? {
         didSet {
-            oldValue?.hightlighted = false
-            selectedBox?.hightlighted = true
+            oldValue?.highlighted = false
+            selectedBox?.highlighted = true
         }
     }
     private var locationOfSelectedBoxInCameraCoordinates : SCNVector3?
@@ -81,7 +81,7 @@ class CombinationPlugin: Plugin {
             $0.highlightIfPointInside(point: scene.pencilPoint.convertPosition(SCNVector3Zero, to: self.sceneConstructionResults?.superNode))
         })
         //leave selected box highlighted, if it is currently set
-        self.selectedBox?.hightlighted = true
+        self.selectedBox?.highlighted = true
         
         //highlight drop box if target is inside (center part is inside)
         if let activeTargetBox = self.activeTargetBox {
@@ -98,20 +98,19 @@ class CombinationPlugin: Plugin {
         } else if pressed, self.previousButtonState {
             //move the currently active target
             if let previousPoint = self.previousPoint, let selectedBox = self.selectedBox {
-//                let displacementVector = scene.pencilPoint.position - previousPoint
-//                selectedBox.position = selectedBox.position + displacementVector
+                // let displacementVector = scene.pencilPoint.position - previousPoint
+                // selectedBox.position = selectedBox.position + displacementVector
                 selectedBox.position = sceneConstructionResults!.superNode.convertPosition(scene.pencilPoint.position, from: scene.drawingNode)
-                selectedBox.setCorners()
-                selectedBox.hightlighted = true
+                selectedBox.highlighted = true
             }
             
             
         } else if !pressed, self.previousButtonState {
             
             //reset selected box
-            self.selectedBox?.hightlighted = false
+            self.selectedBox?.highlighted = false
             self.selectedBox = nil
-
+            
             
             //check if drop is successfull and then start new target
             if let activeTargetBox = self.activeTargetBox, let activeDropTarget = self.activeDropTarget {
@@ -150,7 +149,7 @@ class CombinationPlugin: Plugin {
             
             if let boxHit = hitResults.first?.node as? ARPenBoxNode {
                 self.selectedBox = boxHit
-                self.selectedBox?.hightlighted = true
+                self.selectedBox?.highlighted = true
             }
             
             //deactivate overlay if boxes are still to be moved
@@ -192,7 +191,7 @@ class CombinationPlugin: Plugin {
             //if no button on the pen is pressed, deselect the object
             if self.previousButtonState == false {
                 //reset selected box
-                self.selectedBox?.hightlighted = false
+                self.selectedBox?.highlighted = false
                 self.selectedBox = nil
                 
             }
@@ -208,7 +207,7 @@ class CombinationPlugin: Plugin {
         self.currentView = view
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
-    
+        
         self.activeTargetBox = nil
         
         self.gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
@@ -219,13 +218,13 @@ class CombinationPlugin: Plugin {
     }
     
     func fillSceneWithCubes(withScene scene : PenScene, andView view : ARSCNView) {
-        let sceneConstructor = ARPenSceneConstructor.init()
-        self.sceneConstructionResults = sceneConstructor.preparedARPenBoxNodes(withScene: scene, andView: view)
+        let sceneConstructor = ARPenGridSceneConstructor.init()
+        self.sceneConstructionResults = sceneConstructor.preparedARPenNodes(withScene: scene, andView: view, andStudyNodeType: ARPenBoxNode.self)
         guard let constructionResults = self.sceneConstructionResults else {
             print("scene Constructor did not return boxes")
             return
         }
-        self.boxes = constructionResults.boxes
+        self.boxes = constructionResults.studyNodes as? [ARPenBoxNode]
         
         scene.drawingNode.addChildNode(constructionResults.superNode)
         

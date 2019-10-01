@@ -15,9 +15,6 @@
 		4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953820581B6700C8065E /* UserStudyRecordManager.swift */; };
 		4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */; };
 		4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */; };
-		4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */; };
-		4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */; };
-		4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */; };
 		4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */; };
 		4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */; };
 		4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */; };
@@ -49,6 +46,12 @@
 		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
 		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
 		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
+		EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */; };
+		EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */; };
+		EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */; };
+		EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795C22F078EE00E820E8 /* ARPenWireBoxNode.swift */; };
+		EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795D22F078EE00E820E8 /* ARPenDropTargetNode.swift */; };
+		EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795E22F078EE00E820E8 /* ARPenBoxNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,9 +76,6 @@
 		4A56953820581B6700C8065E /* UserStudyRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecordManager.swift; sourceTree = "<group>"; };
 		4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyRecordPluginProtocol.swift; sourceTree = "<group>"; };
 		4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationDemoPlugin.swift; sourceTree = "<group>"; };
-		4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenDropTargetNode.swift; sourceTree = "<group>"; };
-		4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
-		4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenBoxNode.swift; sourceTree = "<group>"; };
 		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
@@ -114,6 +114,12 @@
 		E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyramidByDraggingPlugin.swift; sourceTree = "<group>"; };
+		EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenStudyNode.swift; sourceTree = "<group>"; };
+		EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
+		EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenGridSceneConstructor.swift; sourceTree = "<group>"; };
+		EA0C795C22F078EE00E820E8 /* ARPenWireBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenWireBoxNode.swift; sourceTree = "<group>"; };
+		EA0C795D22F078EE00E820E8 /* ARPenDropTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenDropTargetNode.swift; sourceTree = "<group>"; };
+		EA0C795E22F078EE00E820E8 /* ARPenBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenBoxNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +199,7 @@
 				DC28B462200E471F008B77AB /* PluginManager.swift */,
 				DC28B476200E64C0008B77AB /* Plugins */,
 				4A56953520581AF300C8065E /* UserStudyData */,
+				EA0C795822F0787300E820E8 /* UserStudySetup */,
 				DC28B477200E6640008B77AB /* Extensions */,
 				DC28B45D200E4476008B77AB /* OpenCV */,
 				DC28B445200E4353008B77AB /* Main.storyboard */,
@@ -240,12 +247,22 @@
 				DC28B468200E4C43008B77AB /* CylinderLine.swift */,
 				DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */,
 				DC28B470200E592C008B77AB /* DegreesToRadians.swift */,
-				4A59BA212244E68800EA23E7 /* ARPenBoxNode.swift */,
-				4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */,
-				4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */,
 				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EA0C795822F0787300E820E8 /* UserStudySetup */ = {
+			isa = PBXGroup;
+			children = (
+				EA0C795E22F078EE00E820E8 /* ARPenBoxNode.swift */,
+				EA0C795D22F078EE00E820E8 /* ARPenDropTargetNode.swift */,
+				EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */,
+				EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */,
+				EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */,
+				EA0C795C22F078EE00E820E8 /* ARPenWireBoxNode.swift */,
+			);
+			path = UserStudySetup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,11 +347,13 @@
 			files = (
 				DC28B461200E46DC008B77AB /* Plugin.swift in Sources */,
 				E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */,
+				EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */,
 				4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */,
 				4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */,
 				DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */,
 				4A5695342058195200C8065E /* UserStudyRecordsListTableViewController.swift in Sources */,
 				DC28B45F200E4561008B77AB /* PenManager.swift in Sources */,
+				EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */,
 				4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */,
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
 				4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */,
@@ -342,15 +361,14 @@
 				E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
+				EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
-				4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
-				4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
-				4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
+				EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,
 				4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */,
@@ -361,8 +379,10 @@
 				DC28B463200E471F008B77AB /* PluginManager.swift in Sources */,
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
 				E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */,
+				EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */,
 				4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */,
 				DC28B46B200E4C78008B77AB /* Button.swift in Sources */,
+				EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */,
 				DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,7 +530,8 @@
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -533,7 +554,8 @@
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

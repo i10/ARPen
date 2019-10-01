@@ -19,9 +19,9 @@ class ARPenDropTargetNode : SCNNode {
     //initial position to return to, when move completed correctly
     let originalPosition : SCNVector3
     
-    var hightlighted : Bool = false {
+    var highlighted : Bool = false {
         didSet {
-            if hightlighted {
+            if highlighted {
                 self.geometry?.firstMaterial?.emission.intensity = 0.8
             } else {
                 self.geometry?.firstMaterial?.emission.intensity = 0.0
@@ -144,9 +144,9 @@ class ARPenDropTargetNode : SCNNode {
     
     func highlightIfPointInside(point : SCNVector3) {
         if self.isPointInside(point: point) {
-            self.hightlighted = true
+            self.highlighted = true
         } else {
-            self.hightlighted = false
+            self.highlighted = false
         }
     }
     
