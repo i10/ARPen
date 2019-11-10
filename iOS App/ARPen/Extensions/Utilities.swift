@@ -51,6 +51,7 @@ extension CGImagePropertyOrientation {
     }
 }
 
+@available(iOS 12.0, *)
 extension ARWorldMap {
     var snapshotAnchor: SnapshotAnchor? {
         return anchors.compactMap { $0 as? SnapshotAnchor }.first
@@ -64,6 +65,7 @@ extension Notification.Name {
     static let virtualObjectDidRenderAtAnchor = Notification.Name("virtualObjectDidRenderAtAnchor")
 }
 
+@available(iOS 12.0, *)
 extension ARFrame.WorldMappingStatus: CustomStringConvertible {
     public var description: String {
         switch self {
