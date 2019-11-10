@@ -37,6 +37,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var snapshotThumbnail: UIImageView! // Screenshot thumbnail to help the user find feature points in the World
     @IBOutlet weak var persistenceStateLabel: UILabel! // Text label used to provide feedback about saving and loading models
     
+    // This ARAnchor acts as the point of reference for all model
+    var persistenceSavePointAnchor: ARAnchor?
+    var persistenceSavePointAnchorName: String = "persistenceSavePointAnchor"
+    
+    var placeholderNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
+    
     let menuButtonHeight = 70
     let menuButtonPadding = 5
     var currentActivePluginID = 1
@@ -100,6 +106,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Read in any already saved map to see if we can load one
         if mapDataFromFile != nil { self.loadModelButton.isHidden = false }
+        
+        // Observe camera's tracking state and session information
+        NotificationCenter.default.addObserver(self, selector: #selector(handleStateChange(_:)), name: Notification.Name.cameraDidChangeTrackingState, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleStateChange(_:)), name: Notification.Name.sessionDidUpdate, object: nil)
+        
+        // Remove snapshot thumbnail when model has been loaded
+        NotificationCenter.default.addObserver(self, selector: #selector(removeSnapshotThumbnail(_:)), name: Notification.Name.virtualObjectDidRenderAtAnchor, object: nil)
     }
     
     /**
@@ -375,6 +388,37 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.pluginManager.undoPreviousStep()
     }
     
+    // MARK: - Persistence
+    
+    // Receives notification on when session or camera tracking state changes and updates label
+    @objc func handleStateChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else {
+            print("notification.userInfo is empty")
+            return
+        }
+        switch notification.name {
+        case .sessionDidUpdate:
+            updatePersistenceStateLabel(for: userInfo["frame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
+            break
+        case .cameraDidChangeTrackingState:
+            updatePersistenceStateLabel(for: userInfo["currentFrame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
+            break
+        default:
+            print("Received unknown notification: \(notification.name)")
+        }
+    }
+    
+    // Setup ARAnchor that serves as the point of reference for all drawings
+    func setupPersistenceAnchor() {
+        // Remove existing anchor if it exists
+        if let existingPersistenceAnchor = persistenceSavePointAnchor {
+            self.arSceneView.session.remove(anchor: existingPersistenceAnchor)
+        }
+        
+        // Add ARAnchor for save point
+        persistenceSavePointAnchor = ARAnchor(name: persistenceSavePointAnchorName, transform: matrix_identity_float4x4)
+    }
+    
     // Create URL for storing WorldMap in a lazy manner
     lazy var mapSaveURL: URL = {
         do {
@@ -404,6 +448,52 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
     }()
     
+    // Save the world map and models
+    @IBAction func saveCurrentScene(_ sender: Any) {
+        self.setupPersistenceAnchor()
+        
+        self.arSceneView.session.getCurrentWorldMap { worldMap, error in
+            guard let map = worldMap
+                else {
+                    self.showAlert(title: "Can't get current world map", message: error!.localizedDescription);
+                    return
+                }
+            
+            // Add a snapshot image indicating where the map was captured.
+            guard let snapshotAnchor = SnapshotAnchor(capturing: self.arSceneView)
+                else { fatalError("Can't take snapshot") }
+            map.anchors.append(snapshotAnchor)
+            map.anchors.append(self.persistenceSavePointAnchor!)
+            
+            do {
+                let data = try NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
+                try data.write(to: self.mapSaveURL, options: [.atomic])
+
+                DispatchQueue.main.async {
+                    self.loadModelButton.isHidden = false
+                    self.loadModelButton.isEnabled = true
+                    
+                    // Save the current PenScene to sceneSaveURL
+                    let scene = self.arSceneView.scene as! PenScene
+                    let savedNode = SCNReferenceNode(url: self.sceneSaveURL)
+                    
+                    if savedNode!.isLoaded == false {
+                        print("No prior save found, saving current PenScene.")
+                        if scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil) {
+                            // Handle save if needed
+                        } else {
+//                            "Failed to write; try moving the phone around slowly to track more world features."
+                            return
+                        }
+                    }
+                }
+                self.persistenceStateLabel.text = "Write successful!"
+            } catch {
+                fatalError("Can't save map: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     
     // Called opportunistically to verify that map data can be loaded from filesystem
     var mapDataFromFile: Data? {
@@ -414,4 +504,89 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var sceneDataFromFile: Data? {
         return try? Data(contentsOf: sceneSaveURL)
     }
+    
+    // Load the world map and models
+    @IBAction func loadScene(_ sender: Any) {
+        /// - Tag: ReadWorldMap
+        let worldMap: ARWorldMap = {
+            guard let data = mapDataFromFile
+                else { fatalError("Map data should already be verified to exist before Load button is enabled.") }
+            do {
+                guard let worldMap = try NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data)
+                    else { fatalError("No ARWorldMap in archive.") }
+                return worldMap
+            } catch {
+                fatalError("Can't unarchive ARWorldMap from file data: \(error)")
+            }
+        }()
+        
+        // Display the snapshot image stored in the world map to aid user in relocalizing.
+        if let snapshotData = worldMap.snapshotAnchor?.imageData,
+            let snapshot = UIImage(data: snapshotData) {
+            snapshotThumbnail.isHidden = false
+            snapshotThumbnail.image = snapshot
+
+        } else {
+            print("No snapshot image in world map")
+        }
+        
+        // Remove the snapshot anchor from the world map since we do not need it in the scene.
+        worldMap.anchors.removeAll(where: { $0 is SnapshotAnchor })
+        
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.initialWorldMap = worldMap
+        self.arSceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
+        isRelocalizingMap = true
+        persistenceSavePointAnchor = nil
+        
+        self.setupPersistenceAnchor()
+        self.arSceneView.session.add(anchor: persistenceSavePointAnchor!) // Add anchor to the current scene
+    }
+    
+    var isRelocalizingMap = false
+    
+    // Provide feedback and instructions to the user about saving and loading the map and models respectively
+    func updatePersistenceStateLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
+        let message: String
+        self.snapshotThumbnail.isHidden = true
+        
+        switch (trackingState) {
+        case (.limited(.relocalizing)) where isRelocalizingMap:
+            message = "Move your device to the location shown in the image."
+            self.snapshotThumbnail.isHidden = false
+            
+        default:
+            message = ""
+        }
+        
+        persistenceStateLabel.text = message
+    }
+    
+    // Remove snapshot thumbnail
+    @objc func removeSnapshotThumbnail(_ notification: Notification) {
+        self.snapshotThumbnail.isHidden = true
+    }
+    
+    // MARK: - ARSCNViewDelegate
+    
+    // Add nodes to the scene when a new anchor has been added
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        print("renderer()")
+        guard anchor.name! == persistenceSavePointAnchorName
+            else { return }
+
+        // Save the reference to the virtual object anchor when the anchor is added from relocalizing
+        if persistenceSavePointAnchor == nil {
+            persistenceSavePointAnchor = anchor
+        }
+        
+        // Perform rendering operations asynchronously
+        DispatchQueue.main.async {
+            self.placeholderNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
+            self.placeholderNode!.load()
+            node.addChildNode(self.placeholderNode!)
+        }
+    }
 }
+
