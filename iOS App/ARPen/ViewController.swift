@@ -46,20 +46,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     let menuButtonHeight = 70
     let menuButtonPadding = 5
     var currentActivePluginID = 1
-    
     var bluetoothARPenConnected: Bool = false
-    /**
-     The PluginManager instance
-     */
+    
     var pluginManager: PluginManager!
     
-    //Manager for user study data
-    let userStudyRecordManager = UserStudyRecordManager()
+    let userStudyRecordManager = UserStudyRecordManager() // Manager for storing data from user studies
+  
     
-    
-    /**
-     A quite standard viewDidLoad
-     */
+    //A standard viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -81,23 +75,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.pluginManager = PluginManager(scene: scene)
         self.pluginManager.delegate = self
         self.arSceneView.session.delegate = self.pluginManager.arManager
+        self.arSceneView.delegate = self
         
         self.arSceneView.autoenablesDefaultLighting = true
         self.arSceneView.pointOfView?.name = "iDevice Camera"
         
-        // Set the scene to the view
-        arSceneView.scene = scene
+        arSceneView.scene = scene // Set the scene to the view
         
-        // Setup tap gesture recognizer for imageForPluginInstructions
+        // Setup tap gesture recognizer for plugin instructions
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action:  #selector(ViewController.imageForPluginInstructionsTapped(_:)))
         self.imageForPluginInstructions.isUserInteractionEnabled = true
         self.imageForPluginInstructions.addGestureRecognizer(tapGestureRecognizer)
         
-        // Hide the imageForPluginInstructions
+        // Hide plugin instructions
         self.imageForPluginInstructions.isHidden = true
         self.displayPluginInstructions(forPluginID: currentActivePluginID)
         
-        // set user study record manager reference in the app delegate (for saving state when leaving the app)
+        // Set the user study record manager reference in the app delegate (for saving state when leaving the app)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.userStudyRecordManager = self.userStudyRecordManager
         } else {
@@ -115,9 +109,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(removeSnapshotThumbnail(_:)), name: Notification.Name.virtualObjectDidRenderAtAnchor, object: nil)
     }
     
-    /**
-     viewWillAppear. Init the ARSession
-     */
+
+    // viewWillAppear. Init the ARSession
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -141,8 +134,28 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    // Prepare the SettingsViewController by passing the scene
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueIdentifier = segue.identifier else { return }
+        
+        if segueIdentifier == "ShowSettingsSegue" {
+            let destinationVC = segue.destination as! UINavigationController
+            guard let destinationSettingsController = destinationVC.viewControllers.first as? SettingsTableViewController else {
+                return
+                
+            }
+            destinationSettingsController.scene = self.arSceneView.scene as? PenScene
+            //pass reference to the record manager (to show active user ID and export data)
+            destinationSettingsController.userStudyRecordManager = self.userStudyRecordManager
+            destinationSettingsController.bluetoothARPenConnected = self.bluetoothARPenConnected
+        }
+        
+    }
+    
+    // MARK: - Plugins
+    
     func setupPluginMenu(){
-        //define target height and width for the scrollview to hold all buttons
+        // Define target height and width for the scrollview to hold all buttons
         let targetWidth = Int(self.pluginMenuScrollView.frame.width)
         let experimentalPluginLabelHeight: Int = 40
         
@@ -297,31 +310,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.displayPluginInstructions(forPluginID: self.currentActivePluginID)        
     }
     
-    /**
-     Prepare the SettingsViewController by passing the scene
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let segueIdentifier = segue.identifier else { return }
-        
-        if segueIdentifier == "ShowSettingsSegue" {
-            let destinationVC = segue.destination as! UINavigationController
-            guard let destinationSettingsController = destinationVC.viewControllers.first as? SettingsTableViewController else {
-                return
-                
-            }
-            destinationSettingsController.scene = self.arSceneView.scene as! PenScene
-            //pass reference to the record manager (to show active user ID and export data)
-            destinationSettingsController.userStudyRecordManager = self.userStudyRecordManager
-            destinationSettingsController.bluetoothARPenConnected = self.bluetoothARPenConnected
-        }
-        
-    }
+    // MARK: - ARManager delegate
     
-    
-    // Mark: - ARManager Delegate
-    /**
-     Callback from the ARManager
-     */
+    // Callback from the ARManager
     func arKitInitialiazed() {
         guard let arKitActivity = self.arKitActivity else {
             return
@@ -331,10 +322,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         checkVisualEffectView()
     }
     
-    // Mark: - PenManager delegate
-    /**
-     Callback from PenManager
-     */
+    // MARK: - PenManager delegate
+    
+    // Callback from PenManager
     func penConnected() {
         guard let arPenActivity = self.arPenActivity else {
             return
@@ -360,9 +350,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         checkVisualEffectView()
     }
     
-    /**
-     This method will be called after `penConnected` and `arKitInitialized` to may hide the blurry overlay
-     */
+    // This method will be called after `penConnected` and `arKitInitialized` to hide the blurry overlay
     func checkVisualEffectView() {
         if self.arPenActivity.isHidden && self.arKitActivity.isHidden {
 //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
@@ -376,10 +364,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
     }
     
-    //Software Pen Button Actions
+    // Software Pen Button Actions
     @IBAction func softwarePenButtonPressed(_ sender: Any) {
         self.pluginManager.button(.Button1, pressed: true)
     }
+    
     @IBAction func softwarePenButtonReleased(_ sender: Any) {
         self.pluginManager.button(.Button1, pressed: false)
     }
