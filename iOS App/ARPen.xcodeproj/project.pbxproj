@@ -46,6 +46,7 @@
 		DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */; };
 		DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */; };
 		DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */ = {isa = PBXBuildFile; fileRef = DC28B478200E7E89008B77AB /* MarkerBox.m */; };
+		E906324522E3174B008E320F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906324422E3174B008E320F /* Utilities.swift */; };
 		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
 		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
 		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
@@ -111,6 +112,7 @@
 		DC28B478200E7E89008B77AB /* MarkerBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerBox.m; sourceTree = "<group>"; };
 		DC28B479200E7E89008B77AB /* MarkerBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerBox.h; sourceTree = "<group>"; };
 		DCE5A37E202F504B005F4186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E906324422E3174B008E320F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyramidByDraggingPlugin.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				4A59BA1F2244E68800EA23E7 /* ARPenDropTargetNode.swift */,
 				4A59BA202244E68800EA23E7 /* ARPenSceneConstructor.swift */,
 				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
+				E906324422E3174B008E320F /* Utilities.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
+				E906324522E3174B008E320F /* Utilities.swift in Sources */,
 				4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
 				4A59BA222244E68800EA23E7 /* ARPenDropTargetNode.swift in Sources */,

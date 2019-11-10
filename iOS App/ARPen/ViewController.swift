@@ -30,6 +30,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
     
+    // Persistence: Saving and loading current model
+    @IBOutlet weak var saveModelButton: UIButton!
+    @IBOutlet weak var loadModelButton: UIButton!
+    
+    @IBOutlet weak var snapshotThumbnail: UIImageView! // Screenshot thumbnail to help the user find feature points in the World
+    @IBOutlet weak var persistenceStateLabel: UILabel! // Text label used to provide feedback about saving and loading models
+    
     let menuButtonHeight = 70
     let menuButtonPadding = 5
     var currentActivePluginID = 1
@@ -49,15 +56,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.pluginInstructionsLookupButton.layer.masksToBounds = true
-        self.pluginInstructionsLookupButton.layer.cornerRadius = self.pluginInstructionsLookupButton.frame.width/2
-        
-        self.settingsButton.layer.masksToBounds = true
-        self.settingsButton.layer.cornerRadius = self.settingsButton.frame.width/2
-        
-        self.undoButton.layer.masksToBounds = true
-        self.undoButton.layer.cornerRadius = self.undoButton.frame.width/2
+
+        // Make the corners of UI buttons rounded
+        self.makeRoundedCorners(button: self.pluginInstructionsLookupButton)
+        self.makeRoundedCorners(button: self.settingsButton)
+        self.makeRoundedCorners(button: self.undoButton)
+        self.makeRoundedCorners(button: self.saveModelButton)
+        self.makeRoundedCorners(button: self.loadModelButton)
         
         self.undoButton.isHidden = false
         self.undoButton.isEnabled = true
@@ -92,6 +97,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         } else {
             print("Record manager was not set up in App Delegate")
         }
+        
+        // Read in any already saved map to see if we can load one
+        if mapDataFromFile != nil { self.loadModelButton.isHidden = false }
     }
     
     /**
@@ -365,5 +373,45 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     @IBAction func undoButtonPressed(_ sender: Any) {
         self.pluginManager.undoPreviousStep()
+    }
+    
+    // Create URL for storing WorldMap in a lazy manner
+    lazy var mapSaveURL: URL = {
+        do {
+            return try FileManager.default
+                .url(for: .documentDirectory,
+                     in: .userDomainMask,
+                     appropriateFor: nil,
+                     create: true)
+                .appendingPathComponent("map.arexperience")
+        } catch {
+            fatalError("Can't get file save URL: \(error.localizedDescription)")
+        }
+    }()
+    
+    // Create URL for storing all models in the current AR scence in a lazy manner
+    lazy var sceneSaveURL: URL = {
+        do {
+            return try FileManager.default
+                .url(for: .documentDirectory,
+                     in: .userDomainMask,
+                     appropriateFor: nil,
+                     create: true)
+                .appendingPathComponent("scene.scn")
+        } catch {
+            fatalError("Can't get scene save URL: \(error.localizedDescription)")
+        
+        }
+    }()
+    
+    
+    // Called opportunistically to verify that map data can be loaded from filesystem
+    var mapDataFromFile: Data? {
+        return try? Data(contentsOf: mapSaveURL)
+    }
+    
+    // Called opportunistically to verify that scene data can be loaded from filesystem
+    var sceneDataFromFile: Data? {
+        return try? Data(contentsOf: sceneSaveURL)
     }
 }
