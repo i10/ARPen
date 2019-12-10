@@ -22,10 +22,10 @@ class PenScene: SCNScene {
      The pencil point is the node that corresponds to the real world pencil point.
      `pencilPoint.position` is always the best known position of the pencil point.
      */
-    var pencilPoint: SCNNode
+    var pencilPoint = SCNNode()
     
     //Node that carries all the drawing operations
-    let drawingNode: SCNNode
+    let drawingNode = SCNNode()
     /**
      If a marker was found in the current frame the var is true
      */
@@ -49,17 +49,17 @@ class PenScene: SCNScene {
      init. Should not be called. Is not called by SceneKit
      */
     override init() {
-        self.pencilPoint = SCNNode()
-        self.drawingNode = SCNNode()
         super.init()
+        
+        setupPencilPoint()
     }
     
+    // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
+    override public class var supportsSecureCoding: Bool { return true }
     /**
      This initializer will be called after `init(named:)` is called.
      */
     required init?(coder aDecoder: NSCoder) {
-        self.pencilPoint = SCNNode()
-        self.drawingNode = SCNNode()
         super.init(coder: aDecoder)
         
         setupPencilPoint()

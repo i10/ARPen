@@ -63,8 +63,8 @@ class MarkerBox: SCNNode {
     func calculatePenTip(length: Double){
         let a: Double = length
         var xs, ys, zs, xl, yl, zl,
-            xCHIARPen, yCHIARPen,
-            xLMARPen, yLMARPen: Double
+            xCHIARPen, yCHIARPen,       //CHI = CHI 2019, Glasgow
+            xLMARPen, yLMARPen: Double  //LM = Laser Messe, Munich
         
         let angle = (35.3).degreesToRadians
         
