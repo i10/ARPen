@@ -39,6 +39,8 @@ class MarkerBox: SCNNode {
         
         //Observe device orientation. If orientation changes rotated() is called
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        //set orientationState to the current device orientation
+        rotated()
         
         //Make pen tip calculation
         calculatePenTip(length: length)
