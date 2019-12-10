@@ -357,10 +357,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     //Software Pen Button Actions
     @IBAction func softwarePenButtonPressed(_ sender: Any) {
-        self.pluginManager.button(.Button1, pressed: true)
+        //next line is the direct way possible here, but we'll show the way how the button states can be send from everywhere in the map
+        //self.pluginManager.button(.Button1, pressed: true)
+        //sent notification of button press to the pluginManager
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button1, "buttonState" : true]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
     @IBAction func softwarePenButtonReleased(_ sender: Any) {
-        self.pluginManager.button(.Button1, pressed: false)
+        //next line is the direct way possible here, but we'll show the way how the button states can be send from everywhere in the map
+        //self.pluginManager.button(.Button1, pressed: false)
+        //sent notification of button release to the pluginManager
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button1, "buttonState" : false]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
     
     @IBAction func undoButtonPressed(_ sender: Any) {

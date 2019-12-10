@@ -44,6 +44,9 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.activePlugin = plugins.first
         self.arManager.delegate = self
         self.arPenManager.delegate = self
+        
+        //listen to softwarePenButton notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(self.softwareButtonEvent(_:)), name: .softwarePenButtonEvent, object: nil)
     }
     
     /**
@@ -51,6 +54,13 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
      */
     func button(_ button: Button, pressed: Bool) {
         self.buttons[button] = pressed
+    }
+    
+    //Callback from Notification Center. Format of userInfo: ["buttonPressed"] is the button the event is for, ["buttonState"] is the boolean whether the button is pressed or not
+    @objc func softwareButtonEvent(_ notification: Notification){
+        if let buttonPressed = notification.userInfo?["buttonPressed"] as? Button, let buttonState = notification.userInfo?["buttonState"] as? Bool {
+            self.buttons[buttonPressed] = buttonState
+        }
     }
     
     /**
