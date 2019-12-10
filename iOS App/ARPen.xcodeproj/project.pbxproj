@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27C239FCEA800C4BF75 /* NotificationName.swift */; };
 		4A56952F2058186800C8065E /* aruco.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952D2058186800C8065E /* aruco.framework */; };
 		4A5695302058186800C8065E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952E2058186800C8065E /* opencv2.framework */; };
 		4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A27E27C239FCEA800C4BF75 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		4A56952D2058186800C8065E /* aruco.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = aruco.framework; sourceTree = "<group>"; };
 		4A56952E2058186800C8065E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyIDListTableViewController.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */,
 				DC28B470200E592C008B77AB /* DegreesToRadians.swift */,
 				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
+				4A27E27C239FCEA800C4BF75 /* NotificationName.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
+				4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */,
 				EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,
