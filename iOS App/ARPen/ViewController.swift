@@ -84,7 +84,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Hide the imageForPluginInstructions
         self.imageForPluginInstructions.isHidden = true
-        self.displayPluginInstructions(forPluginID: currentActivePluginID)
+        //self.displayPluginInstructions(forPluginID: currentActivePluginID)
         
         // set user study record manager reference in the app delegate (for saving state when leaving the app)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
