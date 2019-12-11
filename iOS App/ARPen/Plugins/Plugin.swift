@@ -17,6 +17,9 @@ protocol Plugin {
     var pluginIdentifier : String { get }
     
     var needsBluetoothARPen: Bool { get }
+    //view for custom UI elements. Will be added as a subview to the main view when the plugin is activated.
+    //the view has to be a PassthroughView (see helper class) to only react to touches on its UI elements and not block the underlying AR view
+    var customPluginUI : PassthroughView?
     
     var currentScene : PenScene? {get set}
     var currentView : ARSCNView? {get set}

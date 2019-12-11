@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27C239FCEA800C4BF75 /* NotificationName.swift */; };
+		4A27E27F239FF36D00C4BF75 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */; };
 		4A56952F2058186800C8065E /* aruco.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952D2058186800C8065E /* aruco.framework */; };
 		4A5695302058186800C8065E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952E2058186800C8065E /* opencv2.framework */; };
 		4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		4A27E27C239FCEA800C4BF75 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
+		4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
 		4A56952D2058186800C8065E /* aruco.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = aruco.framework; sourceTree = "<group>"; };
 		4A56952E2058186800C8065E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyIDListTableViewController.swift; sourceTree = "<group>"; };
@@ -199,7 +201,7 @@
 				DC28B476200E64C0008B77AB /* Plugins */,
 				4A56953520581AF300C8065E /* UserStudyData */,
 				EA0C795822F0787300E820E8 /* UserStudySetup */,
-				DC28B477200E6640008B77AB /* Extensions */,
+				DC28B477200E6640008B77AB /* Extensions And Helpers */,
 				DC28B45D200E4476008B77AB /* OpenCV */,
 				DC28B445200E4353008B77AB /* Main.storyboard */,
 				DC28B448200E4353008B77AB /* Assets.xcassets */,
@@ -238,7 +240,7 @@
 			path = Plugins;
 			sourceTree = "<group>";
 		};
-		DC28B477200E6640008B77AB /* Extensions */ = {
+		DC28B477200E6640008B77AB /* Extensions And Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				DC28B468200E4C43008B77AB /* CylinderLine.swift */,
@@ -246,8 +248,9 @@
 				DC28B470200E592C008B77AB /* DegreesToRadians.swift */,
 				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
 				4A27E27C239FCEA800C4BF75 /* NotificationName.swift */,
+				4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */,
 			);
-			path = Extensions;
+			path = "Extensions And Helpers";
 			sourceTree = "<group>";
 		};
 		EA0C795822F0787300E820E8 /* UserStudySetup */ = {
@@ -354,6 +357,7 @@
 				4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */,
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
 				4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */,
+				4A27E27F239FF36D00C4BF75 /* PassthroughView.swift in Sources */,
 				DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */,
 				E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,

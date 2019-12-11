@@ -21,6 +21,8 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     var currentScene : PenScene?
     var currentView: ARSCNView?
     
+    var customPluginUI : PassthroughView?
+    
     /**
      The starting point is the point of the pencil where the button was first pressed.
      If this var is nil, there was no initial point

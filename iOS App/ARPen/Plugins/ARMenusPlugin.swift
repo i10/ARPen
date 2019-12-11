@@ -17,6 +17,8 @@ class ARMenusPlugin: Plugin, MenuDelegate {
     var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
     var currentView: ARSCNView?
     
+    var customPluginUI : PassthroughView?
+    
     //You need to set this to nil when switching to another plugin!
     var currentScene: PenScene? {
         didSet {

@@ -19,6 +19,8 @@ class PaintPlugin: Plugin {
     var currentScene : PenScene?
     var currentView: ARSCNView?
 
+    var customPluginUI : PassthroughView?
+    
     var penColor: UIColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
     /**
      The previous point is the point of the pencil one frame before.

@@ -22,11 +22,18 @@ class CubeByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     var currentScene : PenScene?
     var currentView: ARSCNView?
     
+    var customPluginUI : PassthroughView?
+    
     /**
      The starting point is the point of the pencil where the button was first pressed.
      If this var is nil, there was no initial point
      */
     private var startingPoint: SCNVector3?
+    
+    
+    init(){
+        
+    }
     
     func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {

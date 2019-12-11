@@ -19,6 +19,8 @@ class CombinationPlugin: Plugin {
     var currentScene : PenScene?
     var currentView: ARSCNView?
     
+    var customPluginUI : PassthroughView?
+    
     var sceneConstructionResults : (superNode: SCNNode, studyNodes: [ARPenStudyNode])?
     var boxes : [ARPenBoxNode]?
     var activeTargetBox : ARPenBoxNode? {

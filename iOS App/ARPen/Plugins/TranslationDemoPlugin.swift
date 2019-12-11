@@ -19,6 +19,8 @@ class TranslationDemoPlugin: Plugin {
     var currentScene : PenScene?
     var currentView: ARSCNView?
     
+    var customPluginUI : PassthroughView?
+    
     static var nodeType : ARPenStudyNode.Type = ARPenWireBoxNode.self
     
     var sceneConstructionResults : (superNode: SCNNode, studyNodes: [ARPenStudyNode])?

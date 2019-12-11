@@ -29,6 +29,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var viewForCustomPluginView: UIView!
     
     let menuButtonHeight = 70
     let menuButtonPadding = 5
@@ -225,6 +226,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         newActivePluginButton.layer.borderWidth = 1
         
         if let currentActivePlugin = self.pluginManager.activePlugin {
+            //remove custom view elements from view
+            currentActivePlugin.customPluginUI?.removeFromSuperview()
             currentActivePlugin.deactivatePlugin()
         }
         //activate plugin in plugin manager and update currently active plugin property
@@ -237,6 +240,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if let currentScene = self.pluginManager.arManager.scene {
             if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
                 newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
+                if let customPluginUI = newActivePlugin.customPluginUI {
+                    viewForCustomPluginView.addSubview(customPluginUI)
+                }
             }
         }
         currentActivePluginID = pluginID

@@ -22,6 +22,8 @@ class ObjectCreationPlugin: Plugin {
     var currentScene : PenScene?
     var currentView: ARSCNView?
     
+    var customPluginUI : PassthroughView?
+    
     private var pointArray: [SCNVector3] = []
     private var alreadyAdded = false
     
