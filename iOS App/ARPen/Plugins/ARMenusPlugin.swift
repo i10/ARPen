@@ -10,15 +10,9 @@ import ARKit
 
 class ARMenusPlugin: Plugin, MenuDelegate {
     
-    var pluginImage : UIImage? = UIImage.init(named: "ARMenusPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "MenusInstructions")
-    var pluginIdentifier: String = "Menus"
-    var needsBluetoothARPen: Bool = false
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
-    var currentView: ARSCNView?
     
     //You need to set this to nil when switching to another plugin!
-    var currentScene: PenScene? {
+    override var currentScene: PenScene? {
         didSet {
             if currentScene != nil {
                 targetNode = SCNNode(geometry: SCNBox(width: 0.02, height: 0.02, length: 0.02, chamferRadius: 0.0))
@@ -45,25 +39,33 @@ class ARMenusPlugin: Plugin, MenuDelegate {
         }
     }
     
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        self.currentView = view
-        self.currentScene = scene
+    override init() {
+        super.init()
+        
+        self.pluginImage = UIImage.init(named: "ARMenusPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "MenusInstructions")
+        self.pluginIdentifier = "Menus"
+        self.needsBluetoothARPen = false
+        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
+    }
+    
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        super.activatePlugin(withScene: scene, andView: view)
         self.currentScene!.pencilPoint.geometry?.firstMaterial?.readsFromDepthBuffer = false
         self.currentScene!.pencilPoint.renderingOrder = 120
     }
     
-    func deactivatePlugin(){
+    override func deactivatePlugin(){
         self.currentScene?.pencilPoint.geometry?.firstMaterial?.readsFromDepthBuffer = true
         self.currentScene?.pencilPoint.renderingOrder = 0
         openMenuNode?.closeMenu(asAbort: true)
         targetNode?.removeFromParentNode()
-        self.currentView = nil
-        self.currentScene = nil
+        super.deactivatePlugin()
     }
     
     
     var isPressed = false
-    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
             return
         }
