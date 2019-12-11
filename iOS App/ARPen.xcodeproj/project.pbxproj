@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27C239FCEA800C4BF75 /* NotificationName.swift */; };
 		4A27E27F239FF36D00C4BF75 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */; };
+		4A27E28123A0F9E300C4BF75 /* PaintPlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A27E28023A0F9E300C4BF75 /* PaintPlugin.xib */; };
 		4A56952F2058186800C8065E /* aruco.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952D2058186800C8065E /* aruco.framework */; };
 		4A5695302058186800C8065E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952E2058186800C8065E /* opencv2.framework */; };
 		4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */; };
@@ -71,6 +72,7 @@
 /* Begin PBXFileReference section */
 		4A27E27C239FCEA800C4BF75 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
+		4A27E28023A0F9E300C4BF75 /* PaintPlugin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaintPlugin.xib; sourceTree = "<group>"; };
 		4A56952D2058186800C8065E /* aruco.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = aruco.framework; sourceTree = "<group>"; };
 		4A56952E2058186800C8065E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyIDListTableViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A27E28223A1032400C4BF75 /* PluginUIs */ = {
+			isa = PBXGroup;
+			children = (
+				4A27E28023A0F9E300C4BF75 /* PaintPlugin.xib */,
+			);
+			path = PluginUIs;
+			sourceTree = "<group>";
+		};
 		4A4B7F1B205817A200331810 /* SettingsViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +246,7 @@
 				E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */,
 				E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */,
 				E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */,
+				4A27E28223A1032400C4BF75 /* PluginUIs */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -333,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC28B442200E4353008B77AB /* art.scnassets in Resources */,
+				4A27E28123A0F9E300C4BF75 /* PaintPlugin.xib in Resources */,
 				DC28B44C200E4353008B77AB /* LaunchScreen.storyboard in Resources */,
 				DC28B449200E4353008B77AB /* Assets.xcassets in Resources */,
 				DC28B447200E4353008B77AB /* Main.storyboard in Resources */,

@@ -241,6 +241,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
                 newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
                 if let customPluginUI = newActivePlugin.customPluginUI {
+                    customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
                     viewForCustomPluginView.addSubview(customPluginUI)
                 }
             }
