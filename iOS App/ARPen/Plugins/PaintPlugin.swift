@@ -22,11 +22,6 @@ class PaintPlugin: Plugin {
     private var currentLine : [SCNNode]?
     private var removedOneLine = false
     
-    @IBOutlet weak var testLabel: UILabel!
-    
-    @IBAction func testAction(_ sender: Any) {
-        testLabel.text = "Success"
-    }
     
     override init() {
         super.init()
@@ -36,14 +31,6 @@ class PaintPlugin: Plugin {
         self.pluginIdentifier = "Draw"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
-        
-        nibNameOfCustomUIView = "PaintPlugin"
-    
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
     }
     
     func undoPreviousAction() {

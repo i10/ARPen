@@ -11,7 +11,7 @@ import ARKit
 /**
  The Plugin structure. If you want to write a new plugin you must inherit from this class.
  */
-class Plugin: UIViewController {
+class Plugin: NSObject {
     
     var pluginImage : UIImage?
     var pluginIdentifier : String = "ARPen Plugin"
@@ -22,6 +22,7 @@ class Plugin: UIViewController {
     //  3) set the background color of the view to clear color
     //  4) to use outlets and actions, set the new plugin class as the file owner in the xib
     //  5) in the init method of your plugin, set "nibNameOfCustomUIView" to the file name of your xib
+    // (an example for these steps is shown for the CubeByExtractionPlugin)
     
     //view for custom UI elements. Will be added as a subview to the main view when the plugin is activated.
     //the view has to be a PassthroughView (see helper class) to only react to touches on its UI elements and not block the underlying AR view
@@ -40,14 +41,6 @@ class Plugin: UIViewController {
     
     var pluginInstructionsImage: UIImage?
     var pluginDisabledImage: UIImage?
-    
-    init(){
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     /**
      This method must be implemented by all protocols.

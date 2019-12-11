@@ -12,24 +12,25 @@ import ARKit
 class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
     var recordManager: UserStudyRecordManager!
     
-
-    var pluginImage : UIImage? = UIImage.init(named: "CubeByExtractionPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "ExtrudePluginInstructions")
-    var pluginIdentifier: String = "Extrude"
-    var needsBluetoothARPen: Bool = true
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "CubeByExtractionPluginDisabled")
-    var currentScene : PenScene?
-    var currentView: ARSCNView?
-    
-    var customPluginUI : PassthroughView?
-    
     /**
      The starting point is the point of the pencil where the button was first pressed.
      If this var is nil, there was no initial point
      */
     private var startingPoint: SCNVector3?
     
-    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    override init() {
+        super.init()
+        
+        self.pluginImage = UIImage.init(named: "CubeByExtractionPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "ExtrudePluginInstructions")
+        self.pluginIdentifier = "Extrude"
+        self.needsBluetoothARPen = false
+        self.pluginDisabledImage = UIImage.init(named: "CubeByExtractionPluginDisabled")
+        
+        nibNameOfCustomUIView = "CubeByExtractionPlugin"
+    }
+   
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
             //Don't reset the previous point to avoid restarting cube if the marker detection failed for some frames
             //self.startingPoint = nil
@@ -108,14 +109,13 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
         }
     }
     
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        self.currentScene = scene
-        self.currentView = view
+    @IBAction func secondSoftwareButtonPressed(_ sender: Any) {
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button2, "buttonState" : true]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
     
-    func deactivatePlugin() {
-        self.currentScene = nil
-        self.currentView = nil
+    @IBAction func secondSoftwareButtonReleased(_ sender: Any) {
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button2, "buttonState" : false]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
-    
 }
