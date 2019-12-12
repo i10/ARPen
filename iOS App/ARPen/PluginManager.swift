@@ -34,7 +34,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
      */
     init(scene: PenScene) {
         self.paintPlugin = PaintPlugin()
-        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin()]
+        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin(), CurvePlugin()]
         self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.experimentalPluginsStartAtIndex = 7
         

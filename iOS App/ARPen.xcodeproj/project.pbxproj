@@ -45,6 +45,8 @@
 		4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0923A24A6E003B6E83 /* Registry.mm */; };
 		4AAC4B1323A24C2A003B6E83 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */; };
 		4AAC4B1523A24DF6003B6E83 /* occt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAC4B1423A24DF5003B6E83 /* occt.framework */; };
+		4AAC4B1723A27DFE003B6E83 /* CurvePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1623A27DFE003B6E83 /* CurvePlugin.swift */; };
+		4AAC4B1923A27FC4003B6E83 /* CurvePlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1823A27FC4003B6E83 /* CurvePlugin.xib */; };
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
 		4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */; };
 		AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA935109224245CE002AEB00 /* ARMenusPlugin.swift */; };
@@ -137,6 +139,8 @@
 		4AAC4B0923A24A6E003B6E83 /* Registry.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Registry.mm; sourceTree = "<group>"; };
 		4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		4AAC4B1423A24DF5003B6E83 /* occt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = occt.framework; path = "../../191016 ARPen + OpenCascade/iOS App/occt.framework"; sourceTree = "<group>"; };
+		4AAC4B1623A27DFE003B6E83 /* CurvePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurvePlugin.swift; sourceTree = "<group>"; };
+		4AAC4B1823A27FC4003B6E83 /* CurvePlugin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurvePlugin.xib; sourceTree = "<group>"; };
 		4AC0B97D226F2B3F001B591D /* ARPen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARPen.entitlements; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				4A27E28023A0F9E300C4BF75 /* CubeByExtractionPlugin.xib */,
+				4AAC4B1823A27FC4003B6E83 /* CurvePlugin.xib */,
 			);
 			path = PluginUIs;
 			sourceTree = "<group>";
@@ -316,7 +321,6 @@
 		DC28B43E200E4353008B77AB /* ARPen */ = {
 			isa = PBXGroup;
 			children = (
-				4AAC4AD923A24A1F003B6E83 /* Modeling */,
 				4AC0B97D226F2B3F001B591D /* ARPen.entitlements */,
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
@@ -329,6 +333,7 @@
 				DC28B46C200E4E6E008B77AB /* MarkerBox.swift */,
 				DC28B462200E471F008B77AB /* PluginManager.swift */,
 				DC28B476200E64C0008B77AB /* Plugins */,
+				4AAC4AD923A24A1F003B6E83 /* Modeling */,
 				4A56953520581AF300C8065E /* UserStudyData */,
 				EA0C795822F0787300E820E8 /* UserStudySetup */,
 				DC28B477200E6640008B77AB /* Extensions And Helpers */,
@@ -367,6 +372,7 @@
 				E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */,
 				E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */,
 				E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */,
+				4AAC4B1623A27DFE003B6E83 /* CurvePlugin.swift */,
 				4A27E28223A1032400C4BF75 /* PluginUIs */,
 				4AAC4AF423A24A3F003B6E83 /* Util */,
 			);
@@ -471,6 +477,7 @@
 				4A27E28123A0F9E300C4BF75 /* CubeByExtractionPlugin.xib in Resources */,
 				DC28B44C200E4353008B77AB /* LaunchScreen.storyboard in Resources */,
 				DC28B449200E4353008B77AB /* Assets.xcassets in Resources */,
+				4AAC4B1923A27FC4003B6E83 /* CurvePlugin.xib in Resources */,
 				DC28B447200E4353008B77AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,6 +541,7 @@
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
 				4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */,
+				4AAC4B1723A27DFE003B6E83 /* CurvePlugin.swift in Sources */,
 				4AAC4AEF23A24A20003B6E83 /* ARPCylinder.swift in Sources */,
 				4AAC4AF323A24A20003B6E83 /* OCCTAPI.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
