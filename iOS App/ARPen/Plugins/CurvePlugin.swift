@@ -12,6 +12,9 @@ import ARKit
 class CurvePlugin: Plugin {
     
 
+    @IBOutlet weak var button1Label: UILabel!
+    @IBOutlet weak var button2Label: UILabel!
+    @IBOutlet weak var button3Label: UILabel!
     /**
      The previous point is the point of the pencil one frame before.
      If this var is nil, there was no last point
@@ -30,8 +33,16 @@ class CurvePlugin: Plugin {
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         
-        nibNameOfCustomUIView = "CurvePlugin"
+        nibNameOfCustomUIView = "AllButtonsAndUndo"
  
+    }
+    
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        super.activatePlugin(withScene: scene, andView: view)
+        
+        self.button1Label.text = "Finish"
+        self.button2Label.text = "Sharp Corner"
+        self.button3Label.text = "Round Corner"
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
