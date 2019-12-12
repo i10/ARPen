@@ -47,6 +47,7 @@
 		4AAC4B1523A24DF6003B6E83 /* occt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAC4B1423A24DF5003B6E83 /* occt.framework */; };
 		4AAC4B1723A27DFE003B6E83 /* CurvePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1623A27DFE003B6E83 /* CurvePlugin.swift */; };
 		4AAC4B1923A27FC4003B6E83 /* CurvePlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1823A27FC4003B6E83 /* CurvePlugin.xib */; };
+		4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */; };
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
 		4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */; };
 		AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA935109224245CE002AEB00 /* ARMenusPlugin.swift */; };
@@ -141,6 +142,7 @@
 		4AAC4B1423A24DF5003B6E83 /* occt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = occt.framework; path = "../../191016 ARPen + OpenCascade/iOS App/occt.framework"; sourceTree = "<group>"; };
 		4AAC4B1623A27DFE003B6E83 /* CurvePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurvePlugin.swift; sourceTree = "<group>"; };
 		4AAC4B1823A27FC4003B6E83 /* CurvePlugin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurvePlugin.xib; sourceTree = "<group>"; };
+		4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweepPluginProfileAndPath.swift; sourceTree = "<group>"; };
 		4AC0B97D226F2B3F001B591D /* ARPen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARPen.entitlements; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */,
 				E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */,
 				4AAC4B1623A27DFE003B6E83 /* CurvePlugin.swift */,
+				4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */,
 				4A27E28223A1032400C4BF75 /* PluginUIs */,
 				4AAC4AF423A24A3F003B6E83 /* Util */,
 			);
@@ -533,6 +536,7 @@
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */,
+				4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */,
 				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
 				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
