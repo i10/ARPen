@@ -1,44 +1,46 @@
 //
-//  SweepPluginProfileAndPath.swift
+//  CurvePlugin.swift
 //  ARPen
 //
-//  Created by Jan Benscheid on 04.04.19.
+//  Created by Jan Benscheid on 30.06.19.
 //  Copyright © 2019 RWTH Aachen. All rights reserved.
 //
 
 import Foundation
 import ARKit
 
-class SweepPluginProfileAndPath: Plugin {
-      
+class ModelingPlugin: Plugin {
+    
+
     @IBOutlet weak var button1Label: UILabel!
     @IBOutlet weak var button2Label: UILabel!
     @IBOutlet weak var button3Label: UILabel!
     
-    private var freePaths: [ARPPath] = [ARPPath]()
-    private var busy: Bool = false
+    /// The curve designer "sub-plugin", responsible for the interactive path creation
+    var curveDesigner: CurveDesigner
     
-    private var curveDesigner: CurveDesigner
-    
-
     override init() {
+        // Initialize curve designer
         curveDesigner = CurveDesigner()
         
         super.init()
         
-        curveDesigner.didCompletePath = self.didCompletePath
-        
+        //Specify Plugin Information
         self.pluginImage = UIImage.init(named: "PaintPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
-        self.pluginIdentifier = "Sweep (Profile + Path)"
+        self.pluginIdentifier = "Paint Curves"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         
+        // This UI contains buttons to represent the other two buttons on the pen and an undo button
+        // Important: when using this xib-file, implement the IBActions shown below and the IBOutlets above
         nibNameOfCustomUIView = "AllButtonsAndUndo"
+ 
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
         super.activatePlugin(withScene: scene, andView: view)
+        
         self.curveDesigner.reset()
         
         self.button1Label.text = "Finish"
@@ -46,31 +48,10 @@ class SweepPluginProfileAndPath: Plugin {
         self.button3Label.text = "Round Corner"
     }
     
-
-    
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         curveDesigner.update(scene: scene, buttons: buttons)
     }
 
-    func didCompletePath(_ path: ARPPath) {
-        freePaths.append(path)
-        if let profile = freePaths.first(where: { $0.closed }),
-            let spine = freePaths.first(where: { !$0.closed && $0.points.count > 1 }) {
-            DispatchQueue.global(qos: .userInitiated).async {
-                profile.flatten()
-                                
-                if let sweep = try? ARPSweep(profile: profile, path: spine) {
-                    
-                    DispatchQueue.main.async {
-                        self.currentScene?.drawingNode.addChildNode(sweep)
-                        self.freePaths.removeAll(where: { $0 === profile || $0 === spine })
-                        
-                    }
-                }
-            }
-        }
-    }
-    
     @IBAction func softwarePenButtonPressed(_ sender: UIButton) {
         var buttonEventDict = [String: Any]()
         switch sender.tag {

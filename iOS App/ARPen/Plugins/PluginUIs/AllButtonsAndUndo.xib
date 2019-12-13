@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurvePlugin" customModule="ARPen" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModelingPlugin" customModule="ARPen" customModuleProvider="target">
             <connections>
                 <outlet property="button1Label" destination="n8C-Fp-aaG" id="UcV-ZR-UIu"/>
                 <outlet property="button2Label" destination="lgm-Ta-7As" id="V25-UT-kB6"/>
