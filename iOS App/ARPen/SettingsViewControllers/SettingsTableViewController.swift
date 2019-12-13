@@ -195,5 +195,10 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
             destinationVC.userStudyRecordManager = self.userStudyRecordManager
         }
     }
+    @IBAction func visitOpenCascadeWebsiteButtonPressed(_ sender: Any) {
+        if let url = URL(string: "https://www.opencascade.com/") {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
     
 }
