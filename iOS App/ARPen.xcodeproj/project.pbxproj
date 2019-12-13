@@ -21,6 +21,42 @@
 		4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */; };
 		4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */; };
 		4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */; };
+		4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADA23A24A1F003B6E83 /* Util.swift */; };
+		4AAC4AE923A24A20003B6E83 /* ARPSphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */; };
+		4AAC4AEA23A24A20003B6E83 /* ARPGeomNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */; };
+		4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADE23A24A1F003B6E83 /* ARPRevolution.swift */; };
+		4AAC4AEC23A24A20003B6E83 /* ARPBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADF23A24A1F003B6E83 /* ARPBox.swift */; };
+		4AAC4AED23A24A20003B6E83 /* ARPNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE023A24A1F003B6E83 /* ARPNode.swift */; };
+		4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE123A24A1F003B6E83 /* ARPSweep.swift */; };
+		4AAC4AEF23A24A20003B6E83 /* ARPCylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE223A24A1F003B6E83 /* ARPCylinder.swift */; };
+		4AAC4AF023A24A20003B6E83 /* ARPLoft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE323A24A20003B6E83 /* ARPLoft.swift */; };
+		4AAC4AF123A24A20003B6E83 /* ARPPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE423A24A20003B6E83 /* ARPPath.swift */; };
+		4AAC4AF223A24A20003B6E83 /* ARPBoolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE523A24A20003B6E83 /* ARPBoolNode.swift */; };
+		4AAC4AF323A24A20003B6E83 /* OCCTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE723A24A20003B6E83 /* OCCTAPI.swift */; };
+		4AAC4AFA23A24A3F003B6E83 /* ButtonEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF523A24A3F003B6E83 /* ButtonEvents.swift */; };
+		4AAC4AFB23A24A3F003B6E83 /* TaskScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF623A24A3F003B6E83 /* TaskScenes.swift */; };
+		4AAC4AFC23A24A3F003B6E83 /* Arranger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF723A24A3F003B6E83 /* Arranger.swift */; };
+		4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */; };
+		4AAC4AFE23A24A3F003B6E83 /* TaskTimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */; };
+		4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0123A24A6E003B6E83 /* Helpers.mm */; };
+		4AAC4B0B23A24A6E003B6E83 /* Meshing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0323A24A6E003B6E83 /* Meshing.mm */; };
+		4AAC4B0C23A24A6E003B6E83 /* OCCT.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0523A24A6E003B6E83 /* OCCT.mm */; };
+		4AAC4B0D23A24A6E003B6E83 /* Builders.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0623A24A6E003B6E83 /* Builders.mm */; };
+		4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0923A24A6E003B6E83 /* Registry.mm */; };
+		4AAC4B1323A24C2A003B6E83 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */; };
+		4AAC4B1523A24DF6003B6E83 /* occt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAC4B1423A24DF5003B6E83 /* occt.framework */; };
+		4AAC4B1723A27DFE003B6E83 /* ModelingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1623A27DFE003B6E83 /* ModelingPlugin.swift */; };
+		4AAC4B1923A27FC4003B6E83 /* AllButtonsAndUndo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1823A27FC4003B6E83 /* AllButtonsAndUndo.xib */; };
+		4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */; };
+		4AAC4B1D23A290FE003B6E83 /* SweepPluginTwoProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1C23A290FE003B6E83 /* SweepPluginTwoProfiles.swift */; };
+		4AAC4B1F23A29189003B6E83 /* SweepPluginTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1E23A29189003B6E83 /* SweepPluginTutorial.swift */; };
+		4AAC4B2123A2949E003B6E83 /* CombinePluginTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */; };
+		4AAC4B2823A37D17003B6E83 /* CombinePluginFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */; };
+		4AAC4B2923A37D17003B6E83 /* LoftPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2323A37D16003B6E83 /* LoftPlugin.swift */; };
+		4AAC4B2A23A37D17003B6E83 /* RevolvePluginTwoProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2423A37D16003B6E83 /* RevolvePluginTwoProfiles.swift */; };
+		4AAC4B2B23A37D17003B6E83 /* CombinePluginSolidHole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */; };
+		4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2623A37D16003B6E83 /* RevolvePluginProfileAndCircle.swift */; };
+		4AAC4B2D23A37D17003B6E83 /* RevolvePluginProfileAndAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2723A37D16003B6E83 /* RevolvePluginProfileAndAxis.swift */; };
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
 		4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */; };
 		AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA935109224245CE002AEB00 /* ARMenusPlugin.swift */; };
@@ -84,6 +120,47 @@
 		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
+		4AAC4ADA23A24A1F003B6E83 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPSphere.swift; sourceTree = "<group>"; };
+		4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPGeomNode.swift; sourceTree = "<group>"; };
+		4AAC4ADE23A24A1F003B6E83 /* ARPRevolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPRevolution.swift; sourceTree = "<group>"; };
+		4AAC4ADF23A24A1F003B6E83 /* ARPBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPBox.swift; sourceTree = "<group>"; };
+		4AAC4AE023A24A1F003B6E83 /* ARPNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPNode.swift; sourceTree = "<group>"; };
+		4AAC4AE123A24A1F003B6E83 /* ARPSweep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPSweep.swift; sourceTree = "<group>"; };
+		4AAC4AE223A24A1F003B6E83 /* ARPCylinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPCylinder.swift; sourceTree = "<group>"; };
+		4AAC4AE323A24A20003B6E83 /* ARPLoft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPLoft.swift; sourceTree = "<group>"; };
+		4AAC4AE423A24A20003B6E83 /* ARPPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPPath.swift; sourceTree = "<group>"; };
+		4AAC4AE523A24A20003B6E83 /* ARPBoolNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPBoolNode.swift; sourceTree = "<group>"; };
+		4AAC4AE723A24A20003B6E83 /* OCCTAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCCTAPI.swift; sourceTree = "<group>"; };
+		4AAC4AF523A24A3F003B6E83 /* ButtonEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonEvents.swift; sourceTree = "<group>"; };
+		4AAC4AF623A24A3F003B6E83 /* TaskScenes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScenes.swift; sourceTree = "<group>"; };
+		4AAC4AF723A24A3F003B6E83 /* Arranger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arranger.swift; sourceTree = "<group>"; };
+		4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurveDesigner.swift; sourceTree = "<group>"; };
+		4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimeLogger.swift; sourceTree = "<group>"; };
+		4AAC4B0023A24A6E003B6E83 /* OCCT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCCT.h; sourceTree = "<group>"; };
+		4AAC4B0123A24A6E003B6E83 /* Helpers.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Helpers.mm; sourceTree = "<group>"; };
+		4AAC4B0223A24A6E003B6E83 /* Meshing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meshing.h; sourceTree = "<group>"; };
+		4AAC4B0323A24A6E003B6E83 /* Meshing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Meshing.mm; sourceTree = "<group>"; };
+		4AAC4B0423A24A6E003B6E83 /* Registry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Registry.h; sourceTree = "<group>"; };
+		4AAC4B0523A24A6E003B6E83 /* OCCT.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OCCT.mm; sourceTree = "<group>"; };
+		4AAC4B0623A24A6E003B6E83 /* Builders.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Builders.mm; sourceTree = "<group>"; };
+		4AAC4B0723A24A6E003B6E83 /* Builders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Builders.h; sourceTree = "<group>"; };
+		4AAC4B0823A24A6E003B6E83 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
+		4AAC4B0923A24A6E003B6E83 /* Registry.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Registry.mm; sourceTree = "<group>"; };
+		4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		4AAC4B1423A24DF5003B6E83 /* occt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = occt.framework; path = "../../191016 ARPen + OpenCascade/iOS App/occt.framework"; sourceTree = "<group>"; };
+		4AAC4B1623A27DFE003B6E83 /* ModelingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelingPlugin.swift; sourceTree = "<group>"; };
+		4AAC4B1823A27FC4003B6E83 /* AllButtonsAndUndo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllButtonsAndUndo.xib; sourceTree = "<group>"; };
+		4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweepPluginProfileAndPath.swift; sourceTree = "<group>"; };
+		4AAC4B1C23A290FE003B6E83 /* SweepPluginTwoProfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweepPluginTwoProfiles.swift; sourceTree = "<group>"; };
+		4AAC4B1E23A29189003B6E83 /* SweepPluginTutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweepPluginTutorial.swift; sourceTree = "<group>"; };
+		4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinePluginTutorial.swift; sourceTree = "<group>"; };
+		4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinePluginFunction.swift; sourceTree = "<group>"; };
+		4AAC4B2323A37D16003B6E83 /* LoftPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoftPlugin.swift; sourceTree = "<group>"; };
+		4AAC4B2423A37D16003B6E83 /* RevolvePluginTwoProfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevolvePluginTwoProfiles.swift; sourceTree = "<group>"; };
+		4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinePluginSolidHole.swift; sourceTree = "<group>"; };
+		4AAC4B2623A37D16003B6E83 /* RevolvePluginProfileAndCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevolvePluginProfileAndCircle.swift; sourceTree = "<group>"; };
+		4AAC4B2723A37D16003B6E83 /* RevolvePluginProfileAndAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevolvePluginProfileAndAxis.swift; sourceTree = "<group>"; };
 		4AC0B97D226F2B3F001B591D /* ARPen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARPen.entitlements; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AAC4B1523A24DF6003B6E83 /* occt.framework in Frameworks */,
 				4A56952F2058186800C8065E /* aruco.framework in Frameworks */,
 				4A5695302058186800C8065E /* opencv2.framework in Frameworks */,
 			);
@@ -142,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				4A27E28023A0F9E300C4BF75 /* CubeByExtractionPlugin.xib */,
+				4AAC4B1823A27FC4003B6E83 /* AllButtonsAndUndo.xib */,
 			);
 			path = PluginUIs;
 			sourceTree = "<group>";
@@ -167,9 +246,104 @@
 			path = UserStudyData;
 			sourceTree = "<group>";
 		};
+		4AAC4AD923A24A1F003B6E83 /* Modeling */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4ADA23A24A1F003B6E83 /* Util.swift */,
+				4AAC4ADB23A24A1F003B6E83 /* GeometryNodes */,
+				4AAC4AE623A24A20003B6E83 /* OCCTAPI */,
+			);
+			path = Modeling;
+			sourceTree = "<group>";
+		};
+		4AAC4ADB23A24A1F003B6E83 /* GeometryNodes */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */,
+				4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */,
+				4AAC4ADE23A24A1F003B6E83 /* ARPRevolution.swift */,
+				4AAC4ADF23A24A1F003B6E83 /* ARPBox.swift */,
+				4AAC4AE023A24A1F003B6E83 /* ARPNode.swift */,
+				4AAC4AE123A24A1F003B6E83 /* ARPSweep.swift */,
+				4AAC4AE223A24A1F003B6E83 /* ARPCylinder.swift */,
+				4AAC4AE323A24A20003B6E83 /* ARPLoft.swift */,
+				4AAC4AE423A24A20003B6E83 /* ARPPath.swift */,
+				4AAC4AE523A24A20003B6E83 /* ARPBoolNode.swift */,
+			);
+			path = GeometryNodes;
+			sourceTree = "<group>";
+		};
+		4AAC4AE623A24A20003B6E83 /* OCCTAPI */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4AE723A24A20003B6E83 /* OCCTAPI.swift */,
+			);
+			path = OCCTAPI;
+			sourceTree = "<group>";
+		};
+		4AAC4AF423A24A3F003B6E83 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4AF523A24A3F003B6E83 /* ButtonEvents.swift */,
+				4AAC4AF623A24A3F003B6E83 /* TaskScenes.swift */,
+				4AAC4AF723A24A3F003B6E83 /* Arranger.swift */,
+				4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */,
+				4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		4AAC4AFF23A24A6E003B6E83 /* Open CASCADE */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B0023A24A6E003B6E83 /* OCCT.h */,
+				4AAC4B0123A24A6E003B6E83 /* Helpers.mm */,
+				4AAC4B0223A24A6E003B6E83 /* Meshing.h */,
+				4AAC4B0323A24A6E003B6E83 /* Meshing.mm */,
+				4AAC4B0423A24A6E003B6E83 /* Registry.h */,
+				4AAC4B0523A24A6E003B6E83 /* OCCT.mm */,
+				4AAC4B0623A24A6E003B6E83 /* Builders.mm */,
+				4AAC4B0723A24A6E003B6E83 /* Builders.h */,
+				4AAC4B0823A24A6E003B6E83 /* Helpers.h */,
+				4AAC4B0923A24A6E003B6E83 /* Registry.mm */,
+			);
+			path = "Open CASCADE";
+			sourceTree = "<group>";
+		};
+		4AAC4B2E23A37D3D003B6E83 /* SweepPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B1E23A29189003B6E83 /* SweepPluginTutorial.swift */,
+				4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */,
+				4AAC4B1C23A290FE003B6E83 /* SweepPluginTwoProfiles.swift */,
+			);
+			path = SweepPlugins;
+			sourceTree = "<group>";
+		};
+		4AAC4B2F23A37D5E003B6E83 /* RevolvePlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B2723A37D16003B6E83 /* RevolvePluginProfileAndAxis.swift */,
+				4AAC4B2623A37D16003B6E83 /* RevolvePluginProfileAndCircle.swift */,
+				4AAC4B2423A37D16003B6E83 /* RevolvePluginTwoProfiles.swift */,
+			);
+			path = RevolvePlugins;
+			sourceTree = "<group>";
+		};
+		4AAC4B3023A37D6F003B6E83 /* BooleanOperationPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */,
+				4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */,
+				4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */,
+			);
+			path = BooleanOperationPlugins;
+			sourceTree = "<group>";
+		};
 		DC18B2B820237A7200884920 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AAC4B1423A24DF5003B6E83 /* occt.framework */,
 				4A56952D2058186800C8065E /* aruco.framework */,
 				4A56952E2058186800C8065E /* opencv2.framework */,
 			);
@@ -209,10 +383,12 @@
 				DC28B46C200E4E6E008B77AB /* MarkerBox.swift */,
 				DC28B462200E471F008B77AB /* PluginManager.swift */,
 				DC28B476200E64C0008B77AB /* Plugins */,
+				4AAC4AD923A24A1F003B6E83 /* Modeling */,
 				4A56953520581AF300C8065E /* UserStudyData */,
 				EA0C795822F0787300E820E8 /* UserStudySetup */,
 				DC28B477200E6640008B77AB /* Extensions And Helpers */,
 				DC28B45D200E4476008B77AB /* OpenCV */,
+				4AAC4AFF23A24A6E003B6E83 /* Open CASCADE */,
 				DC28B445200E4353008B77AB /* Main.storyboard */,
 				DC28B448200E4353008B77AB /* Assets.xcassets */,
 				DC28B441200E4353008B77AB /* art.scnassets */,
@@ -246,7 +422,13 @@
 				E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */,
 				E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */,
 				E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */,
+				4AAC4B1623A27DFE003B6E83 /* ModelingPlugin.swift */,
+				4AAC4B2E23A37D3D003B6E83 /* SweepPlugins */,
+				4AAC4B2323A37D16003B6E83 /* LoftPlugin.swift */,
+				4AAC4B2F23A37D5E003B6E83 /* RevolvePlugins */,
+				4AAC4B3023A37D6F003B6E83 /* BooleanOperationPlugins */,
 				4A27E28223A1032400C4BF75 /* PluginUIs */,
+				4AAC4AF423A24A3F003B6E83 /* Util */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -260,6 +442,7 @@
 				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
 				4A27E27C239FCEA800C4BF75 /* NotificationName.swift */,
 				4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */,
+				4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */,
 			);
 			path = "Extensions And Helpers";
 			sourceTree = "<group>";
@@ -284,6 +467,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC28B450200E4353008B77AB /* Build configuration list for PBXNativeTarget "ARPen" */;
 			buildPhases = (
+				4AAC4B1123A24B1C003B6E83 /* ShellScript */,
 				DC28B438200E4353008B77AB /* Sources */,
 				DC28B439200E4353008B77AB /* Frameworks */,
 				DC28B43A200E4353008B77AB /* Resources */,
@@ -347,48 +531,97 @@
 				4A27E28123A0F9E300C4BF75 /* CubeByExtractionPlugin.xib in Resources */,
 				DC28B44C200E4353008B77AB /* LaunchScreen.storyboard in Resources */,
 				DC28B449200E4353008B77AB /* Assets.xcassets in Resources */,
+				4AAC4B1923A27FC4003B6E83 /* AllButtonsAndUndo.xib in Resources */,
 				DC28B447200E4353008B77AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4AAC4B1123A24B1C003B6E83 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ ! -d \"${PROJECT_DIR}/occt.framework\" ]; then\n    # Re-assemble the split zip archive\n    for i in `ls \"${PROJECT_DIR}/Open CASCADE\" | sort -V`; do cat \"${PROJECT_DIR}/Open CASCADE/$i\" >> \"${PROJECT_DIR}/occt.framework.zip\"; done;\n    # Unzip\n    unzip \"${PROJECT_DIR}/occt.framework.zip\"\n    # Remove assembled version\n    rm \"${PROJECT_DIR}/occt.framework.zip\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DC28B438200E4353008B77AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AAC4B0C23A24A6E003B6E83 /* OCCT.mm in Sources */,
 				DC28B461200E46DC008B77AB /* Plugin.swift in Sources */,
 				E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */,
 				EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */,
 				4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */,
+				4AAC4B0D23A24A6E003B6E83 /* Builders.mm in Sources */,
 				4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */,
+				4AAC4AFB23A24A3F003B6E83 /* TaskScenes.swift in Sources */,
 				4A5695342058195200C8065E /* UserStudyRecordsListTableViewController.swift in Sources */,
 				DC28B45F200E4561008B77AB /* PenManager.swift in Sources */,
 				EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */,
+				4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */,
 				4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */,
+				4AAC4AF123A24A20003B6E83 /* ARPPath.swift in Sources */,
+				4AAC4B2B23A37D17003B6E83 /* CombinePluginSolidHole.swift in Sources */,
+				4AAC4B1323A24C2A003B6E83 /* DateExtensions.swift in Sources */,
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
 				4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */,
+				4AAC4AEC23A24A20003B6E83 /* ARPBox.swift in Sources */,
 				4A27E27F239FF36D00C4BF75 /* PassthroughView.swift in Sources */,
+				4AAC4B2823A37D17003B6E83 /* CombinePluginFunction.swift in Sources */,
 				DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */,
 				E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */,
+				4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */,
+				4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */,
+				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
+				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
+				4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */,
+				4AAC4B1723A27DFE003B6E83 /* ModelingPlugin.swift in Sources */,
+				4AAC4AEF23A24A20003B6E83 /* ARPCylinder.swift in Sources */,
+				4AAC4B1F23A29189003B6E83 /* SweepPluginTutorial.swift in Sources */,
+				4AAC4B2A23A37D17003B6E83 /* RevolvePluginTwoProfiles.swift in Sources */,
+				4AAC4AF323A24A20003B6E83 /* OCCTAPI.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
+				4AAC4B2123A2949E003B6E83 /* CombinePluginTutorial.swift in Sources */,
+				4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */,
 				4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */,
 				EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */,
+				4AAC4AE923A24A20003B6E83 /* ARPSphere.swift in Sources */,
+				4AAC4AFE23A24A3F003B6E83 /* TaskTimeLogger.swift in Sources */,
+				4AAC4B2923A37D17003B6E83 /* LoftPlugin.swift in Sources */,
+				4AAC4AFA23A24A3F003B6E83 /* ButtonEvents.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,
 				4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */,
 				4A56953720581B4500C8065E /* UserStudyRecord.swift in Sources */,
+				4AAC4AF023A24A20003B6E83 /* ARPLoft.swift in Sources */,
 				DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */,
+				4AAC4B0B23A24A6E003B6E83 /* Meshing.mm in Sources */,
 				DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */,
+				4AAC4AEA23A24A20003B6E83 /* ARPGeomNode.swift in Sources */,
 				DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */,
 				DC28B463200E471F008B77AB /* PluginManager.swift in Sources */,
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
@@ -396,8 +629,14 @@
 				EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */,
 				4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */,
 				DC28B46B200E4C78008B77AB /* Button.swift in Sources */,
+				4AAC4AED23A24A20003B6E83 /* ARPNode.swift in Sources */,
+				4AAC4B2D23A37D17003B6E83 /* RevolvePluginProfileAndAxis.swift in Sources */,
 				EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */,
+				4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */,
+				4AAC4AFC23A24A3F003B6E83 /* Arranger.swift in Sources */,
 				DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */,
+				4AAC4B1D23A290FE003B6E83 /* SweepPluginTwoProfiles.swift in Sources */,
+				4AAC4AF223A24A20003B6E83 /* ARPBoolNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
