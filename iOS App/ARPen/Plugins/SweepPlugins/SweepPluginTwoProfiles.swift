@@ -20,7 +20,7 @@ class SweepPluginTwoProfiles: ModelingPlugin {
         
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "PaintPlugin")
+        self.pluginImage = UIImage.init(named: "Sweep(2Profiles)")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Sweep (2 Profiles)"
         self.needsBluetoothARPen = false

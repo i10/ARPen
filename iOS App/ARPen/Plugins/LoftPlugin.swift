@@ -21,7 +21,7 @@ class LoftPlugin: ModelingPlugin {
  
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "PaintPlugin")
+        self.pluginImage = UIImage.init(named: "Loft")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Loft"
         self.needsBluetoothARPen = false
