@@ -38,7 +38,7 @@ class MarkerBox: SCNNode {
         self.name = "MarkerBox"
         
         //Observe device orientation. If orientation changes rotated() is called
-        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
         //set orientationState to the current device orientation
         rotated()
         

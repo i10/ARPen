@@ -71,10 +71,10 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
     
     func setClearSceneButtonLabel() {
         if self.scene.drawingNode.childNodes.count > 0 {
-            self.clearSceneButton.setTitle("Clear Scene", for: UIControlState.normal)
+            self.clearSceneButton.setTitle("Clear Scene", for: UIControl.State.normal)
             self.clearSceneButton.isEnabled = true
         } else {
-            self.clearSceneButton.setTitle("No objects in the scene", for: UIControlState.normal)
+            self.clearSceneButton.setTitle("No objects in the scene", for: UIControl.State.normal)
             self.clearSceneButton.isEnabled = false
         }
     }
