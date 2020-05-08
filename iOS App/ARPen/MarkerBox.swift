@@ -16,6 +16,8 @@ class MarkerBox: SCNNode {
     var penTipPositionHistory: [SCNVector3] = []
     var penLength: Double = 12
     
+    let positionFilter = PositionFilter(alphaValue: 0.5, gammaValue: 0.5)
+    
     /**
      * Describes in which landscape orientation the device is currently hold
      * If the device is hold in portrait orientation, the state keeps in the last landscape state
@@ -272,18 +274,22 @@ class MarkerBox: SCNNode {
         penTipRotation.z /= Float(mutableIds.count)
         penTipRotation.w /= Float(mutableIds.count)
         
-        //Average with past n tip positions
-        let n = 1
-        for pastPenTip in penTipPositionHistory {
-            penTipPosition += pastPenTip
-        }
-        penTipPosition /= Float(penTipPositionHistory.count + 1)
-        penTipPositionHistory.append(penTipPosition)
+//        //Average with past n tip positions
+//        let n = 1
+//        for pastPenTip in penTipPositionHistory {
+//            penTipPosition += pastPenTip
+//        }
+//        penTipPosition /= Float(penTipPositionHistory.count + 1)
+//        penTipPositionHistory.append(penTipPosition)
+//
+//        //Remove latest item if too much items are in penTipPositionHistory
+//        if penTipPositionHistory.count > n {
+//            penTipPositionHistory.remove(at: 0)
+//        }
         
-        //Remove latest item if too much items are in penTipPositionHistory
-        if penTipPositionHistory.count > n {
-            penTipPositionHistory.remove(at: 0)
-        }
+        //apply smoothing to pen position
+        penTipPosition = self.positionFilter.filteredPositionAfter(newPosition: penTipPosition)
+        
         let returnNode = SCNNode()
         returnNode.position = penTipPosition
         returnNode.rotation = penTipRotation
