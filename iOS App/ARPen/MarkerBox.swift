@@ -228,7 +228,7 @@ class MarkerBox: SCNNode {
      Determine the position of the pin point by ONLY considering the specified IDs
      - parameter ids: A list of marker IDs that are used to determine the position
      */
-    func posititonWith(ids: [MarkerFace]) -> SCNNode {
+    func positionWith(ids: [MarkerFace]) -> SCNNode {
         //hold the computed pen tip properties for each marker -> can be averaged to return pen tip node
         var penTipPosition = SCNVector3Zero
         var penTipRotation = SCNVector4Zero
