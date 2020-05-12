@@ -12,16 +12,29 @@ class PositionFilter {
     //specify filter weights
     var alphaValue : Float = 0.5
     var gammaValue : Float = 0.5
+    var slerpFactor : Float = 0.5
     
     //specify previous position & trend
     var previousFilteredPosition : SCNVector3?
     var trend : SCNVector3?
     
+    var previousFilteredOrientation : simd_quatf?
+    
     var penTipPositionHistory: [SCNVector3] = []
+    
+    init(alphaValue:Float, gammaValue:Float, slerpFactor:Float) {
+        self.alphaValue = alphaValue
+        self.gammaValue = gammaValue
+        self.slerpFactor = slerpFactor
+    }
     
     init(alphaValue:Float, gammaValue:Float){
         self.alphaValue = alphaValue
         self.gammaValue = gammaValue
+    }
+    
+    init(slerpFactor:Float){
+        self.slerpFactor = slerpFactor
     }
     
     //smooth the position
@@ -92,4 +105,14 @@ class PositionFilter {
 
         return newPosition
     }
+    
+    //smooth the orientation
+    func filteredOrientationAfter(newOrientation orientation : simd_quatf) -> simd_quatf {
+        guard let previousOrientation = self.previousFilteredOrientation else {
+            self.previousFilteredOrientation = orientation
+            return orientation
+        }
+        return simd_slerp(previousOrientation, orientation, self.slerpFactor)
+    }
+    
 }

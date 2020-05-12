@@ -16,7 +16,7 @@ class MarkerBox: SCNNode {
     var penTipPositionHistory: [SCNVector3] = []
     var penLength: Double = 12
     
-    let positionFilter = PositionFilter(alphaValue: 0.5, gammaValue: 0.5)
+    let positionFilter = PositionFilter(alphaValue: 0.5, gammaValue: 0.5, slerpFactor: 0.5)
     
     /**
      * Describes in which landscape orientation the device is currently hold
@@ -231,7 +231,7 @@ class MarkerBox: SCNNode {
     func positionWith(ids: [MarkerFace]) -> SCNNode {
         //hold the computed pen tip properties for each marker -> can be averaged to return pen tip node
         var penTipPosition = SCNVector3Zero
-        var penTipRotation = simd_quatf.init(ix: 0, iy: 0, iz: 0, r: 1)
+        var penTipOrientation = simd_quatf.init(ix: 0, iy: 0, iz: 0, r: 1)
         var mutableIds : [MarkerFace] = ids
         
         if mutableIds.count == 3 {
@@ -265,17 +265,18 @@ class MarkerBox: SCNNode {
             penTipPosition += candidateNode.position
             
             counter += 1
-            penTipRotation = simd_slerp(penTipRotation, candidateNode.simdOrientation, 1.0/counter)
+            penTipOrientation = simd_slerp(penTipOrientation, candidateNode.simdOrientation, 1.0/counter)
         }
         
         penTipPosition /= Float(mutableIds.count)
         
-        //apply smoothing to pen position
+        //apply smoothing to pen position & orientation
         penTipPosition = self.positionFilter.filteredPositionAfter(newPosition: penTipPosition)
+        penTipOrientation = self.positionFilter.filteredOrientationAfter(newOrientation: penTipOrientation)
         
         let returnNode = SCNNode()
         returnNode.position = penTipPosition
-        returnNode.simdOrientation = penTipRotation
+        returnNode.simdOrientation = penTipOrientation
         return returnNode
     }
     
