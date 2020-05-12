@@ -231,7 +231,7 @@ class MarkerBox: SCNNode {
     func positionWith(ids: [MarkerFace]) -> SCNNode {
         //hold the computed pen tip properties for each marker -> can be averaged to return pen tip node
         var penTipPosition = SCNVector3Zero
-        var penTipRotation = SCNVector4Zero
+        var penTipRotation = simd_quatf.init(ix: 0, iy: 0, iz: 0, r: 1)
         var mutableIds : [MarkerFace] = ids
         
         if mutableIds.count == 3 {
@@ -255,44 +255,27 @@ class MarkerBox: SCNNode {
             }
         }
         
-        //average orientation between seen markers
+        //average orientation between seen markers (averaging of rotation adapted from: https://answers.unity.com/questions/815266/find-and-average-rotations-together.html)
+        var counter : Float = 0
         for id in mutableIds {
             let candidateNode = SCNNode()
             let transform = self.markerArray[id.rawValue-1].childNodes.first!.convertTransform(SCNMatrix4Identity, to: nil)
             
             candidateNode.transform = transform
             penTipPosition += candidateNode.position
-            penTipRotation.x += candidateNode.rotation.x
-            penTipRotation.y += candidateNode.rotation.y
-            penTipRotation.z += candidateNode.rotation.z
-            penTipRotation.w += candidateNode.rotation.w
+            
+            counter += 1
+            penTipRotation = simd_slerp(penTipRotation, candidateNode.simdOrientation, 1.0/counter)
         }
         
         penTipPosition /= Float(mutableIds.count)
-        penTipRotation.x /= Float(mutableIds.count)
-        penTipRotation.y /= Float(mutableIds.count)
-        penTipRotation.z /= Float(mutableIds.count)
-        penTipRotation.w /= Float(mutableIds.count)
-        
-//        //Average with past n tip positions
-//        let n = 1
-//        for pastPenTip in penTipPositionHistory {
-//            penTipPosition += pastPenTip
-//        }
-//        penTipPosition /= Float(penTipPositionHistory.count + 1)
-//        penTipPositionHistory.append(penTipPosition)
-//
-//        //Remove latest item if too much items are in penTipPositionHistory
-//        if penTipPositionHistory.count > n {
-//            penTipPositionHistory.remove(at: 0)
-//        }
         
         //apply smoothing to pen position
         penTipPosition = self.positionFilter.filteredPositionAfter(newPosition: penTipPosition)
         
         let returnNode = SCNNode()
         returnNode.position = penTipPosition
-        returnNode.rotation = penTipRotation
+        returnNode.simdOrientation = penTipRotation
         return returnNode
     }
     
