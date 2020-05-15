@@ -588,7 +588,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         DispatchQueue.main.async {
             self.placeholderNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
             self.placeholderNode!.load()
-            node.addChildNode(self.placeholderNode!)
+            let scene = self.arSceneView.scene as! PenScene
+            scene.drawingNode.addChildNode(self.placeholderNode!)
+//            node.addChildNode(self.placeholderNode!)
         }
     }
 }
