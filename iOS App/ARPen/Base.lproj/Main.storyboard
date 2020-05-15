@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -84,28 +83,26 @@
                                     <action selector="undoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="QKz-fc-hZG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1V-HR-2WE">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1V-HR-2WE">
                                 <rect key="frame" x="720" y="214" width="38" height="38"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="KkR-jy-w76"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                 <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="s"/>
+                                <state key="normal" title="s" image="Save Model Button"/>
                                 <connections>
                                     <action selector="saveCurrentScene:" destination="BV1-FR-VrT" eventType="touchUpInside" id="LSi-Vn-q19"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kra-NZ-pmu">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kra-NZ-pmu">
                                 <rect key="frame" x="720" y="170" width="38" height="38"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="EhP-7h-Twd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                 <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="l"/>
+                                <state key="normal" image="Load Model Button"/>
                                 <connections>
                                     <action selector="loadScene:" destination="BV1-FR-VrT" eventType="touchUpInside" id="jbL-CP-c41"/>
                                 </connections>
@@ -823,7 +820,9 @@
     </scenes>
     <resources>
         <image name="Checkmark" width="37" height="37"/>
+        <image name="Load Model Button" width="108" height="106.33333587646484"/>
         <image name="Logos" width="457.33334350585938" height="69.666664123535156"/>
+        <image name="Save Model Button" width="108" height="106.33333587646484"/>
         <image name="SoftwareButton" width="66.666664123535156" height="66.666664123535156"/>
     </resources>
 </document>
