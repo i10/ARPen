@@ -99,7 +99,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
         
         // Read in any already saved map to see if we can load one
-        if mapDataFromFile != nil { self.loadModelButton.isHidden = false }
+        if mapDataFromFile != nil {
+            self.loadModelButton.isHidden = false
+        }
         
         // Observe camera's tracking state and session information
         NotificationCenter.default.addObserver(self, selector: #selector(handleStateChange(_:)), name: Notification.Name.cameraDidChangeTrackingState, object: nil)
@@ -388,6 +390,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         switch notification.name {
         case .sessionDidUpdate:
             updatePersistenceStateLabel(for: userInfo["frame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
+            
+            // Enable Save button only when the mapping status is good
+            let frame = userInfo["frame"] as! ARFrame
+            switch frame.worldMappingStatus {
+                case .extending, .mapped:
+                    saveModelButton.isEnabled = true // Todo: Enable the button only when there are objects in the scene
+                default:
+                    saveModelButton.isEnabled = false
+            }
             break
         case .cameraDidChangeTrackingState:
             updatePersistenceStateLabel(for: userInfo["currentFrame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
