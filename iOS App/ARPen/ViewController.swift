@@ -488,6 +488,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                             // Handle save if needed
                             scene.reinitializePencilPoint()
                             self.saveIsSuccessful = true
+                            // Reset the value after two seconds so that the label disappears
+                            _ = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+                                self.saveIsSuccessful = false
+                            } // Todo: See if there is a more elegant way to do this
                         } else {
                             scene.reinitializePencilPoint()
                             return
