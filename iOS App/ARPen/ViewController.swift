@@ -391,11 +391,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         case .sessionDidUpdate:
             updatePersistenceStateLabel(for: userInfo["frame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
             
-            // Enable Save button only when the mapping status is good
+            // Enable Save button only when the mapping status is good and
+            // drawingNode has at least one object
             let frame = userInfo["frame"] as! ARFrame
             switch frame.worldMappingStatus {
                 case .extending, .mapped:
-                    saveModelButton.isEnabled = true // Todo: Enable the button only when there are objects in the scene
+                    let scene = self.arSceneView.scene as! PenScene
+                    saveModelButton.isEnabled = scene.drawingNode.childNodes.count > 0
                 default:
                     saveModelButton.isEnabled = false
             }
