@@ -41,6 +41,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var persistenceSavePointAnchor: ARAnchor?
     var persistenceSavePointAnchorName: String = "persistenceSavePointAnchor"
     
+    var saveIsSuccessful: Bool = false
+    
     var placeholderNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
     
     let menuButtonHeight = 70
@@ -485,8 +487,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                         if scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil) {
                             // Handle save if needed
                             scene.reinitializePencilPoint()
+                            self.saveIsSuccessful = true
                         } else {
-                            self.persistenceStateLabel.text = "Failed to write; try moving the phone around slowly to track more world features."
                             scene.reinitializePencilPoint()
                             return
                         }
@@ -553,16 +555,20 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     // Provide feedback and instructions to the user about saving and loading the map and models respectively
     func updatePersistenceStateLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
-        let message: String
+        var message: String = ""
         self.snapshotThumbnail.isHidden = true
         
         switch (trackingState) {
         case (.limited(.relocalizing)) where isRelocalizingMap:
             message = "Move your device to the location shown in the image."
             self.snapshotThumbnail.isHidden = false
-            
-        default:
-            message = ""
+        case .limited, .normal, .notAvailable:
+            if (self.saveIsSuccessful) {
+                message = "Save successful"
+            }
+            else {
+                message = ""
+            }
         }
         
         persistenceStateLabel.text = message
