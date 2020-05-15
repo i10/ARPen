@@ -479,10 +479,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                     
                     if savedNode!.isLoaded == false {
                         print("No prior save found, saving current PenScene.")
+                        scene.pencilPoint.removeFromParentNode() // Remove pencilPoint before saving
                         if scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil) {
                             // Handle save if needed
+                            scene.reinitializePencilPoint()
                         } else {
-//                            "Failed to write; try moving the phone around slowly to track more world features."
+                            self.persistenceStateLabel.text = "Failed to write; try moving the phone around slowly to track more world features."
+                            scene.reinitializePencilPoint()
                             return
                         }
                     }

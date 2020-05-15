@@ -77,4 +77,10 @@ class PenScene: SCNScene {
         self.rootNode.addChildNode(self.drawingNode)
     }
     
+    func reinitializePencilPoint() {
+        self.pencilPoint = SCNNode()
+        
+        setupPencilPoint()
+    }
+    
 }
