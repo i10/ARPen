@@ -50,6 +50,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var saveIsSuccessful: Bool = false
     
     var storedNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
+    var sharedNode: SCNNode? = nil
     
     let menuButtonHeight = 70
     let menuButtonPadding = 5
@@ -416,10 +417,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         } else if (anchorName == sharePointAnchorName) {
             // Perform rendering operations asynchronously
             DispatchQueue.main.async {
-                self.storedNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
-                self.storedNode!.load()
-
-                node.addChildNode(self.storedNode!)
+                guard let sharedNode = self.sharedNode else {
+                    return
+                }
+                
+                let scene = self.arSceneView.scene as! PenScene
+                scene.drawingNode.addChildNode(sharedNode)
                 print("Adding storedNode to sharePointAnchor")
             }
         }
@@ -644,7 +647,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     
     // MARK: - Share ARWorldMap with other users
-    
+   
     func shareAnchor() {
         // Place an anchor for a virtual character. The model appears in renderer(_:didAdd:for:).
        let transform = self.arSceneView.scene.rootNode.simdTransform
@@ -670,7 +673,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                 let scene = self.arSceneView.scene as! PenScene
                 scene.pencilPoint.removeFromParentNode() // Remove pencilPoint before sharing
                 
-                guard let sceneData = try? NSKeyedArchiver.archivedData(withRootObject: scene, requiringSecureCoding: true)
+                guard let sceneData = try? NSKeyedArchiver.archivedData(withRootObject: scene.drawingNode, requiringSecureCoding: true)
                     else { fatalError("can't encode scene data") }
                 self.multipeerSession.sendToAllPeers(sceneData)
                 scene.reinitializePencilPoint()
@@ -704,9 +707,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             } else if unarchivedData is ARAnchor, let anchor = unarchivedData as? ARAnchor {
                 self.arSceneView.session.add(anchor: anchor)
                 print("added the anchor (\(anchor.name ?? "(can't parse)")) received from peer: \(peer)")
-            } else if unarchivedData is PenScene, let scene = unarchivedData as? PenScene {
-                scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil)
-                print("saved scene data into a URL")
+            } else if unarchivedData is SCNNode, let sceneData = unarchivedData as? SCNNode {
+//                scene.write(to: self.sceneStoreURL, options: nil, delegate: nil, progressHandler: nil)
+                self.sharedNode = sceneData
+                print("saved scene data into sharedNode")
             }
             else {
               print("Unknown Data Recieved From = \(peer)")
