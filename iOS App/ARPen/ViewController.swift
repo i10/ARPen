@@ -442,7 +442,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
         switch notification.name {
         case .sessionDidUpdate:
-            updatePersistenceStateLabel(for: userInfo["frame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
+            updateStatusLabel(for: userInfo["frame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
             
             // Enable Save button only when the mapping status is good and
             // drawingNode has at least one object
@@ -456,7 +456,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             }
             break
         case .cameraDidChangeTrackingState:
-            updatePersistenceStateLabel(for: userInfo["currentFrame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
+            updateStatusLabel(for: userInfo["currentFrame"] as! ARFrame, trackingState: userInfo["trackingState"] as! ARCamera.TrackingState)
             break
         default:
             print("Received unknown notification: \(notification.name)")
@@ -611,7 +611,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     // Provide feedback and instructions to the user about saving and loading the map and models respectively
     // TODO: This needs to be updated for sharing 
-    func updatePersistenceStateLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
+    func updateStatusLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
         var message: String = ""
         self.snapshotThumbnail.isHidden = true
         
