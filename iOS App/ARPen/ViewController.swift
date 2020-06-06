@@ -37,7 +37,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var shareModelButton: UIButton!
     
     @IBOutlet weak var snapshotThumbnail: UIImageView! // Screenshot thumbnail to help the user find feature points in the World
-    @IBOutlet weak var persistenceStateLabel: UILabel! // Text label used to provide feedback about saving and loading models
+    @IBOutlet weak var statusLabel: UILabel!
     
     // This ARAnchor acts as the point of reference for all models when storing/loading
     var persistenceSavePointAnchor: ARAnchor?
@@ -547,7 +547,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                         }
                     }
                 }
-                self.persistenceStateLabel.text = "Write successful!"
+                self.statusLabel.text = "Write successful!"
             } catch {
                 fatalError("Can't save map: \(error.localizedDescription)")
             }
@@ -634,7 +634,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                 message = ""
         }
         
-        persistenceStateLabel.text = message
+        statusLabel.text = message
     }
     
     // Remove snapshot thumbnail

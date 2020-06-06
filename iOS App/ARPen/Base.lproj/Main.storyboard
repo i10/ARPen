@@ -310,6 +310,7 @@
                         <outlet property="settingsButton" destination="A5z-U4-mJN" id="PSJ-pf-5hE"/>
                         <outlet property="shareModelButton" destination="E3L-x2-chr" id="npv-RW-41s"/>
                         <outlet property="snapshotThumbnail" destination="MVo-PZ-EaL" id="bkM-Lu-hR0"/>
+                        <outlet property="statusLabel" destination="N8V-Yd-QvC" id="k9r-M2-I5c"/>
                         <outlet property="undoButton" destination="4Gi-6V-ula" id="VTm-n9-OHj"/>
                         <outlet property="visualEffectView" destination="iYd-yH-V3o" id="9t5-aF-3w7"/>
                     </connections>
