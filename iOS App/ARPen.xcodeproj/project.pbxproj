@@ -51,6 +51,7 @@
 		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
 		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
 		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
+		E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B530622487965A0051C0C3 /* MultipeerSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -118,6 +119,7 @@
 		E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyramidByDraggingPlugin.swift; sourceTree = "<group>"; };
+		E9B530622487965A0051C0C3 /* MultipeerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
 				E906324622E31770008E320F /* SnapshotAnchor.swift */,
+				E9B530622487965A0051C0C3 /* MultipeerSession.swift */,
 				4A4B7F1B205817A200331810 /* SettingsViewControllers */,
 				DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */,
 				DC28B464200E4825008B77AB /* PenScene.swift */,
@@ -358,6 +361,7 @@
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
 				4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */,
+				E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,

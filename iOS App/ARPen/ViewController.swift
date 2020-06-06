@@ -9,6 +9,7 @@
 import UIKit
 import SceneKit
 import ARKit
+import MultipeerConnectivity
 
 /**
  The "Main" ViewController. This ViewController holds the instance of the PluginManager.
@@ -33,17 +34,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     // Persistence: Saving and loading current model
     @IBOutlet weak var saveModelButton: UIButton!
     @IBOutlet weak var loadModelButton: UIButton!
+    @IBOutlet weak var shareModelButton: UIButton!
     
     @IBOutlet weak var snapshotThumbnail: UIImageView! // Screenshot thumbnail to help the user find feature points in the World
     @IBOutlet weak var persistenceStateLabel: UILabel! // Text label used to provide feedback about saving and loading models
     
-    // This ARAnchor acts as the point of reference for all model
+    // This ARAnchor acts as the point of reference for all models when storing/loading
     var persistenceSavePointAnchor: ARAnchor?
     var persistenceSavePointAnchorName: String = "persistenceSavePointAnchor"
     
+    // This ARAnchor acts as the point of reference for all models when sharing
+    var sharePointAnchor: ARAnchor?
+    var sharePointAnchorName: String = "sharePointAnchor"
+    
     var saveIsSuccessful: Bool = false
     
-    var placeholderNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
+    var storedNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
     
     let menuButtonHeight = 70
     let menuButtonPadding = 5
@@ -53,7 +59,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var pluginManager: PluginManager!
     
     let userStudyRecordManager = UserStudyRecordManager() // Manager for storing data from user studies
-  
+    
+    var multipeerSession: MultipeerSession!
     
     //A standard viewDidLoad
     override func viewDidLoad() {
@@ -65,6 +72,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.makeRoundedCorners(button: self.undoButton)
         self.makeRoundedCorners(button: self.saveModelButton)
         self.makeRoundedCorners(button: self.loadModelButton)
+        self.makeRoundedCorners(button: self.shareModelButton)
         
         self.undoButton.isHidden = false
         self.undoButton.isEnabled = true
@@ -111,6 +119,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Remove snapshot thumbnail when model has been loaded
         NotificationCenter.default.addObserver(self, selector: #selector(removeSnapshotThumbnail(_:)), name: Notification.Name.virtualObjectDidRenderAtAnchor, object: nil)
+        
+        // Enable host-guest sharing to share ARWorldMap
+        multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
     }
     
 
@@ -381,7 +392,44 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.pluginManager.undoPreviousStep()
     }
     
-    // MARK: - Persistence
+    // MARK: - ARSCNViewDelegate
+        
+    // Invoked when new anchors are added to the scene
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let anchorName = anchor.name else {
+            return
+        }
+        
+        if (anchorName == persistenceSavePointAnchorName) {
+            // Save the reference to the virtual object anchor when the anchor is added from relocalizing
+            if persistenceSavePointAnchor == nil {
+                persistenceSavePointAnchor = anchor
+            }
+            
+            DispatchQueue.main.async {
+                self.storedNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
+                self.storedNode!.load()
+                
+                let scene = self.arSceneView.scene as! PenScene
+                scene.drawingNode.addChildNode(self.storedNode!)
+            }
+        } else if (anchorName == sharePointAnchorName) {
+            // Perform rendering operations asynchronously
+            DispatchQueue.main.async {
+                self.storedNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
+                self.storedNode!.load()
+
+                node.addChildNode(self.storedNode!)
+                print("Adding storedNode to sharePointAnchor")
+            }
+        }
+        else {
+            print("An unknown ARAnchor has been added!")
+            return
+        }
+    }
+    
+    // MARK: - Persistence: Save and load ARWorldMap
     
     // Receives notification on when session or camera tracking state changes and updates label
     @objc func handleStateChange(_ notification: Notification) {
@@ -459,7 +507,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.arSceneView.session.getCurrentWorldMap { worldMap, error in
             guard let map = worldMap
                 else {
-                    self.showAlert(title: "Can't get current world map", message: error!.localizedDescription);
+                    self.showAlert(title: "Can't get current world map", message: error!.localizedDescription)
                     return
                 }
             
@@ -488,6 +536,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                             // Handle save if needed
                             scene.reinitializePencilPoint()
                             self.saveIsSuccessful = true
+                            
                             // Reset the value after two seconds so that the label disappears
                             _ = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
                                 self.saveIsSuccessful = false
@@ -558,6 +607,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var isRelocalizingMap = false
     
     // Provide feedback and instructions to the user about saving and loading the map and models respectively
+    // TODO: This needs to be updated for sharing 
     func updatePersistenceStateLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
         var message: String = ""
         self.snapshotThumbnail.isHidden = true
@@ -566,13 +616,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         case (.limited(.relocalizing)) where isRelocalizingMap:
             message = "Move your device to the location shown in the image."
             self.snapshotThumbnail.isHidden = false
-        case .limited, .normal, .notAvailable:
-            if (self.saveIsSuccessful) {
+        case .normal, .notAvailable:
+            if !multipeerSession.connectedPeers.isEmpty && mapProvider == nil {
+                let peerNames = multipeerSession.connectedPeers.map({ $0.displayName }).joined(separator: ", ")
+                message = "Connected with \(peerNames)."
+            }
+            else if (self.saveIsSuccessful) {
                 message = "Save successful"
             }
             else {
                 message = ""
             }
+            case .limited(.initializing) where mapProvider != nil,
+             .limited(.relocalizing) where mapProvider != nil:
+                message = "Received map from \(mapProvider!.displayName)."
+            default:
+                message = ""
         }
         
         persistenceStateLabel.text = message
@@ -583,26 +642,77 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.snapshotThumbnail.isHidden = true
     }
     
-    // MARK: - ARSCNViewDelegate
     
-    // Add nodes to the scene when a new anchor has been added
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        print("renderer()")
-        guard anchor.name! == persistenceSavePointAnchorName
-            else { return }
-
-        // Save the reference to the virtual object anchor when the anchor is added from relocalizing
-        if persistenceSavePointAnchor == nil {
-            persistenceSavePointAnchor = anchor
+    // MARK: - Share ARWorldMap with other users
+    
+    func shareAnchor() {
+        // Place an anchor for a virtual character. The model appears in renderer(_:didAdd:for:).
+       let transform = self.arSceneView.scene.rootNode.simdTransform
+       let anchor = ARAnchor(name: sharePointAnchorName, transform: transform)
+       self.arSceneView.session.add(anchor: anchor)
+       
+       // Send the anchor info to peers, so they can place the same content.
+       guard let data = try? NSKeyedArchiver.archivedData(withRootObject: anchor, requiringSecureCoding: true)
+           else { fatalError("can't encode anchor") }
+       self.multipeerSession.sendToAllPeers(data)
+    }
+    
+    
+    @IBAction func shareModelButtonPressed(_ sender: Any) {
+        self.arSceneView.session.getCurrentWorldMap { worldMap, error in
+            guard let map = worldMap
+                else {
+                    print("Error: \(error!.localizedDescription)")
+                    return
+                }
+            
+            DispatchQueue.main.async {
+                let scene = self.arSceneView.scene as! PenScene
+                scene.pencilPoint.removeFromParentNode() // Remove pencilPoint before sharing
+                
+                guard let sceneData = try? NSKeyedArchiver.archivedData(withRootObject: scene, requiringSecureCoding: true)
+                    else { fatalError("can't encode scene data") }
+                self.multipeerSession.sendToAllPeers(sceneData)
+                scene.reinitializePencilPoint()
+                
+                self.shareAnchor()
+                
+                // Send the WorldMap to all peers
+                guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
+                    else { fatalError("can't encode map") }
+                self.multipeerSession.sendToAllPeers(data)
+            }
         }
+    }
+    
+    var mapProvider: MCPeerID?
+    
+    /// - Tag: ReceiveData
+    func receivedData(_ data: Data, from peer: MCPeerID) {
         
-        // Perform rendering operations asynchronously
-        DispatchQueue.main.async {
-            self.placeholderNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
-            self.placeholderNode!.load()
-            let scene = self.arSceneView.scene as! PenScene
-            scene.drawingNode.addChildNode(self.placeholderNode!)
-//            node.addChildNode(self.placeholderNode!)
+        if let unarchivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data){
+           
+            if unarchivedData is ARWorldMap, let worldMap = unarchivedData as? ARWorldMap {
+                // Run the session with the received world map.
+                let configuration = ARWorldTrackingConfiguration()
+                configuration.planeDetection = .horizontal
+                configuration.initialWorldMap = worldMap
+                self.arSceneView.session.run(configuration, options: [.resetTracking])
+                
+                // Remember who provided the map for showing UI feedback.
+                mapProvider = peer
+            } else if unarchivedData is ARAnchor, let anchor = unarchivedData as? ARAnchor {
+                self.arSceneView.session.add(anchor: anchor)
+                print("added the anchor (\(anchor.name ?? "(can't parse)")) received from peer: \(peer)")
+            } else if unarchivedData is PenScene, let scene = unarchivedData as? PenScene {
+                scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil)
+                print("saved scene data into a URL")
+            }
+            else {
+              print("Unknown Data Recieved From = \(peer)")
+            }
+        } else {
+            print("can't decode data received from \(peer)")
         }
     }
 }

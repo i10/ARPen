@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -119,6 +119,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3L-x2-chr" userLabel="Share Model Button">
+                                <rect key="frame" x="720" y="90" width="38" height="38"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="mb2-Zw-PWy"/>
+                                </constraints>
+                                <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="Share Model Button"/>
+                                <connections>
+                                    <action selector="shareModelButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="uJH-3k-ayK"/>
+                                </connections>
+                            </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYd-yH-V3o">
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YXb-VB-vP4">
@@ -262,11 +274,14 @@
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="centerX" secondItem="h1V-HR-2WE" secondAttribute="centerX" id="cIa-N3-VJg"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="5" id="cab-DC-Dko"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="cqj-y5-Wso"/>
+                            <constraint firstItem="E3L-x2-chr" firstAttribute="trailing" secondItem="4Gi-6V-ula" secondAttribute="trailing" id="fkE-qa-VZC"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="centerX" secondItem="gGF-H0-N2c" secondAttribute="centerX" id="fsX-UA-YAi"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="centerX" secondItem="0DW-gH-vc2" secondAttribute="centerX" id="lDS-Rd-B32"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="centerX" secondItem="gGF-H0-N2c" secondAttribute="centerX" id="lXQ-1o-a9S"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="top" secondItem="h1V-HR-2WE" secondAttribute="bottom" constant="8" id="prO-aN-lxA"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="height" secondItem="0DW-gH-vc2" secondAttribute="height" id="r8e-0l-s3G"/>
+                            <constraint firstItem="E3L-x2-chr" firstAttribute="leading" secondItem="4Gi-6V-ula" secondAttribute="leading" id="rBw-Hf-jz4"/>
+                            <constraint firstItem="E3L-x2-chr" firstAttribute="top" secondItem="4Gi-6V-ula" secondAttribute="bottom" constant="41" id="wgn-SQ-sol"/>
                             <constraint firstItem="N8V-Yd-QvC" firstAttribute="top" secondItem="Z1i-B5-dqO" secondAttribute="bottom" constant="-60" id="yEQ-oF-rgP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EIQ-Ip-Tyt"/>
@@ -293,6 +308,7 @@
                         <outlet property="pluginMenuScrollView" destination="gGF-H0-N2c" id="VX1-TR-Ghh"/>
                         <outlet property="saveModelButton" destination="h1V-HR-2WE" id="jx2-XQ-1Vw"/>
                         <outlet property="settingsButton" destination="A5z-U4-mJN" id="PSJ-pf-5hE"/>
+                        <outlet property="shareModelButton" destination="E3L-x2-chr" id="npv-RW-41s"/>
                         <outlet property="snapshotThumbnail" destination="MVo-PZ-EaL" id="bkM-Lu-hR0"/>
                         <outlet property="undoButton" destination="4Gi-6V-ula" id="VTm-n9-OHj"/>
                         <outlet property="visualEffectView" destination="iYd-yH-V3o" id="9t5-aF-3w7"/>
@@ -823,6 +839,7 @@
         <image name="Load Model Button" width="108" height="106.33333587646484"/>
         <image name="Logos" width="457.33334350585938" height="69.666664123535156"/>
         <image name="Save Model Button" width="108" height="106.33333587646484"/>
+        <image name="Share Model Button" width="324" height="319"/>
         <image name="SoftwareButton" width="66.666664123535156" height="66.666664123535156"/>
     </resources>
 </document>
