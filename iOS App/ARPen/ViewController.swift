@@ -78,6 +78,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.undoButton.isHidden = false
         self.undoButton.isEnabled = true
         
+        self.shareModelButton.isHidden = true
+        
         // Create a new scene
         let scene = PenScene(named: "art.scnassets/ship.scn")!
         scene.markerBox = MarkerBox()
@@ -623,6 +625,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             if !multipeerSession.connectedPeers.isEmpty && mapProvider == nil {
                 let peerNames = multipeerSession.connectedPeers.map({ $0.displayName }).joined(separator: ", ")
                 message = "Connected with \(peerNames)."
+                
+                let scene = self.arSceneView.scene as! PenScene
+                if (scene.drawingNode.childNodes.count > 0) {
+                    self.shareModelButton.isHidden = false
+                }
             }
             else if (self.saveIsSuccessful) {
                 message = "Save successful"
