@@ -81,22 +81,18 @@
 		DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B470200E592C008B77AB /* DegreesToRadians.swift */; };
 		DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */; };
 		DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */; };
-		DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */ = {isa = PBXBuildFile; fileRef = DC28B478200E7E89008B77AB /* MarkerBox.m */; };
 		E906324522E3174B008E320F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906324422E3174B008E320F /* Utilities.swift */; };
 		E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906324622E31770008E320F /* SnapshotAnchor.swift */; };
 		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
 		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
 		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
-		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
-		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
-		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
+		E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B530622487965A0051C0C3 /* MultipeerSession.swift */; };
 		EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */; };
 		EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */; };
 		EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */; };
 		EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795C22F078EE00E820E8 /* ARPenWireBoxNode.swift */; };
 		EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795D22F078EE00E820E8 /* ARPenDropTargetNode.swift */; };
 		EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795E22F078EE00E820E8 /* ARPenBoxNode.swift */; };
-        E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B530622487965A0051C0C3 /* MultipeerSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -203,13 +199,13 @@
 		E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyramidByDraggingPlugin.swift; sourceTree = "<group>"; };
+		E9B530622487965A0051C0C3 /* MultipeerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerSession.swift; sourceTree = "<group>"; };
 		EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenStudyNode.swift; sourceTree = "<group>"; };
 		EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
 		EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenGridSceneConstructor.swift; sourceTree = "<group>"; };
 		EA0C795C22F078EE00E820E8 /* ARPenWireBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenWireBoxNode.swift; sourceTree = "<group>"; };
 		EA0C795D22F078EE00E820E8 /* ARPenDropTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenDropTargetNode.swift; sourceTree = "<group>"; };
 		EA0C795E22F078EE00E820E8 /* ARPenBoxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenBoxNode.swift; sourceTree = "<group>"; };
-        E9B530622487965A0051C0C3 /* MultipeerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -610,11 +606,9 @@
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
 				E906324522E3174B008E320F /* Utilities.swift in Sources */,
 				E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */,
-				4A59BA232244E68800EA23E7 /* ARPenSceneConstructor.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
-				4A59BA242244E68800EA23E7 /* ARPenBoxNode.swift in Sources */,
 				E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */,
 				4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */,
 				4AAC4B1723A27DFE003B6E83 /* ModelingPlugin.swift in Sources */,
