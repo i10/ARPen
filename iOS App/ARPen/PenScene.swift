@@ -62,7 +62,7 @@ class PenScene: SCNScene {
     }
     
     // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
-    override public class var supportsSecureCoding: Bool { return true }
+//    override public class var supportsSecureCoding: Bool { return true }
     /**
      This initializer will be called after `init(named:)` is called.
      */
