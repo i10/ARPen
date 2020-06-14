@@ -655,7 +655,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     // MARK: - Share ARWorldMap with other users
    
-    func shareAnchor() {
+    func setupAndShareAnchor() {
         // Place an anchor for a virtual character. The model appears in renderer(_:didAdd:for:).
        let transform = self.arSceneView.scene.rootNode.simdTransform
        let anchor = ARAnchor(name: sharePointAnchorName, transform: transform)
@@ -680,12 +680,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                 let scene = self.arSceneView.scene as! PenScene
                 scene.pencilPoint.removeFromParentNode() // Remove pencilPoint before sharing
                 
+                // Share content first so that the content is not duplicated for this device
                 guard let sceneData = try? NSKeyedArchiver.archivedData(withRootObject: scene.drawingNode, requiringSecureCoding: true)
                     else { fatalError("can't encode scene data") }
                 self.multipeerSession.sendToAllPeers(sceneData)
                 scene.reinitializePencilPoint()
                 
-                self.shareAnchor()
+                self.setupAndShareAnchor()
                 
                 // Send the WorldMap to all peers
                 guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
