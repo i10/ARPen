@@ -83,6 +83,8 @@ class PaintPlugin: Plugin {
             removedOneLine = false
         }
         
+        self.previousPoint = scene.pencilPoint.position
+        
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
