@@ -22,10 +22,10 @@ class PenScene: SCNScene {
      The pencil point is the node that corresponds to the real world pencil point.
      `pencilPoint.position` is always the best known position of the pencil point.
      */
-    var pencilPoint: SCNNode
+    var pencilPoint = SCNNode()
     
     //Node that carries all the drawing operations
-    let drawingNode: SCNNode
+    let drawingNode = SCNNode()
     /**
      If a marker was found in the current frame the var is true
      */
@@ -41,10 +41,14 @@ class PenScene: SCNScene {
      */
     func share() -> URL {
         let filePath = URL(fileURLWithPath: NSTemporaryDirectory() + "/scene.stl")
-        let drawingItems = MDLObject(scnNode: self.drawingNode)
-        let asset = MDLAsset()
-        asset.add(drawingItems)
-        try! asset.export(to: filePath)
+        if let node = drawingNode.childNodes.first as? ARPGeomNode {
+            node.exportStl(filePath: filePath)
+        } else {
+            let drawingItems = MDLObject(scnNode: self.drawingNode)
+            let asset = MDLAsset()
+            asset.add(drawingItems)
+            try! asset.export(to: filePath)
+        }
         return filePath
     }
     
@@ -52,17 +56,17 @@ class PenScene: SCNScene {
      init. Should not be called. Is not called by SceneKit
      */
     override init() {
-        self.pencilPoint = SCNNode()
-        self.drawingNode = SCNNode()
         super.init()
+        
+        setupPencilPoint()
     }
     
+    // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
+    override public class var supportsSecureCoding: Bool { return true }
     /**
      This initializer will be called after `init(named:)` is called.
      */
     required init?(coder aDecoder: NSCoder) {
-        self.pencilPoint = SCNNode()
-        self.drawingNode = SCNNode()
         super.init(coder: aDecoder)
         
         setupPencilPoint()
@@ -72,6 +76,33 @@ class PenScene: SCNScene {
         self.pencilPoint.geometry = SCNSphere(radius: 0.002)
         self.pencilPoint.name = "PencilPoint"
         self.pencilPoint.geometry?.materials.first?.diffuse.contents = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
+        
+        //simple coordinate system on the pencil point
+        /*let coordSystemNode = SCNNode()
+        let cylinderRadius = CGFloat(0.0005)
+        let cylinderHeight = CGFloat(0.01)
+        
+        let xAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
+        xAxisGeometry.materials.first?.diffuse.contents = UIColor.red
+        let xAxisNode = SCNNode(geometry: xAxisGeometry)
+        xAxisNode.eulerAngles.z = -Float.pi/2
+        xAxisNode.position.x = Float(cylinderHeight/2)
+        coordSystemNode.addChildNode(xAxisNode)
+        
+        let yAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
+        yAxisGeometry.materials.first?.diffuse.contents = UIColor.green
+        let yAxisNode = SCNNode(geometry: yAxisGeometry)
+        yAxisNode.position.y = Float(cylinderHeight/2)
+        coordSystemNode.addChildNode(yAxisNode)
+        
+        let zAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
+        zAxisGeometry.materials.first?.diffuse.contents = UIColor.blue
+        let zAxisNode = SCNNode(geometry: zAxisGeometry)
+        zAxisNode.eulerAngles.x = Float.pi/2
+        zAxisNode.position.z = Float(cylinderHeight/2)
+        coordSystemNode.addChildNode(zAxisNode)
+        
+        self.pencilPoint.addChildNode(coordSystemNode)*/
         
         self.rootNode.addChildNode(self.pencilPoint)
         self.rootNode.addChildNode(self.drawingNode)

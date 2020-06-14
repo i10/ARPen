@@ -30,6 +30,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var viewForCustomPluginView: UIView!
     
     // Persistence: Saving and loading current model
     @IBOutlet weak var saveModelButton: UIButton!
@@ -102,7 +103,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Hide plugin instructions
         self.imageForPluginInstructions.isHidden = true
-        self.displayPluginInstructions(forPluginID: currentActivePluginID)
+        //self.displayPluginInstructions(forPluginID: currentActivePluginID)
         
         // Set the user study record manager reference in the app delegate (for saving state when leaving the app)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -277,6 +278,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         newActivePluginButton.layer.borderWidth = 1
         
         if let currentActivePlugin = self.pluginManager.activePlugin {
+            //remove custom view elements from view
+            currentActivePlugin.customPluginUI?.removeFromSuperview()
             currentActivePlugin.deactivatePlugin()
         }
         //activate plugin in plugin manager and update currently active plugin property
@@ -289,6 +292,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if let currentScene = self.pluginManager.arManager.scene {
             if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
                 newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
+                if let customPluginUI = newActivePlugin.customPluginUI {
+                    customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
+                    viewForCustomPluginView.addSubview(customPluginUI)
+                }
             }
         }
         currentActivePluginID = pluginID
@@ -384,11 +391,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     // Software Pen Button Actions
     @IBAction func softwarePenButtonPressed(_ sender: Any) {
-        self.pluginManager.button(.Button1, pressed: true)
+        //next line is the direct way possible here, but we'll show the way how the button states can be send from everywhere in the map
+        //self.pluginManager.button(.Button1, pressed: true)
+        //sent notification of button press to the pluginManager
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button1, "buttonState" : true]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
     
     @IBAction func softwarePenButtonReleased(_ sender: Any) {
-        self.pluginManager.button(.Button1, pressed: false)
+        //next line is the direct way possible here, but we'll show the way how the button states can be send from everywhere in the map
+        //self.pluginManager.button(.Button1, pressed: false)
+        //sent notification of button release to the pluginManager
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button1, "buttonState" : false]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
     
     @IBAction func undoButtonPressed(_ sender: Any) {

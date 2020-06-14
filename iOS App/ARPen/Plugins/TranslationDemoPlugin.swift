@@ -11,17 +11,11 @@ import ARKit
 
 class TranslationDemoPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "Move1DemoPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "Move1PluginInstruction")
-    var pluginIdentifier: String = "Move 1"
-    var needsBluetoothARPen: Bool = false
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "TranslationDemoPluginDisabled")
-    var currentScene : PenScene?
-    var currentView: ARSCNView?
+    static var nodeType : ARPenStudyNode.Type = ARPenWireBoxNode.self
     
-    var sceneConstructionResults : (superNode: SCNNode, boxes: [ARPenBoxNode])?
-    var boxes : [ARPenBoxNode]?
-    var activeTargetBox : ARPenBoxNode? {
+    var sceneConstructionResults : (superNode: SCNNode, studyNodes: [ARPenStudyNode])?
+    var boxes : [ARPenStudyNode]?
+    var activeTargetBox : ARPenStudyNode? {
         didSet {
             oldValue?.isActiveTarget = false
             self.activeTargetBox?.isActiveTarget = true
@@ -48,10 +42,10 @@ class TranslationDemoPlugin: Plugin {
     private var previousPoint: SCNVector3?
     private var previousButtonState = false
     
-    private var selectedBox : ARPenBoxNode? {
+    private var selectedBox : ARPenStudyNode? {
         didSet {
-            oldValue?.hightlighted = false
-            selectedBox?.hightlighted = true
+            oldValue?.highlighted = false
+            selectedBox?.highlighted = true
         }
     }
     
@@ -69,7 +63,17 @@ class TranslationDemoPlugin: Plugin {
     }
     private var dropTargets = [ARPenDropTargetNode(withFloorPosition: SCNVector3Make(0.1238, 0, 0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(-0.1238, 0, 0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(0.1238, 0, -0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(-0.1238, 0, -0.08695))]
     
-    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    override init() {
+        super.init()
+        
+        self.pluginImage = UIImage.init(named: "Move1DemoPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "Move1PluginInstruction")
+        self.pluginIdentifier = "Move 1"
+        self.needsBluetoothARPen = false
+        self.pluginDisabledImage = UIImage.init(named: "TranslationDemoPluginDisabled")
+    }
+    
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         
         guard let boxes = self.boxes else {return}
         
@@ -83,7 +87,7 @@ class TranslationDemoPlugin: Plugin {
             self.activeDropTarget?.highlightIfPointInside(point: activeTargetBox.position)
         }
         
-    
+        
         //update node position if currently a box is selected (per touch)
         if self.gestureRecognizer?.state == .changed, let currentBox = self.selectedBox, let locationInCameraCoordinates = self.locationOfSelectedBoxInCameraCoordinates {
             if let arSceneView = self.currentView, let cameraNode = arSceneView.pointOfView, let currentScene = self.currentScene {
@@ -110,15 +114,15 @@ class TranslationDemoPlugin: Plugin {
                     //cast a ray from that position and find the first ARPenNode
                     let hitResults = arSceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
                     //check if the first node hit is an arpenBoxNode
-                    if let boxHit = hitResults.first?.node as? ARPenBoxNode {
+                    if let boxHit = hitResults.first?.node as? ARPenStudyNode {
                         self.selectedBox = boxHit
                         //move that ARPenNode to the pen tip if the pencil is not already inside
-                        if !boxHit.hightlighted {
+                        if !boxHit.highlighted {
                             self.selectedBox?.position = scene.pencilPoint.convertPosition(SCNVector3Zero, to: self.sceneConstructionResults?.superNode)
                         }
                         
                     //if the first element hit is not an ARPenBoxNode it could have been the pencil point -> check if the second item hit is an ARPenBoxNode
-                    } else if hitResults.count>1, let boxHit = hitResults[1].node as? ARPenBoxNode {
+                    } else if hitResults.count>1, let boxHit = hitResults[1].node as? ARPenStudyNode {
                         self.selectedBox = boxHit
                         //move that ARPenNode to the pen tip
                         self.selectedBox?.position = scene.pencilPoint.convertPosition(SCNVector3Zero, to: self.sceneConstructionResults?.superNode)
@@ -128,10 +132,8 @@ class TranslationDemoPlugin: Plugin {
             }
         } else if pressed, self.previousButtonState {
             //move the currently active target
-            if let previousPoint = self.previousPoint, let selectedBox = self.selectedBox {
-                let displacementVector = scene.pencilPoint.position - previousPoint
-                selectedBox.position = selectedBox.position + scene.pencilPoint.convertVector(displacementVector, to: self.sceneConstructionResults?.superNode)
-                selectedBox.setCorners()
+            if let selectedBox = self.selectedBox {
+                selectedBox.worldPosition = scene.pencilPoint.worldPosition
             }
         } else if !pressed, self.previousButtonState {
             
@@ -173,7 +175,7 @@ class TranslationDemoPlugin: Plugin {
             guard let sceneView = self.currentView else { return }
             let hitResults = sceneView.hitTest(touchPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
             
-            if let boxHit = hitResults.first?.node as? ARPenBoxNode {
+            if let boxHit = hitResults.first?.node as? ARPenStudyNode {
                 self.selectedBox = boxHit
                 if let arSceneView = self.currentView, let cameraNode = arSceneView.pointOfView, let currentScene = self.currentScene {
                     self.locationOfSelectedBoxInCameraCoordinates = cameraNode.convertPosition(boxHit.position, from: self.sceneConstructionResults?.superNode)
@@ -213,10 +215,14 @@ class TranslationDemoPlugin: Plugin {
         
     }
     
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
-
-        self.currentScene = scene
-        self.currentView = view
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
+        super.activatePlugin(withScene: scene, andView: view)
+        
+        if (TranslationDemoPlugin.nodeType == ARPenWireBoxNode.self) {
+            TranslationDemoPlugin.nodeType = ARPenBoxNode.self
+        } else {
+            TranslationDemoPlugin.nodeType = ARPenWireBoxNode.self
+        }
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
         
@@ -228,13 +234,13 @@ class TranslationDemoPlugin: Plugin {
     
     
     func fillSceneWithCubes(withScene scene : PenScene, andView view : ARSCNView) {
-        let sceneConstructor = ARPenSceneConstructor.init()
-        self.sceneConstructionResults = sceneConstructor.preparedARPenBoxNodes(withScene: scene, andView: view)
+        let sceneConstructor = ARPenGridSceneConstructor.init()
+        self.sceneConstructionResults = sceneConstructor.preparedARPenNodes(withScene: scene, andView: view, andStudyNodeType: TranslationDemoPlugin.nodeType)
         guard let constructionResults = self.sceneConstructionResults else {
             print("scene Constructor did not return boxes")
             return
         }
-        self.boxes = constructionResults.boxes
+        self.boxes = constructionResults.studyNodes
         
         scene.drawingNode.addChildNode(constructionResults.superNode)
         
@@ -249,15 +255,14 @@ class TranslationDemoPlugin: Plugin {
         self.activeTargetBox = nil
     }
     
-    func deactivatePlugin() {
+    override func deactivatePlugin() {
         self.activeTargetBox = nil
         //_ = self.currentScene?.drawingNode.childNodes.map({$0.removeFromParentNode()})
         if let constructionResults = self.sceneConstructionResults {
             constructionResults.superNode.removeFromParentNode()
             self.sceneConstructionResults = nil
         }
-        self.currentScene = nil
         self.currentView?.superview?.layer.borderWidth = 0.0
-        self.currentView = nil
+        super.deactivatePlugin()
     }
 }

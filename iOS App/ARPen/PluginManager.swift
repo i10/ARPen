@@ -34,8 +34,8 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
      */
     init(scene: PenScene) {
         self.paintPlugin = PaintPlugin()
-        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin()]
-        self.pluginInstructionsCanBeHidden = Array(repeating: false, count: self.plugins.count)
+        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin(), ModelingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), CombinePluginFunction(), CombinePluginSolidHole()]
+        self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.experimentalPluginsStartAtIndex = 7
         
         
@@ -44,6 +44,9 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.activePlugin = plugins.first
         self.arManager.delegate = self
         self.arPenManager.delegate = self
+        
+        //listen to softwarePenButton notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(self.softwareButtonEvent(_:)), name: .softwarePenButtonEvent, object: nil)
     }
     
     /**
@@ -51,6 +54,13 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
      */
     func button(_ button: Button, pressed: Bool) {
         self.buttons[button] = pressed
+    }
+    
+    //Callback from Notification Center. Format of userInfo: ["buttonPressed"] is the button the event is for, ["buttonState"] is the boolean whether the button is pressed or not
+    @objc func softwareButtonEvent(_ notification: Notification){
+        if let buttonPressed = notification.userInfo?["buttonPressed"] as? Button, let buttonState = notification.userInfo?["buttonState"] as? Bool {
+            self.buttons[buttonPressed] = buttonState
+        }
     }
     
     /**
