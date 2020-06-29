@@ -548,6 +548,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                     // Save the current PenScene to sceneSaveURL
                     let scene = self.arSceneView.scene as! PenScene
                     let savedNode = SCNReferenceNode(url: self.sceneSaveURL)
+                    var nodesCreatedWithOpenCascade: [SCNNode] = []
                     
                     if savedNode!.isLoaded == false {
                         print("No prior save found, saving current PenScene.")
@@ -563,6 +564,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                                 (geometryType == ARPCylinder.self) || (geometryType == ARPLoft.self) || (geometryType == ARPPath.self) ||
                                 (geometryType == ARPBoolNode.self) || (geometryType == ARPPathNode.self)) {
                                 print("Detected geometry created via Open Cascade.\n")
+                                
+                                nodesCreatedWithOpenCascade.append(node)
                                 node.removeFromParentNode()
                                 return false
                             } else {
@@ -574,6 +577,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                         if scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil) {
                             // Handle save if needed
                             scene.reinitializePencilPoint()
+                            nodesCreatedWithOpenCascade.forEach({ scene.drawingNode.addChildNode($0) })
+                            
                             self.saveIsSuccessful = true
                             
                             // Reset the value after two seconds so that the label disappears
@@ -582,6 +587,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                             } // Todo: See if there is a more elegant way to do this
                         } else {
                             scene.reinitializePencilPoint()
+                            nodesCreatedWithOpenCascade.forEach({ scene.drawingNode.addChildNode($0) })
+                            
                             return
                         }
                     }
