@@ -77,8 +77,8 @@ class PenScene: SCNScene {
         self.pencilPoint.name = "PencilPoint"
         self.pencilPoint.geometry?.materials.first?.diffuse.contents = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
         
-        //simple coordinate system on the pencil point
-        /*let coordSystemNode = SCNNode()
+        /*//simple coordinate system on the pencil point
+        let coordSystemNode = SCNNode()
         let cylinderRadius = CGFloat(0.0005)
         let cylinderHeight = CGFloat(0.01)
         
