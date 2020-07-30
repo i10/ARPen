@@ -16,6 +16,9 @@ class MarkerBox: SCNNode {
     var penTipPositionHistory: [SCNVector3] = []
     var penLength: Double = 12
     
+    static private var secureCoding = true
+    override public class var supportsSecureCoding: Bool { return secureCoding }
+    
     /**
      * Describes in which landscape orientation the device is currently hold
      * If the device is hold in portrait orientation, the state keeps in the last landscape state
@@ -35,6 +38,7 @@ class MarkerBox: SCNNode {
         markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
         penLength = length
         super.init()
+        
         self.name = "MarkerBox"
         
         //Observe device orientation. If orientation changes rotated() is called
@@ -291,7 +295,8 @@ class MarkerBox: SCNNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
+        super.init(coder: aDecoder)
     }
     
     private enum DeviceOrientationState {

@@ -31,6 +31,9 @@ class PenScene: SCNScene {
      */
     var markerFound = true
     
+    static private var secureCoding = true
+    override public class var supportsSecureCoding: Bool { return secureCoding }
+    
     /**
      Calling this method will convert the whole scene with every nodes in it to an stl file
      and saves it in the temporary directory as a file
@@ -59,7 +62,7 @@ class PenScene: SCNScene {
     }
     
     // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
-    override public class var supportsSecureCoding: Bool { return true }
+//    override public class var supportsSecureCoding: Bool { return true }
     /**
      This initializer will be called after `init(named:)` is called.
      */
@@ -103,6 +106,12 @@ class PenScene: SCNScene {
         
         self.rootNode.addChildNode(self.pencilPoint)
         self.rootNode.addChildNode(self.drawingNode)
+    }
+    
+    func reinitializePencilPoint() {
+        self.pencilPoint = SCNNode()
+        
+        setupPencilPoint()
     }
     
 }

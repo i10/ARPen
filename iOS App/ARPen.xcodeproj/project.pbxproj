@@ -81,9 +81,12 @@
 		DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B470200E592C008B77AB /* DegreesToRadians.swift */; };
 		DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */; };
 		DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */; };
+		E906324522E3174B008E320F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906324422E3174B008E320F /* Utilities.swift */; };
+		E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906324622E31770008E320F /* SnapshotAnchor.swift */; };
 		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
 		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
 		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
+		E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B530622487965A0051C0C3 /* MultipeerSession.swift */; };
 		EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */; };
 		EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */; };
 		EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */; };
@@ -191,9 +194,12 @@
 		DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNVector3Extensions.swift; sourceTree = "<group>"; };
 		DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCreationPlugin.swift; sourceTree = "<group>"; };
 		DCE5A37E202F504B005F4186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E906324422E3174B008E320F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		E906324622E31770008E320F /* SnapshotAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAnchor.swift; sourceTree = "<group>"; };
 		E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyramidByDraggingPlugin.swift; sourceTree = "<group>"; };
+		E9B530622487965A0051C0C3 /* MultipeerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerSession.swift; sourceTree = "<group>"; };
 		EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenStudyNode.swift; sourceTree = "<group>"; };
 		EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
 		EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenGridSceneConstructor.swift; sourceTree = "<group>"; };
@@ -374,6 +380,8 @@
 				4AC0B97D226F2B3F001B591D /* ARPen.entitlements */,
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
+				E906324622E31770008E320F /* SnapshotAnchor.swift */,
+				E9B530622487965A0051C0C3 /* MultipeerSession.swift */,
 				4A4B7F1B205817A200331810 /* SettingsViewControllers */,
 				DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */,
 				DC28B464200E4825008B77AB /* PenScene.swift */,
@@ -440,6 +448,7 @@
 				DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */,
 				DC28B470200E592C008B77AB /* DegreesToRadians.swift */,
 				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
+				E906324422E3174B008E320F /* Utilities.swift */,
 				4A27E27C239FCEA800C4BF75 /* NotificationName.swift */,
 				4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */,
 				4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */,
@@ -595,9 +604,12 @@
 				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
+				E906324522E3174B008E320F /* Utilities.swift in Sources */,
+				E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
+				E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */,
 				4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */,
 				4AAC4B1723A27DFE003B6E83 /* ModelingPlugin.swift in Sources */,
 				4AAC4AEF23A24A20003B6E83 /* ARPCylinder.swift in Sources */,
@@ -786,6 +798,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
@@ -810,6 +823,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
