@@ -557,19 +557,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                         // Remove all geometries created via Open Cascade
                         scene.drawingNode.childNodes(passingTest: { (node, stop) -> Bool in
                             let geometryType = type(of: node)
-                            print("geometryType:\(geometryType)")
                             
+                            // If the geometry created by Open Cascade, remove before sharing (but store them locally for retrieval).
                             if ((geometryType == ARPSphere.self) || (geometryType == ARPGeomNode.self) || (geometryType == ARPRevolution.self) ||
                                 (geometryType == ARPBox.self) || (geometryType == ARPNode.self) || (geometryType == ARPSweep.self) ||
                                 (geometryType == ARPCylinder.self) || (geometryType == ARPLoft.self) || (geometryType == ARPPath.self) ||
                                 (geometryType == ARPBoolNode.self) || (geometryType == ARPPathNode.self)) {
-                                print("Detected geometry created via Open Cascade.\n")
                                 
                                 nodesCreatedWithOpenCascade.append(node)
                                 node.removeFromParentNode()
                                 return false
                             } else {
-                                print("Detected geometry *not* created via Open Cascade.\n")
                                 return true
                             }
                         })                       
