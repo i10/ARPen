@@ -23,7 +23,7 @@ class SnapshotAnchor: ARAnchor {
             else { return nil }
         
         let image = CIImage(cvPixelBuffer: frame.capturedImage)
-        let orientation = CGImagePropertyOrientation(cameraOrientation: UIDeviceOrientation.landscapeRight)
+        let orientation = CGImagePropertyOrientation(cameraOrientation: (UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft) ? UIDeviceOrientation.landscapeLeft : UIDeviceOrientation.landscapeRight)
         
         let context = CIContext(options: [CIContextOption.useSoftwareRenderer: false])
         guard let data = context.jpegRepresentation(of: image.oriented(orientation),
