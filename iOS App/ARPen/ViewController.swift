@@ -429,7 +429,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                 self.storedNode!.load()
                 
                 let scene = self.arSceneView.scene as! PenScene
-                scene.drawingNode.addChildNode(self.storedNode!)
+                for child in self.storedNode!.childNodes {
+                    scene.drawingNode.addChildNode(child)
+                }
             }
         } else if (anchorName == sharePointAnchorName) {
             // Perform rendering operations asynchronously
