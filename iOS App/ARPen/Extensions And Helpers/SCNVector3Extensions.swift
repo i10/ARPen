@@ -136,6 +136,10 @@ func * (vector: SCNVector3, scalar: Float) -> SCNVector3 {
     return SCNVector3Make(vector.x * scalar, vector.y * scalar, vector.z * scalar)
 }
 
+func * (scalar: Float, vector: SCNVector3) -> SCNVector3 {
+    return vector * scalar
+}
+
 /**
  * Multiplies the x and y fields of a SCNVector3 with the same scalar value.
  */

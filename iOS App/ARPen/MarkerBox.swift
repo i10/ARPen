@@ -18,6 +18,7 @@ class MarkerBox: SCNNode {
     
     static private var secureCoding = true
     override public class var supportsSecureCoding: Bool { return secureCoding }
+    let positionFilter = PositionFilter(alphaValue: 0.5, gammaValue: 0.5, slerpFactor: 0.5)
     
     /**
      * Describes in which landscape orientation the device is currently hold
@@ -230,10 +231,10 @@ class MarkerBox: SCNNode {
      Determine the position of the pin point by ONLY considering the specified IDs
      - parameter ids: A list of marker IDs that are used to determine the position
      */
-    func posititonWith(ids: [MarkerFace]) -> SCNNode {
+    func positionWith(ids: [MarkerFace]) -> SCNNode {
         //hold the computed pen tip properties for each marker -> can be averaged to return pen tip node
         var penTipPosition = SCNVector3Zero
-        var penTipRotation = SCNVector4Zero
+        var penTipOrientation = simd_quatf.init(ix: 0, iy: 0, iz: 0, r: 1)
         var mutableIds : [MarkerFace] = ids
         
         if mutableIds.count == 3 {
@@ -257,40 +258,28 @@ class MarkerBox: SCNNode {
             }
         }
         
-        //average orientation between seen markers
+        //average orientation between seen markers (averaging of rotation adapted from: https://answers.unity.com/questions/815266/find-and-average-rotations-together.html)
+        var counter : Float = 0
         for id in mutableIds {
             let candidateNode = SCNNode()
             let transform = self.markerArray[id.rawValue-1].childNodes.first!.convertTransform(SCNMatrix4Identity, to: nil)
             
             candidateNode.transform = transform
             penTipPosition += candidateNode.position
-            penTipRotation.x += candidateNode.rotation.x
-            penTipRotation.y += candidateNode.rotation.y
-            penTipRotation.z += candidateNode.rotation.z
-            penTipRotation.w += candidateNode.rotation.w
+            
+            counter += 1
+            penTipOrientation = simd_slerp(penTipOrientation, candidateNode.simdOrientation, 1.0/counter)
         }
         
         penTipPosition /= Float(mutableIds.count)
-        penTipRotation.x /= Float(mutableIds.count)
-        penTipRotation.y /= Float(mutableIds.count)
-        penTipRotation.z /= Float(mutableIds.count)
-        penTipRotation.w /= Float(mutableIds.count)
         
-        //Average with past n tip positions
-        let n = 1
-        for pastPenTip in penTipPositionHistory {
-            penTipPosition += pastPenTip
-        }
-        penTipPosition /= Float(penTipPositionHistory.count + 1)
-        penTipPositionHistory.append(penTipPosition)
+        //apply smoothing to pen position & orientation
+        penTipPosition = self.positionFilter.filteredPositionAfter(newPosition: penTipPosition)
+        penTipOrientation = self.positionFilter.filteredOrientationAfter(newOrientation: penTipOrientation)
         
-        //Remove latest item if too much items are in penTipPositionHistory
-        if penTipPositionHistory.count > n {
-            penTipPositionHistory.remove(at: 0)
-        }
         let returnNode = SCNNode()
         returnNode.position = penTipPosition
-        returnNode.rotation = penTipRotation
+        returnNode.simdOrientation = penTipOrientation
         return returnNode
     }
     
