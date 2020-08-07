@@ -14,7 +14,7 @@ class ARPenWireBoxNode : ARPenStudyNode {
         didSet {
             if highlighted {
                 self.childNodes.forEach({
-                    $0.geometry?.firstMaterial?.emission.intensity = 0.2
+                    $0.geometry?.firstMaterial?.emission.intensity = 0.5
                 })
             } else {
                 self.childNodes.forEach({

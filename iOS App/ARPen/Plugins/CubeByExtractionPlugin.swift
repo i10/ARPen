@@ -27,7 +27,7 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "CubeByExtractionPluginDisabled")
         
-        nibNameOfCustomUIView = "CubeByExtractionPlugin"
+        nibNameOfCustomUIView = "SecondButton"
     }
    
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
