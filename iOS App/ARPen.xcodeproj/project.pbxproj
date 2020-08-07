@@ -21,6 +21,11 @@
 		4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */; };
 		4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */; };
 		4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */; };
+		4AA09F8C24DD508B00B59F9E /* HeatmapPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8724DD508A00B59F9E /* HeatmapPlugin.swift */; };
+		4AA09F8D24DD508B00B59F9E /* ShadowPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8824DD508A00B59F9E /* ShadowPlugin.swift */; };
+		4AA09F8E24DD508B00B59F9E /* BubblePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8924DD508A00B59F9E /* BubblePlugin.swift */; };
+		4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8A24DD508A00B59F9E /* MinVisPlugin.swift */; };
+		4AA09F9024DD508B00B59F9E /* DepthRayPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8B24DD508A00B59F9E /* DepthRayPlugin.swift */; };
 		4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADA23A24A1F003B6E83 /* Util.swift */; };
 		4AAC4AE923A24A20003B6E83 /* ARPSphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */; };
 		4AAC4AEA23A24A20003B6E83 /* ARPGeomNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */; };
@@ -124,6 +129,11 @@
 		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8724DD508A00B59F9E /* HeatmapPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatmapPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8824DD508A00B59F9E /* ShadowPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8924DD508A00B59F9E /* BubblePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblePlugin.swift; sourceTree = "<group>"; };
+		4AA09F8A24DD508A00B59F9E /* MinVisPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinVisPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8B24DD508A00B59F9E /* DepthRayPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthRayPlugin.swift; sourceTree = "<group>"; };
 		4AAC4ADA23A24A1F003B6E83 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPSphere.swift; sourceTree = "<group>"; };
 		4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPGeomNode.swift; sourceTree = "<group>"; };
@@ -252,6 +262,18 @@
 				4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */,
 			);
 			path = UserStudyData;
+			sourceTree = "<group>";
+		};
+		4AA09F8624DD504600B59F9E /* DepthVisualizationPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AA09F8924DD508A00B59F9E /* BubblePlugin.swift */,
+				4AA09F8B24DD508A00B59F9E /* DepthRayPlugin.swift */,
+				4AA09F8724DD508A00B59F9E /* HeatmapPlugin.swift */,
+				4AA09F8A24DD508A00B59F9E /* MinVisPlugin.swift */,
+				4AA09F8824DD508A00B59F9E /* ShadowPlugin.swift */,
+			);
+			path = DepthVisualizationPlugins;
 			sourceTree = "<group>";
 		};
 		4AAC4AD923A24A1F003B6E83 /* Modeling */ = {
@@ -437,6 +459,7 @@
 				4AAC4B2323A37D16003B6E83 /* LoftPlugin.swift */,
 				4AAC4B2F23A37D5E003B6E83 /* RevolvePlugins */,
 				4AAC4B3023A37D6F003B6E83 /* BooleanOperationPlugins */,
+				4AA09F8624DD504600B59F9E /* DepthVisualizationPlugins */,
 				4A27E28223A1032400C4BF75 /* PluginUIs */,
 				4AAC4AF423A24A3F003B6E83 /* Util */,
 			);
@@ -585,6 +608,7 @@
 				4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */,
 				4AAC4AFB23A24A3F003B6E83 /* TaskScenes.swift in Sources */,
 				4A5695342058195200C8065E /* UserStudyRecordsListTableViewController.swift in Sources */,
+				4AA09F8C24DD508B00B59F9E /* HeatmapPlugin.swift in Sources */,
 				DC28B45F200E4561008B77AB /* PenManager.swift in Sources */,
 				EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */,
 				4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */,
@@ -604,10 +628,12 @@
 				EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */,
 				4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */,
 				4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */,
+				4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */,
 				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
 				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
+				4AA09F8D24DD508B00B59F9E /* ShadowPlugin.swift in Sources */,
 				E906324522E3174B008E320F /* Utilities.swift in Sources */,
 				E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
@@ -621,6 +647,7 @@
 				4AAC4B2A23A37D17003B6E83 /* RevolvePluginTwoProfiles.swift in Sources */,
 				4AAC4AF323A24A20003B6E83 /* OCCTAPI.swift in Sources */,
 				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
+				4AA09F9024DD508B00B59F9E /* DepthRayPlugin.swift in Sources */,
 				4AAC4B2123A2949E003B6E83 /* CombinePluginTutorial.swift in Sources */,
 				4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */,
 				4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */,
@@ -649,6 +676,7 @@
 				4AAC4B2D23A37D17003B6E83 /* RevolvePluginProfileAndAxis.swift in Sources */,
 				EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */,
 				4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */,
+				4AA09F8E24DD508B00B59F9E /* BubblePlugin.swift in Sources */,
 				4AAC4AFC23A24A3F003B6E83 /* Arranger.swift in Sources */,
 				DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */,
 				4AAC4B1D23A290FE003B6E83 /* SweepPluginTwoProfiles.swift in Sources */,

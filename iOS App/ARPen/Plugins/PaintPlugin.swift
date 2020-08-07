@@ -34,7 +34,7 @@ class PaintPlugin: Plugin {
     }
     
     func undoPreviousAction() {
-        if (self.previousDrawnLineNodes!.count > 0) {
+        if (self.previousDrawnLineNodes?.count ?? 0 > 0) {
             let lastLine = self.previousDrawnLineNodes?.last
             
             self.previousDrawnLineNodes?.removeLast()

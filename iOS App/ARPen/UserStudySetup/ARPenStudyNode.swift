@@ -18,7 +18,7 @@ class ARPenStudyNode : SCNNode {
     var highlighted : Bool = false {
         didSet {
             if highlighted {
-                self.geometry?.firstMaterial?.emission.intensity = 1.0
+                self.geometry?.firstMaterial?.emission.intensity = 0.2
             } else {
                 self.geometry?.firstMaterial?.emission.intensity = 0.0
             }
@@ -28,8 +28,8 @@ class ARPenStudyNode : SCNNode {
     var isActiveTarget = false {
         didSet {
             if self.isActiveTarget {
-                self.geometry?.firstMaterial?.diffuse.contents = UIColor.green
-                self.geometry?.firstMaterial?.emission.contents = UIColor.yellow
+                self.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
+                self.geometry?.firstMaterial?.emission.contents = UIColor.orange
             } else {
                 self.geometry?.firstMaterial?.diffuse.contents = UIColor.white
                 self.geometry?.firstMaterial?.emission.contents = UIColor.white
@@ -80,5 +80,21 @@ class ARPenStudyNode : SCNNode {
     
     func isPointInside(point : SCNVector3) -> Bool {
         return false
+    }
+    
+    func setShaderModifier(shaderModifiers : [SCNShaderModifierEntryPoint : String]) {
+        self.geometry?.shaderModifiers = shaderModifiers
+        
+        self.childNodes.forEach({
+            $0.geometry?.shaderModifiers = shaderModifiers
+        })
+    }
+    
+    func setShaderArgument(name : String, value : Float) {
+        self.geometry?.firstMaterial?.setValue(value, forKey: name)
+        
+        self.childNodes.forEach({
+            $0.geometry?.firstMaterial?.setValue(value, forKey: name)
+        })
     }
 }
