@@ -15,9 +15,10 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
     private var previousPoint: SCNVector3?
     private var currentLine : [SCNNode]?
     
-    private var nextSceneAligned = false
-    private var backAlignmentTarget : SCNNode?
-    private var frontAlignmentTarget : SCNNode?
+    private var nextSceneAligned = true //set to true for demo purpose. Only used in study settings.
+//    //only needed for study settings
+//    private var backAlignmentTarget : SCNNode?
+//    private var frontAlignmentTarget : SCNNode?
     
     private var trialNum : Int = -1
     private var trialRedo : Int = 0
@@ -38,6 +39,8 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginIdentifier = "MinVis"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "SonarPluginDisabled")
+        
+        nibNameOfCustomUIView = "SecondButton"
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
@@ -68,17 +71,18 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
             //return
         }
         
-        if let arSceneView = self.currentView {
-            let projectedAlignmentPosition = arSceneView.projectPoint(frontAlignmentTarget?.worldPosition ?? SCNVector3(0,0,0))
-            let projectedCGPoint = CGPoint(x: CGFloat(projectedAlignmentPosition.x), y: CGFloat(projectedAlignmentPosition.y))
-            let hitResults = arSceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
-            
-            if hitResults.filter({$0.node.name == "backAlignmentTarget"}).count > 0 && scene.markerFound {
-                self.nextSceneAligned = true
-                backAlignmentTarget?.removeFromParentNode()
-                frontAlignmentTarget?.removeFromParentNode()
-            }
-        }
+        //only needed in study setting (to align scene&pen)
+//        if let arSceneView = self.currentView {
+//            let projectedAlignmentPosition = arSceneView.projectPoint(frontAlignmentTarget?.worldPosition ?? SCNVector3(0,0,0))
+//            let projectedCGPoint = CGPoint(x: CGFloat(projectedAlignmentPosition.x), y: CGFloat(projectedAlignmentPosition.y))
+//            let hitResults = arSceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
+//
+//            if hitResults.filter({$0.node.name == "backAlignmentTarget"}).count > 0 && scene.markerFound {
+//                self.nextSceneAligned = true
+//                backAlignmentTarget?.removeFromParentNode()
+//                frontAlignmentTarget?.removeFromParentNode()
+//            }
+//        }
         
         let pressed = buttons[Button.Button1]!
         
@@ -92,7 +96,7 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
                 cylinderNode.name = LINE_NAME
                 scene.drawingNode.addChildNode(cylinderNode)
                 self.currentLine?.append(cylinderNode)
-                self.nextSceneAligned = false
+                //self.nextSceneAligned = false
             } else if !pressed {
                 if self.currentLine != nil {
                     self.currentLine = nil
@@ -132,6 +136,7 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
         }
         
         self.constructStudyScene()
+        self.calculateNextTarget()
         self.stopStudy()
     }
     
@@ -152,7 +157,7 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
     }
     
     func constructStudyScene() {
-        print("CONSTRUCT SCENE")
+        //print("CONSTRUCT SCENE")
         let sceneConstructor = ARPenGridSceneConstructor.init()
         self.studySceneConstruction = sceneConstructor.preparedARPenNodes(withScene: self.currentScene!, andView: self.currentView!, andStudyNodeType: MinVisPlugin.nodeType)
         //remove image alignment for review
@@ -315,30 +320,30 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
                 self.studySceneConstruction?.superNode.addChildNode(targetBlob)
                 self.targetPosition = targetBlob.worldPosition
                 
-                backAlignmentTarget?.removeFromParentNode()
-                frontAlignmentTarget?.removeFromParentNode()
+//                backAlignmentTarget?.removeFromParentNode()
+//                frontAlignmentTarget?.removeFromParentNode()
                 
-                var frontAlignmentTarget = SCNNode()
-                frontAlignmentTarget = SCNNode.init(geometry: SCNSphere.init(radius: 0.001))
-                frontAlignmentTarget.name = "frontAlignmentTarget"
-                frontAlignmentTarget.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
-                frontAlignmentTarget.geometry?.firstMaterial?.emission.contents = UIColor.yellow
-                frontAlignmentTarget.position = SCNVector3((minX + maxX) / 2.0, (minY + maxY) / 2.0, maxZ)
-                frontAlignmentTarget.renderingOrder = 20000
-                frontAlignmentTarget.geometry?.firstMaterial?.readsFromDepthBuffer = false
-                self.studySceneConstruction?.superNode.addChildNode(frontAlignmentTarget)
-                self.frontAlignmentTarget = frontAlignmentTarget
+//                var frontAlignmentTarget = SCNNode()
+//                frontAlignmentTarget = SCNNode.init(geometry: SCNSphere.init(radius: 0.001))
+//                frontAlignmentTarget.name = "frontAlignmentTarget"
+//                frontAlignmentTarget.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+//                frontAlignmentTarget.geometry?.firstMaterial?.emission.contents = UIColor.yellow
+//                frontAlignmentTarget.position = SCNVector3((minX + maxX) / 2.0, (minY + maxY) / 2.0, maxZ)
+//                frontAlignmentTarget.renderingOrder = 20000
+//                frontAlignmentTarget.geometry?.firstMaterial?.readsFromDepthBuffer = false
+//                self.studySceneConstruction?.superNode.addChildNode(frontAlignmentTarget)
+//                self.frontAlignmentTarget = frontAlignmentTarget
                 
-                var backAlignmentTarget = SCNNode()
-                backAlignmentTarget = SCNNode.init(geometry: SCNSphere.init(radius: 0.005))
-                backAlignmentTarget.name = "backAlignmentTarget"
-                backAlignmentTarget.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-                backAlignmentTarget.geometry?.firstMaterial?.emission.contents = UIColor.red
-                backAlignmentTarget.position = SCNVector3((minX + maxX) / 2.0, (minY + maxY) / 2.0, minZ)
-                backAlignmentTarget.renderingOrder = 19999
-                backAlignmentTarget.geometry?.firstMaterial?.readsFromDepthBuffer = false
-                self.studySceneConstruction?.superNode.addChildNode(backAlignmentTarget)
-                self.backAlignmentTarget = backAlignmentTarget
+//                var backAlignmentTarget = SCNNode()
+//                backAlignmentTarget = SCNNode.init(geometry: SCNSphere.init(radius: 0.005))
+//                backAlignmentTarget.name = "backAlignmentTarget"
+//                backAlignmentTarget.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+//                backAlignmentTarget.geometry?.firstMaterial?.emission.contents = UIColor.red
+//                backAlignmentTarget.position = SCNVector3((minX + maxX) / 2.0, (minY + maxY) / 2.0, minZ)
+//                backAlignmentTarget.renderingOrder = 19999
+//                backAlignmentTarget.geometry?.firstMaterial?.readsFromDepthBuffer = false
+//                self.studySceneConstruction?.superNode.addChildNode(backAlignmentTarget)
+//                self.backAlignmentTarget = backAlignmentTarget
             }
         }
     }
@@ -364,4 +369,15 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.testRun = true
         self.trialNum = -1
     }
+    
+    @IBAction func secondSoftwareButtonPressed(_ sender: Any) {
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button2, "buttonState" : true]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
+    }
+    
+    @IBAction func secondSoftwareButtonReleased(_ sender: Any) {
+        let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button2, "buttonState" : false]
+        NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
+    }
+    
 }
