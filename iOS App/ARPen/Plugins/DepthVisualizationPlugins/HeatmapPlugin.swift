@@ -31,7 +31,7 @@ class HeatmapPlugin: MinVisPlugin {
         
         self.studySceneConstruction?.superNode.childNodes.filter({$0.name != "testBlob"}).forEach({
             ($0 as? ARPenStudyNode)?.setShaderModifier(shaderModifiers: [SCNShaderModifierEntryPoint.geometry: """
-                #include <SceneKit/scn_metal>
+                
                 
                 #pragma varyings
                 float3 origPosition;

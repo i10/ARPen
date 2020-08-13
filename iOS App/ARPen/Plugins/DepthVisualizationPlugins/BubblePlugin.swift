@@ -110,7 +110,7 @@ class BubblePlugin: MinVisPlugin {
         
         self.studySceneConstruction?.studyNodes.forEach({
             $0.setShaderModifier(shaderModifiers: [SCNShaderModifierEntryPoint.geometry: """
-                #include <SceneKit/scn_metal>
+                
                 
                 #pragma varyings
                 float3 origPosition;
