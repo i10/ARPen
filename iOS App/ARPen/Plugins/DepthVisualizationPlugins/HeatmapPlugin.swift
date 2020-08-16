@@ -29,6 +29,16 @@ class HeatmapPlugin: MinVisPlugin {
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
         super.activatePlugin(withScene: scene, andView: view)
         
+        self.setShaderModifiers()
+    }
+    
+    override func calculateNextTarget() {
+        super.calculateNextTarget()
+        
+        self.setShaderModifiers()
+    }
+    
+    func setShaderModifiers() {
         self.studySceneConstruction?.superNode.childNodes.filter({$0.name != "testBlob"}).forEach({
             ($0 as? ARPenStudyNode)?.setShaderModifier(shaderModifiers: [SCNShaderModifierEntryPoint.geometry: """
                 
