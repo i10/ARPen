@@ -56,8 +56,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     let menuButtonHeight = 70
     let menuButtonPadding = 5
     var currentActivePluginID = 1
-    var bluetoothARPenConnected: Bool = false
     
+    var bluetoothARPenConnected: Bool = false
+    /**
+     The PluginManager instance
+     */
     var pluginManager: PluginManager!
     
     let userStudyRecordManager = UserStudyRecordManager() // Manager for storing data from user studies
@@ -94,7 +97,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.arSceneView.autoenablesDefaultLighting = true
         self.arSceneView.pointOfView?.name = "iDevice Camera"
         
-        arSceneView.scene = scene // Set the scene to the view
+        // Set the scene to the view
+        arSceneView.scene = scene
         
         // Setup tap gesture recognizer for plugin instructions
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action:  #selector(ViewController.imageForPluginInstructionsTapped(_:)))
@@ -128,8 +132,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
     }
     
-
-    // viewWillAppear. Init the ARSession
+    /**
+     viewWillAppear. Init the ARSession
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -347,9 +352,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         checkVisualEffectView()
     }
     
-    // MARK: - PenManager delegate
-    
-    // Callback from PenManager
+    // Mark: - PenManager delegate
+    /**
+     Callback from PenManager
+     */
     func penConnected() {
         guard let arPenActivity = self.arPenActivity else {
             return
@@ -375,7 +381,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         checkVisualEffectView()
     }
     
-    // This method will be called after `penConnected` and `arKitInitialized` to hide the blurry overlay
+    /**
+     This method will be called after `penConnected` and `arKitInitialized` to may hide the blurry overlay
+     */
     func checkVisualEffectView() {
         if self.arPenActivity.isHidden && self.arKitActivity.isHidden {
 //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
@@ -389,7 +397,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
     }
     
-    // Software Pen Button Actions
+    //Software Pen Button Actions
     @IBAction func softwarePenButtonPressed(_ sender: Any) {
         //next line is the direct way possible here, but we'll show the way how the button states can be send from everywhere in the map
         //self.pluginManager.button(.Button1, pressed: true)
@@ -791,4 +799,3 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
     }
 }
-

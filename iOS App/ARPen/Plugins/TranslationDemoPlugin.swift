@@ -11,7 +11,7 @@ import ARKit
 
 class TranslationDemoPlugin: Plugin {
     
-    static var nodeType : ARPenStudyNode.Type = ARPenWireBoxNode.self
+    static var nodeType : ARPenStudyNode.Type = ARPenBoxNode.self
     
     var sceneConstructionResults : (superNode: SCNNode, studyNodes: [ARPenStudyNode])?
     var boxes : [ARPenStudyNode]?
@@ -218,11 +218,11 @@ class TranslationDemoPlugin: Plugin {
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
         super.activatePlugin(withScene: scene, andView: view)
         
-        if (TranslationDemoPlugin.nodeType == ARPenWireBoxNode.self) {
-            TranslationDemoPlugin.nodeType = ARPenBoxNode.self
-        } else {
-            TranslationDemoPlugin.nodeType = ARPenWireBoxNode.self
-        }
+//        if (TranslationDemoPlugin.nodeType == ARPenWireBoxNode.self) {
+//            TranslationDemoPlugin.nodeType = ARPenBoxNode.self
+//        } else {
+//            TranslationDemoPlugin.nodeType = ARPenWireBoxNode.self
+//        }
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
         
