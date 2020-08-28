@@ -28,6 +28,11 @@ class UserStudyRecordManager : NSObject{
         super.init()
         //set previous user study data, if a matching plist file exists in the home directory of the device
         userStudyData = loadFromFile() ?? [:]
+        
+        self.currentActiveUserID = -1
+        if let currentActiveUserID = currentActiveUserID, self.userStudyData[currentActiveUserID] == nil {
+            self.userStudyData[currentActiveUserID] = []
+        }
     }
     
     //accessing userStudyData

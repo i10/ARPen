@@ -14,20 +14,18 @@ import ARKit
  */
 class ObjectCreationPlugin: Plugin {
     
+    var pluginImage: UIImage? = UIImage.init(named: "ObjectCreationPlugin")
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
+    var pluginIdentifier: String = "Object Creation"
+    var needsBluetoothARPen: Bool = false
+    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
+    var currentScene : PenScene?
+    var currentView: ARSCNView?
+    
     private var pointArray: [SCNVector3] = []
     private var alreadyAdded = false
     
-    override init() {
-        super.init()
-        
-        self.pluginImage = UIImage.init(named: "ObjectCreationPlugin")
-        self.pluginInstructionsImage = UIImage.init(named: "DefaultInstructions")
-        self.pluginIdentifier = "Object Creation"
-        self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
-    }
-    
-    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         if !buttons[.Button2]!{
             alreadyAdded = false
             return
@@ -66,4 +64,15 @@ class ObjectCreationPlugin: Plugin {
         }
         
     }
+    
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        self.currentScene = scene
+        self.currentView = view
+    }
+    
+    func deactivatePlugin() {
+        self.currentScene = nil
+        self.currentView = nil
+    }
+    
 }

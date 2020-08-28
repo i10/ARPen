@@ -71,10 +71,10 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
     
     func setClearSceneButtonLabel() {
         if self.scene.drawingNode.childNodes.count > 0 {
-            self.clearSceneButton.setTitle("Clear Scene", for: UIControl.State.normal)
+            self.clearSceneButton.setTitle("Clear Scene", for: UIControlState.normal)
             self.clearSceneButton.isEnabled = true
         } else {
-            self.clearSceneButton.setTitle("No objects in the scene", for: UIControl.State.normal)
+            self.clearSceneButton.setTitle("No objects in the scene", for: UIControlState.normal)
             self.clearSceneButton.isEnabled = false
         }
     }
@@ -193,11 +193,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
             }
             //pass the reference to the record manager to the new VC
             destinationVC.userStudyRecordManager = self.userStudyRecordManager
-        }
-    }
-    @IBAction func visitOpenCascadeWebsiteButtonPressed(_ sender: Any) {
-        if let url = URL(string: "https://www.opencascade.com/") {
-            UIApplication.shared.open(url, options: [:])
         }
     }
     
