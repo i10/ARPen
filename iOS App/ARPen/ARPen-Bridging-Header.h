@@ -3,5 +3,4 @@
 //
 
 #import "OpenCVWrapper.h"
-#import "OCCT.h"
 //#import "MarkerBox.h"

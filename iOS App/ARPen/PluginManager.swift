@@ -29,13 +29,16 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var delegate: PluginManagerDelegate?
     var experimentalPluginsStartAtIndex: Int
     
+    //var studyPlugin : ClosestPointPainting
+    
     /**
      inits every plugin
      */
     init(scene: PenScene) {
         self.paintPlugin = PaintPlugin()
-        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin(), ModelingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), CombinePluginFunction(), CombinePluginSolidHole(), MinVisPlugin(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
-        self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
+//        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), ARMenusPlugin(), TranslationDemoPlugin(), CombinationPlugin(), RaycastPainting(), ClosestPointPainting(), StudyObjectGeneration()]
+        self.plugins = [ClosestPointPainting(), RaycastPainting(), StudyFreehandPainting()]
+        self.pluginInstructionsCanBeHidden = Array(repeating: false, count: self.plugins.count)
         self.experimentalPluginsStartAtIndex = 7
         
         
@@ -44,9 +47,6 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.activePlugin = plugins.first
         self.arManager.delegate = self
         self.arPenManager.delegate = self
-        
-        //listen to softwarePenButton notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(self.softwareButtonEvent(_:)), name: .softwarePenButtonEvent, object: nil)
     }
     
     /**
@@ -54,13 +54,6 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
      */
     func button(_ button: Button, pressed: Bool) {
         self.buttons[button] = pressed
-    }
-    
-    //Callback from Notification Center. Format of userInfo: ["buttonPressed"] is the button the event is for, ["buttonState"] is the boolean whether the button is pressed or not
-    @objc func softwareButtonEvent(_ notification: Notification){
-        if let buttonPressed = notification.userInfo?["buttonPressed"] as? Button, let buttonState = notification.userInfo?["buttonState"] as? Bool {
-            self.buttons[buttonPressed] = buttonState
-        }
     }
     
     /**
@@ -97,6 +90,20 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     
     func undoPreviousStep() {
         // Todo: Add undo functionality for all plugins.
-        self.paintPlugin.undoPreviousAction()
+        
+        if (self.activePlugin!.pluginIdentifier == ((ClosestPointPainting()) as Plugin).pluginIdentifier){
+            let studyPlugin = ClosestPointPainting()
+            studyPlugin.undoPreviousAction()
+        }
+        else
+        if (self.activePlugin!.pluginIdentifier == ((RaycastPainting()) as Plugin).pluginIdentifier){
+            let studyPlugin = RaycastPainting()
+            studyPlugin.undoPreviousAction()
+        }
+        else{
+            self.paintPlugin.undoPreviousAction()
+        }
+        
+        
     }
 }

@@ -14,7 +14,7 @@ class ARPenWireBoxNode : ARPenStudyNode {
         didSet {
             if highlighted {
                 self.childNodes.forEach({
-                    $0.geometry?.firstMaterial?.emission.intensity = 0.5
+                    $0.geometry?.firstMaterial?.emission.intensity = 1.0
                 })
             } else {
                 self.childNodes.forEach({
@@ -28,8 +28,8 @@ class ARPenWireBoxNode : ARPenStudyNode {
         didSet {
             if self.isActiveTarget {
                 self.childNodes.forEach({
-                    $0.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
-                    $0.geometry?.firstMaterial?.emission.contents = UIColor.orange
+                    $0.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+                    $0.geometry?.firstMaterial?.emission.contents = UIColor.yellow
                 })
             } else {
                 self.childNodes.forEach({
@@ -57,15 +57,13 @@ class ARPenWireBoxNode : ARPenStudyNode {
         // create invisible bounding geometry to enable ray casting
         let boundingBoxGeometry = SCNBox.init(width: CGFloat(self.dimension), height: CGFloat(self.dimension), length: CGFloat(self.dimension), chamferRadius: 0.0)
         self.geometry = boundingBoxGeometry
-        self.name = "BoundingBox \(thePosition.x), \(thePosition.y), \(thePosition.z)"
+        self.name = "\(thePosition.x), \(thePosition.y), \(thePosition.z)"
         self.geometry?.firstMaterial?.diffuse.contents = UIColor.red
         self.geometry?.firstMaterial?.transparency = 0.0
         
         self.buildWireFrame()
     }
     
-    // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
-    override public class var supportsSecureCoding: Bool { return true }
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
@@ -98,7 +96,6 @@ class ARPenWireBoxNode : ARPenStudyNode {
             let wire = SCNNode()
             wire.buildLineInTwoPointsWithRotation(from: info.0 - self.position, to: info.1 - self.position, radius: 0.001, color: UIColor.white)
             wire.geometry?.firstMaterial?.emission.contents = UIColor.white
-            wire.geometry?.firstMaterial?.emission.intensity = 0.0
             self.addChildNode(wire)
         }
     }
@@ -158,17 +155,5 @@ class ARPenWireBoxNode : ARPenStudyNode {
         self.corners.lfh = SCNVector3Make(thePosition.x - halfDimension, thePosition.y + halfDimension, thePosition.z + halfDimension)
         self.corners.rbh = SCNVector3Make(thePosition.x + halfDimension, thePosition.y + halfDimension, thePosition.z - halfDimension)
         self.corners.rfh = SCNVector3Make(thePosition.x + halfDimension, thePosition.y + halfDimension, thePosition.z + halfDimension)
-    }
-    
-    override func setShaderModifier(shaderModifiers : [SCNShaderModifierEntryPoint : String]) {
-        self.childNodes.forEach({
-            $0.geometry?.shaderModifiers = shaderModifiers
-        })
-    }
-    
-    override func setShaderArgument(name : String, value : Float) {
-        self.childNodes.forEach({
-            $0.geometry?.firstMaterial?.setValue(value, forKey: name)
-        })
     }
 }

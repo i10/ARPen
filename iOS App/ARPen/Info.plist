@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>To receive information about the buttons pressed on the ARPen, this app uses Bluetooth. </string>
+	<string>ARPen uses Bluetooth to connect to the pen and stays connected to receive button presses.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>To receive information about the buttons pressed on the ARPen, this app uses Bluetooth. </string>
 	<key>NSCameraUsageDescription</key>

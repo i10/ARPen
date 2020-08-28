@@ -31,8 +31,10 @@ class PenScene: SCNScene {
      */
     var markerFound = true
     
-    static private var secureCoding = true
-    override public class var supportsSecureCoding: Bool { return secureCoding }
+    
+    var directionNode = SCNNode()
+    var projectionNode = SCNNode()
+    var arAnchorImage = SCNNode()
     
     /**
      Calling this method will convert the whole scene with every nodes in it to an stl file
@@ -41,14 +43,10 @@ class PenScene: SCNScene {
      */
     func share() -> URL {
         let filePath = URL(fileURLWithPath: NSTemporaryDirectory() + "/scene.stl")
-        if let node = drawingNode.childNodes.first as? ARPGeomNode {
-            node.exportStl(filePath: filePath)
-        } else {
-            let drawingItems = MDLObject(scnNode: self.drawingNode)
-            let asset = MDLAsset()
-            asset.add(drawingItems)
-            try! asset.export(to: filePath)
-        }
+        let drawingItems = MDLObject(scnNode: self.drawingNode)
+        let asset = MDLAsset()
+        asset.add(drawingItems)
+        try! asset.export(to: filePath)
         return filePath
     }
     
@@ -62,7 +60,7 @@ class PenScene: SCNScene {
     }
     
     // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
-//    override public class var supportsSecureCoding: Bool { return true }
+    override public class var supportsSecureCoding: Bool { return true }
     /**
      This initializer will be called after `init(named:)` is called.
      */
@@ -77,41 +75,15 @@ class PenScene: SCNScene {
         self.pencilPoint.name = "PencilPoint"
         self.pencilPoint.geometry?.materials.first?.diffuse.contents = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
         
-        /*//simple coordinate system on the pencil point
-        let coordSystemNode = SCNNode()
-        let cylinderRadius = CGFloat(0.0005)
-        let cylinderHeight = CGFloat(0.01)
-        
-        let xAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
-        xAxisGeometry.materials.first?.diffuse.contents = UIColor.red
-        let xAxisNode = SCNNode(geometry: xAxisGeometry)
-        xAxisNode.eulerAngles.z = -Float.pi/2
-        xAxisNode.position.x = Float(cylinderHeight/2)
-        coordSystemNode.addChildNode(xAxisNode)
-        
-        let yAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
-        yAxisGeometry.materials.first?.diffuse.contents = UIColor.green
-        let yAxisNode = SCNNode(geometry: yAxisGeometry)
-        yAxisNode.position.y = Float(cylinderHeight/2)
-        coordSystemNode.addChildNode(yAxisNode)
-        
-        let zAxisGeometry = SCNCylinder(radius: cylinderRadius, height: cylinderHeight)
-        zAxisGeometry.materials.first?.diffuse.contents = UIColor.blue
-        let zAxisNode = SCNNode(geometry: zAxisGeometry)
-        zAxisNode.eulerAngles.x = Float.pi/2
-        zAxisNode.position.z = Float(cylinderHeight/2)
-        coordSystemNode.addChildNode(zAxisNode)
-        
-        self.pencilPoint.addChildNode(coordSystemNode)*/
+        self.projectionNode.geometry = SCNSphere(radius: 0.002)
+        self.projectionNode.name = "projectionNode"
+
+        self.projectionNode.geometry?.materials.first?.diffuse.contents = UIColor.green
         
         self.rootNode.addChildNode(self.pencilPoint)
         self.rootNode.addChildNode(self.drawingNode)
-    }
-    
-    func reinitializePencilPoint() {
-        self.pencilPoint = SCNNode()
-        
-        setupPencilPoint()
+        self.rootNode.addChildNode(self.directionNode)
+        self.rootNode.addChildNode(self.projectionNode)
     }
     
 }
