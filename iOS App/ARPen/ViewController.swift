@@ -9,7 +9,7 @@
 import UIKit
 import SceneKit
 import ARKit
-import MultipeerConnectivity
+//import MultipeerConnectivity
 
 /**
  The "Main" ViewController. This ViewController holds the instance of the PluginManager.
@@ -44,9 +44,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var persistenceSavePointAnchor: ARAnchor?
     var persistenceSavePointAnchorName: String = "persistenceSavePointAnchor"
     
-    // This ARAnchor acts as the point of reference for all models when sharing
-    var sharePointAnchor: ARAnchor?
-    var sharePointAnchorName: String = "sharePointAnchor"
+//    // This ARAnchor acts as the point of reference for all models when sharing
+//    var sharePointAnchor: ARAnchor?
+//    var sharePointAnchorName: String = "sharePointAnchor"
     
     var saveIsSuccessful: Bool = false
     
@@ -65,7 +65,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     let userStudyRecordManager = UserStudyRecordManager() // Manager for storing data from user studies
     
-    var multipeerSession: MultipeerSession!
+    //var multipeerSession: MultipeerSession!
     
     //A standard viewDidLoad
     override func viewDidLoad() {
@@ -128,8 +128,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         // Remove snapshot thumbnail when model has been loaded
         NotificationCenter.default.addObserver(self, selector: #selector(removeSnapshotThumbnail(_:)), name: Notification.Name.virtualObjectDidRenderAtAnchor, object: nil)
         
-        // Enable host-guest sharing to share ARWorldMap
-        multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
+//        // Enable host-guest sharing to share ARWorldMap
+//        multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
     }
     
     /**
@@ -441,18 +441,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                     scene.drawingNode.addChildNode(child)
                 }
             }
-        } else if (anchorName == sharePointAnchorName) {
-            // Perform rendering operations asynchronously
-            DispatchQueue.main.async {
-                guard let sharedNode = self.sharedNode else {
-                    return
-                }
-                
-                let scene = self.arSceneView.scene as! PenScene
-                scene.drawingNode.addChildNode(sharedNode)
-                print("Adding storedNode to sharePointAnchor")
-            }
-        }
+        } //else if (anchorName == sharePointAnchorName) {
+//            // Perform rendering operations asynchronously
+//            DispatchQueue.main.async {
+//                guard let sharedNode = self.sharedNode else {
+//                    return
+//                }
+//
+//                let scene = self.arSceneView.scene as! PenScene
+//                scene.drawingNode.addChildNode(sharedNode)
+//                print("Adding storedNode to sharePointAnchor")
+//            }
+//        }
         else {
             print("An unknown ARAnchor has been added!")
             return
@@ -671,24 +671,25 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             message = "Move your device to the location shown in the image."
             self.snapshotThumbnail.isHidden = false
         case .normal, .notAvailable:
-            if !multipeerSession.connectedPeers.isEmpty && mapProvider == nil {
-                let peerNames = multipeerSession.connectedPeers.map({ $0.displayName }).joined(separator: ", ")
-                message = "Connected with \(peerNames)."
-                
-                let scene = self.arSceneView.scene as! PenScene
-                if (scene.drawingNode.childNodes.count > 0) {
-                    self.shareModelButton.isHidden = false
-                }
-            }
-            else if (self.saveIsSuccessful) {
+//            if !multipeerSession.connectedPeers.isEmpty && mapProvider == nil {
+//                let peerNames = multipeerSession.connectedPeers.map({ $0.displayName }).joined(separator: ", ")
+//                message = "Connected with \(peerNames)."
+//
+//                let scene = self.arSceneView.scene as! PenScene
+//                if (scene.drawingNode.childNodes.count > 0) {
+//                    self.shareModelButton.isHidden = false
+//                }
+//            }
+//            else
+            if (self.saveIsSuccessful) {
                 message = "Save successful"
             }
             else {
                 message = ""
             }
-            case .limited(.initializing) where mapProvider != nil,
-             .limited(.relocalizing) where mapProvider != nil:
-                message = "Received map from \(mapProvider!.displayName)."
+//            case .limited(.initializing) where mapProvider != nil,
+//             .limited(.relocalizing) where mapProvider != nil:
+//                message = "Received map from \(mapProvider!.displayName)."
             default:
                 message = ""
         }
@@ -705,97 +706,97 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     // MARK: - Share ARWorldMap with other users
    
     func setupAndShareAnchor() {
-        // Place an anchor for a virtual character. The model appears in renderer(_:didAdd:for:).
-       let transform = self.arSceneView.scene.rootNode.simdTransform
-       let anchor = ARAnchor(name: sharePointAnchorName, transform: transform)
-       self.arSceneView.session.add(anchor: anchor)
-       
-       // Send the anchor info to peers, so they can place the same content.
-       guard let data = try? NSKeyedArchiver.archivedData(withRootObject: anchor, requiringSecureCoding: true)
-           else { fatalError("can't encode anchor") }
-       self.multipeerSession.sendToAllPeers(data)
+//        // Place an anchor for a virtual character. The model appears in renderer(_:didAdd:for:).
+//       let transform = self.arSceneView.scene.rootNode.simdTransform
+//       let anchor = ARAnchor(name: sharePointAnchorName, transform: transform)
+//       self.arSceneView.session.add(anchor: anchor)
+//
+//       // Send the anchor info to peers, so they can place the same content.
+//       guard let data = try? NSKeyedArchiver.archivedData(withRootObject: anchor, requiringSecureCoding: true)
+//           else { fatalError("can't encode anchor") }
+//       self.multipeerSession.sendToAllPeers(data)
     }
     
     
     @IBAction func shareModelButtonPressed(_ sender: Any) {
-        self.arSceneView.session.getCurrentWorldMap { worldMap, error in
-            guard let map = worldMap
-                else {
-                    print("Error: \(error!.localizedDescription)")
-                    return
-                }
-            
-            DispatchQueue.main.async {
-                let scene = self.arSceneView.scene as! PenScene
-                scene.pencilPoint.removeFromParentNode() // Remove pencilPoint before sharing
-                var nodesCreatedWithOpenCascade: [SCNNode] = []
-                
-                // Remove all geometries created via Open Cascade
-                scene.drawingNode.childNodes(passingTest: { (node, stop) -> Bool in
-                    let geometryType = type(of: node)
-                    print("geometryType:\(geometryType)")
-                    
-                    if ((geometryType == ARPSphere.self) || (geometryType == ARPGeomNode.self) || (geometryType == ARPRevolution.self) ||
-                        (geometryType == ARPBox.self) || (geometryType == ARPNode.self) || (geometryType == ARPSweep.self) ||
-                        (geometryType == ARPCylinder.self) || (geometryType == ARPLoft.self) || (geometryType == ARPPath.self) ||
-                        (geometryType == ARPBoolNode.self) || (geometryType == ARPPathNode.self)) {
-                        print("Detected geometry created via Open Cascade.\n")
-                        
-                        nodesCreatedWithOpenCascade.append(node)
-                        node.removeFromParentNode()
-                        return false
-                    } else {
-                        print("Detected geometry *not* created via Open Cascade.\n")
-                        return true
-                    }
-                })
-                
-                // Share content first so that the content is not duplicated for this device
-                guard let sceneData = try? NSKeyedArchiver.archivedData(withRootObject: scene.drawingNode, requiringSecureCoding: true)
-                    else { fatalError("can't encode scene data") }
-                self.multipeerSession.sendToAllPeers(sceneData)
-                scene.reinitializePencilPoint()
-                nodesCreatedWithOpenCascade.forEach({ scene.drawingNode.addChildNode($0) })
-                
-                self.setupAndShareAnchor()
-                
-                // Send the WorldMap to all peers
-                guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
-                    else { fatalError("can't encode map") }
-                self.multipeerSession.sendToAllPeers(data)
-            }
-        }
+//        self.arSceneView.session.getCurrentWorldMap { worldMap, error in
+//            guard let map = worldMap
+//                else {
+//                    print("Error: \(error!.localizedDescription)")
+//                    return
+//                }
+//
+//            DispatchQueue.main.async {
+//                let scene = self.arSceneView.scene as! PenScene
+//                scene.pencilPoint.removeFromParentNode() // Remove pencilPoint before sharing
+//                var nodesCreatedWithOpenCascade: [SCNNode] = []
+//
+//                // Remove all geometries created via Open Cascade
+//                scene.drawingNode.childNodes(passingTest: { (node, stop) -> Bool in
+//                    let geometryType = type(of: node)
+//                    print("geometryType:\(geometryType)")
+//
+//                    if ((geometryType == ARPSphere.self) || (geometryType == ARPGeomNode.self) || (geometryType == ARPRevolution.self) ||
+//                        (geometryType == ARPBox.self) || (geometryType == ARPNode.self) || (geometryType == ARPSweep.self) ||
+//                        (geometryType == ARPCylinder.self) || (geometryType == ARPLoft.self) || (geometryType == ARPPath.self) ||
+//                        (geometryType == ARPBoolNode.self) || (geometryType == ARPPathNode.self)) {
+//                        print("Detected geometry created via Open Cascade.\n")
+//
+//                        nodesCreatedWithOpenCascade.append(node)
+//                        node.removeFromParentNode()
+//                        return false
+//                    } else {
+//                        print("Detected geometry *not* created via Open Cascade.\n")
+//                        return true
+//                    }
+//                })
+//
+//                // Share content first so that the content is not duplicated for this device
+//                guard let sceneData = try? NSKeyedArchiver.archivedData(withRootObject: scene.drawingNode, requiringSecureCoding: true)
+//                    else { fatalError("can't encode scene data") }
+//                self.multipeerSession.sendToAllPeers(sceneData)
+//                scene.reinitializePencilPoint()
+//                nodesCreatedWithOpenCascade.forEach({ scene.drawingNode.addChildNode($0) })
+//
+//                self.setupAndShareAnchor()
+//
+//                // Send the WorldMap to all peers
+//                guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
+//                    else { fatalError("can't encode map") }
+//                self.multipeerSession.sendToAllPeers(data)
+//            }
+//        }
     }
     
-    var mapProvider: MCPeerID?
-    
-    /// - Tag: ReceiveData
-    func receivedData(_ data: Data, from peer: MCPeerID) {
-        
-        if let unarchivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data){
-           
-            if unarchivedData is ARWorldMap, let worldMap = unarchivedData as? ARWorldMap {
-                // Run the session with the received world map.
-                let configuration = ARWorldTrackingConfiguration()
-                configuration.planeDetection = .horizontal
-                configuration.initialWorldMap = worldMap
-                self.arSceneView.session.run(configuration, options: [.resetTracking])
-                
-                // Remember who provided the map for showing UI feedback.
-                mapProvider = peer
-            } else if unarchivedData is ARAnchor, let anchor = unarchivedData as? ARAnchor {
-                self.arSceneView.session.add(anchor: anchor)
-                print("added the anchor (\(anchor.name ?? "(can't parse)")) received from peer: \(peer)")
-            } else if unarchivedData is SCNNode, let sceneData = unarchivedData as? SCNNode {
-//                scene.write(to: self.sceneStoreURL, options: nil, delegate: nil, progressHandler: nil)
-                self.sharedNode = sceneData
-                print("saved scene data into sharedNode")
-            }
-            else {
-              print("Unknown Data Recieved From = \(peer)")
-            }
-        } else {
-            print("can't decode data received from \(peer)")
-        }
-    }
+//    var mapProvider: MCPeerID?
+//
+//    /// - Tag: ReceiveData
+//    func receivedData(_ data: Data, from peer: MCPeerID) {
+//
+//        if let unarchivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data){
+//
+//            if unarchivedData is ARWorldMap, let worldMap = unarchivedData as? ARWorldMap {
+//                // Run the session with the received world map.
+//                let configuration = ARWorldTrackingConfiguration()
+//                configuration.planeDetection = .horizontal
+//                configuration.initialWorldMap = worldMap
+//                self.arSceneView.session.run(configuration, options: [.resetTracking])
+//
+//                // Remember who provided the map for showing UI feedback.
+//                mapProvider = peer
+//            } else if unarchivedData is ARAnchor, let anchor = unarchivedData as? ARAnchor {
+//                self.arSceneView.session.add(anchor: anchor)
+//                print("added the anchor (\(anchor.name ?? "(can't parse)")) received from peer: \(peer)")
+//            } else if unarchivedData is SCNNode, let sceneData = unarchivedData as? SCNNode {
+////                scene.write(to: self.sceneStoreURL, options: nil, delegate: nil, progressHandler: nil)
+//                self.sharedNode = sceneData
+//                print("saved scene data into sharedNode")
+//            }
+//            else {
+//              print("Unknown Data Recieved From = \(peer)")
+//            }
+//        } else {
+//            print("can't decode data received from \(peer)")
+//        }
+//    }
 }
