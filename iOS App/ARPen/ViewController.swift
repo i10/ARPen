@@ -15,7 +15,9 @@ import ARKit
  The "Main" ViewController. This ViewController holds the instance of the PluginManager.
  Furthermore it holds the ARKitView.
  */
-class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate, UITableViewDelegate {
+
+    
 
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var arPenLabel: UILabel!
@@ -56,6 +58,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     let menuButtonHeight = 70
     let menuButtonPadding = 5
     var currentActivePluginID = 1
+    
+    @IBOutlet weak var menuView: UIView!
+    var menuViewNavigationController : UINavigationController?
+    var menuTableViewController = UITableViewController(style: .plain)
+    var tableViewDataSource : UITableViewDiffableDataSource<Section, Plugin>? = nil
     
     var bluetoothARPenConnected: Bool = false
     /**
@@ -130,6 +137,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
 //        // Enable host-guest sharing to share ARWorldMap
 //        multipeerSession = MultipeerSession(receivedDataHandler: receivedData)
+        
+        
+        self.menuViewNavigationController = UINavigationController(rootViewController: menuTableViewController)
+        self.menuViewNavigationController?.view.frame = CGRect(x: 0, y: 0, width: self.menuView.frame.width, height: self.menuView.frame.height)
+        self.menuViewNavigationController?.view.backgroundColor = .clear
+        self.setupPluginMenuFrom(PluginArray: self.pluginManager.plugins)
+        self.menuTableViewController.tableView.rowHeight = UITableView.automaticDimension
+        self.menuTableViewController.tableView.estimatedRowHeight = 40
+        self.menuTableViewController.tableView.backgroundColor = .clear
+        self.menuTableViewController.view.backgroundColor = .clear
+        
+        self.menuView.addSubview(self.menuViewNavigationController!.view)
     }
     
     /**
@@ -177,6 +196,54 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     }
     
     // MARK: - Plugins
+    
+    func setupPluginMenuFrom(PluginArray pluginArray : [Plugin]) {
+        //menuTableViewController.tableView.register(ARPenPluginTableViewCell.self, forCellReuseIdentifier: "arpenplugincell")
+        menuTableViewController.tableView.register(UINib(nibName: "ARPenPluginTableViewCell", bundle: nil), forCellReuseIdentifier: "arpenplugincell")
+        tableViewDataSource = UITableViewDiffableDataSource<Section, Plugin>(tableView: menuTableViewController.tableView){
+            (tableView: UITableView, indexPath: IndexPath, item: Plugin) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "arpenplugincell", for: indexPath)
+            if let cell = cell as? ARPenPluginTableViewCell {
+                cell.updateCellWithImage(item.pluginImage, andText:item.pluginIdentifier)
+                return cell
+            } else {
+                return cell
+            }
+        }
+        
+        menuTableViewController.tableView.delegate = self
+        menuTableViewController.title = "Plugins"
+        
+        var pluginMenuSnap = NSDiffableDataSourceSnapshot<Section, Plugin>()
+        pluginMenuSnap.appendSections([.main])
+        pluginMenuSnap.appendItems(pluginArray, toSection: Section.main)
+        tableViewDataSource?.apply(pluginMenuSnap)
+            
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let currentActivePlugin = self.pluginManager.activePlugin {
+            //remove custom view elements from view
+            currentActivePlugin.customPluginUI?.removeFromSuperview()
+            currentActivePlugin.deactivatePlugin()
+        }
+        //activate plugin in plugin manager and update currently active plugin property
+        let newActivePlugin = self.pluginManager.plugins[indexPath.row] //-1 needed since the tag is one larger than index of plugin in the array (to avoid tag 0)
+        self.pluginManager.activePlugin = newActivePlugin
+        //if the new plugin conforms to the user study record plugin protocol, then pass a reference to the record manager (allowing to save data to it)
+        if var pluginConformingToUserStudyProtocol = newActivePlugin as? UserStudyRecordPluginProtocol {
+            pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
+        }
+        if let currentScene = self.pluginManager.arManager.scene {
+            if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+                newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
+                if let customPluginUI = newActivePlugin.customPluginUI {
+                    customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
+                    viewForCustomPluginView.addSubview(customPluginUI)
+                }
+            }
+        }
+    }
     
     func setupPluginMenu(){
         // Define target height and width for the scrollview to hold all buttons
@@ -363,7 +430,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arPenActivity.isHidden = true
         self.arPenImage.isHidden = false
         self.bluetoothARPenConnected = true
-        self.setupPluginMenu()
+        //self.setupPluginMenu()
         activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
@@ -376,7 +443,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.arPenImage.image = UIImage(named: "Cross")
         self.arPenImage.isHidden = false
         self.bluetoothARPenConnected = false
-        self.setupPluginMenu()
+        //self.setupPluginMenu()
         activatePlugin(withID: currentActivePluginID)
         checkVisualEffectView()
     }
@@ -799,4 +866,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
 //            print("can't decode data received from \(peer)")
 //        }
 //    }
+}
+
+enum Section {
+    case main
 }
