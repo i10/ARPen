@@ -27,7 +27,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var arKitActivity: UIActivityIndicatorView!
     @IBOutlet weak var arKitImage: UIImageView!
     @IBOutlet var arSceneView: ARSCNView!
-    @IBOutlet weak var pluginMenuScrollView: UIScrollView!
     @IBOutlet weak var imageForPluginInstructions: UIImageView!
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
@@ -54,10 +53,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     var storedNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
     var sharedNode: SCNNode? = nil
-    
-    let menuButtonHeight = 70
-    let menuButtonPadding = 5
-    var currentActivePluginID = 1
     
     @IBOutlet weak var menuView: UIView!
     var menuViewNavigationController : UINavigationController?
@@ -258,172 +253,38 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let selectedPlugin = self.pluginManager.plugins[indexPath.row]
         if (selectedPlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+            self.displayPluginInstructions(withBluetoothErrorMessage: true)
             return nil
         } else {
+            self.imageForPluginInstructions.isHidden = true
             return indexPath
         }
     }
     
-    func setupPluginMenu(){
-        // Define target height and width for the scrollview to hold all buttons
-        let targetWidth = Int(self.pluginMenuScrollView.frame.width)
-        let experimentalPluginLabelHeight: Int = 40
-        
-        let targetHeight = self.pluginManager.plugins.count * (menuButtonHeight+2*menuButtonPadding) + experimentalPluginLabelHeight
-        self.pluginMenuScrollView.contentSize = CGSize(width: targetWidth, height: targetHeight)
-        
-        //iterate over plugin array from plugin manager and create a button for each in the scrollview
-        for (index,plugin) in self.pluginManager.plugins.enumerated() {
-            // calculate position inside the scrollview for current button
-            
-            let frameForCurrentButton: CGRect
-            if (index + 2 <= self.pluginManager.experimentalPluginsStartAtIndex) {
-                frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding), width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
-            } else {
-                frameForCurrentButton = CGRect(x: 0, y: index*(menuButtonHeight+2*menuButtonPadding) + experimentalPluginLabelHeight, width: targetWidth, height: menuButtonHeight+2*menuButtonPadding)
-            }
-            let buttonForCurrentPlugin = UIButton(frame: frameForCurrentButton)
-            
-            // Define properties of the button: tag for identification & action when pressed
-            buttonForCurrentPlugin.tag = index + 1 //+1 needed since finding a view with tag 0 does not work
-            buttonForCurrentPlugin.addTarget(self, action: #selector(pluginButtonPressed), for: .touchUpInside)
-            
-            buttonForCurrentPlugin.imageEdgeInsets = UIEdgeInsets(top: CGFloat(menuButtonPadding), left: CGFloat(menuButtonPadding), bottom: CGFloat(menuButtonPadding+menuButtonHeight/3), right: CGFloat(menuButtonPadding))
-            buttonForCurrentPlugin.imageView?.contentMode = .scaleAspectFit
-            
-            var titleLabelFrame : CGRect
-            if let _ = buttonForCurrentPlugin.imageView?.frame {
-                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(menuButtonPadding+menuButtonHeight*2/3), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight/3))
-            } else {
-                titleLabelFrame = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(menuButtonPadding), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight))
-            }
-            
-            let titleLabel = UILabel(frame: titleLabelFrame)
-            titleLabel.text = plugin.pluginIdentifier
-            titleLabel.font = UIFont.init(name: "Helvetica", size: 14)
-            titleLabel.textAlignment = .center
-            titleLabel.baselineAdjustment = .alignCenters
-            
-            // If plugin needs bluetooth ARPen, but it is not found, then disable the button, use a different image, and grey out the plugin label.
-            if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
-                //                buttonForCurrentPlugin.isEnabled = false
-                buttonForCurrentPlugin.setImage(plugin.pluginDisabledImage, for: .normal)
-                titleLabel.textColor = UIColor.init(white: 0.4, alpha: 1)
-            } else {
-                buttonForCurrentPlugin.setImage(plugin.pluginImage, for: .normal)
-            }
-            
-            buttonForCurrentPlugin.addSubview(titleLabel)
-            buttonForCurrentPlugin.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
-            
-            self.pluginMenuScrollView.addSubview(buttonForCurrentPlugin)
-            
-            // Add experimental plugins header
-            if (self.pluginManager.experimentalPluginsStartAtIndex == index + 2) {
-                let baseHeight = index*(menuButtonHeight+2*menuButtonPadding)
-                let textOffset = 5
-
-                let yPosition = menuButtonPadding+menuButtonHeight*2/3 + baseHeight + experimentalPluginLabelHeight + textOffset
-                
-                let headerLabelFrame: CGRect = CGRect(x: CGFloat(menuButtonPadding/2) , y: CGFloat(yPosition), width: CGFloat(targetWidth - menuButtonPadding), height: CGFloat(menuButtonHeight/3))
-                let headerLabel = UILabel(frame: headerLabelFrame)
-                
-                headerLabel.text = "Experimental"
-                headerLabel.font = UIFont.init(name: "Helvetica", size: 12)
-                headerLabel.textColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
-                headerLabel.textAlignment = .center
-                headerLabel.baselineAdjustment = .alignCenters
-                
-                self.pluginMenuScrollView.addSubview(headerLabel)
-            }
-        }
-    }
-     
-    @objc func pluginButtonPressed(sender: UIButton!){
-        let pluginID = sender.tag
-        activatePlugin(withID: pluginID)
-        
-        if (!self.pluginManager.pluginInstructionsCanBeHidden[pluginID-1]) {
-            displayPluginInstructions(forPluginID: pluginID)
-        } else {
-            self.imageForPluginInstructions.isHidden = true
-            self.pluginInstructionsLookupButton.isHidden = false
-        }
-        
-    }
-    
-    func activatePlugin(withID pluginID:Int) {
-        //deactivate highlighting of the button from the currently active plugin
-        if let currentActivePluginButton = self.pluginMenuScrollView.viewWithTag(currentActivePluginID) as? UIButton {
-            currentActivePluginButton.layer.borderColor = UIColor.clear.cgColor
-            currentActivePluginButton.layer.borderWidth = 0
-        }
-        
-        //find the button for the new active plugin and set the highlighted color
-        guard let newActivePluginButton = self.pluginMenuScrollView.viewWithTag(pluginID) as? UIButton else {
-            print("Button for new plugin not found")
-            return
-        }
-        
-        newActivePluginButton.layer.borderColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 0.75).cgColor
-        newActivePluginButton.layer.borderWidth = 1
-        
-        if let currentActivePlugin = self.pluginManager.activePlugin {
-            //remove custom view elements from view
-            currentActivePlugin.customPluginUI?.removeFromSuperview()
-            currentActivePlugin.deactivatePlugin()
-        }
-        //activate plugin in plugin manager and update currently active plugin property
-        let newActivePlugin = self.pluginManager.plugins[pluginID-1] //-1 needed since the tag is one larger than index of plugin in the array (to avoid tag 0)
-        self.pluginManager.activePlugin = newActivePlugin
-        //if the new plugin conforms to the user study record plugin protocol, then pass a reference to the record manager (allowing to save data to it)
-        if var pluginConformingToUserStudyProtocol = newActivePlugin as? UserStudyRecordPluginProtocol {
-            pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
-        }
-        if let currentScene = self.pluginManager.arManager.scene {
-            if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
-                newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
-                if let customPluginUI = newActivePlugin.customPluginUI {
-                    customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
-                    viewForCustomPluginView.addSubview(customPluginUI)
-                }
-            }
-        }
-        currentActivePluginID = pluginID
-        
-        // Enable/disable undo button based on current plugin
-        self.undoButton.isHidden = currentActivePluginID == 1 ? false : true
-    }
     
     // Display the instructions for plugin by setting imageForPluginInstructions
-    func displayPluginInstructions(forPluginID pluginID: Int) {
-        let plugin = self.pluginManager.plugins[pluginID-1]
-        
-        if (plugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+    func displayPluginInstructions(withBluetoothErrorMessage showBluetoothMissingInstruction : Bool) {
+        if  showBluetoothMissingInstruction {
             self.imageForPluginInstructions.image = UIImage.init(named: "BluetoothARPenMissingInstructions")
-            self.imageForPluginInstructions.isUserInteractionEnabled = false
-        } else
-        {
+        } else if let plugin = self.pluginManager.activePlugin {
             self.imageForPluginInstructions.image = plugin.pluginInstructionsImage
-            self.imageForPluginInstructions.isUserInteractionEnabled = true
         }
         
+        self.imageForPluginInstructions.isUserInteractionEnabled = true
         self.imageForPluginInstructions.alpha = 0.75
         self.imageForPluginInstructions.isHidden = false
         
-        self.pluginInstructionsLookupButton.isHidden = true
     }
     
     @objc func imageForPluginInstructionsTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
         let tappedImage = tapGestureRecognizer.view as! UIImageView
-        self.pluginManager.pluginInstructionsCanBeHidden[self.currentActivePluginID-1] = true
         
         tappedImage.isHidden = true
         self.pluginInstructionsLookupButton.isHidden = false
     }
     
     @IBAction func showPluginInstructions(_ sender: Any) {
-        self.displayPluginInstructions(forPluginID: self.currentActivePluginID)        
+        self.displayPluginInstructions(withBluetoothErrorMessage: false)
     }
     
     // MARK: - ARManager delegate
@@ -449,8 +310,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arPenActivity.isHidden = true
         self.arPenImage.isHidden = false
         self.bluetoothARPenConnected = true
-        //self.setupPluginMenu()
-        activatePlugin(withID: currentActivePluginID)
+        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
         checkVisualEffectView()
     }
     
@@ -462,8 +322,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.arPenImage.image = UIImage(named: "Cross")
         self.arPenImage.isHidden = false
         self.bluetoothARPenConnected = false
-        //self.setupPluginMenu()
-        activatePlugin(withID: currentActivePluginID)
+        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
         checkVisualEffectView()
     }
     

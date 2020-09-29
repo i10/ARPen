@@ -24,12 +24,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGF-H0-N2c">
-                                <rect key="frame" x="0.0" y="58" width="80" height="317"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="Oyw-aP-dMg"/>
-                                </constraints>
-                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-U4-mJN" userLabel="SettingsButton">
                                 <rect key="frame" x="720" y="306" width="38" height="38"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,7 +39,7 @@
                                     <segue destination="Lka-5d-7oi" kind="presentation" identifier="ShowSettingsSegue" id="6IN-xV-Gst"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vKU-2l-six">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vKU-2l-six">
                                 <rect key="frame" x="155" y="58" width="557" height="261"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DW-gH-vc2">
@@ -268,11 +262,9 @@
                             <constraint firstItem="N8V-Yd-QvC" firstAttribute="centerX" secondItem="Z1i-B5-dqO" secondAttribute="centerX" id="KSS-nK-4CV"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" id="Kpd-0d-iKX"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" id="LBk-3V-d3Y"/>
-                            <constraint firstItem="vKU-2l-six" firstAttribute="leading" secondItem="gGF-H0-N2c" secondAttribute="trailing" constant="31" id="LbO-d0-Szl"/>
                             <constraint firstItem="vKU-2l-six" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="58" id="Lye-aX-OE3"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="width" secondItem="0DW-gH-vc2" secondAttribute="width" id="Npo-xQ-jA6"/>
                             <constraint firstItem="MVo-PZ-EaL" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="34" id="OEe-Wo-V6o"/>
-                            <constraint firstItem="gGF-H0-N2c" firstAttribute="centerX" secondItem="7vt-XS-Ox1" secondAttribute="centerX" id="OoY-Bv-SH3"/>
                             <constraint firstItem="4Gi-6V-ula" firstAttribute="centerY" secondItem="7vt-XS-Ox1" secondAttribute="centerY" id="Pgv-A4-Vdc"/>
                             <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="bottom" secondItem="A5z-U4-mJN" secondAttribute="bottom" constant="10" id="QsW-2Q-MbL"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="MVo-PZ-EaL" secondAttribute="bottom" constant="-162" id="SXL-fd-1rs"/>
@@ -281,13 +273,10 @@
                             <constraint firstItem="4Gi-6V-ula" firstAttribute="leading" secondItem="MVo-PZ-EaL" secondAttribute="trailing" constant="37" id="Wtd-Do-gQn"/>
                             <constraint firstAttribute="trailing" secondItem="Z1i-B5-dqO" secondAttribute="trailing" id="ZCc-G1-ORQ"/>
                             <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="bottom" secondItem="vKU-2l-six" secondAttribute="bottom" constant="35" id="ZDr-z3-Ml6"/>
-                            <constraint firstItem="gGF-H0-N2c" firstAttribute="leading" secondItem="EIQ-Ip-Tyt" secondAttribute="leading" id="ZPg-7T-trW"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" id="ZUV-Sl-MuL"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="centerX" secondItem="A5z-U4-mJN" secondAttribute="centerX" id="ZvE-DW-ksj"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="top" secondItem="0DW-gH-vc2" secondAttribute="bottom" constant="8" symbolic="YES" id="aEw-mp-uh7"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" id="av4-Fb-3iV"/>
-                            <constraint firstItem="gGF-H0-N2c" firstAttribute="bottom" secondItem="EIQ-Ip-Tyt" secondAttribute="bottom" id="bC5-TC-gU0"/>
-                            <constraint firstItem="vKU-2l-six" firstAttribute="top" secondItem="gGF-H0-N2c" secondAttribute="top" id="bsV-So-pNY"/>
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="centerX" secondItem="h1V-HR-2WE" secondAttribute="centerX" id="cIa-N3-VJg"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="5" id="cab-DC-Dko"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="cqj-y5-Wso"/>
@@ -321,7 +310,6 @@
                         <outlet property="loadModelButton" destination="kra-NZ-pmu" id="yTx-DB-1GC"/>
                         <outlet property="menuView" destination="GLJ-9W-09V" id="NbQ-VR-mGQ"/>
                         <outlet property="pluginInstructionsLookupButton" destination="0DW-gH-vc2" id="JbU-Hk-e2z"/>
-                        <outlet property="pluginMenuScrollView" destination="gGF-H0-N2c" id="VX1-TR-Ghh"/>
                         <outlet property="saveModelButton" destination="h1V-HR-2WE" id="jx2-XQ-1Vw"/>
                         <outlet property="settingsButton" destination="A5z-U4-mJN" id="PSJ-pf-5hE"/>
                         <outlet property="shareModelButton" destination="E3L-x2-chr" id="npv-RW-41s"/>
