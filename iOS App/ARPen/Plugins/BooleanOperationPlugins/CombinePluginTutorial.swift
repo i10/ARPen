@@ -30,6 +30,7 @@ class CombinePluginTutorial: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "PaintPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Combine (Function)"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         

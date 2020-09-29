@@ -45,6 +45,7 @@ class ARMenusPlugin: Plugin, MenuDelegate {
         self.pluginImage = UIImage.init(named: "ARMenusPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "MenusInstructions")
         self.pluginIdentifier = "Menus"
+        self.pluginGroupName = "Menus"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }

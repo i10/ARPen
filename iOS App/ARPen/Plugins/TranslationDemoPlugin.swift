@@ -69,6 +69,7 @@ class TranslationDemoPlugin: Plugin {
         self.pluginImage = UIImage.init(named: "Move1DemoPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "Move1PluginInstruction")
         self.pluginIdentifier = "Move 1"
+        self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "TranslationDemoPluginDisabled")
     }

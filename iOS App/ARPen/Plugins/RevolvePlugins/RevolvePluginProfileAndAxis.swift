@@ -23,6 +23,7 @@ class RevolvePluginProfileAndAxis: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Revolve(Profile+Axis)")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Revolve (Profile + Axis)"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }

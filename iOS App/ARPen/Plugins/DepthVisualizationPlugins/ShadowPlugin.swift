@@ -10,6 +10,7 @@ class ShadowPlugin: MinVisPlugin {
     override init(){
         super.init()
         self.pluginIdentifier = "Shadow"
+        self.pluginGroupName = "Depth Visualization"
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

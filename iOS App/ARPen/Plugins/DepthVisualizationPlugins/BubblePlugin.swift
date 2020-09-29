@@ -14,6 +14,7 @@ class BubblePlugin: MinVisPlugin {
     override init(){
         super.init()
         self.pluginIdentifier = "Bubble"
+        self.pluginGroupName = "Depth Visualization"
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

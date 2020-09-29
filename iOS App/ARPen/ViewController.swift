@@ -57,8 +57,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var menuToggleButton: UIButton!
     @IBOutlet weak var menuView: UIView!
     var menuViewNavigationController : UINavigationController?
-    var menuTableViewController = UITableViewController(style: .plain)
-    var tableViewDataSource : UITableViewDiffableDataSource<Section, Plugin>? = nil
+    var menuTableViewController = UITableViewController(style: .grouped)
+    var tableViewDataSource : UITableViewDiffableDataSource<Int, Plugin>? = nil
+    var menuGroupingInfo : [(String, [Plugin])]? = nil
     
     var bluetoothARPenConnected: Bool = false
     /**
@@ -194,7 +195,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     func setupPluginMenuFrom(PluginArray pluginArray : [Plugin]) {
         menuTableViewController.tableView.register(UINib(nibName: "ARPenPluginTableViewCell", bundle: nil), forCellReuseIdentifier: "arpenplugincell")
-        tableViewDataSource = UITableViewDiffableDataSource<Section, Plugin>(tableView: menuTableViewController.tableView){
+        tableViewDataSource = UITableViewDiffableDataSource<Int, Plugin>(tableView: menuTableViewController.tableView){
             (tableView: UITableView, indexPath: IndexPath, item: Plugin) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "arpenplugincell", for: indexPath)
             if let cell = cell as? ARPenPluginTableViewCell {
@@ -219,11 +220,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         menuTableViewController.tableView.delegate = self
         
-        var pluginMenuSnap = NSDiffableDataSourceSnapshot<Section, Plugin>()
-        pluginMenuSnap.appendSections([.main])
-        pluginMenuSnap.appendItems(pluginArray, toSection: Section.main)
+        self.menuGroupingInfo = self.createMenuGroupingInfo(fromPluginArray: pluginArray)
+        
+        var pluginMenuSnap = NSDiffableDataSourceSnapshot<Int, Plugin>()
+        for (index, element) in self.menuGroupingInfo!.enumerated() {
+            pluginMenuSnap.appendSections([index])
+            pluginMenuSnap.appendItems(element.1, toSection: index)
+        }
+//        pluginMenuSnap.appendSections([0])
+//        pluginMenuSnap.appendItems(pluginArray, toSection: 0)
         tableViewDataSource?.apply(pluginMenuSnap)
             
+    }
+    
+    func createMenuGroupingInfo(fromPluginArray plugins: [Plugin]) -> [(String, [Plugin])] {
+        var groupingInfo = [(String, [Plugin])]()
+        var sectionTitles = [String]()
+        for currentPlugin in plugins {
+            if let index = sectionTitles.firstIndex(of: currentPlugin.pluginGroupName) {
+                groupingInfo[index].1.append(currentPlugin)
+            } else {
+                groupingInfo.append((currentPlugin.pluginGroupName, [currentPlugin]))
+                sectionTitles.append(currentPlugin.pluginGroupName)
+            }
+        }
+        return groupingInfo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -233,7 +254,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             currentActivePlugin.deactivatePlugin()
         }
         //activate plugin in plugin manager and update currently active plugin property
-        let newActivePlugin = self.pluginManager.plugins[indexPath.row] //-1 needed since the tag is one larger than index of plugin in the array (to avoid tag 0)
+        guard let newActivePlugin = self.menuGroupingInfo?[indexPath.section].1[indexPath.row] else {return}
         self.pluginManager.activePlugin = newActivePlugin
         //if the new plugin conforms to the user study record plugin protocol, then pass a reference to the record manager (allowing to save data to it)
         if var pluginConformingToUserStudyProtocol = newActivePlugin as? UserStudyRecordPluginProtocol {
@@ -251,7 +272,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let selectedPlugin = self.pluginManager.plugins[indexPath.row]
+        guard let selectedPlugin = self.menuGroupingInfo?[indexPath.section].1[indexPath.row] else {return indexPath}
+        
         if (selectedPlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
             self.displayPluginInstructions(withBluetoothErrorMessage: true)
             return nil
@@ -261,6 +283,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let sectionTitleName = self.menuGroupingInfo?[section].0 {
+            let sectionTitle = UILabel()
+            sectionTitle.text = sectionTitleName
+            sectionTitle.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
+            sectionTitle.font = .boldSystemFont(ofSize: 22)
+            
+            return sectionTitle
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0
+    }
     
     @IBAction func toggleMenuPosition(_ sender: Any) {
         if self.menuView.frame.minX >= 0 {

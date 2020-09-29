@@ -10,6 +10,7 @@ class HeatmapPlugin: MinVisPlugin {
     override init(){
         super.init()
         self.pluginIdentifier = "Heatmap"
+        self.pluginGroupName = "Depth Visualization"
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

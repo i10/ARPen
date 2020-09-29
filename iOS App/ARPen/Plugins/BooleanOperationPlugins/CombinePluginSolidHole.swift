@@ -21,6 +21,7 @@ class CombinePluginSolidHole: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Bool(Hole)")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Combine(Hole)"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         
