@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                             </arscnView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOb-wu-mrB" userLabel="View for custom plugin view" customClass="PassthroughView" customModule="ARPen" customModuleProvider="target">
-                                <rect key="frame" x="144" y="-10.666666666666657" width="668" height="375.33333333333326"/>
+                                <rect key="frame" x="154" y="-10.666666666666657" width="658" height="375.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-U4-mJN" userLabel="SettingsButton">
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vt-XS-Ox1" userLabel="SoftwarePenButton">
-                                <rect key="frame" x="144" y="5" width="50" height="50"/>
+                                <rect key="frame" x="154" y="5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="bNV-qG-Qyg"/>
                                     <constraint firstAttribute="height" constant="50" id="xXR-ST-w26"/>
@@ -132,14 +132,14 @@
                                 </connections>
                             </button>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLJ-9W-09V" userLabel="Menu View">
-                                <rect key="frame" x="44" y="65" width="100" height="271"/>
+                                <rect key="frame" x="44" y="50" width="100" height="286"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="mzt-UZ-veH"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="38F-TB-HkT">
-                                <rect key="frame" x="41" y="15" width="103" height="30"/>
+                                <rect key="frame" x="44" y="15" width="100" height="30"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Hide Plugins"/>
@@ -262,14 +262,14 @@
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="leading" secondItem="vKU-2l-six" secondAttribute="trailing" constant="8" symbolic="YES" id="4U5-hC-cvx"/>
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="width" secondItem="h1V-HR-2WE" secondAttribute="width" id="5CG-ag-QcB"/>
                             <constraint firstItem="dOb-wu-mrB" firstAttribute="trailing" secondItem="EIQ-Ip-Tyt" secondAttribute="trailing" constant="44" id="5dO-nj-ExE"/>
-                            <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="leading" secondItem="38F-TB-HkT" secondAttribute="leading" constant="3" id="7TN-Qo-Njb"/>
+                            <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="leading" secondItem="38F-TB-HkT" secondAttribute="leading" id="7TN-Qo-Njb"/>
                             <constraint firstItem="dOb-wu-mrB" firstAttribute="height" secondItem="EIQ-Ip-Tyt" secondAttribute="height" multiplier="1.05932" id="866-yt-vYV"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leading" id="96J-6E-dhy"/>
                             <constraint firstItem="GLJ-9W-09V" firstAttribute="leading" secondItem="EIQ-Ip-Tyt" secondAttribute="leading" id="AcK-oD-GtX"/>
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="height" secondItem="h1V-HR-2WE" secondAttribute="height" id="BpU-Lm-BeW"/>
                             <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="trailing" secondItem="A5z-U4-mJN" secondAttribute="trailing" constant="10" id="CMI-vn-wNc"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="DLC-mq-LKi"/>
-                            <constraint firstItem="dOb-wu-mrB" firstAttribute="leading" secondItem="GLJ-9W-09V" secondAttribute="trailing" id="F9T-uW-eVl"/>
+                            <constraint firstItem="dOb-wu-mrB" firstAttribute="leading" secondItem="GLJ-9W-09V" secondAttribute="trailing" constant="10" id="F9T-uW-eVl"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="trailing" secondItem="A5z-U4-mJN" secondAttribute="trailing" id="Fbv-gT-v6I"/>
                             <constraint firstItem="N8V-Yd-QvC" firstAttribute="centerX" secondItem="Z1i-B5-dqO" secondAttribute="centerX" id="KSS-nK-4CV"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" id="Kpd-0d-iKX"/>
@@ -298,7 +298,7 @@
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="cqj-y5-Wso"/>
                             <constraint firstItem="E3L-x2-chr" firstAttribute="trailing" secondItem="4Gi-6V-ula" secondAttribute="trailing" id="fkE-qa-VZC"/>
                             <constraint firstItem="vKU-2l-six" firstAttribute="centerX" secondItem="EIQ-Ip-Tyt" secondAttribute="centerX" id="fxF-NW-pbm"/>
-                            <constraint firstItem="GLJ-9W-09V" firstAttribute="top" secondItem="7vt-XS-Ox1" secondAttribute="bottom" constant="10" id="hzn-Ug-uYH"/>
+                            <constraint firstItem="GLJ-9W-09V" firstAttribute="top" secondItem="38F-TB-HkT" secondAttribute="bottom" constant="5" id="hzn-Ug-uYH"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="leading" secondItem="dOb-wu-mrB" secondAttribute="leading" id="iPy-o0-L6j"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="centerX" secondItem="0DW-gH-vc2" secondAttribute="centerX" id="lDS-Rd-B32"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="top" secondItem="h1V-HR-2WE" secondAttribute="bottom" constant="8" id="prO-aN-lxA"/>

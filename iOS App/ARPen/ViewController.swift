@@ -137,13 +137,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         self.menuViewNavigationController = UINavigationController(rootViewController: menuTableViewController)
         self.menuViewNavigationController?.view.frame = CGRect(x: 0, y: 0, width: self.menuView.frame.width, height: self.menuView.frame.height)
-        self.menuViewNavigationController?.view.backgroundColor = .clear
         self.menuViewNavigationController?.setNavigationBarHidden(true, animated: false)
         self.setupPluginMenuFrom(PluginArray: self.pluginManager.plugins)
         self.menuTableViewController.tableView.rowHeight = UITableView.automaticDimension
         self.menuTableViewController.tableView.estimatedRowHeight = 40
-        self.menuTableViewController.tableView.backgroundColor = .clear
-        self.menuTableViewController.view.backgroundColor = .clear
+        self.menuTableViewController.tableView.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
         
         self.menuView.addSubview(self.menuViewNavigationController!.view)
     }
@@ -212,6 +210,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                     cell.cellLabel.textColor = .label
                 }
                 cell.updateCellWithImage(pluginImage, andText:item.pluginIdentifier)
+                cell.backgroundColor = .clear
                 return cell
             } else {
                 return cell
