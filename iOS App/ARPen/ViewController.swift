@@ -198,13 +198,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     // MARK: - Plugins
     
     func setupPluginMenuFrom(PluginArray pluginArray : [Plugin]) {
-        //menuTableViewController.tableView.register(ARPenPluginTableViewCell.self, forCellReuseIdentifier: "arpenplugincell")
         menuTableViewController.tableView.register(UINib(nibName: "ARPenPluginTableViewCell", bundle: nil), forCellReuseIdentifier: "arpenplugincell")
         tableViewDataSource = UITableViewDiffableDataSource<Section, Plugin>(tableView: menuTableViewController.tableView){
             (tableView: UITableView, indexPath: IndexPath, item: Plugin) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "arpenplugincell", for: indexPath)
             if let cell = cell as? ARPenPluginTableViewCell {
-                cell.updateCellWithImage(item.pluginImage, andText:item.pluginIdentifier)
+                // If plugin needs bluetooth ARPen, but it is not found, then disable the button, use a different image, and grey out the plugin label.
+                var pluginImage : UIImage?
+                if (item.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+                    pluginImage = item.pluginDisabledImage
+                    cell.cellLabel.textColor = UIColor.init(white: 0.4, alpha: 1)
+                    cell.selectionStyle = .none
+                } else {
+                    pluginImage = item.pluginImage
+                    cell.selectionStyle = .default
+                    cell.cellLabel.textColor = .label
+                }
+                cell.updateCellWithImage(pluginImage, andText:item.pluginIdentifier)
                 return cell
             } else {
                 return cell
@@ -242,6 +252,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                     viewForCustomPluginView.addSubview(customPluginUI)
                 }
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let selectedPlugin = self.pluginManager.plugins[indexPath.row]
+        if (selectedPlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+            return nil
+        } else {
+            return indexPath
         }
     }
     
