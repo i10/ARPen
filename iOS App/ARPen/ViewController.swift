@@ -287,8 +287,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if let sectionTitleName = self.menuGroupingInfo?[section].0 {
             let sectionTitle = UILabel()
             sectionTitle.text = sectionTitleName
-            sectionTitle.backgroundColor = UIColor(white: 0.5, alpha: 0.35)
-            sectionTitle.font = .boldSystemFont(ofSize: 22)
+            sectionTitle.backgroundColor = UIColor(white: 1, alpha: 0.5)
+            sectionTitle.font = .boldSystemFont(ofSize: 20)
             
             return sectionTitle
         } else {
@@ -365,7 +365,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         arPenActivity.isHidden = true
         self.arPenImage.isHidden = false
         self.bluetoothARPenConnected = true
-        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
+        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
         checkVisualEffectView()
     }
     
@@ -377,7 +377,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.arPenImage.image = UIImage(named: "Cross")
         self.arPenImage.isHidden = false
         self.bluetoothARPenConnected = false
-        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
+        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
         checkVisualEffectView()
     }
     
