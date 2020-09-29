@@ -19,9 +19,8 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1i-B5-dqO">
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                             </arscnView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dOb-wu-mrB" userLabel="View for custom plugin view" customClass="PassthroughView" customModule="ARPen" customModuleProvider="target">
-                                <rect key="frame" x="124" y="0.0" width="688" height="375"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOb-wu-mrB" userLabel="View for custom plugin view" customClass="PassthroughView" customModule="ARPen" customModuleProvider="target">
+                                <rect key="frame" x="144" y="-10.666666666666657" width="668" height="375.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-U4-mJN" userLabel="SettingsButton">
@@ -39,8 +38,8 @@
                                     <segue destination="Lka-5d-7oi" kind="presentation" identifier="ShowSettingsSegue" id="6IN-xV-Gst"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vKU-2l-six">
-                                <rect key="frame" x="155" y="58" width="557" height="261"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vKU-2l-six">
+                                <rect key="frame" x="100" y="58" width="612" height="261"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DW-gH-vc2">
                                 <rect key="frame" x="720" y="260" width="38" height="38"/>
@@ -56,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vt-XS-Ox1" userLabel="SoftwarePenButton">
-                                <rect key="frame" x="59" y="5" width="50" height="50"/>
+                                <rect key="frame" x="144" y="5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="bNV-qG-Qyg"/>
                                     <constraint firstAttribute="height" constant="50" id="xXR-ST-w26"/>
@@ -133,12 +132,21 @@
                                 </connections>
                             </button>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLJ-9W-09V" userLabel="Menu View">
-                                <rect key="frame" x="44" y="65" width="80" height="271"/>
+                                <rect key="frame" x="44" y="65" width="100" height="271"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="mzt-UZ-veH"/>
+                                    <constraint firstAttribute="width" constant="100" id="mzt-UZ-veH"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="38F-TB-HkT">
+                                <rect key="frame" x="41" y="15" width="103" height="30"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Hide Plugins"/>
+                                <connections>
+                                    <action selector="toggleMenuPosition:" destination="BV1-FR-VrT" eventType="touchUpInside" id="ylA-qy-epv"/>
+                                </connections>
+                            </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYd-yH-V3o">
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YXb-VB-vP4">
@@ -253,16 +261,22 @@
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leading" id="4R4-hk-6Gk"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="leading" secondItem="vKU-2l-six" secondAttribute="trailing" constant="8" symbolic="YES" id="4U5-hC-cvx"/>
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="width" secondItem="h1V-HR-2WE" secondAttribute="width" id="5CG-ag-QcB"/>
+                            <constraint firstItem="dOb-wu-mrB" firstAttribute="trailing" secondItem="EIQ-Ip-Tyt" secondAttribute="trailing" constant="44" id="5dO-nj-ExE"/>
+                            <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="leading" secondItem="38F-TB-HkT" secondAttribute="leading" constant="3" id="7TN-Qo-Njb"/>
+                            <constraint firstItem="dOb-wu-mrB" firstAttribute="height" secondItem="EIQ-Ip-Tyt" secondAttribute="height" multiplier="1.05932" id="866-yt-vYV"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="leading" secondItem="YSQ-pH-N6L" secondAttribute="leading" id="96J-6E-dhy"/>
                             <constraint firstItem="GLJ-9W-09V" firstAttribute="leading" secondItem="EIQ-Ip-Tyt" secondAttribute="leading" id="AcK-oD-GtX"/>
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="height" secondItem="h1V-HR-2WE" secondAttribute="height" id="BpU-Lm-BeW"/>
                             <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="trailing" secondItem="A5z-U4-mJN" secondAttribute="trailing" constant="10" id="CMI-vn-wNc"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="DLC-mq-LKi"/>
+                            <constraint firstItem="dOb-wu-mrB" firstAttribute="leading" secondItem="GLJ-9W-09V" secondAttribute="trailing" id="F9T-uW-eVl"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="trailing" secondItem="A5z-U4-mJN" secondAttribute="trailing" id="Fbv-gT-v6I"/>
                             <constraint firstItem="N8V-Yd-QvC" firstAttribute="centerX" secondItem="Z1i-B5-dqO" secondAttribute="centerX" id="KSS-nK-4CV"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" id="Kpd-0d-iKX"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" id="LBk-3V-d3Y"/>
                             <constraint firstItem="vKU-2l-six" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="58" id="Lye-aX-OE3"/>
+                            <constraint firstItem="38F-TB-HkT" firstAttribute="centerY" secondItem="7vt-XS-Ox1" secondAttribute="centerY" id="MVf-Zz-c6i"/>
+                            <constraint firstItem="38F-TB-HkT" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="7vt-XS-Ox1" secondAttribute="leading" id="NX9-jW-hmx"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="width" secondItem="0DW-gH-vc2" secondAttribute="width" id="Npo-xQ-jA6"/>
                             <constraint firstItem="MVo-PZ-EaL" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="34" id="OEe-Wo-V6o"/>
                             <constraint firstItem="4Gi-6V-ula" firstAttribute="centerY" secondItem="7vt-XS-Ox1" secondAttribute="centerY" id="Pgv-A4-Vdc"/>
@@ -271,23 +285,26 @@
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="top" secondItem="kra-NZ-pmu" secondAttribute="bottom" constant="6" id="Tgp-qg-oXH"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="trailing" secondItem="YSQ-pH-N6L" secondAttribute="trailing" id="Un0-kz-gbv"/>
                             <constraint firstItem="4Gi-6V-ula" firstAttribute="leading" secondItem="MVo-PZ-EaL" secondAttribute="trailing" constant="37" id="Wtd-Do-gQn"/>
+                            <constraint firstItem="dOb-wu-mrB" firstAttribute="centerY" secondItem="EIQ-Ip-Tyt" secondAttribute="centerY" id="X32-Xm-Vpg"/>
                             <constraint firstAttribute="trailing" secondItem="Z1i-B5-dqO" secondAttribute="trailing" id="ZCc-G1-ORQ"/>
                             <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="bottom" secondItem="vKU-2l-six" secondAttribute="bottom" constant="35" id="ZDr-z3-Ml6"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" id="ZUV-Sl-MuL"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="centerX" secondItem="A5z-U4-mJN" secondAttribute="centerX" id="ZvE-DW-ksj"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="top" secondItem="0DW-gH-vc2" secondAttribute="bottom" constant="8" symbolic="YES" id="aEw-mp-uh7"/>
+                            <constraint firstItem="38F-TB-HkT" firstAttribute="trailing" secondItem="GLJ-9W-09V" secondAttribute="trailing" priority="750" id="aOV-h4-fat"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" id="av4-Fb-3iV"/>
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="centerX" secondItem="h1V-HR-2WE" secondAttribute="centerX" id="cIa-N3-VJg"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="5" id="cab-DC-Dko"/>
                             <constraint firstItem="iYd-yH-V3o" firstAttribute="bottom" secondItem="YSQ-pH-N6L" secondAttribute="bottom" id="cqj-y5-Wso"/>
                             <constraint firstItem="E3L-x2-chr" firstAttribute="trailing" secondItem="4Gi-6V-ula" secondAttribute="trailing" id="fkE-qa-VZC"/>
+                            <constraint firstItem="vKU-2l-six" firstAttribute="centerX" secondItem="EIQ-Ip-Tyt" secondAttribute="centerX" id="fxF-NW-pbm"/>
                             <constraint firstItem="GLJ-9W-09V" firstAttribute="top" secondItem="7vt-XS-Ox1" secondAttribute="bottom" constant="10" id="hzn-Ug-uYH"/>
+                            <constraint firstItem="7vt-XS-Ox1" firstAttribute="leading" secondItem="dOb-wu-mrB" secondAttribute="leading" id="iPy-o0-L6j"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="centerX" secondItem="0DW-gH-vc2" secondAttribute="centerX" id="lDS-Rd-B32"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="top" secondItem="h1V-HR-2WE" secondAttribute="bottom" constant="8" id="prO-aN-lxA"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="height" secondItem="0DW-gH-vc2" secondAttribute="height" id="r8e-0l-s3G"/>
                             <constraint firstItem="E3L-x2-chr" firstAttribute="leading" secondItem="4Gi-6V-ula" secondAttribute="leading" id="rBw-Hf-jz4"/>
                             <constraint firstItem="E3L-x2-chr" firstAttribute="top" secondItem="4Gi-6V-ula" secondAttribute="bottom" constant="41" id="wgn-SQ-sol"/>
-                            <constraint firstItem="GLJ-9W-09V" firstAttribute="centerX" secondItem="7vt-XS-Ox1" secondAttribute="centerX" id="xoB-WG-iql"/>
                             <constraint firstItem="N8V-Yd-QvC" firstAttribute="top" secondItem="Z1i-B5-dqO" secondAttribute="bottom" constant="-60" id="yEQ-oF-rgP"/>
                         </constraints>
                         <variation key="default">
@@ -308,6 +325,7 @@
                         <outlet property="arSceneView" destination="Z1i-B5-dqO" id="iVk-um-itv"/>
                         <outlet property="imageForPluginInstructions" destination="vKU-2l-six" id="TeH-Xx-Mba"/>
                         <outlet property="loadModelButton" destination="kra-NZ-pmu" id="yTx-DB-1GC"/>
+                        <outlet property="menuToggleButton" destination="38F-TB-HkT" id="0RV-ba-LBo"/>
                         <outlet property="menuView" destination="GLJ-9W-09V" id="NbQ-VR-mGQ"/>
                         <outlet property="pluginInstructionsLookupButton" destination="0DW-gH-vc2" id="JbU-Hk-e2z"/>
                         <outlet property="saveModelButton" destination="h1V-HR-2WE" id="jx2-XQ-1Vw"/>

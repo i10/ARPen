@@ -54,6 +54,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var storedNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
     var sharedNode: SCNNode? = nil
     
+    @IBOutlet weak var menuToggleButton: UIButton!
     @IBOutlet weak var menuView: UIView!
     var menuViewNavigationController : UINavigationController?
     var menuTableViewController = UITableViewController(style: .plain)
@@ -137,6 +138,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.menuViewNavigationController = UINavigationController(rootViewController: menuTableViewController)
         self.menuViewNavigationController?.view.frame = CGRect(x: 0, y: 0, width: self.menuView.frame.width, height: self.menuView.frame.height)
         self.menuViewNavigationController?.view.backgroundColor = .clear
+        self.menuViewNavigationController?.setNavigationBarHidden(true, animated: false)
         self.setupPluginMenuFrom(PluginArray: self.pluginManager.plugins)
         self.menuTableViewController.tableView.rowHeight = UITableView.automaticDimension
         self.menuTableViewController.tableView.estimatedRowHeight = 40
@@ -217,7 +219,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
         
         menuTableViewController.tableView.delegate = self
-        menuTableViewController.title = "Plugins"
         
         var pluginMenuSnap = NSDiffableDataSourceSnapshot<Section, Plugin>()
         pluginMenuSnap.appendSections([.main])
@@ -258,6 +259,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         } else {
             self.imageForPluginInstructions.isHidden = true
             return indexPath
+        }
+    }
+    
+    
+    @IBAction func toggleMenuPosition(_ sender: Any) {
+        if self.menuView.frame.minX >= 0 {
+            UIView.animate(withDuration: 0.1){
+                self.menuView.transform = CGAffineTransform(translationX: self.menuView.frame.width * -1, y: 0)
+                self.menuView.alpha = 0.0
+            }
+            self.menuToggleButton.setTitle("Show Plugins", for: .normal)
+        } else {
+            UIView.animate(withDuration: 0.1) {
+                self.menuView.transform = .identity
+                self.menuView.alpha = 1.0
+            }
+            self.menuToggleButton.setTitle("Hide Plugins", for: .normal)
         }
     }
     
