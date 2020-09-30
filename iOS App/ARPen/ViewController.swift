@@ -19,13 +19,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
 
     
 
-    @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    @IBOutlet weak var arPenLabel: UILabel!
-    @IBOutlet weak var arPenActivity: UIActivityIndicatorView!
-    @IBOutlet weak var arPenImage: UIImageView!
-    @IBOutlet weak var arKitLabel: UILabel!
-    @IBOutlet weak var arKitActivity: UIActivityIndicatorView!
-    @IBOutlet weak var arKitImage: UIImageView!
+    
     @IBOutlet var arSceneView: ARSCNView!
     @IBOutlet weak var imageForPluginInstructions: UIImageView!
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
@@ -161,6 +155,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Hide navigation bar
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //if no plugin is currently selected, select the base plugin
+        if self.pluginManager.activePlugin == nil {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.menuTableViewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            self.tableView(self.menuTableViewController.tableView, didSelectRowAt: indexPath)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -344,58 +347,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     // MARK: - ARManager delegate
     
-    // Callback from the ARManager
-    func arKitInitialiazed() {
-        guard let arKitActivity = self.arKitActivity else {
-            return
-        }
-        arKitActivity.isHidden = true
-        self.arKitImage.isHidden = false
-        checkVisualEffectView()
-    }
-    
     // Mark: - PenManager delegate
     /**
      Callback from PenManager
      */
     func penConnected() {
-        guard let arPenActivity = self.arPenActivity else {
-            return
-        }
-        arPenActivity.isHidden = true
-        self.arPenImage.isHidden = false
         self.bluetoothARPenConnected = true
-        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
-        checkVisualEffectView()
     }
     
     func penFailed() {
-        guard let arPenActivity = self.arPenActivity else {
-            return
-        }
-        arPenActivity.isHidden = true
-        self.arPenImage.image = UIImage(named: "Cross")
-        self.arPenImage.isHidden = false
+
         self.bluetoothARPenConnected = false
-        self.menuTableViewController.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
-        checkVisualEffectView()
     }
     
-    /**
-     This method will be called after `penConnected` and `arKitInitialized` to may hide the blurry overlay
-     */
-    func checkVisualEffectView() {
-        if self.arPenActivity.isHidden && self.arKitActivity.isHidden {
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1), execute: {
-//                UIView.animate(withDuration: 0.5, animations: {
-//                    self.visualEffectView.alpha = 0.0
-//                }, completion: { (completion) in
-//                    self.visualEffectView.removeFromSuperview()
-//                })
-//            })
-            self.visualEffectView.removeFromSuperview()
-        }
-    }
     
     //Software Pen Button Actions
     @IBAction func softwarePenButtonPressed(_ sender: Any) {

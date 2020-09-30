@@ -9,7 +9,6 @@
 import ARKit
 
 protocol PluginManagerDelegate {
-    func arKitInitialiazed()
     func penConnected()
     func penFailed()
 }
@@ -41,7 +40,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         
         self.arManager = ARManager(scene: scene)
         self.arPenManager = PenManager()
-        self.activePlugin = plugins.first
+        //self.activePlugin = plugins.first
         self.arManager.delegate = self
         self.arPenManager.delegate = self
         
@@ -71,18 +70,6 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
             self.delegate?.penConnected()
         } else {
             self.delegate?.penFailed()
-        }
-    }
-    
-    /**
-     Callback form ARCamera
-     */
-    func didChangeTrackingState(cam: ARCamera) {
-        switch cam.trackingState {
-        case .normal:
-            self.delegate?.arKitInitialiazed()
-        default:
-            break
         }
     }
     
