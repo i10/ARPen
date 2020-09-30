@@ -37,6 +37,8 @@ class Plugin: NSObject {
     
     var needsBluetoothARPen: Bool = false
     
+    var pluginManager: PluginManager?
+    
     var currentScene : PenScene?
     var currentView : ARSCNView?
     

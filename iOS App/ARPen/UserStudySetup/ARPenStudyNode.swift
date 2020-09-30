@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ARPenStudyNode : SCNNode {
+class ARPenStudyNode : SelectableNode {
     //position and corners are in world coordinates
     let dimension : Float
     
@@ -27,13 +27,26 @@ class ARPenStudyNode : SCNNode {
     
     var isActiveTarget = false {
         didSet {
-            if self.isActiveTarget {
-                self.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
-                self.geometry?.firstMaterial?.emission.contents = UIColor.orange
-            } else {
-                self.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-                self.geometry?.firstMaterial?.emission.contents = UIColor.white
-            }
+            changeColors()
+        }
+    }
+    
+    var inTrialState = false {
+        didSet {
+            changeColors()
+        }
+    }
+    
+    func changeColors(){
+        if self.isActiveTarget {
+            self.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+            self.geometry?.firstMaterial?.emission.contents = UIColor.yellow
+        } else if self.inTrialState {
+            self.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
+            self.geometry?.firstMaterial?.emission.contents = UIColor.magenta
+        } else {
+            self.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+            self.geometry?.firstMaterial?.emission.contents = UIColor.white
         }
     }
     

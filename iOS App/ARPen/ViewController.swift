@@ -87,7 +87,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         scene.markerBox = MarkerBox()
         self.arSceneView.pointOfView?.addChildNode(scene.markerBox)
         
-        self.pluginManager = PluginManager(scene: scene)
+        self.pluginManager = PluginManager(penScene: scene, sceneView: self.arSceneView)
         self.pluginManager.delegate = self
         self.arSceneView.session.delegate = self.pluginManager.arManager
         self.arSceneView.delegate = self
@@ -319,7 +319,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         }
     }
     
-    
     // Display the instructions for plugin by setting imageForPluginInstructions
     func displayPluginInstructions(withBluetoothErrorMessage showBluetoothMissingInstruction : Bool) {
         if  showBluetoothMissingInstruction {
@@ -381,6 +380,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBAction func undoButtonPressed(_ sender: Any) {
         self.pluginManager.undoPreviousStep()
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesBegan(touches, with: event)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesMoved(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesEnded(touches, with: event)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesCancelled(touches, with: event)
+    }
+    
+    
     
     // MARK: - ARSCNViewDelegate
         
@@ -544,7 +560,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                             } else {
                                 return true
                             }
-                        })                       
+                        })
                         
                         if scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil) {
                             // Handle save if needed
@@ -625,7 +641,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var isRelocalizingMap = false
     
     // Provide feedback and instructions to the user about saving and loading the map and models respectively
-    // TODO: This needs to be updated for sharing 
+    // TODO: This needs to be updated for sharing
     func updateStatusLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
         var message: String = ""
         self.snapshotThumbnail.isHidden = true
@@ -763,8 +779,4 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
 //            print("can't decode data received from \(peer)")
 //        }
 //    }
-}
-
-enum Section {
-    case main
 }
