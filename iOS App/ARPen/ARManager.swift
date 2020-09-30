@@ -10,7 +10,6 @@ import ARKit
 
 
 protocol ARManagerDelegate {
-    func didChangeTrackingState(cam: ARCamera)
     func finishedCalculation()
 }
 
@@ -32,8 +31,6 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
     }
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        self.delegate?.didChangeTrackingState(cam: camera)
-        
         // create a dictionary literal to pass currentFrame and trackingState
         let informationPackage: [String : Any] = ["currentFrame": session.currentFrame!, "trackingState": camera.trackingState]
         NotificationCenter.default.post(name: .cameraDidChangeTrackingState, object: nil, userInfo: informationPackage)

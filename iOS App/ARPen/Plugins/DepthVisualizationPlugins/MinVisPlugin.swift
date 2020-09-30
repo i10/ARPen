@@ -37,6 +37,7 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginImage = UIImage.init(named: "SonarPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "None")
         self.pluginIdentifier = "MinVis"
+        self.pluginGroupName = "Depth Visualization"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "SonarPluginDisabled")
         

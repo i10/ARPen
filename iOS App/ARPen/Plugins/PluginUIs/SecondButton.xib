@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldX-nb-hrS">
-                    <rect key="frame" x="20" y="44" width="67" height="67"/>
+                    <rect key="frame" x="20" y="124" width="67" height="67"/>
                     <state key="normal" image="SoftwareButton"/>
                     <connections>
                         <action selector="secondSoftwareButtonPressed:" destination="-1" eventType="touchDown" id="9UA-ej-VjZ"/>
@@ -26,7 +26,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ldX-nb-hrS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="Xkj-1W-gY7"/>
-                <constraint firstItem="ldX-nb-hrS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="ikn-9F-Jqy"/>
+                <constraint firstItem="ldX-nb-hrS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="80" id="ikn-9F-Jqy"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="41" y="-11"/>

@@ -23,6 +23,7 @@ class SweepPluginProfileAndPath: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Sweep(Path)")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Sweep (Path)"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }

@@ -24,6 +24,7 @@ class LoftPlugin: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Loft")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Loft"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }

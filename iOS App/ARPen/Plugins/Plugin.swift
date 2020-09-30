@@ -15,6 +15,7 @@ class Plugin: NSObject {
     
     var pluginImage : UIImage?
     var pluginIdentifier : String = "ARPen Plugin"
+    var pluginGroupName : String = "Basic"
     
     //to use a custom UI for your plugin:
     //  1) create a new xib file in the folder "PluginUIs". The name should be that of the plugin

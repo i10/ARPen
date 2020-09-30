@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A10BFBE251E2C8600950CBE /* ARPenPluginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A10BFBC251E2C8600950CBE /* ARPenPluginTableViewCell.swift */; };
+		4A10BFBF251E2C8600950CBE /* ARPenPluginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A10BFBD251E2C8600950CBE /* ARPenPluginTableViewCell.xib */; };
 		4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27C239FCEA800C4BF75 /* NotificationName.swift */; };
 		4A27E27F239FF36D00C4BF75 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */; };
 		4A27E28123A0F9E300C4BF75 /* SecondButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A27E28023A0F9E300C4BF75 /* SecondButton.xib */; };
@@ -115,6 +117,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A10BFBC251E2C8600950CBE /* ARPenPluginTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPenPluginTableViewCell.swift; sourceTree = "<group>"; };
+		4A10BFBD251E2C8600950CBE /* ARPenPluginTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ARPenPluginTableViewCell.xib; sourceTree = "<group>"; };
 		4A27E27C239FCEA800C4BF75 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
 		4A27E28023A0F9E300C4BF75 /* SecondButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondButton.xib; sourceTree = "<group>"; };
@@ -478,6 +482,8 @@
 				4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */,
 				4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */,
 				4ACE473224659B450037F9EE /* PositionFilter.swift */,
+				4A10BFBC251E2C8600950CBE /* ARPenPluginTableViewCell.swift */,
+				4A10BFBD251E2C8600950CBE /* ARPenPluginTableViewCell.xib */,
 			);
 			path = "Extensions And Helpers";
 			sourceTree = "<group>";
@@ -566,6 +572,7 @@
 				4A27E28123A0F9E300C4BF75 /* SecondButton.xib in Resources */,
 				DC28B44C200E4353008B77AB /* LaunchScreen.storyboard in Resources */,
 				DC28B449200E4353008B77AB /* Assets.xcassets in Resources */,
+				4A10BFBF251E2C8600950CBE /* ARPenPluginTableViewCell.xib in Resources */,
 				4AAC4B1923A27FC4003B6E83 /* AllButtonsAndUndo.xib in Resources */,
 				DC28B447200E4353008B77AB /* Main.storyboard in Resources */,
 			);
@@ -611,6 +618,7 @@
 				4AA09F8C24DD508B00B59F9E /* HeatmapPlugin.swift in Sources */,
 				DC28B45F200E4561008B77AB /* PenManager.swift in Sources */,
 				EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */,
+				4A10BFBE251E2C8600950CBE /* ARPenPluginTableViewCell.swift in Sources */,
 				4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */,
 				4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */,
 				4AAC4AF123A24A20003B6E83 /* ARPPath.swift in Sources */,

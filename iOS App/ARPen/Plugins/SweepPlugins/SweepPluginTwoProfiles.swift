@@ -23,6 +23,7 @@ class SweepPluginTwoProfiles: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Sweep(2Profiles)")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Sweep (2 Profiles)"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }

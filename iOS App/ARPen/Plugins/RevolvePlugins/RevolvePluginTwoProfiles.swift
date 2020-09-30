@@ -21,9 +21,10 @@ class RevolvePluginTwoProfiles: ModelingPlugin {
         // Listen to the `didCompletePath` event.
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "Revolve(2Profiles)")
+        self.pluginImage = UIImage.init(named: "Revolve(2Profile)")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Revolve (Two Profiles)"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }

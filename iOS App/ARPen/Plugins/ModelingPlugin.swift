@@ -29,6 +29,7 @@ class ModelingPlugin: Plugin {
         self.pluginImage = UIImage.init(named: "PaintPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Paint Curves"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         

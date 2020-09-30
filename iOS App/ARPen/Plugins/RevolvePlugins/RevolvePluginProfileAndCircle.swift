@@ -24,6 +24,7 @@ class RevolvePluginProfileAndCircle: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Revolve(Profile+Circle)")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Revolve (Profile + Circle"
+        self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
