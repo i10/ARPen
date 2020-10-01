@@ -69,7 +69,7 @@ class StudyPlugin: Plugin, PenDelegate, TouchDelegate, SelectionDelegate, UserSt
             node.selectionDelegate = self
             node.setMenu(Menu(), menuItemSelected: itemSelected(node:label:indexPath:isLeaf:), didStepBack: didStepBack(node:to:), menuDidClose: menuDidClose(node:))
         }
-        self.sceneConstructionResults?.superNode.position.z -= 0.4
+        //self.sceneConstructionResults?.superNode.position.z -= 0.4
         
         self.inTestPhase = true
         self.setupFirstTarget()
@@ -96,6 +96,8 @@ class StudyPlugin: Plugin, PenDelegate, TouchDelegate, SelectionDelegate, UserSt
         self.sceneConstructionResults = nil
         arMenu = nil
         dataRecorder = nil
+        
+        self.pluginManager?.sceneView.overlaySKScene = nil
         
         super.deactivatePlugin()
     }
