@@ -90,6 +90,7 @@ class StudyPlugin: Plugin, PenDelegate, TouchDelegate, SelectionDelegate, UserSt
     }
     
     override func deactivatePlugin() {
+        self.arMenu?.closeMenu(asAbort: true)
         pluginManager?.penScene.drawingNode.childNodes.forEach({$0.removeFromParentNode()})
         self.sceneConstructionResults?.superNode.removeFromParentNode()
         

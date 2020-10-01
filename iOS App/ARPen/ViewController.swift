@@ -254,7 +254,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if let currentActivePlugin = self.pluginManager.activePlugin {
             //remove custom view elements from view
             currentActivePlugin.customPluginUI?.removeFromSuperview()
-            currentActivePlugin.deactivatePlugin()
+            //currentActivePlugin.deactivatePlugin()
         }
         //activate plugin in plugin manager and update currently active plugin property
         guard let newActivePlugin = self.menuGroupingInfo?[indexPath.section].1[indexPath.row] else {return}
