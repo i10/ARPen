@@ -98,7 +98,8 @@ class StudyPlugin: Plugin, PenDelegate, TouchDelegate, SelectionDelegate, UserSt
         arMenu = nil
         dataRecorder = nil
         
-        self.pluginManager?.sceneView.overlaySKScene = nil
+        self.targetLabelNode?.removeFromParent()
+        //self.pluginManager?.sceneView.overlaySKScene = nil
         
         super.deactivatePlugin()
     }

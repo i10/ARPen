@@ -228,8 +228,8 @@ class TranslationDemoPlugin: Plugin {
         self.fillSceneWithCubes(withScene: scene, andView : view)
         
         self.gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        gestureRecognizer?.minimumPressDuration = 0
-        self.currentView?.addGestureRecognizer(gestureRecognizer!)
+        self.gestureRecognizer?.minimumPressDuration = 0
+        self.currentView?.addGestureRecognizer(self.gestureRecognizer!)
         self.currentView?.isUserInteractionEnabled = true
     }
     
@@ -264,6 +264,8 @@ class TranslationDemoPlugin: Plugin {
             self.sceneConstructionResults = nil
         }
         self.currentView?.superview?.layer.borderWidth = 0.0
+        self.currentView?.removeGestureRecognizer(self.gestureRecognizer!)
+        self.gestureRecognizer = nil
         super.deactivatePlugin()
     }
 }

@@ -99,20 +99,21 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
      */
     func finishedCalculation() {
         if let plugin = self.activePlugin as? PenDelegate, self.allowPenInput {
-            DispatchQueue.main.async {
-                if let overlay = self.sceneView.overlaySKScene {
-                    var indicator = overlay.childNode(withName: "markerIndicator")
-                    if indicator == nil {
-                        indicator = SKShapeNode(rect: overlay.frame)
-                        indicator!.name = "markerIndicator"
-                        (indicator as! SKShapeNode).lineWidth = 30
-                        overlay.addChild(indicator!)
-                    }
-                    let isPenImportant = (self.activePlugin is StudyPlugin) && !(self.activePlugin as! StudyPlugin).isPenTipHidden
-                    (indicator as! SKShapeNode).strokeColor = !self.penScene.markerFound && isPenImportant ? UIColor.red : UIColor.clear
-                }
-                
-            }
+//            //add red border to the screen to show when the pen is not tracked
+//            DispatchQueue.main.async {
+//                if let overlay = self.sceneView.overlaySKScene {
+//                    var indicator = overlay.childNode(withName: "markerIndicator")
+//                    if indicator == nil {
+//                        indicator = SKShapeNode(rect: overlay.frame)
+//                        indicator!.name = "markerIndicator"
+//                        (indicator as! SKShapeNode).lineWidth = 30
+//                        overlay.addChild(indicator!)
+//                    }
+//                    let isPenImportant = (self.activePlugin is StudyPlugin) && !(self.activePlugin as! StudyPlugin).isPenTipHidden
+//                    (indicator as! SKShapeNode).strokeColor = !self.penScene.markerFound && isPenImportant ? UIColor.red : UIColor.clear
+//                }
+//                
+//            }
             
             if penButtonIsPressed {
                 plugin.onPenMoved(to: (arManager.scene?.pencilPoint.position)!, clickedButtons: Array(self.buttons.filter { $0.value == true }.keys))
