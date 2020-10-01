@@ -21,6 +21,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
 
     
     @IBOutlet var arSceneView: ARSCNView!
+    @IBOutlet weak var softwarePenButton: UIButton!
     @IBOutlet weak var imageForPluginInstructions: UIImageView!
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!

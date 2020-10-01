@@ -33,6 +33,7 @@ class LinearMenuPlugin: StudyPlugin {
     }
     override func objectSelected(_ node: Selectable, intersectionAt intersection: SCNVector3, cursor: AREvent) {
         if cursor.eventType != .Ended { return }
+        self.toggleMainViewControllerUIElements(toHidden: true)
         super.objectSelected(node, intersectionAt: intersection, cursor: cursor)
         if let m = arMenu as? LinearMenu {
             if let menuSKNodes = m.skScene?.children{
@@ -76,6 +77,7 @@ class LinearMenuPlugin: StudyPlugin {
         }
         overlay?.isUserInteractionEnabled = false
         isPenTipHidden = false
+        self.toggleMainViewControllerUIElements(toHidden: false)
     }
     
     /// Replaces the SKScene provided by its superclass with a LinearMenuScene
@@ -88,6 +90,17 @@ class LinearMenuPlugin: StudyPlugin {
             newScene.isUserInteractionEnabled = false
             overlay = newScene
         }
+    }
+    
+    func toggleMainViewControllerUIElements(toHidden hidden : Bool){
+        if let vc = self.pluginManager?.delegate as? ViewController {
+            DispatchQueue.main.async {
+                vc.menuView.isHidden = hidden
+                vc.menuToggleButton.isHidden = hidden
+                vc.softwarePenButton.isHidden = hidden
+            }
+        }
+        
     }
     
 }
