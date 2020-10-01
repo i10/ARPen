@@ -263,15 +263,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if var pluginConformingToUserStudyProtocol = newActivePlugin as? UserStudyRecordPluginProtocol {
             pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
         }
-        if let currentScene = self.pluginManager.arManager.scene {
-            if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
-                newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
-                if let customPluginUI = newActivePlugin.customPluginUI {
-                    customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
-                    viewForCustomPluginView.addSubview(customPluginUI)
-                }
+        if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+            if let customPluginUI = newActivePlugin.customPluginUI {
+                customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
+                viewForCustomPluginView.addSubview(customPluginUI)
             }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
