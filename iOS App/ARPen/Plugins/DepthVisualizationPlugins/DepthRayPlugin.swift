@@ -16,6 +16,7 @@ class DepthRayPlugin: MinVisPlugin {
         self.pluginIdentifier = "DepthRay"
         self.pluginGroupName = "Depth Visualization"
         self.pluginImage = UIImage.init(named: "DepthVisualizationRayPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "DepthVisualizationDepthRayInstructions")
         
     }
     

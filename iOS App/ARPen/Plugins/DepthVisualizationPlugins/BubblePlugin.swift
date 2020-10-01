@@ -16,6 +16,7 @@ class BubblePlugin: MinVisPlugin {
         self.pluginIdentifier = "Bubble"
         self.pluginGroupName = "Depth Visualization"
         self.pluginImage = UIImage.init(named: "DepthVisualizationBubblePlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "DepthVisualizationBubbleInstructions")
         
     }
     
