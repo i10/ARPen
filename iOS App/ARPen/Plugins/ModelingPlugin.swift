@@ -27,6 +27,7 @@ class ModelingPlugin: Plugin {
         
         //Specify Plugin Information
         self.pluginImage = UIImage.init(named: "ModelingPathPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingPathInstructions")
         self.pluginIdentifier = "Path Tool"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false

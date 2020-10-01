@@ -17,6 +17,7 @@ class LinearMenuPlugin: StudyPlugin {
         self.pluginImage = UIImage.init(named: "ARMenus1HandedPlugin")
         self.pluginIdentifier = "One-Handed Touch"
         self.pluginGroupName = "ARMenus"
+        self.pluginInstructionsImage = UIImage.init(named: "ARMenus1HandedInstructions")
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

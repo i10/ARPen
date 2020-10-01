@@ -7,6 +7,7 @@ class TwoHandedTouch: MidairPlugin {
         self.pluginImage = UIImage.init(named: "ARMenus2HandedPlugin")
         pluginIdentifier = "Two-Handed Touch"
         self.pluginGroupName = "ARMenus"
+        self.pluginInstructionsImage = UIImage.init(named: "ARMenus2HandedInstructions")
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

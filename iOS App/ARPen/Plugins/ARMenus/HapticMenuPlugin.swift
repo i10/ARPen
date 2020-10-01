@@ -11,6 +11,7 @@ class HapticMenuPlugin: StudyPlugin {
         self.pluginImage = UIImage.init(named: "ARMenusSurfacePlugin")
         self.pluginIdentifier = "Surface Menu"
         self.pluginGroupName = "ARMenus"
+        self.pluginInstructionsImage = UIImage.init(named: "ARMenusSurfaceInstructions")
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
@@ -23,7 +24,6 @@ class HapticMenuPlugin: StudyPlugin {
         //if a horizontal surface has been detected, use it's z position to place the menu
         if let horizontalPlanePosition = (self.pluginManager?.delegate as? ViewController)?.horizontalSurfacePosition {
             self.menuPosition.y = horizontalPlanePosition.y
-            print(self.menuPosition)
         }
     }
     

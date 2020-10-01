@@ -7,6 +7,7 @@ class MovingCursorPlugin: MidairPlugin {
         self.pluginImage = UIImage.init(named: "ARMenusDevicePlugin")
         self.pluginIdentifier = "Device Pointer"
         self.pluginGroupName = "ARMenus"
+        self.pluginInstructionsImage = UIImage.init(named: "ARMenusDeviceInstructions")
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

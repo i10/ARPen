@@ -22,7 +22,7 @@ class RevolvePluginProfileAndCircle: ModelingPlugin {
         curveDesigner.didCompletePath = self.didCompletePath
         
         self.pluginImage = UIImage.init(named: "ModelingRevolve2Plugin")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingRevolve2Instructions")
         self.pluginIdentifier = "Revolve (Profile + Circle"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false

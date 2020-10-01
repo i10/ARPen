@@ -22,7 +22,7 @@ class RevolvePluginTwoProfiles: ModelingPlugin {
         curveDesigner.didCompletePath = self.didCompletePath
         
         self.pluginImage = UIImage.init(named: "ModelingRevolve3Plugin")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingRevolve3Instructions")
         self.pluginIdentifier = "Revolve (Two Profiles)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false

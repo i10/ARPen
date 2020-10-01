@@ -21,7 +21,7 @@ class RevolvePluginProfileAndAxis: ModelingPlugin {
         curveDesigner.didCompletePath = self.didCompletePath
         
         self.pluginImage = UIImage.init(named: "ModelingRevolve1Plugin")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingRevolve1Instructions")
         self.pluginIdentifier = "Revolve (Profile + Axis)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false

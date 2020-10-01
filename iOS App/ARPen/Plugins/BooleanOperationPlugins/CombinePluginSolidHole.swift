@@ -19,7 +19,7 @@ class CombinePluginSolidHole: ModelingPlugin {
         super.init()
         
         self.pluginImage = UIImage.init(named: "Bool(Hole)")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineSolidHoleInstructions")
         self.pluginIdentifier = "Combine(Hole)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
