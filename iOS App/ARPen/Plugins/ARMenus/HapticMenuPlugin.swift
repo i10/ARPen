@@ -4,6 +4,7 @@ import ARKit
 class HapticMenuPlugin: StudyPlugin {
     
     let menuOpenedColor = UIColor.cyan
+    var menuPosition = SCNVector3(x: 0 / 2, y: -0.2, z: -0.3 / 2)
     
     override init() {
         super.init()
@@ -17,6 +18,12 @@ class HapticMenuPlugin: StudyPlugin {
         
         pluginManager?.allowPenInput = true
         pluginManager?.allowTouchInput = false
+        
+        //if a horizontal surface has been detected, use it's z position to place the menu
+        if let horizontalPlanePosition = (self.pluginManager?.delegate as? ViewController)?.horizontalSurfacePosition {
+            self.menuPosition.y = horizontalPlanePosition.y
+            print(self.menuPosition)
+        }
     }
     
     var lastOpenedNode: SCNNode? = nil {
@@ -33,7 +40,7 @@ class HapticMenuPlugin: StudyPlugin {
             super.objectSelected(node, intersectionAt: intersection, cursor: cursor)
             lastOpenedNode = node as! SCNNode
             
-            (self.arMenu as? SCNNode)?.worldPosition = SCNVector3(x: 0 / 2, y: 0, z: -0.129 / 2)
+            (self.arMenu as? SCNNode)?.worldPosition = menuPosition
             
             
         }
@@ -42,6 +49,11 @@ class HapticMenuPlugin: StudyPlugin {
     override func itemSelected(node: SCNNode?, label: String, indexPath: [Int], isLeaf: Bool) {
         super.itemSelected(node: node, label: label, indexPath: indexPath, isLeaf: isLeaf)
         lastOpenedNode = nil
+        
+        //update world position information
+        if let horizontalPlanePosition = (self.pluginManager?.delegate as? ViewController)?.horizontalSurfacePosition {
+            self.menuPosition.y = horizontalPlanePosition.y
+        }
     }
     
     override func didStepBack(node: SCNNode?, to depth: Int) {

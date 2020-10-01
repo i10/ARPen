@@ -49,6 +49,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var storedNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
     var sharedNode: SCNNode? = nil
     
+    var horizontalSurfacePosition : SCNVector3?
+    
     @IBOutlet weak var menuToggleButton: UIButton!
     @IBOutlet weak var menuView: UIView!
     var menuViewNavigationController : UINavigationController?
@@ -150,6 +152,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
 
         // Run the view's session
         arSceneView.session.run(configuration)
@@ -401,40 +404,55 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
     // Invoked when new anchors are added to the scene
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorName = anchor.name else {
-            return
-        }
-        
-        if (anchorName == persistenceSavePointAnchorName) {
-            // Save the reference to the virtual object anchor when the anchor is added from relocalizing
-            if persistenceSavePointAnchor == nil {
-                persistenceSavePointAnchor = anchor
+        switch anchor {
+        case anchor as ARPlaneAnchor:
+            self.horizontalSurfacePosition = node.worldPosition
+        default:
+            guard let anchorName = anchor.name else {
+                return
             }
             
-            DispatchQueue.main.async {
-                self.storedNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
-                self.storedNode!.load()
-                
-                let scene = self.arSceneView.scene as! PenScene
-                for child in self.storedNode!.childNodes {
-                    scene.drawingNode.addChildNode(child)
+            if (anchorName == persistenceSavePointAnchorName) {
+                // Save the reference to the virtual object anchor when the anchor is added from relocalizing
+                if persistenceSavePointAnchor == nil {
+                    persistenceSavePointAnchor = anchor
                 }
+                
+                DispatchQueue.main.async {
+                    self.storedNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
+                    self.storedNode!.load()
+                    
+                    let scene = self.arSceneView.scene as! PenScene
+                    for child in self.storedNode!.childNodes {
+                        scene.drawingNode.addChildNode(child)
+                    }
+                }
+            } //else if (anchorName == sharePointAnchorName) {
+    //            // Perform rendering operations asynchronously
+    //            DispatchQueue.main.async {
+    //                guard let sharedNode = self.sharedNode else {
+    //                    return
+    //                }
+    //
+    //                let scene = self.arSceneView.scene as! PenScene
+    //                scene.drawingNode.addChildNode(sharedNode)
+    //                print("Adding storedNode to sharePointAnchor")
+    //            }
+    //        }
+            else {
+                print("An unknown ARAnchor has been added!")
+                return
             }
-        } //else if (anchorName == sharePointAnchorName) {
-//            // Perform rendering operations asynchronously
-//            DispatchQueue.main.async {
-//                guard let sharedNode = self.sharedNode else {
-//                    return
-//                }
-//
-//                let scene = self.arSceneView.scene as! PenScene
-//                scene.drawingNode.addChildNode(sharedNode)
-//                print("Adding storedNode to sharePointAnchor")
-//            }
-//        }
-        else {
-            print("An unknown ARAnchor has been added!")
-            return
+        }
+        
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        switch anchor {
+        case anchor as ARPlaneAnchor:
+            self.horizontalSurfacePosition = node.worldPosition
+        default:
+            print("A differnt ARAnchor has been updated!")
         }
     }
     
@@ -628,6 +646,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.initialWorldMap = worldMap
+        configuration.planeDetection = .horizontal
         self.arSceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
         isRelocalizingMap = true
