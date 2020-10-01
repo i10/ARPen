@@ -85,7 +85,7 @@ class HapticMenu: MidairPieMenu {
         
         // Highlight a menu item if pen tip is near enough
         if localTipPosition.z < self.tapThreshold.hover {
-            print(localTipPosition.z)
+            //print(localTipPosition.z)
             self.highlightItems(position: localTipPosition)
         } else {
             self.highlightedItem = nil

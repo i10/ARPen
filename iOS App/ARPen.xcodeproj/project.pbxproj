@@ -75,7 +75,6 @@
 		4AC1F5AC2524C817002B0A7F /* MovingCursorMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5AB2524C817002B0A7F /* MovingCursorMenu.swift */; };
 		4AC1F5AF2524D02E002B0A7F /* MenuContentCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5AD2524D02E002B0A7F /* MenuContentCreater.swift */; };
 		4AC1F5B02524D02E002B0A7F /* StudyPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5AE2524D02E002B0A7F /* StudyPlugin.swift */; };
-		4AC1F5B22524D083002B0A7F /* GridSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B12524D083002B0A7F /* GridSceneConstructor.swift */; };
 		4AC1F5B42524D096002B0A7F /* DataRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B32524D096002B0A7F /* DataRecorder.swift */; };
 		4AC1F5BB2524D1BD002B0A7F /* HapticMenuPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B62524D1BC002B0A7F /* HapticMenuPlugin.swift */; };
 		4AC1F5BC2524D1BD002B0A7F /* MovingCursorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B72524D1BC002B0A7F /* MovingCursorPlugin.swift */; };
@@ -207,7 +206,6 @@
 		4AC1F5AB2524C817002B0A7F /* MovingCursorMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingCursorMenu.swift; sourceTree = "<group>"; };
 		4AC1F5AD2524D02E002B0A7F /* MenuContentCreater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuContentCreater.swift; sourceTree = "<group>"; };
 		4AC1F5AE2524D02E002B0A7F /* StudyPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPlugin.swift; sourceTree = "<group>"; };
-		4AC1F5B12524D083002B0A7F /* GridSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSceneConstructor.swift; sourceTree = "<group>"; };
 		4AC1F5B32524D096002B0A7F /* DataRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRecorder.swift; sourceTree = "<group>"; };
 		4AC1F5B62524D1BC002B0A7F /* HapticMenuPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticMenuPlugin.swift; sourceTree = "<group>"; };
 		4AC1F5B72524D1BC002B0A7F /* MovingCursorPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovingCursorPlugin.swift; sourceTree = "<group>"; };
@@ -557,7 +555,6 @@
 				4AC1F5A92524C1D8002B0A7F /* ARPenPlaneNode.swift */,
 				EA0C795D22F078EE00E820E8 /* ARPenDropTargetNode.swift */,
 				EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */,
-				4AC1F5B12524D083002B0A7F /* GridSceneConstructor.swift */,
 				EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */,
 				EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */,
 				EA0C795C22F078EE00E820E8 /* ARPenWireBoxNode.swift */,
@@ -693,7 +690,6 @@
 				4AAC4B1323A24C2A003B6E83 /* DateExtensions.swift in Sources */,
 				4AC1F5B42524D096002B0A7F /* DataRecorder.swift in Sources */,
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
-				4AC1F5B22524D083002B0A7F /* GridSceneConstructor.swift in Sources */,
 				4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */,
 				4AAC4AEC23A24A20003B6E83 /* ARPBox.swift in Sources */,
 				4AC1F5A52524C0AD002B0A7F /* MidairPieMenu.swift in Sources */,

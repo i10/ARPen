@@ -8,6 +8,7 @@ class HapticMenuPlugin: StudyPlugin {
     override init() {
         super.init()
         self.pluginIdentifier = "Surface Menu"
+        self.pluginGroupName = "ARMenus"
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

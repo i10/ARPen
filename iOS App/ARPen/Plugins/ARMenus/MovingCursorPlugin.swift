@@ -5,6 +5,7 @@ class MovingCursorPlugin: MidairPlugin {
     override init() {
         super.init()
         self.pluginIdentifier = "Device Pointer"
+        self.pluginGroupName = "ARMenus"
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

@@ -5,6 +5,7 @@ class MidairPlugin: StudyPlugin{
     override init() {
         super.init()
         self.pluginIdentifier = "Mid-Air Pen"
+        self.pluginGroupName = "ARMenus"
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

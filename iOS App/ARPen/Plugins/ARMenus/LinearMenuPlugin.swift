@@ -15,6 +15,7 @@ class LinearMenuPlugin: StudyPlugin {
     override init() {
         super.init()
         self.pluginIdentifier = "One-Handed Touch"
+        self.pluginGroupName = "ARMenus"
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

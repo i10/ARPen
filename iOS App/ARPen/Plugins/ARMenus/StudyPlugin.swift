@@ -57,7 +57,7 @@ class StudyPlugin: Plugin, PenDelegate, TouchDelegate, SelectionDelegate, UserSt
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
         super.activatePlugin(withScene: scene, andView: view)
         
-        let sceneConstructor = GridSceneConstructor.init()
+        let sceneConstructor = ARPenGridSceneConstructor.init()
         self.sceneConstructionResults = sceneConstructor.preparedARPenNodes(withScene: pluginManager!.penScene, andView: pluginManager!.sceneView, andStudyNodeType: ARPenBoxNode.self)
         self.pluginManager?.penScene.drawingNode.addChildNode(self.sceneConstructionResults!.superNode)
         
@@ -266,7 +266,7 @@ class StudyPlugin: Plugin, PenDelegate, TouchDelegate, SelectionDelegate, UserSt
         if inTestPhase || target?.node.name == "ignore" { return }
         
         dataRecorder?.measureOnItemSelection(itemPosition: item, targetPosition: self.targetItemPosition[self.target!.index])
-        print(target!.index)
+        //print(target!.index)
     }
     
     private func measureSelectionFailed(reason: String, itemPosition: Int = -5) {
