@@ -71,7 +71,6 @@ class TranslationDemoPlugin: Plugin {
         self.pluginIdentifier = "Move 1"
         self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "TranslationDemoPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

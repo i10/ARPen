@@ -23,7 +23,6 @@ class CombinePluginSolidHole: ModelingPlugin {
         self.pluginIdentifier = "Combine(Hole)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         
         buttonEvents.didPressButton = self.didPressButton
     }

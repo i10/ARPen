@@ -26,7 +26,6 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginInstructionsImage = UIImage.init(named: "SpherePluginInstructions")
         self.pluginIdentifier = "Sphere"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

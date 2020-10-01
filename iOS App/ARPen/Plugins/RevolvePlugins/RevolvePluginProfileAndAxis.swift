@@ -25,7 +25,6 @@ class RevolvePluginProfileAndAxis: ModelingPlugin {
         self.pluginIdentifier = "Revolve (Profile + Axis)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     func didCompletePath(_ path: ARPPath) {

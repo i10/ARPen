@@ -26,7 +26,6 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginInstructionsImage = UIImage.init(named: "PyramidPluginInstructions")
         self.pluginIdentifier = "Pyramid"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

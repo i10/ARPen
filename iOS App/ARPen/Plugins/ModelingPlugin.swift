@@ -26,12 +26,9 @@ class ModelingPlugin: Plugin {
         super.init()
         
         //Specify Plugin Information
-        self.pluginImage = UIImage.init(named: "PaintPlugin")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Paint Curves"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         
         // This UI contains buttons to represent the other two buttons on the pen and an undo button
         // Important: when using this xib-file, implement the IBActions shown below and the IBOutlets above

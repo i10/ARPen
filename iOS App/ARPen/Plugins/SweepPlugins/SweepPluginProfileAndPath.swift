@@ -25,7 +25,6 @@ class SweepPluginProfileAndPath: ModelingPlugin {
         self.pluginIdentifier = "Sweep (Path)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
 
     func didCompletePath(_ path: ARPPath) {

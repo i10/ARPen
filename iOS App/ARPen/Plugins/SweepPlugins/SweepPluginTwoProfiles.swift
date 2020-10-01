@@ -24,9 +24,7 @@ class SweepPluginTwoProfiles: ModelingPlugin {
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Sweep (2 Profiles)"
         self.pluginGroupName = "Modeling"
-        self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
-    }
+        self.needsBluetoothARPen = false    }
     
     func didCompletePath(_ path: ARPPath) {
         freePaths.append(path)
