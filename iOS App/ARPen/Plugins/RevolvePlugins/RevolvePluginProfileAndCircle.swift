@@ -21,7 +21,7 @@ class RevolvePluginProfileAndCircle: ModelingPlugin {
         // Listen to the `didCompletePath` event.
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "Revolve(Profile+Circle)")
+        self.pluginImage = UIImage.init(named: "ModelingRevolve2Plugin")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Revolve (Profile + Circle"
         self.pluginGroupName = "Modeling"

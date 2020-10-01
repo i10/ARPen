@@ -4,6 +4,7 @@ import ARKit
 class TwoHandedTouch: MidairPlugin {
     override init() {
         super.init()
+        self.pluginImage = UIImage.init(named: "ARMenus2HandedPlugin")
         pluginIdentifier = "Two-Handed Touch"
         self.pluginGroupName = "ARMenus"
     }

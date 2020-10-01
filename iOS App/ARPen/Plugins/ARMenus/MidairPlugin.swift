@@ -4,6 +4,7 @@ class MidairPlugin: StudyPlugin{
     
     override init() {
         super.init()
+        self.pluginImage = UIImage.init(named: "ARMenusMidAirPenPlugin")
         self.pluginIdentifier = "Mid-Air Pen"
         self.pluginGroupName = "ARMenus"
     }

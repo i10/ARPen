@@ -20,7 +20,7 @@ class SweepPluginProfileAndPath: ModelingPlugin {
         
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "Sweep(Path)")
+        self.pluginImage = UIImage.init(named: "ModelingSweep1Plugin")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Sweep (Path)"
         self.pluginGroupName = "Modeling"

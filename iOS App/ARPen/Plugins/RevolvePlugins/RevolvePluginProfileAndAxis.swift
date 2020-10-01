@@ -20,7 +20,7 @@ class RevolvePluginProfileAndAxis: ModelingPlugin {
         
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "Revolve(Profile+Axis)")
+        self.pluginImage = UIImage.init(named: "ModelingRevolve1Plugin")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Revolve (Profile + Axis)"
         self.pluginGroupName = "Modeling"

@@ -8,6 +8,7 @@ class HapticMenuPlugin: StudyPlugin {
     
     override init() {
         super.init()
+        self.pluginImage = UIImage.init(named: "ARMenusSurfacePlugin")
         self.pluginIdentifier = "Surface Menu"
         self.pluginGroupName = "ARMenus"
     }

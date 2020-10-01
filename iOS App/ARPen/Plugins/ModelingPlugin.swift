@@ -26,7 +26,8 @@ class ModelingPlugin: Plugin {
         super.init()
         
         //Specify Plugin Information
-        self.pluginIdentifier = "Paint Curves"
+        self.pluginImage = UIImage.init(named: "ModelingPathPlugin")
+        self.pluginIdentifier = "Path Tool"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
         

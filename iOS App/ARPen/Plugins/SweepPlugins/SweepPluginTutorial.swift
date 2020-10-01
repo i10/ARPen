@@ -24,7 +24,7 @@ class SweepPluginTutorial: ModelingPlugin {
         // Listen to the `didCompletePath` event.
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "PaintPlugin")
+        self.pluginImage = UIImage.init(named: "ModelingSweep1Plugin")
         self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
         self.pluginIdentifier = "Sweep Plugin Tutorial"
         self.pluginGroupName = "Modeling"

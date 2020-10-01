@@ -4,6 +4,7 @@ class MovingCursorPlugin: MidairPlugin {
     
     override init() {
         super.init()
+        self.pluginImage = UIImage.init(named: "ARMenusDevicePlugin")
         self.pluginIdentifier = "Device Pointer"
         self.pluginGroupName = "ARMenus"
     }

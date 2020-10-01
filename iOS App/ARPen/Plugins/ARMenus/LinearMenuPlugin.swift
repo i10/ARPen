@@ -14,6 +14,7 @@ class LinearMenuPlugin: StudyPlugin {
     
     override init() {
         super.init()
+        self.pluginImage = UIImage.init(named: "ARMenus1HandedPlugin")
         self.pluginIdentifier = "One-Handed Touch"
         self.pluginGroupName = "ARMenus"
     }
