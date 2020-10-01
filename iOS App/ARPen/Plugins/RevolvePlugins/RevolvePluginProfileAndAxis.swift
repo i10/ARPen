@@ -20,12 +20,11 @@ class RevolvePluginProfileAndAxis: ModelingPlugin {
         
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "Revolve(Profile+Axis)")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginImage = UIImage.init(named: "ModelingRevolve1Plugin")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingRevolve1Instructions")
         self.pluginIdentifier = "Revolve (Profile + Axis)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     func didCompletePath(_ path: ARPPath) {

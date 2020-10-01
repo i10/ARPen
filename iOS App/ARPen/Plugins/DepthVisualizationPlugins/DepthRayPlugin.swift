@@ -15,6 +15,9 @@ class DepthRayPlugin: MinVisPlugin {
         super.init()
         self.pluginIdentifier = "DepthRay"
         self.pluginGroupName = "Depth Visualization"
+        self.pluginImage = UIImage.init(named: "DepthVisualizationRayPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "DepthVisualizationDepthRayInstructions")
+        
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

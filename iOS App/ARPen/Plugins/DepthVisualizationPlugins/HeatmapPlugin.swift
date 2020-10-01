@@ -11,6 +11,9 @@ class HeatmapPlugin: MinVisPlugin {
         super.init()
         self.pluginIdentifier = "Heatmap"
         self.pluginGroupName = "Depth Visualization"
+        self.pluginImage = UIImage.init(named: "DepthVisualizationHeatmapPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "DepthVisualizationHeatmapInstructions")
+        
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

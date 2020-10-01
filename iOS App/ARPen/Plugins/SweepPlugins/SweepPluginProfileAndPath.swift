@@ -20,12 +20,11 @@ class SweepPluginProfileAndPath: ModelingPlugin {
         
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "Sweep(Path)")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginImage = UIImage.init(named: "ModelingSweep1Plugin")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingSweep1Instructions")
         self.pluginIdentifier = "Sweep (Path)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
 
     func didCompletePath(_ path: ARPPath) {

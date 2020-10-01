@@ -26,7 +26,6 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginInstructionsImage = UIImage.init(named: "CylinderPluginInstructions")
         self.pluginIdentifier = "Cylinder"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

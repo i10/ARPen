@@ -21,6 +21,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
 
     
     @IBOutlet var arSceneView: ARSCNView!
+    @IBOutlet weak var softwarePenButton: UIButton!
     @IBOutlet weak var imageForPluginInstructions: UIImageView!
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
@@ -47,6 +48,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     var storedNode: SCNReferenceNode? = nil // A reference node used to pre-load the models and render later
     var sharedNode: SCNNode? = nil
+    
+    var horizontalSurfacePosition : SCNVector3?
     
     @IBOutlet weak var menuToggleButton: UIButton!
     @IBOutlet weak var menuView: UIView!
@@ -87,7 +90,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         scene.markerBox = MarkerBox()
         self.arSceneView.pointOfView?.addChildNode(scene.markerBox)
         
-        self.pluginManager = PluginManager(scene: scene)
+        self.pluginManager = PluginManager(penScene: scene, sceneView: self.arSceneView)
         self.pluginManager.delegate = self
         self.arSceneView.session.delegate = self.pluginManager.arManager
         self.arSceneView.delegate = self
@@ -149,6 +152,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
 
         // Run the view's session
         arSceneView.session.run(configuration)
@@ -254,7 +258,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if let currentActivePlugin = self.pluginManager.activePlugin {
             //remove custom view elements from view
             currentActivePlugin.customPluginUI?.removeFromSuperview()
-            currentActivePlugin.deactivatePlugin()
+            //currentActivePlugin.deactivatePlugin()
         }
         //activate plugin in plugin manager and update currently active plugin property
         guard let newActivePlugin = self.menuGroupingInfo?[indexPath.section].1[indexPath.row] else {return}
@@ -263,15 +267,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         if var pluginConformingToUserStudyProtocol = newActivePlugin as? UserStudyRecordPluginProtocol {
             pluginConformingToUserStudyProtocol.recordManager = self.userStudyRecordManager
         }
-        if let currentScene = self.pluginManager.arManager.scene {
-            if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
-                newActivePlugin.activatePlugin(withScene: currentScene, andView: self.arSceneView)
-                if let customPluginUI = newActivePlugin.customPluginUI {
-                    customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
-                    viewForCustomPluginView.addSubview(customPluginUI)
-                }
+        if !(newActivePlugin.needsBluetoothARPen && !self.bluetoothARPenConnected) {
+            if let customPluginUI = newActivePlugin.customPluginUI {
+                customPluginUI.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: viewForCustomPluginView.frame.size)
+                viewForCustomPluginView.addSubview(customPluginUI)
             }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -318,7 +320,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             self.menuToggleButton.setTitle("Hide Plugins", for: .normal)
         }
     }
-    
     
     // Display the instructions for plugin by setting imageForPluginInstructions
     func displayPluginInstructions(withBluetoothErrorMessage showBluetoothMissingInstruction : Bool) {
@@ -381,45 +382,77 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBAction func undoButtonPressed(_ sender: Any) {
         self.pluginManager.undoPreviousStep()
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesBegan(touches, with: event)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesMoved(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesEnded(touches, with: event)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pluginManager.touchesCancelled(touches, with: event)
+    }
+    
+    
     
     // MARK: - ARSCNViewDelegate
         
     // Invoked when new anchors are added to the scene
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorName = anchor.name else {
-            return
-        }
-        
-        if (anchorName == persistenceSavePointAnchorName) {
-            // Save the reference to the virtual object anchor when the anchor is added from relocalizing
-            if persistenceSavePointAnchor == nil {
-                persistenceSavePointAnchor = anchor
+        switch anchor {
+        case anchor as ARPlaneAnchor:
+            self.horizontalSurfacePosition = node.worldPosition
+        default:
+            guard let anchorName = anchor.name else {
+                return
             }
             
-            DispatchQueue.main.async {
-                self.storedNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
-                self.storedNode!.load()
-                
-                let scene = self.arSceneView.scene as! PenScene
-                for child in self.storedNode!.childNodes {
-                    scene.drawingNode.addChildNode(child)
+            if (anchorName == persistenceSavePointAnchorName) {
+                // Save the reference to the virtual object anchor when the anchor is added from relocalizing
+                if persistenceSavePointAnchor == nil {
+                    persistenceSavePointAnchor = anchor
                 }
+                
+                DispatchQueue.main.async {
+                    self.storedNode = SCNReferenceNode(url: self.sceneSaveURL) // Fetch models saved earlier
+                    self.storedNode!.load()
+                    
+                    let scene = self.arSceneView.scene as! PenScene
+                    for child in self.storedNode!.childNodes {
+                        scene.drawingNode.addChildNode(child)
+                    }
+                }
+            } //else if (anchorName == sharePointAnchorName) {
+    //            // Perform rendering operations asynchronously
+    //            DispatchQueue.main.async {
+    //                guard let sharedNode = self.sharedNode else {
+    //                    return
+    //                }
+    //
+    //                let scene = self.arSceneView.scene as! PenScene
+    //                scene.drawingNode.addChildNode(sharedNode)
+    //                print("Adding storedNode to sharePointAnchor")
+    //            }
+    //        }
+            else {
+                print("An unknown ARAnchor has been added!")
+                return
             }
-        } //else if (anchorName == sharePointAnchorName) {
-//            // Perform rendering operations asynchronously
-//            DispatchQueue.main.async {
-//                guard let sharedNode = self.sharedNode else {
-//                    return
-//                }
-//
-//                let scene = self.arSceneView.scene as! PenScene
-//                scene.drawingNode.addChildNode(sharedNode)
-//                print("Adding storedNode to sharePointAnchor")
-//            }
-//        }
-        else {
-            print("An unknown ARAnchor has been added!")
-            return
+        }
+        
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        switch anchor {
+        case anchor as ARPlaneAnchor:
+            self.horizontalSurfacePosition = node.worldPosition
+        default:
+            print("A differnt ARAnchor has been updated!")
         }
     }
     
@@ -544,7 +577,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
                             } else {
                                 return true
                             }
-                        })                       
+                        })
                         
                         if scene.write(to: self.sceneSaveURL, options: nil, delegate: nil, progressHandler: nil) {
                             // Handle save if needed
@@ -613,6 +646,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.initialWorldMap = worldMap
+        configuration.planeDetection = .horizontal
         self.arSceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
         isRelocalizingMap = true
@@ -625,7 +659,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     var isRelocalizingMap = false
     
     // Provide feedback and instructions to the user about saving and loading the map and models respectively
-    // TODO: This needs to be updated for sharing 
+    // TODO: This needs to be updated for sharing
     func updateStatusLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
         var message: String = ""
         self.snapshotThumbnail.isHidden = true
@@ -763,8 +797,4 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
 //            print("can't decode data received from \(peer)")
 //        }
 //    }
-}
-
-enum Section {
-    case main
 }

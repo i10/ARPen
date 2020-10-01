@@ -235,3 +235,37 @@ func SCNVector3Project(vectorToProject: SCNVector3, projectionVector: SCNVector3
     return v
 }
 
+extension CGPoint {
+    func length() -> CGFloat {
+        return sqrt(pow(self.x, 2) + pow(self.y, 2))
+    }
+    
+    func toLengthOf(_ length: CGFloat) -> CGPoint {
+        return CGPoint(x: self.x / self.length() * length, y: self.y / self.length() * length)
+    }
+    
+    func distance(_ point: CGPoint) -> CGFloat {
+        return (self - point).length()
+    }
+    
+    func angle() -> CGFloat{
+        if x > 0 && y > 0 { return atan(y / x)}
+        if x > 0 && y < 0 { return atan(y / x) + 2 * .pi}
+        if x < 0 { return atan(y / x) + .pi }
+        if x == 0 && y > 0 { return .pi / 2 }
+        if x == 0 && y < 0 { return 3 * .pi / 2 }
+        else { return 0 }
+    }
+}
+
+func - (left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x - right.x, y: left.y - right.y)
+}
+
+func + (left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x + right.x, y: left.y + right.y)
+}
+
+func * (point: CGPoint, factor: CGFloat) -> CGPoint {
+    return CGPoint(x: point.x * factor, y: point.y * factor)
+}

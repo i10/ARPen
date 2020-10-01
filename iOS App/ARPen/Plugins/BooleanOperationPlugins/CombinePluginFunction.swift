@@ -21,11 +21,10 @@ class CombinePluginFunction: ModelingPlugin {
         super.init()
         
         self.pluginImage = UIImage.init(named: "Bool(Function)")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
         self.pluginIdentifier = "Combine(Function)"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
         
         buttonEvents.didPressButton = self.didPressButton
     }

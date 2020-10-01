@@ -21,12 +21,11 @@ class LoftPlugin: ModelingPlugin {
  
         curveDesigner.didCompletePath = self.didCompletePath
         
-        self.pluginImage = UIImage.init(named: "Loft")
-        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginImage = UIImage.init(named: "ModelingLoftPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingLoftInstructions")
         self.pluginIdentifier = "Loft"
         self.pluginGroupName = "Modeling"
         self.needsBluetoothARPen = false
-        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {

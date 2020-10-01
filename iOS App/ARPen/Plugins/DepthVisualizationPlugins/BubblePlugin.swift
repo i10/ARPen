@@ -15,6 +15,9 @@ class BubblePlugin: MinVisPlugin {
         super.init()
         self.pluginIdentifier = "Bubble"
         self.pluginGroupName = "Depth Visualization"
+        self.pluginImage = UIImage.init(named: "DepthVisualizationBubblePlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "DepthVisualizationBubbleInstructions")
+        
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

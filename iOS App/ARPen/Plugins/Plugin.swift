@@ -13,7 +13,7 @@ import ARKit
  */
 class Plugin: NSObject {
     
-    var pluginImage : UIImage?
+    var pluginImage : UIImage? = UIImage.init(named: "Cross")
     var pluginIdentifier : String = "ARPen Plugin"
     var pluginGroupName : String = "Basic"
     
@@ -37,10 +37,12 @@ class Plugin: NSObject {
     
     var needsBluetoothARPen: Bool = false
     
+    var pluginManager: PluginManager?
+    
     var currentScene : PenScene?
     var currentView : ARSCNView?
     
-    var pluginInstructionsImage: UIImage?
+    var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
     var pluginDisabledImage: UIImage?
     
     /**
