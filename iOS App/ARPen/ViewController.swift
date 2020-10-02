@@ -109,6 +109,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         // Hide plugin instructions
         self.imageForPluginInstructions.isHidden = true
         //self.displayPluginInstructions(forPluginID: currentActivePluginID)
+        //check if it is the first app launch. If so, display the app instructions
+        let userDefaults = UserDefaults.standard
+        if !userDefaults.bool(forKey: "HasLaunchedBefore") {
+            self.imageForPluginInstructions.image = UIImage.init(named: "AppInstructions")
+            self.imageForPluginInstructions.isUserInteractionEnabled = true
+            self.imageForPluginInstructions.alpha = 0.75
+            self.imageForPluginInstructions.isHidden = false
+            
+            userDefaults.set(true, forKey: "HasLaunchedBefore")
+        }
+
         
         // Set the user study record manager reference in the app delegate (for saving state when leaving the app)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
