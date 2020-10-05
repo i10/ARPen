@@ -81,6 +81,8 @@ class ARPenDropTargetNode : SCNNode {
         self.setCorners()
     }
     
+    // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
+    override public class var supportsSecureCoding: Bool { return true }
     required init?(coder aDecoder: NSCoder) {
         let thePosition = SCNVector3Make(0, 0, 0)
         self.originalPosition = thePosition

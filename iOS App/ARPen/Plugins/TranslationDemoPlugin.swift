@@ -11,15 +11,7 @@ import ARKit
 
 class TranslationDemoPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "Move1DemoPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "Move1PluginInstruction")
-    var pluginIdentifier: String = "Move 1"
-    var needsBluetoothARPen: Bool = false
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "TranslationDemoPluginDisabled")
-    var currentScene : PenScene?
-    var currentView: ARSCNView?
-    
-    static var nodeType : ARPenStudyNode.Type = ARPenWireBoxNode.self
+    static var nodeType : ARPenStudyNode.Type = ARPenBoxNode.self
     
     var sceneConstructionResults : (superNode: SCNNode, studyNodes: [ARPenStudyNode])?
     var boxes : [ARPenStudyNode]?
@@ -71,7 +63,17 @@ class TranslationDemoPlugin: Plugin {
     }
     private var dropTargets = [ARPenDropTargetNode(withFloorPosition: SCNVector3Make(0.1238, 0, 0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(-0.1238, 0, 0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(0.1238, 0, -0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(-0.1238, 0, -0.08695))]
     
-    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    override init() {
+        super.init()
+        
+        self.pluginImage = UIImage.init(named: "Move1DemoPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "Move1PluginInstruction")
+        self.pluginIdentifier = "Move 1"
+        self.pluginGroupName = "Manipulation"
+        self.needsBluetoothARPen = false
+    }
+    
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         
         guard let boxes = self.boxes else {return}
         
@@ -213,22 +215,20 @@ class TranslationDemoPlugin: Plugin {
         
     }
     
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
+        super.activatePlugin(withScene: scene, andView: view)
         
-        if (TranslationDemoPlugin.nodeType == ARPenWireBoxNode.self) {
-            TranslationDemoPlugin.nodeType = ARPenBoxNode.self
-        } else {
-            TranslationDemoPlugin.nodeType = ARPenWireBoxNode.self
-        }
-        
-        self.currentScene = scene
-        self.currentView = view
+//        if (TranslationDemoPlugin.nodeType == ARPenWireBoxNode.self) {
+//            TranslationDemoPlugin.nodeType = ARPenBoxNode.self
+//        } else {
+//            TranslationDemoPlugin.nodeType = ARPenWireBoxNode.self
+//        }
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
         
         self.gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        gestureRecognizer?.minimumPressDuration = 0
-        self.currentView?.addGestureRecognizer(gestureRecognizer!)
+        self.gestureRecognizer?.minimumPressDuration = 0
+        self.currentView?.addGestureRecognizer(self.gestureRecognizer!)
         self.currentView?.isUserInteractionEnabled = true
     }
     
@@ -255,15 +255,16 @@ class TranslationDemoPlugin: Plugin {
         self.activeTargetBox = nil
     }
     
-    func deactivatePlugin() {
+    override func deactivatePlugin() {
         self.activeTargetBox = nil
         //_ = self.currentScene?.drawingNode.childNodes.map({$0.removeFromParentNode()})
         if let constructionResults = self.sceneConstructionResults {
             constructionResults.superNode.removeFromParentNode()
             self.sceneConstructionResults = nil
         }
-        self.currentScene = nil
         self.currentView?.superview?.layer.borderWidth = 0.0
-        self.currentView = nil
+        self.currentView?.removeGestureRecognizer(self.gestureRecognizer!)
+        self.gestureRecognizer = nil
+        super.deactivatePlugin()
     }
 }

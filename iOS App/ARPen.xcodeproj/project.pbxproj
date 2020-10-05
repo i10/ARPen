@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A10BFBE251E2C8600950CBE /* ARPenPluginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A10BFBC251E2C8600950CBE /* ARPenPluginTableViewCell.swift */; };
+		4A10BFBF251E2C8600950CBE /* ARPenPluginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A10BFBD251E2C8600950CBE /* ARPenPluginTableViewCell.xib */; };
+		4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27C239FCEA800C4BF75 /* NotificationName.swift */; };
+		4A27E27F239FF36D00C4BF75 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */; };
+		4A27E28123A0F9E300C4BF75 /* SecondButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A27E28023A0F9E300C4BF75 /* SecondButton.xib */; };
 		4A56952F2058186800C8065E /* aruco.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952D2058186800C8065E /* aruco.framework */; };
 		4A5695302058186800C8065E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A56952E2058186800C8065E /* opencv2.framework */; };
 		4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */; };
@@ -18,10 +23,67 @@
 		4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */; };
 		4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */; };
 		4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */; };
+		4AA09F8C24DD508B00B59F9E /* HeatmapPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8724DD508A00B59F9E /* HeatmapPlugin.swift */; };
+		4AA09F8D24DD508B00B59F9E /* ShadowPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8824DD508A00B59F9E /* ShadowPlugin.swift */; };
+		4AA09F8E24DD508B00B59F9E /* BubblePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8924DD508A00B59F9E /* BubblePlugin.swift */; };
+		4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8A24DD508A00B59F9E /* MinVisPlugin.swift */; };
+		4AA09F9024DD508B00B59F9E /* DepthRayPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA09F8B24DD508A00B59F9E /* DepthRayPlugin.swift */; };
+		4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADA23A24A1F003B6E83 /* Util.swift */; };
+		4AAC4AE923A24A20003B6E83 /* ARPSphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */; };
+		4AAC4AEA23A24A20003B6E83 /* ARPGeomNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */; };
+		4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADE23A24A1F003B6E83 /* ARPRevolution.swift */; };
+		4AAC4AEC23A24A20003B6E83 /* ARPBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4ADF23A24A1F003B6E83 /* ARPBox.swift */; };
+		4AAC4AED23A24A20003B6E83 /* ARPNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE023A24A1F003B6E83 /* ARPNode.swift */; };
+		4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE123A24A1F003B6E83 /* ARPSweep.swift */; };
+		4AAC4AEF23A24A20003B6E83 /* ARPCylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE223A24A1F003B6E83 /* ARPCylinder.swift */; };
+		4AAC4AF023A24A20003B6E83 /* ARPLoft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE323A24A20003B6E83 /* ARPLoft.swift */; };
+		4AAC4AF123A24A20003B6E83 /* ARPPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE423A24A20003B6E83 /* ARPPath.swift */; };
+		4AAC4AF223A24A20003B6E83 /* ARPBoolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE523A24A20003B6E83 /* ARPBoolNode.swift */; };
+		4AAC4AF323A24A20003B6E83 /* OCCTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AE723A24A20003B6E83 /* OCCTAPI.swift */; };
+		4AAC4AFA23A24A3F003B6E83 /* ButtonEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF523A24A3F003B6E83 /* ButtonEvents.swift */; };
+		4AAC4AFB23A24A3F003B6E83 /* TaskScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF623A24A3F003B6E83 /* TaskScenes.swift */; };
+		4AAC4AFC23A24A3F003B6E83 /* Arranger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF723A24A3F003B6E83 /* Arranger.swift */; };
+		4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */; };
+		4AAC4AFE23A24A3F003B6E83 /* TaskTimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */; };
+		4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0123A24A6E003B6E83 /* Helpers.mm */; };
+		4AAC4B0B23A24A6E003B6E83 /* Meshing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0323A24A6E003B6E83 /* Meshing.mm */; };
+		4AAC4B0C23A24A6E003B6E83 /* OCCT.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0523A24A6E003B6E83 /* OCCT.mm */; };
+		4AAC4B0D23A24A6E003B6E83 /* Builders.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0623A24A6E003B6E83 /* Builders.mm */; };
+		4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B0923A24A6E003B6E83 /* Registry.mm */; };
+		4AAC4B1323A24C2A003B6E83 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */; };
+		4AAC4B1523A24DF6003B6E83 /* occt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAC4B1423A24DF5003B6E83 /* occt.framework */; };
+		4AAC4B1723A27DFE003B6E83 /* ModelingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1623A27DFE003B6E83 /* ModelingPlugin.swift */; };
+		4AAC4B1923A27FC4003B6E83 /* AllButtonsAndUndo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1823A27FC4003B6E83 /* AllButtonsAndUndo.xib */; };
+		4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */; };
+		4AAC4B1D23A290FE003B6E83 /* SweepPluginTwoProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1C23A290FE003B6E83 /* SweepPluginTwoProfiles.swift */; };
+		4AAC4B1F23A29189003B6E83 /* SweepPluginTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B1E23A29189003B6E83 /* SweepPluginTutorial.swift */; };
+		4AAC4B2123A2949E003B6E83 /* CombinePluginTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */; };
+		4AAC4B2823A37D17003B6E83 /* CombinePluginFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */; };
+		4AAC4B2923A37D17003B6E83 /* LoftPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2323A37D16003B6E83 /* LoftPlugin.swift */; };
+		4AAC4B2A23A37D17003B6E83 /* RevolvePluginTwoProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2423A37D16003B6E83 /* RevolvePluginTwoProfiles.swift */; };
+		4AAC4B2B23A37D17003B6E83 /* CombinePluginSolidHole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */; };
+		4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2623A37D16003B6E83 /* RevolvePluginProfileAndCircle.swift */; };
+		4AAC4B2D23A37D17003B6E83 /* RevolvePluginProfileAndAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC4B2723A37D16003B6E83 /* RevolvePluginProfileAndAxis.swift */; };
+		4AC1F5A02524C0AD002B0A7F /* ARMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5992524C0AB002B0A7F /* ARMenu.swift */; };
+		4AC1F5A12524C0AD002B0A7F /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F59A2524C0AC002B0A7F /* MenuManager.swift */; };
+		4AC1F5A32524C0AD002B0A7F /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F59C2524C0AC002B0A7F /* Menu.swift */; };
+		4AC1F5A42524C0AD002B0A7F /* HapticMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F59D2524C0AC002B0A7F /* HapticMenu.swift */; };
+		4AC1F5A52524C0AD002B0A7F /* MidairPieMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F59E2524C0AC002B0A7F /* MidairPieMenu.swift */; };
+		4AC1F5A62524C0AD002B0A7F /* LinearMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F59F2524C0AD002B0A7F /* LinearMenu.swift */; };
+		4AC1F5A82524C15F002B0A7F /* SelectableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5A72524C15F002B0A7F /* SelectableNode.swift */; };
+		4AC1F5AA2524C1D8002B0A7F /* ARPenPlaneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5A92524C1D8002B0A7F /* ARPenPlaneNode.swift */; };
+		4AC1F5AC2524C817002B0A7F /* MovingCursorMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5AB2524C817002B0A7F /* MovingCursorMenu.swift */; };
+		4AC1F5AF2524D02E002B0A7F /* MenuContentCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5AD2524D02E002B0A7F /* MenuContentCreater.swift */; };
+		4AC1F5B02524D02E002B0A7F /* StudyPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5AE2524D02E002B0A7F /* StudyPlugin.swift */; };
+		4AC1F5B42524D096002B0A7F /* DataRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B32524D096002B0A7F /* DataRecorder.swift */; };
+		4AC1F5BB2524D1BD002B0A7F /* HapticMenuPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B62524D1BC002B0A7F /* HapticMenuPlugin.swift */; };
+		4AC1F5BC2524D1BD002B0A7F /* MovingCursorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B72524D1BC002B0A7F /* MovingCursorPlugin.swift */; };
+		4AC1F5BD2524D1BD002B0A7F /* TwoHandedTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B82524D1BC002B0A7F /* TwoHandedTouch.swift */; };
+		4AC1F5BE2524D1BD002B0A7F /* MidairPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5B92524D1BD002B0A7F /* MidairPlugin.swift */; };
+		4AC1F5BF2524D1BD002B0A7F /* LinearMenuPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1F5BA2524D1BD002B0A7F /* LinearMenuPlugin.swift */; };
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
 		4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */; };
-		AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA935109224245CE002AEB00 /* ARMenusPlugin.swift */; };
-		AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */; };
+		4ACE473324659B450037F9EE /* PositionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACE473224659B450037F9EE /* PositionFilter.swift */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
@@ -42,10 +104,12 @@
 		DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B470200E592C008B77AB /* DegreesToRadians.swift */; };
 		DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */; };
 		DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */; };
-		DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */ = {isa = PBXBuildFile; fileRef = DC28B478200E7E89008B77AB /* MarkerBox.m */; };
+		E906324522E3174B008E320F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906324422E3174B008E320F /* Utilities.swift */; };
+		E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E906324622E31770008E320F /* SnapshotAnchor.swift */; };
 		E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */; };
 		E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */; };
 		E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */; };
+		E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B530622487965A0051C0C3 /* MultipeerSession.swift */; };
 		EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */; };
 		EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */; };
 		EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */; };
@@ -68,6 +132,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A10BFBC251E2C8600950CBE /* ARPenPluginTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPenPluginTableViewCell.swift; sourceTree = "<group>"; };
+		4A10BFBD251E2C8600950CBE /* ARPenPluginTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ARPenPluginTableViewCell.xib; sourceTree = "<group>"; };
+		4A27E27C239FCEA800C4BF75 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
+		4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
+		4A27E28023A0F9E300C4BF75 /* SecondButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondButton.xib; sourceTree = "<group>"; };
 		4A56952D2058186800C8065E /* aruco.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = aruco.framework; sourceTree = "<group>"; };
 		4A56952E2058186800C8065E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStudyIDListTableViewController.swift; sourceTree = "<group>"; };
@@ -79,11 +148,73 @@
 		4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationPlugin.swift; sourceTree = "<group>"; };
 		4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByDraggingPlugin.swift; sourceTree = "<group>"; };
 		4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeByExtractionPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8724DD508A00B59F9E /* HeatmapPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatmapPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8824DD508A00B59F9E /* ShadowPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8924DD508A00B59F9E /* BubblePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblePlugin.swift; sourceTree = "<group>"; };
+		4AA09F8A24DD508A00B59F9E /* MinVisPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinVisPlugin.swift; sourceTree = "<group>"; };
+		4AA09F8B24DD508A00B59F9E /* DepthRayPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthRayPlugin.swift; sourceTree = "<group>"; };
+		4AAC4ADA23A24A1F003B6E83 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPSphere.swift; sourceTree = "<group>"; };
+		4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPGeomNode.swift; sourceTree = "<group>"; };
+		4AAC4ADE23A24A1F003B6E83 /* ARPRevolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPRevolution.swift; sourceTree = "<group>"; };
+		4AAC4ADF23A24A1F003B6E83 /* ARPBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPBox.swift; sourceTree = "<group>"; };
+		4AAC4AE023A24A1F003B6E83 /* ARPNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPNode.swift; sourceTree = "<group>"; };
+		4AAC4AE123A24A1F003B6E83 /* ARPSweep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPSweep.swift; sourceTree = "<group>"; };
+		4AAC4AE223A24A1F003B6E83 /* ARPCylinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPCylinder.swift; sourceTree = "<group>"; };
+		4AAC4AE323A24A20003B6E83 /* ARPLoft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPLoft.swift; sourceTree = "<group>"; };
+		4AAC4AE423A24A20003B6E83 /* ARPPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPPath.swift; sourceTree = "<group>"; };
+		4AAC4AE523A24A20003B6E83 /* ARPBoolNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPBoolNode.swift; sourceTree = "<group>"; };
+		4AAC4AE723A24A20003B6E83 /* OCCTAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCCTAPI.swift; sourceTree = "<group>"; };
+		4AAC4AF523A24A3F003B6E83 /* ButtonEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonEvents.swift; sourceTree = "<group>"; };
+		4AAC4AF623A24A3F003B6E83 /* TaskScenes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScenes.swift; sourceTree = "<group>"; };
+		4AAC4AF723A24A3F003B6E83 /* Arranger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arranger.swift; sourceTree = "<group>"; };
+		4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurveDesigner.swift; sourceTree = "<group>"; };
+		4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimeLogger.swift; sourceTree = "<group>"; };
+		4AAC4B0023A24A6E003B6E83 /* OCCT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCCT.h; sourceTree = "<group>"; };
+		4AAC4B0123A24A6E003B6E83 /* Helpers.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Helpers.mm; sourceTree = "<group>"; };
+		4AAC4B0223A24A6E003B6E83 /* Meshing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meshing.h; sourceTree = "<group>"; };
+		4AAC4B0323A24A6E003B6E83 /* Meshing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Meshing.mm; sourceTree = "<group>"; };
+		4AAC4B0423A24A6E003B6E83 /* Registry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Registry.h; sourceTree = "<group>"; };
+		4AAC4B0523A24A6E003B6E83 /* OCCT.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OCCT.mm; sourceTree = "<group>"; };
+		4AAC4B0623A24A6E003B6E83 /* Builders.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Builders.mm; sourceTree = "<group>"; };
+		4AAC4B0723A24A6E003B6E83 /* Builders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Builders.h; sourceTree = "<group>"; };
+		4AAC4B0823A24A6E003B6E83 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
+		4AAC4B0923A24A6E003B6E83 /* Registry.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Registry.mm; sourceTree = "<group>"; };
+		4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		4AAC4B1423A24DF5003B6E83 /* occt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = occt.framework; path = "../../191016 ARPen + OpenCascade/iOS App/occt.framework"; sourceTree = "<group>"; };
+		4AAC4B1623A27DFE003B6E83 /* ModelingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelingPlugin.swift; sourceTree = "<group>"; };
+		4AAC4B1823A27FC4003B6E83 /* AllButtonsAndUndo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllButtonsAndUndo.xib; sourceTree = "<group>"; };
+		4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweepPluginProfileAndPath.swift; sourceTree = "<group>"; };
+		4AAC4B1C23A290FE003B6E83 /* SweepPluginTwoProfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweepPluginTwoProfiles.swift; sourceTree = "<group>"; };
+		4AAC4B1E23A29189003B6E83 /* SweepPluginTutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweepPluginTutorial.swift; sourceTree = "<group>"; };
+		4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinePluginTutorial.swift; sourceTree = "<group>"; };
+		4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinePluginFunction.swift; sourceTree = "<group>"; };
+		4AAC4B2323A37D16003B6E83 /* LoftPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoftPlugin.swift; sourceTree = "<group>"; };
+		4AAC4B2423A37D16003B6E83 /* RevolvePluginTwoProfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevolvePluginTwoProfiles.swift; sourceTree = "<group>"; };
+		4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinePluginSolidHole.swift; sourceTree = "<group>"; };
+		4AAC4B2623A37D16003B6E83 /* RevolvePluginProfileAndCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevolvePluginProfileAndCircle.swift; sourceTree = "<group>"; };
+		4AAC4B2723A37D16003B6E83 /* RevolvePluginProfileAndAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevolvePluginProfileAndAxis.swift; sourceTree = "<group>"; };
 		4AC0B97D226F2B3F001B591D /* ARPen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARPen.entitlements; sourceTree = "<group>"; };
+		4AC1F5992524C0AB002B0A7F /* ARMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARMenu.swift; sourceTree = "<group>"; };
+		4AC1F59A2524C0AC002B0A7F /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
+		4AC1F59C2524C0AC002B0A7F /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		4AC1F59D2524C0AC002B0A7F /* HapticMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticMenu.swift; sourceTree = "<group>"; };
+		4AC1F59E2524C0AC002B0A7F /* MidairPieMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidairPieMenu.swift; sourceTree = "<group>"; };
+		4AC1F59F2524C0AD002B0A7F /* LinearMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearMenu.swift; sourceTree = "<group>"; };
+		4AC1F5A72524C15F002B0A7F /* SelectableNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableNode.swift; sourceTree = "<group>"; };
+		4AC1F5A92524C1D8002B0A7F /* ARPenPlaneNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenPlaneNode.swift; sourceTree = "<group>"; };
+		4AC1F5AB2524C817002B0A7F /* MovingCursorMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingCursorMenu.swift; sourceTree = "<group>"; };
+		4AC1F5AD2524D02E002B0A7F /* MenuContentCreater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuContentCreater.swift; sourceTree = "<group>"; };
+		4AC1F5AE2524D02E002B0A7F /* StudyPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPlugin.swift; sourceTree = "<group>"; };
+		4AC1F5B32524D096002B0A7F /* DataRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRecorder.swift; sourceTree = "<group>"; };
+		4AC1F5B62524D1BC002B0A7F /* HapticMenuPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticMenuPlugin.swift; sourceTree = "<group>"; };
+		4AC1F5B72524D1BC002B0A7F /* MovingCursorPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovingCursorPlugin.swift; sourceTree = "<group>"; };
+		4AC1F5B82524D1BC002B0A7F /* TwoHandedTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoHandedTouch.swift; sourceTree = "<group>"; };
+		4AC1F5B92524D1BD002B0A7F /* MidairPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidairPlugin.swift; sourceTree = "<group>"; };
+		4AC1F5BA2524D1BD002B0A7F /* LinearMenuPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearMenuPlugin.swift; sourceTree = "<group>"; };
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
-		AA935109224245CE002AEB00 /* ARMenusPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMenusPlugin.swift; sourceTree = "<group>"; };
-		AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMenusSupportFile.swift; sourceTree = "<group>"; };
+		4ACE473224659B450037F9EE /* PositionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionFilter.swift; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,12 +239,13 @@
 		DC28B470200E592C008B77AB /* DegreesToRadians.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreesToRadians.swift; sourceTree = "<group>"; };
 		DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNVector3Extensions.swift; sourceTree = "<group>"; };
 		DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCreationPlugin.swift; sourceTree = "<group>"; };
-		DC28B478200E7E89008B77AB /* MarkerBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkerBox.m; sourceTree = "<group>"; };
-		DC28B479200E7E89008B77AB /* MarkerBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkerBox.h; sourceTree = "<group>"; };
 		DCE5A37E202F504B005F4186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E906324422E3174B008E320F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		E906324622E31770008E320F /* SnapshotAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotAnchor.swift; sourceTree = "<group>"; };
 		E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderByDraggingPlugin.swift; sourceTree = "<group>"; };
 		E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyramidByDraggingPlugin.swift; sourceTree = "<group>"; };
+		E9B530622487965A0051C0C3 /* MultipeerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerSession.swift; sourceTree = "<group>"; };
 		EA0C795922F078EE00E820E8 /* ARPenStudyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenStudyNode.swift; sourceTree = "<group>"; };
 		EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenSceneConstructor.swift; sourceTree = "<group>"; };
 		EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPenGridSceneConstructor.swift; sourceTree = "<group>"; };
@@ -127,6 +259,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AAC4B1523A24DF6003B6E83 /* occt.framework in Frameworks */,
 				4A56952F2058186800C8065E /* aruco.framework in Frameworks */,
 				4A5695302058186800C8065E /* opencv2.framework in Frameworks */,
 			);
@@ -135,6 +268,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A27E28223A1032400C4BF75 /* PluginUIs */ = {
+			isa = PBXGroup;
+			children = (
+				4A27E28023A0F9E300C4BF75 /* SecondButton.xib */,
+				4AAC4B1823A27FC4003B6E83 /* AllButtonsAndUndo.xib */,
+			);
+			path = PluginUIs;
+			sourceTree = "<group>";
+		};
 		4A4B7F1B205817A200331810 /* SettingsViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,13 +294,150 @@
 				4A56953620581B4500C8065E /* UserStudyRecord.swift */,
 				4A56953820581B6700C8065E /* UserStudyRecordManager.swift */,
 				4A56953A20581B9000C8065E /* UserStudyRecordPluginProtocol.swift */,
+				4AC1F5B32524D096002B0A7F /* DataRecorder.swift */,
 			);
 			path = UserStudyData;
+			sourceTree = "<group>";
+		};
+		4AA09F8624DD504600B59F9E /* DepthVisualizationPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AA09F8A24DD508A00B59F9E /* MinVisPlugin.swift */,
+				4AA09F8B24DD508A00B59F9E /* DepthRayPlugin.swift */,
+				4AA09F8924DD508A00B59F9E /* BubblePlugin.swift */,
+				4AA09F8824DD508A00B59F9E /* ShadowPlugin.swift */,
+				4AA09F8724DD508A00B59F9E /* HeatmapPlugin.swift */,
+			);
+			path = DepthVisualizationPlugins;
+			sourceTree = "<group>";
+		};
+		4AAC4AD923A24A1F003B6E83 /* Modeling */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4ADA23A24A1F003B6E83 /* Util.swift */,
+				4AAC4ADB23A24A1F003B6E83 /* GeometryNodes */,
+				4AAC4AE623A24A20003B6E83 /* OCCTAPI */,
+			);
+			path = Modeling;
+			sourceTree = "<group>";
+		};
+		4AAC4ADB23A24A1F003B6E83 /* GeometryNodes */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4ADC23A24A1F003B6E83 /* ARPSphere.swift */,
+				4AAC4ADD23A24A1F003B6E83 /* ARPGeomNode.swift */,
+				4AAC4ADE23A24A1F003B6E83 /* ARPRevolution.swift */,
+				4AAC4ADF23A24A1F003B6E83 /* ARPBox.swift */,
+				4AAC4AE023A24A1F003B6E83 /* ARPNode.swift */,
+				4AAC4AE123A24A1F003B6E83 /* ARPSweep.swift */,
+				4AAC4AE223A24A1F003B6E83 /* ARPCylinder.swift */,
+				4AAC4AE323A24A20003B6E83 /* ARPLoft.swift */,
+				4AAC4AE423A24A20003B6E83 /* ARPPath.swift */,
+				4AAC4AE523A24A20003B6E83 /* ARPBoolNode.swift */,
+			);
+			path = GeometryNodes;
+			sourceTree = "<group>";
+		};
+		4AAC4AE623A24A20003B6E83 /* OCCTAPI */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4AE723A24A20003B6E83 /* OCCTAPI.swift */,
+			);
+			path = OCCTAPI;
+			sourceTree = "<group>";
+		};
+		4AAC4AF423A24A3F003B6E83 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				4AC1F5B52524D161002B0A7F /* ARMenuHelper */,
+				4AAC4AF523A24A3F003B6E83 /* ButtonEvents.swift */,
+				4AAC4AF623A24A3F003B6E83 /* TaskScenes.swift */,
+				4AAC4AF723A24A3F003B6E83 /* Arranger.swift */,
+				4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */,
+				4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		4AAC4AFF23A24A6E003B6E83 /* Open CASCADE */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B0023A24A6E003B6E83 /* OCCT.h */,
+				4AAC4B0123A24A6E003B6E83 /* Helpers.mm */,
+				4AAC4B0223A24A6E003B6E83 /* Meshing.h */,
+				4AAC4B0323A24A6E003B6E83 /* Meshing.mm */,
+				4AAC4B0423A24A6E003B6E83 /* Registry.h */,
+				4AAC4B0523A24A6E003B6E83 /* OCCT.mm */,
+				4AAC4B0623A24A6E003B6E83 /* Builders.mm */,
+				4AAC4B0723A24A6E003B6E83 /* Builders.h */,
+				4AAC4B0823A24A6E003B6E83 /* Helpers.h */,
+				4AAC4B0923A24A6E003B6E83 /* Registry.mm */,
+			);
+			path = "Open CASCADE";
+			sourceTree = "<group>";
+		};
+		4AAC4B2E23A37D3D003B6E83 /* SweepPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B1E23A29189003B6E83 /* SweepPluginTutorial.swift */,
+				4AAC4B1A23A28600003B6E83 /* SweepPluginProfileAndPath.swift */,
+				4AAC4B1C23A290FE003B6E83 /* SweepPluginTwoProfiles.swift */,
+			);
+			path = SweepPlugins;
+			sourceTree = "<group>";
+		};
+		4AAC4B2F23A37D5E003B6E83 /* RevolvePlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B2723A37D16003B6E83 /* RevolvePluginProfileAndAxis.swift */,
+				4AAC4B2623A37D16003B6E83 /* RevolvePluginProfileAndCircle.swift */,
+				4AAC4B2423A37D16003B6E83 /* RevolvePluginTwoProfiles.swift */,
+			);
+			path = RevolvePlugins;
+			sourceTree = "<group>";
+		};
+		4AAC4B3023A37D6F003B6E83 /* BooleanOperationPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */,
+				4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */,
+				4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */,
+			);
+			path = BooleanOperationPlugins;
+			sourceTree = "<group>";
+		};
+		4AC1F5982524B317002B0A7F /* ARMenus */ = {
+			isa = PBXGroup;
+			children = (
+				4AC1F5AE2524D02E002B0A7F /* StudyPlugin.swift */,
+				4AC1F5B62524D1BC002B0A7F /* HapticMenuPlugin.swift */,
+				4AC1F5BA2524D1BD002B0A7F /* LinearMenuPlugin.swift */,
+				4AC1F5B92524D1BD002B0A7F /* MidairPlugin.swift */,
+				4AC1F5B72524D1BC002B0A7F /* MovingCursorPlugin.swift */,
+				4AC1F5B82524D1BC002B0A7F /* TwoHandedTouch.swift */,
+			);
+			path = ARMenus;
+			sourceTree = "<group>";
+		};
+		4AC1F5B52524D161002B0A7F /* ARMenuHelper */ = {
+			isa = PBXGroup;
+			children = (
+				4AC1F5AD2524D02E002B0A7F /* MenuContentCreater.swift */,
+				4AC1F5992524C0AB002B0A7F /* ARMenu.swift */,
+				4AC1F59D2524C0AC002B0A7F /* HapticMenu.swift */,
+				4AC1F59F2524C0AD002B0A7F /* LinearMenu.swift */,
+				4AC1F59C2524C0AC002B0A7F /* Menu.swift */,
+				4AC1F59A2524C0AC002B0A7F /* MenuManager.swift */,
+				4AC1F59E2524C0AC002B0A7F /* MidairPieMenu.swift */,
+				4AC1F5AB2524C817002B0A7F /* MovingCursorMenu.swift */,
+			);
+			path = ARMenuHelper;
 			sourceTree = "<group>";
 		};
 		DC18B2B820237A7200884920 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AAC4B1423A24DF5003B6E83 /* occt.framework */,
 				4A56952D2058186800C8065E /* aruco.framework */,
 				4A56952E2058186800C8065E /* opencv2.framework */,
 			);
@@ -189,19 +468,22 @@
 				4AC0B97D226F2B3F001B591D /* ARPen.entitlements */,
 				DC28B43F200E4353008B77AB /* AppDelegate.swift */,
 				DC28B443200E4353008B77AB /* ViewController.swift */,
+				E906324622E31770008E320F /* SnapshotAnchor.swift */,
+				E9B530622487965A0051C0C3 /* MultipeerSession.swift */,
 				4A4B7F1B205817A200331810 /* SettingsViewControllers */,
 				DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */,
 				DC28B464200E4825008B77AB /* PenScene.swift */,
 				DC28B453200E4389008B77AB /* ARManager.swift */,
 				DC28B45E200E4561008B77AB /* PenManager.swift */,
-				DC28B46A200E4C78008B77AB /* Button.swift */,
 				DC28B46C200E4E6E008B77AB /* MarkerBox.swift */,
 				DC28B462200E471F008B77AB /* PluginManager.swift */,
 				DC28B476200E64C0008B77AB /* Plugins */,
+				4AAC4AD923A24A1F003B6E83 /* Modeling */,
 				4A56953520581AF300C8065E /* UserStudyData */,
 				EA0C795822F0787300E820E8 /* UserStudySetup */,
-				DC28B477200E6640008B77AB /* Extensions */,
+				DC28B477200E6640008B77AB /* Extensions And Helpers */,
 				DC28B45D200E4476008B77AB /* OpenCV */,
+				4AAC4AFF23A24A6E003B6E83 /* Open CASCADE */,
 				DC28B445200E4353008B77AB /* Main.storyboard */,
 				DC28B448200E4353008B77AB /* Assets.xcassets */,
 				DC28B441200E4353008B77AB /* art.scnassets */,
@@ -215,8 +497,6 @@
 		DC28B45D200E4476008B77AB /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
-				DC28B479200E7E89008B77AB /* MarkerBox.h */,
-				DC28B478200E7E89008B77AB /* MarkerBox.m */,
 				DC28B45A200E4470008B77AB /* OpenCVWrapper.h */,
 				DC28B45B200E4470008B77AB /* OpenCVWrapper.mm */,
 			);
@@ -231,31 +511,48 @@
 				DC28B474200E64B7008B77AB /* ObjectCreationPlugin.swift */,
 				4A895F092052791100CC2C8E /* CubeByDraggingPlugin.swift */,
 				4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */,
-				AA935109224245CE002AEB00 /* ARMenusPlugin.swift */,
+				4AC1F5982524B317002B0A7F /* ARMenus */,
 				4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */,
 				4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */,
 				E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */,
 				E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */,
 				E983D24922ABFE680000B8D5 /* PyramidByDraggingPlugin.swift */,
+				4AAC4B1623A27DFE003B6E83 /* ModelingPlugin.swift */,
+				4AAC4B2E23A37D3D003B6E83 /* SweepPlugins */,
+				4AAC4B2323A37D16003B6E83 /* LoftPlugin.swift */,
+				4AAC4B2F23A37D5E003B6E83 /* RevolvePlugins */,
+				4AAC4B3023A37D6F003B6E83 /* BooleanOperationPlugins */,
+				4AA09F8624DD504600B59F9E /* DepthVisualizationPlugins */,
+				4A27E28223A1032400C4BF75 /* PluginUIs */,
+				4AAC4AF423A24A3F003B6E83 /* Util */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
 		};
-		DC28B477200E6640008B77AB /* Extensions */ = {
+		DC28B477200E6640008B77AB /* Extensions And Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				DC28B46A200E4C78008B77AB /* Button.swift */,
+				4AC1F5A72524C15F002B0A7F /* SelectableNode.swift */,
 				DC28B468200E4C43008B77AB /* CylinderLine.swift */,
 				DC28B472200E6025008B77AB /* SCNVector3Extensions.swift */,
 				DC28B470200E592C008B77AB /* DegreesToRadians.swift */,
-				AA93510B2242460D002AEB00 /* ARMenusSupportFile.swift */,
+				E906324422E3174B008E320F /* Utilities.swift */,
+				4A27E27C239FCEA800C4BF75 /* NotificationName.swift */,
+				4A27E27E239FF36D00C4BF75 /* PassthroughView.swift */,
+				4AAC4B1223A24C29003B6E83 /* DateExtensions.swift */,
+				4ACE473224659B450037F9EE /* PositionFilter.swift */,
+				4A10BFBC251E2C8600950CBE /* ARPenPluginTableViewCell.swift */,
+				4A10BFBD251E2C8600950CBE /* ARPenPluginTableViewCell.xib */,
 			);
-			path = Extensions;
+			path = "Extensions And Helpers";
 			sourceTree = "<group>";
 		};
 		EA0C795822F0787300E820E8 /* UserStudySetup */ = {
 			isa = PBXGroup;
 			children = (
 				EA0C795E22F078EE00E820E8 /* ARPenBoxNode.swift */,
+				4AC1F5A92524C1D8002B0A7F /* ARPenPlaneNode.swift */,
 				EA0C795D22F078EE00E820E8 /* ARPenDropTargetNode.swift */,
 				EA0C795B22F078EE00E820E8 /* ARPenGridSceneConstructor.swift */,
 				EA0C795A22F078EE00E820E8 /* ARPenSceneConstructor.swift */,
@@ -272,6 +569,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC28B450200E4353008B77AB /* Build configuration list for PBXNativeTarget "ARPen" */;
 			buildPhases = (
+				4AAC4B1123A24B1C003B6E83 /* ShellScript */,
 				DC28B438200E4353008B77AB /* Sources */,
 				DC28B439200E4353008B77AB /* Frameworks */,
 				DC28B43A200E4353008B77AB /* Resources */,
@@ -293,12 +591,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "RWTH Aachen";
 				TargetAttributes = {
 					DC28B43B200E4353008B77AB = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.iCloud = {
@@ -332,58 +630,141 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC28B442200E4353008B77AB /* art.scnassets in Resources */,
+				4A27E28123A0F9E300C4BF75 /* SecondButton.xib in Resources */,
 				DC28B44C200E4353008B77AB /* LaunchScreen.storyboard in Resources */,
 				DC28B449200E4353008B77AB /* Assets.xcassets in Resources */,
+				4A10BFBF251E2C8600950CBE /* ARPenPluginTableViewCell.xib in Resources */,
+				4AAC4B1923A27FC4003B6E83 /* AllButtonsAndUndo.xib in Resources */,
 				DC28B447200E4353008B77AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4AAC4B1123A24B1C003B6E83 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ ! -d \"${PROJECT_DIR}/occt.framework\" ]; then\n    # Re-assemble the split zip archive\n    for i in `ls \"${PROJECT_DIR}/Open CASCADE\" | sort -V`; do cat \"${PROJECT_DIR}/Open CASCADE/$i\" >> \"${PROJECT_DIR}/occt.framework.zip\"; done;\n    # Unzip\n    unzip \"${PROJECT_DIR}/occt.framework.zip\"\n    # Remove assembled version\n    rm \"${PROJECT_DIR}/occt.framework.zip\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DC28B438200E4353008B77AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AAC4B0C23A24A6E003B6E83 /* OCCT.mm in Sources */,
 				DC28B461200E46DC008B77AB /* Plugin.swift in Sources */,
+				4ACE473324659B450037F9EE /* PositionFilter.swift in Sources */,
 				E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */,
+				4AC1F5BF2524D1BD002B0A7F /* LinearMenuPlugin.swift in Sources */,
 				EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */,
 				4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */,
+				4AAC4B0D23A24A6E003B6E83 /* Builders.mm in Sources */,
 				4A895F0A2052791100CC2C8E /* CubeByDraggingPlugin.swift in Sources */,
-				DC28B47A200E7E8A008B77AB /* MarkerBox.m in Sources */,
+				4AAC4AFB23A24A3F003B6E83 /* TaskScenes.swift in Sources */,
 				4A5695342058195200C8065E /* UserStudyRecordsListTableViewController.swift in Sources */,
+				4AA09F8C24DD508B00B59F9E /* HeatmapPlugin.swift in Sources */,
+				4AC1F5AA2524C1D8002B0A7F /* ARPenPlaneNode.swift in Sources */,
 				DC28B45F200E4561008B77AB /* PenManager.swift in Sources */,
 				EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */,
+				4A10BFBE251E2C8600950CBE /* ARPenPluginTableViewCell.swift in Sources */,
+				4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */,
 				4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */,
+				4AC1F5BE2524D1BD002B0A7F /* MidairPlugin.swift in Sources */,
+				4AAC4AF123A24A20003B6E83 /* ARPPath.swift in Sources */,
+				4AAC4B2B23A37D17003B6E83 /* CombinePluginSolidHole.swift in Sources */,
+				4AAC4B1323A24C2A003B6E83 /* DateExtensions.swift in Sources */,
+				4AC1F5B42524D096002B0A7F /* DataRecorder.swift in Sources */,
 				DC28B465200E4825008B77AB /* PenScene.swift in Sources */,
 				4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */,
+				4AAC4AEC23A24A20003B6E83 /* ARPBox.swift in Sources */,
+				4AC1F5A52524C0AD002B0A7F /* MidairPieMenu.swift in Sources */,
+				4A27E27F239FF36D00C4BF75 /* PassthroughView.swift in Sources */,
+				4AAC4B2823A37D17003B6E83 /* CombinePluginFunction.swift in Sources */,
 				DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */,
 				E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */,
-				AA93510A224245CE002AEB00 /* ARMenusPlugin.swift in Sources */,
+				4AC1F5A82524C15F002B0A7F /* SelectableNode.swift in Sources */,
+				4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */,
+				4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */,
+				4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */,
+				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
+				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
+				4AA09F8D24DD508B00B59F9E /* ShadowPlugin.swift in Sources */,
+				E906324522E3174B008E320F /* Utilities.swift in Sources */,
+				E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
+				4AC1F5BC2524D1BD002B0A7F /* MovingCursorPlugin.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
-				AA93510C2242460D002AEB00 /* ARMenusSupportFile.swift in Sources */,
+				E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */,
+				4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */,
+				4AAC4B1723A27DFE003B6E83 /* ModelingPlugin.swift in Sources */,
+				4AAC4AEF23A24A20003B6E83 /* ARPCylinder.swift in Sources */,
+				4AAC4B1F23A29189003B6E83 /* SweepPluginTutorial.swift in Sources */,
+				4AC1F5AF2524D02E002B0A7F /* MenuContentCreater.swift in Sources */,
+				4AC1F5A42524C0AD002B0A7F /* HapticMenu.swift in Sources */,
+				4AAC4B2A23A37D17003B6E83 /* RevolvePluginTwoProfiles.swift in Sources */,
+				4AAC4AF323A24A20003B6E83 /* OCCTAPI.swift in Sources */,
+				4AC1F5AC2524C817002B0A7F /* MovingCursorMenu.swift in Sources */,
+				4AA09F9024DD508B00B59F9E /* DepthRayPlugin.swift in Sources */,
+				4AAC4B2123A2949E003B6E83 /* CombinePluginTutorial.swift in Sources */,
+				4AC1F5A02524C0AD002B0A7F /* ARMenu.swift in Sources */,
+				4AC1F5BD2524D1BD002B0A7F /* TwoHandedTouch.swift in Sources */,
+				4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */,
+				4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */,
 				EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */,
+				4AAC4AE923A24A20003B6E83 /* ARPSphere.swift in Sources */,
+				4AAC4AFE23A24A3F003B6E83 /* TaskTimeLogger.swift in Sources */,
+				4AAC4B2923A37D17003B6E83 /* LoftPlugin.swift in Sources */,
+				4AAC4AFA23A24A3F003B6E83 /* ButtonEvents.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,
 				4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */,
 				4A56953720581B4500C8065E /* UserStudyRecord.swift in Sources */,
+				4AAC4AF023A24A20003B6E83 /* ARPLoft.swift in Sources */,
 				DC28B475200E64B7008B77AB /* ObjectCreationPlugin.swift in Sources */,
+				4AAC4B0B23A24A6E003B6E83 /* Meshing.mm in Sources */,
 				DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */,
+				4AAC4AEA23A24A20003B6E83 /* ARPGeomNode.swift in Sources */,
 				DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */,
 				DC28B463200E471F008B77AB /* PluginManager.swift in Sources */,
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
+				4AC1F5BB2524D1BD002B0A7F /* HapticMenuPlugin.swift in Sources */,
 				E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */,
 				EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */,
 				4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */,
 				DC28B46B200E4C78008B77AB /* Button.swift in Sources */,
+				4AAC4AED23A24A20003B6E83 /* ARPNode.swift in Sources */,
+				4AAC4B2D23A37D17003B6E83 /* RevolvePluginProfileAndAxis.swift in Sources */,
+				4AC1F5A12524C0AD002B0A7F /* MenuManager.swift in Sources */,
 				EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */,
+				4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */,
+				4AC1F5A32524C0AD002B0A7F /* Menu.swift in Sources */,
+				4AC1F5A62524C0AD002B0A7F /* LinearMenu.swift in Sources */,
+				4AA09F8E24DD508B00B59F9E /* BubblePlugin.swift in Sources */,
+				4AAC4AFC23A24A3F003B6E83 /* Arranger.swift in Sources */,
+				4AC1F5B02524D02E002B0A7F /* StudyPlugin.swift in Sources */,
 				DC28B471200E592C008B77AB /* DegreesToRadians.swift in Sources */,
+				4AAC4B1D23A290FE003B6E83 /* SweepPluginTwoProfiles.swift in Sources */,
+				4AAC4AF223A24A20003B6E83 /* ARPBoolNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +804,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -430,6 +812,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -480,6 +863,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -487,6 +871,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -523,19 +908,21 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44GTV4NJA9;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -547,18 +934,20 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44GTV4NJA9;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ARPen",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.ARPenApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

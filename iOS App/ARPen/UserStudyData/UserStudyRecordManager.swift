@@ -78,6 +78,13 @@ class UserStudyRecordManager : NSObject{
         self.userStudyData[id]?.remove(at: position)
     }
     
+    func deleteLastRecord(forID id: Int){
+        guard let size: Int = self.userStudyData[id]?.count else { return }
+        if size > 0 {
+            self.userStudyData[id]?.remove(at: size - 1)
+        }
+    }
+    
     //data export methods
     
     //try to create and store a plist file of current user study data. If successfull, return url to the created file

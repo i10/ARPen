@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ARPenStudyNode : SCNNode {
+class ARPenStudyNode : SelectableNode {
     //position and corners are in world coordinates
     let dimension : Float
     
@@ -18,7 +18,7 @@ class ARPenStudyNode : SCNNode {
     var highlighted : Bool = false {
         didSet {
             if highlighted {
-                self.geometry?.firstMaterial?.emission.intensity = 1.0
+                self.geometry?.firstMaterial?.emission.intensity = 0.5
             } else {
                 self.geometry?.firstMaterial?.emission.intensity = 0.0
             }
@@ -27,13 +27,26 @@ class ARPenStudyNode : SCNNode {
     
     var isActiveTarget = false {
         didSet {
-            if self.isActiveTarget {
-                self.geometry?.firstMaterial?.diffuse.contents = UIColor.green
-                self.geometry?.firstMaterial?.emission.contents = UIColor.yellow
-            } else {
-                self.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-                self.geometry?.firstMaterial?.emission.contents = UIColor.white
-            }
+            changeColors()
+        }
+    }
+    
+    var inTrialState = false {
+        didSet {
+            changeColors()
+        }
+    }
+    
+    func changeColors(){
+        if self.isActiveTarget {
+            self.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+            self.geometry?.firstMaterial?.emission.contents = UIColor.yellow
+        } else if self.inTrialState {
+            self.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
+            self.geometry?.firstMaterial?.emission.contents = UIColor.magenta
+        } else {
+            self.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+            self.geometry?.firstMaterial?.emission.contents = UIColor.white
         }
     }
     
@@ -47,6 +60,8 @@ class ARPenStudyNode : SCNNode {
         self.position = thePosition
     }
     
+    // the following property is needed since initWithCoder is overwritten in this class. Since no decoding happens in the function and the decoding is passed on to the superclass, this class supports secure coding as well.
+    override public class var supportsSecureCoding: Bool { return true }
     required init?(coder aDecoder: NSCoder) {
         self.dimension = 0.0
         let thePosition = SCNVector3Make(0, 0, 0)
@@ -78,5 +93,21 @@ class ARPenStudyNode : SCNNode {
     
     func isPointInside(point : SCNVector3) -> Bool {
         return false
+    }
+    
+    func setShaderModifier(shaderModifiers : [SCNShaderModifierEntryPoint : String]) {
+        self.geometry?.shaderModifiers = shaderModifiers
+        
+        self.childNodes.forEach({
+            $0.geometry?.shaderModifiers = shaderModifiers
+        })
+    }
+    
+    func setShaderArgument(name : String, value : Float) {
+        self.geometry?.firstMaterial?.setValue(value, forKey: name)
+        
+        self.childNodes.forEach({
+            $0.geometry?.firstMaterial?.setValue(value, forKey: name)
+        })
     }
 }

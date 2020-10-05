@@ -2,7 +2,7 @@
 
 Ever wanted to 3d print a dock for your phone? Or maybe a coffee cup holder that can be attached next to your car dashboard? If so, you would have to measure the dimensions of your phone and dashboard, construct 3d models using CAD-like software, convert these models to appropriate format, and print them in 3d. As you can see, this is an arduous process.
 
-ARPen is an iOS app that allows you to use a mobile pen to perform free-hand 3D modeling _directly in the real world_. The app uses the in-built iPhone camera to do the tracking. ARPen uses the ARKit framework to track a special 3D-printed pen, called ARPen, in 3D. Instructions to build this pen can be found *below*.  
+ARPen is an [iOS app][8] that allows you to use a mobile pen to perform free-hand 3D modeling _directly in the real world_. The app uses the in-built iPhone camera to do the tracking. ARPen uses the ARKit framework to track a special 3D-printed pen, called ARPen, in 3D. Instructions to build this pen can be found *below*.  
 
 This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).  
 
@@ -30,13 +30,13 @@ You can 3D print the whole ARPen on your own. The 3d models can be found under t
 6. Place the chip and battery inside the box, and then glue the pen to the box. _Remember_ to disconnect the battery after using ARPen for sketching or modeling!
 
 ## 2. Using the iOS App
-You can build the ARPen iOS app like every other iOS project.  
+You can install [the ARPen iOS app][8] like every other iOS app. Developers can run the Xcode project in this repository like any other iOS project.   
 
 ----
 
 # Interested in Contributing to ARPen?
 
-Feel free to [submit pull requests][3], [create issues][2] or spread the word. Also take a look at our [developer guide][7].
+Feel free to [submit pull requests][3], [create issues][2] and spread the word! Please have a look at our [developer guide][7].
 
 [1]: https://redbear.cc/product/ble-nano-2.html "RedBear Nano v2"
 [2]: https://github.com/i10/ARPen/issues/new "Add an issue"
@@ -45,6 +45,7 @@ Feel free to [submit pull requests][3], [create issues][2] or spread the word. A
 [5]: https://github.com/redbear/nRF5x/blob/master/nRF52832/docs/Arduino_Board_Package_Installation_Guide.md "Arduino Board Package Installation Guide"
 [6]: https://www.sparkfun.com/products/13853 "Lithium-Ion Battery"
 [7]: https://github.com/i10/ARPen/wiki/Developing-for-ARPen "Developing for ARPen"
+[8]: https://hci.rwth-aachen.de/arpen-ios "The ARPen iOS App"
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons"
 [image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20setup.png "Bluetooth Setup"

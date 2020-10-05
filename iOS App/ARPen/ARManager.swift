@@ -10,7 +10,6 @@ import ARKit
 
 
 protocol ARManagerDelegate {
-    func didChangeTrackingState(cam: ARCamera)
     func finishedCalculation()
 }
 
@@ -29,15 +28,20 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
         self.opencvWrapper = OpenCVWrapper()
         super.init()
         self.opencvWrapper.delegate = self
-        
     }
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        self.delegate?.didChangeTrackingState(cam: camera)
+        // create a dictionary literal to pass currentFrame and trackingState
+        let informationPackage: [String : Any] = ["currentFrame": session.currentFrame!, "trackingState": camera.trackingState]
+        NotificationCenter.default.post(name: .cameraDidChangeTrackingState, object: nil, userInfo: informationPackage)
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         self.opencvWrapper.findMarker(frame.capturedImage, withCameraIntrinsics: frame.camera.intrinsics, cameraSize: frame.camera.imageResolution)
+        
+        // create a dictionary literal to pass frame and trackingState
+        let informationPackage: [String : Any] = ["frame": frame, "trackingState": frame.camera.trackingState]
+        NotificationCenter.default.post(name: .sessionDidUpdate, object: nil, userInfo: informationPackage)
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
@@ -50,7 +54,6 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
     
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
     }
     
     // MARK: - OpenCVWrapperDelegate
@@ -76,7 +79,9 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
         }
         scene.markerFound = true
         //self.scene.pencilPoint.position = self.scene.markerBox.position(withIds: UnsafeMutablePointer(mutating: ids), count: Int32(ids.count))
-        scene.pencilPoint.position = scene.markerBox.posititonWith(ids: ids)
+        let markerBoxNode = scene.markerBox.positionWith(ids: ids)
+        scene.pencilPoint.transform = markerBoxNode.transform
+        
         
         self.delegate?.finishedCalculation()
     }

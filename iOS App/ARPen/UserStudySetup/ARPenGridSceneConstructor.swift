@@ -45,7 +45,7 @@ struct ARPenGridSceneConstructor : ARPenSceneConstructor {
                 
                 for _ in 0...cubesPerDimension {
                     
-                    let dimensionOfBox = 0.03
+                    let dimensionOfBox = 0.03 //+ Double(Int.random(in: 0 ... 1)) * 0.01
                     let range = (-0.025, 0.025)
                     
                     let randomDoubleForX = drand48()

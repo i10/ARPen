@@ -11,14 +11,6 @@ import ARKit
 
 class PaintPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "PaintPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "PaintPluginInstructions")
-    var pluginIdentifier: String = "Draw"
-    var needsBluetoothARPen: Bool = false
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
-    var currentScene : PenScene?
-    var currentView: ARSCNView?
-
     var penColor: UIColor = UIColor.init(red: 0.73, green: 0.12157, blue: 0.8, alpha: 1)
     /**
      The previous point is the point of the pencil one frame before.
@@ -30,8 +22,19 @@ class PaintPlugin: Plugin {
     private var currentLine : [SCNNode]?
     private var removedOneLine = false
     
+    
+    override init() {
+        super.init()
+        
+        self.pluginImage = UIImage.init(named: "PaintPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "PaintPluginInstructions")
+        self.pluginIdentifier = "Draw"
+        self.needsBluetoothARPen = false
+        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
+    }
+    
     func undoPreviousAction() {
-        if (self.previousDrawnLineNodes!.count > 0) {
+        if (self.previousDrawnLineNodes?.count ?? 0 > 0) {
             let lastLine = self.previousDrawnLineNodes?.last
             
             self.previousDrawnLineNodes?.removeLast()
@@ -43,7 +46,7 @@ class PaintPlugin: Plugin {
         }
     }
     
-    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
             //Don't reset the previous point to avoid disconnected lines if the marker detection failed for some frames
             //self.previousPoint = nil
@@ -84,16 +87,9 @@ class PaintPlugin: Plugin {
         
     }
     
-    
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        self.currentScene = scene
-        self.currentView = view
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+        super.activatePlugin(withScene: scene, andView: view)
         previousDrawnLineNodes = [[SCNNode]]()
-    }
-    
-    func deactivatePlugin() {
-        self.currentScene = nil
-        self.currentView = nil
     }
     
 }

@@ -11,14 +11,6 @@ import ARKit
 
 class CombinationPlugin: Plugin {
     
-    var pluginImage : UIImage? = UIImage.init(named: "Move2DemoPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "Move2PluginInstruction")
-    var pluginIdentifier: String = "Move 2"
-    var needsBluetoothARPen: Bool = true
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "TranslationDemoPluginDisabled")
-    var currentScene : PenScene?
-    var currentView: ARSCNView?
-    
     var sceneConstructionResults : (superNode: SCNNode, studyNodes: [ARPenStudyNode])?
     var boxes : [ARPenBoxNode]?
     var activeTargetBox : ARPenBoxNode? {
@@ -68,7 +60,18 @@ class CombinationPlugin: Plugin {
     }
     private var dropTargets = [ARPenDropTargetNode(withFloorPosition: SCNVector3Make(0.1238, 0, 0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(-0.1238, 0, 0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(0.1238, 0, -0.08695)), ARPenDropTargetNode(withFloorPosition: SCNVector3Make(-0.1238, 0, -0.08695))]
     
-    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    override init() {
+        super.init()
+        
+        self.pluginImage = UIImage.init(named: "Move2DemoPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "Move2PluginInstruction")
+        self.pluginIdentifier = "Move 2"
+        self.pluginGroupName = "Manipulation"
+        self.needsBluetoothARPen = true
+        self.pluginDisabledImage = UIImage.init(named: "TranslationDemoPluginDisabled")
+    }
+    
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         
         guard scene.markerFound else {
             //self.previousPoint = nil
@@ -201,10 +204,9 @@ class CombinationPlugin: Plugin {
     }
     
     
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
         
-        self.currentScene = scene
-        self.currentView = view
+        super.activatePlugin(withScene: scene, andView: view)
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
         
@@ -243,21 +245,20 @@ class CombinationPlugin: Plugin {
     
     
     
-    func deactivatePlugin() {
+    override func deactivatePlugin() {
         self.activeTargetBox = nil
         //_ = self.currentScene?.drawingNode.childNodes.map({$0.removeFromParentNode()})
         if let constructionResults = self.sceneConstructionResults {
             constructionResults.superNode.removeFromParentNode()
             self.sceneConstructionResults = nil
         }
-        self.currentScene = nil
         self.currentView?.superview?.layer.borderWidth = 0.0
         
         if let gestureRecognizer = self.gestureRecognizer {
             self.currentView?.removeGestureRecognizer(gestureRecognizer)
         }
         
-        self.currentView = nil
+        super.deactivatePlugin()
     }
     
 }

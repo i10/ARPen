@@ -13,21 +13,22 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
     //reference to userStudyRecordManager to add new records
     var recordManager: UserStudyRecordManager!
     
-    var pluginImage : UIImage? = UIImage.init(named: "PyramidPlugin")
-    var pluginInstructionsImage: UIImage? = UIImage.init(named: "PyramidPluginInstructions")
-    var pluginIdentifier: String = "Pyramid"
-    var needsBluetoothARPen: Bool = false
-    var pluginDisabledImage: UIImage? = UIImage.init(named: "ARMenusPluginDisabled")
-    var currentScene : PenScene?
-    var currentView: ARSCNView?
-    
     /**
      The starting point is the point of the pencil where the button was first pressed.
      If this var is nil, there was no initial point
      */
     private var startingPoint: SCNVector3?
     
-    func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
+    override init() {
+        super.init()
+        
+        self.pluginImage = UIImage.init(named: "PyramidPlugin")
+        self.pluginInstructionsImage = UIImage.init(named: "PyramidPluginInstructions")
+        self.pluginIdentifier = "Pyramid"
+        self.needsBluetoothARPen = false
+    }
+    
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
             //Don't reset the previous point to avoid restarting cube if the marker detection failed for some frames
             //self.startingPoint = nil
@@ -91,16 +92,5 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         
         
     }
-    
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        self.currentScene = scene
-        self.currentView = view
-    }
-    
-    func deactivatePlugin() {
-        self.currentScene = nil
-        self.currentView = nil
-    }
-    
 }
 
