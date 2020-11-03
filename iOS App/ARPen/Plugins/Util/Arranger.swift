@@ -26,7 +26,7 @@ class Arranger {
     static let snapWhenDragging: Bool = true
     
     
-    //PARAMETER DER SICH AUTOMATISCH UPDATED
+    //hoverTarget uses didSet to update any dependency automatically
     var hoverTarget: ARPNode? {
         didSet {
             if let old = oldValue {
@@ -38,7 +38,7 @@ class Arranger {
         }
     }
     
-    //ARRAY VON RELEVANZ
+    //selectedTargets is the Array of selected ARPNodes
     var selectedTargets: [ARPNode] = []
     
     var visitTarget: ARPGeomNode?
@@ -52,18 +52,13 @@ class Arranger {
     
     var didSelectSomething: ((ARPNode) -> Void)?
     
-    
-    
-    
     init() {
         buttonEvents = ButtonEvents()
         buttonEvents.didPressButton = self.didPressButton
         buttonEvents.didReleaseButton = self.didReleaseButton
         buttonEvents.didDoubleClick = self.didDoubleClick
     }
-    
-    
-    
+
     func activate(withScene scene: PenScene, andView view: ARSCNView) {
         self.currentView = view
         self.currentScene = scene
@@ -74,9 +69,8 @@ class Arranger {
         self.lastClickTime = nil
         self.lastPenPosition = nil
     }
-    
-    
-    
+
+
     func deactivate() {
         for target in selectedTargets {
             unselectTarget(target)
@@ -96,48 +90,23 @@ class Arranger {
         }
         
         // Start dragging when either the button has been held for long enough or pen has moved a certain distance.
-        if (buttons[.Button1] ?? false) &&
-                 ((Date() - (lastClickTime ?? Date())) > Arranger.timeTillDrag
-                     || (lastPenPosition?.distance(vector: scene.pencilPoint.position) ?? 0) > Arranger.maxDistanceTillDrag) {
-                 dragging = true
-              
-                 if Arranger.snapWhenDragging {
+        if (buttons[.Button1] ?? false)
+            && ((Date() - (lastClickTime ?? Date())) > Arranger.timeTillDrag
+                || (lastPenPosition?.distance(vector: scene.pencilPoint.position) ?? 0) > Arranger.maxDistanceTillDrag) {
+            
+            dragging = true
+            
+            if Arranger.snapWhenDragging {
                     
-                    if selectedTargets.count == 1 {
-                        
-                        let node = selectedTargets.last
-                        
-                        node?.position = node!.boundingBox.min
-                        print(node?.position)
-                        
-                        let node_min = node!.boundingBox.min
-                        print("This is the minimal corner of the bounding box")
-                        print(node_min)
-                        
-                        let node_max = node!.boundingBox.max
-                        print("This is the maximal corner of the bounding box")
-                        print(node_max)
-                       
-                                      
-                        let height = node_max.y - node_min.y
-                        let width = node_max.z - node_min.z
-                        let length = node_max.x - node_min.x
-                                          
-                        let dimensions = SCNVector3(x: length/2, y: height/2, z: width/2)
-                        
-                        let vector_of_geometry = selectedTargets.reduce(SCNVector3(0,0,0), {$0 + ($1.position + dimensions)}) / Float(selectedTargets.count)
-                        print(vector_of_geometry)
-                                          
-                        let shift = scene.pencilPoint.position - vector_of_geometry
-                        
-                        for target in selectedTargets {
-                                target.position += shift
-                        }
-  
-                    }
+                let center = selectedTargets.reduce(SCNVector3(0,0,0), { $0 + $1.position }) / Float(selectedTargets.count)
+                let shift = scene.pencilPoint.position - center
+                
+                for target in selectedTargets {
+                    target.position += shift
+                }
                     
-                 }
-             }
+            }
+        }
         
         if dragging, let lastPos = lastPenPosition {
             for target in selectedTargets {
@@ -161,6 +130,9 @@ class Arranger {
             if let target = hoverTarget {
                 if !selectedTargets.contains(target) {
                     selectTarget(target)
+                    
+ 
+                    
                 }
             } else {
                 for target in selectedTargets {
@@ -218,15 +190,11 @@ class Arranger {
     }
     
     
-    
-    
     func visitTarget(_ target: ARPGeomNode) {
         unselectTarget(target)
         target.visited = true
         visitTarget = target
     }
-    
-    
     
     func leaveTarget() {
         if let target = visitTarget {
@@ -239,8 +207,6 @@ class Arranger {
             }
         }
     }
-    
-    
     
     
     func selectTarget(_ target: ARPNode) {
@@ -257,8 +223,7 @@ class Arranger {
     }
     
     
-    
-    ///hitTest gives PARENT Node back
+    //hitTest
     func hitTest(pointerPosition: SCNVector3) -> ARPNode? {
             guard let sceneView = self.currentView  else { return nil }
             let projectedPencilPosition = sceneView.projectPoint(pointerPosition)
@@ -266,7 +231,7 @@ class Arranger {
             
             // Cast a ray from that position and find the first ARPenNode
             let hitResults = sceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
-            
+           
             return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPNode
            
     }

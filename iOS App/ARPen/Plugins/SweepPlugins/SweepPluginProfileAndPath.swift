@@ -36,11 +36,37 @@ class SweepPluginProfileAndPath: ModelingPlugin {
                                 
                 if let sweep = try? ARPSweep(profile: profile, path: spine) {
                     
+                    
+                    print("sweep.position: \(sweep.position)")
+                    
+                    //Spheres
+                    //ll2
+                    let sphere_min = SCNSphere(radius: 0.005)
+                    sphere_min.firstMaterial?.diffuse.contents = UIColor.systemGreen
+                    let node_sphere_min = SCNNode(geometry: sphere_min)
+                    node_sphere_min.position = sweep.boundingBox.min
+                   
+                    
+                    //ur1
+                    let sphere_max = SCNSphere(radius: 0.005)
+                    sphere_max.firstMaterial?.diffuse.contents = UIColor.systemGreen
+                    let node_sphere_max = SCNNode(geometry: sphere_max)
+                    node_sphere_max.position = sweep.boundingBox.max
+                    
+                    print("sweep")
+                    print(sweep.boundingBox.min)
+                    print(sweep.boundingBox.max)
+                    print("sweep")
+                    
                     DispatchQueue.main.async {
                         self.currentScene?.drawingNode.addChildNode(sweep)
+                        self.currentScene?.drawingNode.addChildNode(node_sphere_min)
+                        self.currentScene?.drawingNode.addChildNode(node_sphere_max)
+                     
                         self.freePaths.removeAll(where: { $0 === profile || $0 === spine })
-                        
                     }
+
+                    
                 }
             }
         }

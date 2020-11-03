@@ -54,10 +54,60 @@ class ARPGeomNode: ARPNode {
     init(pivotChild:SCNNode) {
         self.pivotChild = pivotChild
         super.init()
+
         appendVisualization()
+       
         self.content.addChildNode(self.pivotChild)
+       
         self.content.isHidden = true
+       
         rebuild()
+        
+        var distance_x: Float
+        
+        if self.position.x < 0
+        {
+            distance_x = self.position.x
+            distance_x.negate()
+        }
+        
+        else
+        {
+            distance_x = self.position.x
+        }
+        
+        var distance_y: Float
+        
+        if self.position.y < 0
+        {
+            distance_y = self.position.y
+            distance_y.negate()
+        }
+        
+        else
+        {
+            distance_y = self.position.y
+        }
+        
+        var distance_z: Float
+        
+        if self.position.z < 0
+        {
+            distance_z = self.position.z
+            distance_z.negate()
+        }
+        
+        else
+        {
+            distance_z = self.position.z
+        }
+        
+        let distance = SCNVector3(distance_x, distance_y, distance_z)
+        print(distance)
+        
+        let min = self.boundingBox.min - distance
+        let max = self.boundingBox.max - distance
+        self.boundingBox = (min: min, max: max)
     }
     
     private func appendVisualization() {
@@ -137,13 +187,28 @@ class ARPGeomNode: ARPNode {
         }
         if let ref = try? build() {
             occtReference = ref
+            
             pivotToChild()
+            
+            print("rebuild")
+            print(boundingBox)
+            print("rebuild")
+            
             updateView()
+
             (parent?.parent as? ARPGeomNode)?.rebuild()
-        } else {
+    
+        }
+        
+        else {
             print("FAILED TO REBUILD")
         }
     }
+    
+    
+    
+    
+    
     
     /// Updates the pivot to be where the `pivotChild` is.
     final func pivotToChild() {
@@ -157,9 +222,18 @@ class ARPGeomNode: ARPNode {
         /// ... and then change its pivot. Otherwise the child objects would have already been moved relative to the scene.
         self.pivot = child.transform
          */
+        
         self.setWorldTransform(pivotChild.worldTransform)
         content.transform = SCNMatrix4Invert(pivotChild.transform)
+        //self.pivot = pivotChild.transform
     }
+    
+    
+    
+    
+    
+    
+    
     
     override func updateHighlightedState() {
         if highlighted {

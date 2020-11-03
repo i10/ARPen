@@ -12,6 +12,7 @@ enum CornerStyle: Int32 {
     case sharp = 1, round = 2
 }
 
+
 /**
  A node of the path
  */
@@ -129,6 +130,14 @@ class ARPPathNode: ARPNode {
     }
 }
 
+
+
+
+
+
+
+
+
 /**
  A path which can be used e.g. as a profile for all types of extrusions (if closed) or as as spine for sweeps.
  */
@@ -216,6 +225,7 @@ class ARPPath: ARPGeomNode {
     }
     
     override func updateVisitedState() {}
+    
     
     override func build() throws -> OCCTReference {
         var calcClosed = closed

@@ -166,6 +166,7 @@ class CurveDesigner {
             path.removeNonFixedPoints()
             path.rebuild()
             path.runAction(ARPPath.finalizeAnimation)
+            
             activePath = nil
             
             didCompletePath?(path)

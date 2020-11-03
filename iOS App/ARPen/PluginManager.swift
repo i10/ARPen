@@ -74,7 +74,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.arManager = ARManager(scene: self.penScene)
         self.paintPlugin = PaintPlugin()
         self.experimentalPluginsStartAtIndex = 7
-        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), TranslationDemoPlugin(), CombinationPlugin(), MidairPlugin(), LinearMenuPlugin(), TwoHandedTouch(), HapticMenuPlugin(), MovingCursorPlugin(), ModelingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), CombinePluginFunction(), CombinePluginSolidHole(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
+        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), TranslationDemoPlugin(), CombinationPlugin(), MidairPlugin(), LinearMenuPlugin(), TwoHandedTouch(), HapticMenuPlugin(), MovingCursorPlugin(), ModelingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), CombinePluginFunction(), CombinePluginSolidHole(), CombineTest(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
         self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.arPenManager = PenManager()
         //self.activePlugin = plugins.first

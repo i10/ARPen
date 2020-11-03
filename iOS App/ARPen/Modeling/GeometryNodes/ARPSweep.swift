@@ -19,12 +19,10 @@ class ARPSweep: ARPGeomNode {
         
         self.profile = profile
         self.path = path
-        
         super.init(pivotChild: profile)
-        
         self.content.addChildNode(profile)
         self.content.addChildNode(path)
-        
+
     }
     
     required init?(coder aDecoder: NSCoder) {
