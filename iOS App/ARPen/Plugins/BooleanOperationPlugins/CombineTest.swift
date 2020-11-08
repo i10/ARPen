@@ -67,7 +67,7 @@ class CombineTest: ModelingPlugin {
             break
             
         case .Button2:
-            arranger.toggleBoundingBox()
+            break
             
         case .Button3:
             break

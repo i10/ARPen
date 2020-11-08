@@ -84,8 +84,6 @@
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
 		4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */; };
 		4ACE473324659B450037F9EE /* PositionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACE473224659B450037F9EE /* PositionFilter.swift */; };
-		757930D7254DC89B00ADA699 /* CombineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757930D6254DC89B00ADA699 /* CombineTest.swift */; };
-		757930D9254DC9EF00ADA699 /* ArrangerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757930D8254DC9EF00ADA699 /* ArrangerTest.swift */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
@@ -217,8 +215,6 @@
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
 		4ACE473224659B450037F9EE /* PositionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionFilter.swift; sourceTree = "<group>"; };
-		757930D6254DC89B00ADA699 /* CombineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTest.swift; sourceTree = "<group>"; };
-		757930D8254DC9EF00ADA699 /* ArrangerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangerTest.swift; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -357,7 +353,6 @@
 				4AAC4AF523A24A3F003B6E83 /* ButtonEvents.swift */,
 				4AAC4AF623A24A3F003B6E83 /* TaskScenes.swift */,
 				4AAC4AF723A24A3F003B6E83 /* Arranger.swift */,
-				757930D8254DC9EF00ADA699 /* ArrangerTest.swift */,
 				4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */,
 				4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */,
 			);
@@ -405,7 +400,6 @@
 			isa = PBXGroup;
 			children = (
 				4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */,
-				757930D6254DC89B00ADA699 /* CombineTest.swift */,
 				4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */,
 				4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */,
 			);
@@ -709,7 +703,6 @@
 				4AC1F5A82524C15F002B0A7F /* SelectableNode.swift in Sources */,
 				4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */,
 				4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */,
-				757930D7254DC89B00ADA699 /* CombineTest.swift in Sources */,
 				4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */,
 				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
 				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
@@ -756,7 +749,6 @@
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
 				4AC1F5BB2524D1BD002B0A7F /* HapticMenuPlugin.swift in Sources */,
 				E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */,
-				757930D9254DC9EF00ADA699 /* ArrangerTest.swift in Sources */,
 				EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */,
 				4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */,
 				DC28B46B200E4C78008B77AB /* Button.swift in Sources */,
@@ -923,7 +915,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.andreasdymek.arpen;
@@ -949,7 +941,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ARPen/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.andreasdymek.arpen;

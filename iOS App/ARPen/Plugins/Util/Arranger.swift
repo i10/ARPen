@@ -98,11 +98,33 @@ class Arranger {
             
             if Arranger.snapWhenDragging {
                     
-                let center = selectedTargets.reduce(SCNVector3(0,0,0), { $0 + $1.position }) / Float(selectedTargets.count)
-                let shift = scene.pencilPoint.position - center
+                var centersOfSelectedTargets: [SCNVector3] = []
                 
-                for target in selectedTargets {
-                    target.position += shift
+                for target in selectedTargets
+                {
+                    //SCNVector3 with position of boundingBox.min
+                    let world_pos_min = target.convertPosition(target.boundingBox.min, to: self.currentScene?.rootNode)
+                        
+                    //SCNVector3 with position of boundingBox.min
+                    let world_pos_max = target.convertPosition(target.boundingBox.max, to: self.currentScene?.rootNode)
+               
+                    //Determine height, width and length of bounding box
+                    let height = world_pos_max.y - world_pos_min.y
+                    let length = world_pos_max.z - world_pos_min.z
+                    let width = world_pos_max.x - world_pos_min.x
+                        
+                    //vector of the halfs of every dimension, to determine center
+                    let center = world_pos_min + SCNVector3(x: width/2, y: height/2, z: length/2)
+                        
+                    centersOfSelectedTargets.append(center)
+                }
+                
+                let center = centersOfSelectedTargets.reduce(SCNVector3(0,0,0), {$0 + $1})/Float(centersOfSelectedTargets.count)
+                let shift = scene.pencilPoint.position - center
+                        
+                for target in selectedTargets
+                {
+                    target.localTranslate(by: shift)
                 }
                     
             }

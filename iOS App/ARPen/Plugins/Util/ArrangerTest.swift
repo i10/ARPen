@@ -88,17 +88,18 @@ class ArrangerTest {
         let midPosition = SCNVector3 (x:(positionA.x + positionB.x) / 2, y:(positionA.y + positionB.y) / 2, z:(positionA.z + positionB.z) / 2)
 
         let lineGeometry = SCNCylinder()
-        lineGeometry.radius = 0.001
+        lineGeometry.radius = 0.0003
         lineGeometry.height = CGFloat(distance)
         lineGeometry.radialSegmentCount = 5
         lineGeometry.firstMaterial!.diffuse.contents = UIColor.systemGray
 
         let lineNode = SCNNode(geometry: lineGeometry)
-        lineNode.opacity = 1
+        lineNode.opacity = 0.7
         lineNode.position = midPosition
         lineNode.look (at: positionB, up: inScene.rootNode.worldUp, localFront: lineNode.worldUp)
         return lineNode
     }
+    
     
     func update(scene: PenScene, buttons: [Button : Bool]) {
         buttonEvents.update(buttons: buttons)
@@ -117,62 +118,38 @@ class ArrangerTest {
             dragging = true
             
             if ArrangerTest.snapWhenDragging {
-                    
-                    if selectedTargets.count != 0 {
+                
+                var centersOfSelectedTargets: [SCNVector3] = []
+                
+                for target in selectedTargets
+                {
+                    //SCNVector3 with position of boundingBox.min
+                    let world_pos_min = target.convertPosition(target.boundingBox.min, to: self.currentScene?.rootNode)
                         
-                        selectedTargets.last!.position = selectedTargets.last!.boundingBox.min
+                    //SCNVector3 with position of boundingBox.min
+                    let world_pos_max = target.convertPosition(target.boundingBox.max, to: self.currentScene?.rootNode)
+               
+                    //Determine height, width and length of bounding box
+                    let height = world_pos_max.y - world_pos_min.y
+                    let length = world_pos_max.z - world_pos_min.z
+                    let width = world_pos_max.x - world_pos_min.x
                         
-                        let edge14_node = lineBetweenNodes(positionA: selectedTargets.last!.position, positionB: selectedTargets.last!.boundingBox.min, inScene: self.currentScene!)
+                    //vector of the halfs of every dimension, to determine center
+                    let center = world_pos_min + SCNVector3(x: width/2, y: height/2, z: length/2)
                         
+                    centersOfSelectedTargets.append(center)
+                }
+                
+                let center = centersOfSelectedTargets.reduce(SCNVector3(0,0,0), {$0 + $1})/Float(centersOfSelectedTargets.count)
+                let shift = scene.pencilPoint.position - center
+                        
+                for target in selectedTargets
+                {
+                    target.localTranslate(by: shift)
+                }
 
-                        //SCNVector3 with position of bounding box - min
-                        let node_min = selectedTargets.last!.boundingBox.min
-                        print("This is the minimal corner of the bounding box")
-                        print(node_min)
-                        
-                        //SCNVector3 with position of bounding box - max
-                        let node_max = selectedTargets.last!.boundingBox.max
-                        print("This is the maximal corner of the bounding box")
-                        print(node_max)
-                        
-                        //Determine height, width and length of bounding box
-                        let height = node_max.y - node_min.y
-                        let length = node_max.z - node_min.z
-                        let width = node_max.x - node_min.x
-                        
-                        //vector of the halfs of every dimension, to determine center
-                        let dimensions = SCNVector3(x: width/2, y: height/2, z: length/2)
-                        
-                        //ll2
-                        let sphere_min = SCNSphere(radius: 0.004)
-                        sphere_min.firstMaterial?.diffuse.contents = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
-                        let node_sphere_min = SCNNode(geometry: sphere_min)
-                        node_sphere_min.position = node_min
-                        
-                        DispatchQueue.main.async {
-                            self.currentScene?.drawingNode.addChildNode(node_sphere_min)
-                            self.currentScene?.drawingNode.addChildNode(edge14_node)
-    
-                         }
-                                                
-                        //get the center
-                        let center = selectedTargets.reduce(SCNVector3(0,0,0), {$0 + ($1.position + dimensions)}) / Float(selectedTargets.count)
-                        print(center)
-                                          
-                        let shift = scene.pencilPoint.position - center
-                        
-                        for target in selectedTargets
-                        {
-                            target.position += shift
-                            //selectedTargets.last!.boundingBox.min += shift
-                            //selectedTargets.last!.boundingBox.max += shift
-                        }
-        
-  
-                    }
-                    
-                 }
-             }
+            }
+        }
         
         if dragging, let lastPos = lastPenPosition {
             for target in selectedTargets {
@@ -300,124 +277,6 @@ class ArrangerTest {
            
             return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPNode
     }
-    
-    
-    //function to make the bounding box visible
-    func toggleBoundingBox(){
-        
-         guard let scene = self.currentScene else {return}
-        
-         let node = selectedTargets.last
-         node!.position = node!.boundingBox.min
-        
-         //node?.convertPosition(node!.position, to: nil)
-                                 
-         let node_min = node!.boundingBox.min
-         print(node_min)
-
-         let node_max = node!.boundingBox.max
-         print(node_max)
-      
-         
-         //Spheres
-         //ll2
-         let sphere_min = SCNSphere(radius: 0.002)
-         sphere_min.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let node_sphere_min = SCNNode(geometry: sphere_min)
-         node_sphere_min.position = node_min
-  
-         //ur1
-         let sphere_max = SCNSphere(radius: 0.002)
-         sphere_max.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let node_sphere_max = SCNNode(geometry: sphere_max)
-         node_sphere_max.position = node_max
-         
-         //Determine height, width and length of bounding box
-         let height = node_max.y - node_min.y
-         let length = node_max.z - node_min.z
-         let width = node_max.x - node_min.x
-                                 
-         //Adding 6 additional spheres for other corners of Bounding Box
-         //lr2
-         let lr2_sphere = SCNSphere(radius: 0.002)
-         lr2_sphere.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let lr2_node = SCNNode(geometry: lr2_sphere)
-         lr2_node.position = node_min + SCNVector3(x: width, y: 0, z: 0)
-         
-         //ur2
-         let ur2_sphere = SCNSphere(radius: 0.002)
-         ur2_sphere.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let ur2_node = SCNNode(geometry: ur2_sphere)
-         ur2_node.position = lr2_node.position + SCNVector3(x: 0, y: height, z: 0)
-         
-         //ul2
-         let ul2_sphere = SCNSphere(radius: 0.002)
-         ul2_sphere.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let ul2_node = SCNNode(geometry: ul2_sphere)
-         ul2_node.position = node_min + SCNVector3(x: 0, y: height, z: 0)
-         
-         //lr1
-         let lr1_sphere = SCNSphere(radius: 0.002)
-         lr1_sphere.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let lr1_node = SCNNode(geometry: lr1_sphere)
-         lr1_node.position = node_max - SCNVector3(x: 0, y: height, z: 0)
-         
-         //ul1
-         let ul1_sphere = SCNSphere(radius: 0.002)
-         ul1_sphere.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let ul1_node = SCNNode(geometry: ul1_sphere)
-         ul1_node.position = node_max - SCNVector3(x: width, y: 0, z: 0)
-         
-         //ll1
-         let ll1_sphere = SCNSphere(radius: 0.002)
-         ll1_sphere.firstMaterial?.diffuse.contents = UIColor.systemGray
-         let ll1_node = SCNNode(geometry: ll1_sphere)
-         ll1_node.position = lr1_node.position - SCNVector3(x: width, y: 0, z: 0)
-         
-
-        //edges
-        //edge1
-        let edge1_node = lineBetweenNodes(positionA: ul1_node.position, positionB: ll1_node.position, inScene: scene)
-        let edge2_node = lineBetweenNodes(positionA: ul1_node.position, positionB: node_sphere_max.position, inScene: scene)
-        let edge3_node = lineBetweenNodes(positionA: node_sphere_max.position, positionB: lr1_node.position, inScene: scene)
-        let edge4_node = lineBetweenNodes(positionA: node_sphere_max.position, positionB: lr1_node.position, inScene: scene)
-        let edge5_node = lineBetweenNodes(positionA: ll1_node.position, positionB: lr1_node.position, inScene: scene)
-        let edge6_node = lineBetweenNodes(positionA: ul1_node.position, positionB: ul2_node.position, inScene: scene)
-        let edge7_node = lineBetweenNodes(positionA: ll1_node.position, positionB: node_sphere_min.position, inScene: scene)
-        let edge8_node = lineBetweenNodes(positionA: node_sphere_max.position, positionB: ur2_node.position, inScene: scene)
-        let edge9_node = lineBetweenNodes(positionA: lr1_node.position, positionB: lr2_node.position, inScene: scene)
-        let edge10_node = lineBetweenNodes(positionA: node_sphere_min.position, positionB: lr2_node.position, inScene: scene)
-        let edge11_node = lineBetweenNodes(positionA: lr2_node.position, positionB: ur2_node.position, inScene: scene)
-        let edge12_node = lineBetweenNodes(positionA: node_sphere_min.position, positionB: ul2_node.position, inScene: scene)
-        let edge13_node = lineBetweenNodes(positionA: ur2_node.position, positionB: ul2_node.position, inScene: scene)
-        
- 
-        DispatchQueue.main.async {
-            self.currentScene?.drawingNode.addChildNode(node_sphere_min)
-            self.currentScene?.drawingNode.addChildNode(node_sphere_max)
-            self.currentScene?.drawingNode.addChildNode(ll1_node)
-            self.currentScene?.drawingNode.addChildNode(lr1_node)
-            self.currentScene?.drawingNode.addChildNode(ul1_node)
-            self.currentScene?.drawingNode.addChildNode(lr2_node)
-            self.currentScene?.drawingNode.addChildNode(ur2_node)
-            self.currentScene?.drawingNode.addChildNode(ul2_node)
-            self.currentScene?.drawingNode.addChildNode(edge1_node)
-            self.currentScene?.drawingNode.addChildNode(edge2_node)
-            self.currentScene?.drawingNode.addChildNode(edge3_node)
-            self.currentScene?.drawingNode.addChildNode(edge4_node)
-            self.currentScene?.drawingNode.addChildNode(edge5_node)
-            self.currentScene?.drawingNode.addChildNode(edge6_node)
-            self.currentScene?.drawingNode.addChildNode(edge7_node)
-            self.currentScene?.drawingNode.addChildNode(edge8_node)
-            self.currentScene?.drawingNode.addChildNode(edge9_node)
-            self.currentScene?.drawingNode.addChildNode(edge10_node)
-            self.currentScene?.drawingNode.addChildNode(edge11_node)
-            self.currentScene?.drawingNode.addChildNode(edge12_node)
-            self.currentScene?.drawingNode.addChildNode(edge13_node)
-         }
-
-     }
-    
     
 }
 
