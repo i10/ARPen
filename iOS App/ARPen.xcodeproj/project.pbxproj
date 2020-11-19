@@ -84,6 +84,11 @@
 		4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */; };
 		4AC711C9204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */; };
 		4ACE473324659B450037F9EE /* PositionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACE473224659B450037F9EE /* PositionFilter.swift */; };
+		4AF257112566C77200795BEF /* RotationWithPenPedal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF2570C2566C77100795BEF /* RotationWithPenPedal.swift */; };
+		4AF257122566C77200795BEF /* RotationWithDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF2570D2566C77100795BEF /* RotationWithDevice.swift */; };
+		4AF257132566C77200795BEF /* RotationWithPen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF2570E2566C77100795BEF /* RotationWithPen.swift */; };
+		4AF257142566C77200795BEF /* RotationWithTs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF2570F2566C77100795BEF /* RotationWithTs.swift */; };
+		4AF257152566C77200795BEF /* RotationWithDevicePedal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF257102566C77200795BEF /* RotationWithDevicePedal.swift */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
@@ -215,6 +220,11 @@
 		4AC711C6204EDCBE00CD4239 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceListTableViewController.swift; sourceTree = "<group>"; };
 		4ACE473224659B450037F9EE /* PositionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionFilter.swift; sourceTree = "<group>"; };
+		4AF2570C2566C77100795BEF /* RotationWithPenPedal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationWithPenPedal.swift; sourceTree = "<group>"; };
+		4AF2570D2566C77100795BEF /* RotationWithDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationWithDevice.swift; sourceTree = "<group>"; };
+		4AF2570E2566C77100795BEF /* RotationWithPen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationWithPen.swift; sourceTree = "<group>"; };
+		4AF2570F2566C77100795BEF /* RotationWithTs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationWithTs.swift; sourceTree = "<group>"; };
+		4AF257102566C77200795BEF /* RotationWithDevicePedal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationWithDevicePedal.swift; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -434,6 +444,18 @@
 			path = ARMenuHelper;
 			sourceTree = "<group>";
 		};
+		4AF2570B2566C6F300795BEF /* RotationTechniques */ = {
+			isa = PBXGroup;
+			children = (
+				4AF257102566C77200795BEF /* RotationWithDevicePedal.swift */,
+				4AF2570D2566C77100795BEF /* RotationWithDevice.swift */,
+				4AF2570C2566C77100795BEF /* RotationWithPenPedal.swift */,
+				4AF2570E2566C77100795BEF /* RotationWithPen.swift */,
+				4AF2570F2566C77100795BEF /* RotationWithTs.swift */,
+			);
+			path = RotationTechniques;
+			sourceTree = "<group>";
+		};
 		DC18B2B820237A7200884920 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,6 +535,7 @@
 				4A895F0B2052D46000CC2C8E /* CubeByExtractionPlugin.swift */,
 				4AC1F5982524B317002B0A7F /* ARMenus */,
 				4A59BA1D2244E66D00EA23E7 /* TranslationDemoPlugin.swift */,
+				4AF2570B2566C6F300795BEF /* RotationTechniques */,
 				4A59BA252244E69400EA23E7 /* CombinationPlugin.swift */,
 				E983D24522ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift */,
 				E983D24722ABF3830000B8D5 /* CylinderByDraggingPlugin.swift */,
@@ -669,6 +692,7 @@
 				4AAC4B0C23A24A6E003B6E83 /* OCCT.mm in Sources */,
 				DC28B461200E46DC008B77AB /* Plugin.swift in Sources */,
 				4ACE473324659B450037F9EE /* PositionFilter.swift in Sources */,
+				4AF257122566C77200795BEF /* RotationWithDevice.swift in Sources */,
 				E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */,
 				4AC1F5BF2524D1BD002B0A7F /* LinearMenuPlugin.swift in Sources */,
 				EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */,
@@ -704,6 +728,7 @@
 				4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */,
 				4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */,
 				4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */,
+				4AF257112566C77200795BEF /* RotationWithPenPedal.swift in Sources */,
 				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
 				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
@@ -726,6 +751,7 @@
 				4AC1F5AC2524C817002B0A7F /* MovingCursorMenu.swift in Sources */,
 				4AA09F9024DD508B00B59F9E /* DepthRayPlugin.swift in Sources */,
 				4AAC4B2123A2949E003B6E83 /* CombinePluginTutorial.swift in Sources */,
+				4AF257142566C77200795BEF /* RotationWithTs.swift in Sources */,
 				4AC1F5A02524C0AD002B0A7F /* ARMenu.swift in Sources */,
 				4AC1F5BD2524D1BD002B0A7F /* TwoHandedTouch.swift in Sources */,
 				4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */,
@@ -745,6 +771,7 @@
 				DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */,
 				4AAC4AEA23A24A20003B6E83 /* ARPGeomNode.swift in Sources */,
 				DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */,
+				4AF257152566C77200795BEF /* RotationWithDevicePedal.swift in Sources */,
 				DC28B463200E471F008B77AB /* PluginManager.swift in Sources */,
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
 				4AC1F5BB2524D1BD002B0A7F /* HapticMenuPlugin.swift in Sources */,
@@ -757,6 +784,7 @@
 				4AC1F5A12524C0AD002B0A7F /* MenuManager.swift in Sources */,
 				EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */,
 				4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */,
+				4AF257132566C77200795BEF /* RotationWithPen.swift in Sources */,
 				4AC1F5A32524C0AD002B0A7F /* Menu.swift in Sources */,
 				4AC1F5A62524C0AD002B0A7F /* LinearMenu.swift in Sources */,
 				4AA09F8E24DD508B00B59F9E /* BubblePlugin.swift in Sources */,
