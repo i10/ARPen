@@ -95,7 +95,6 @@ class RotationWithDevicePedalPlugin: Plugin {
                 hitResults.removeFirst()
             }
             if let boxHit = hitResults.first?.node{
-                print(boxHit)
                 if selected == false{
                     selected = true
                     
