@@ -43,6 +43,15 @@ class OCCTAPI {
         }
     }
     
+    func createPyramid(width:Double, height:Double, length:Double) throws -> OCCTReference {
+        if let cString = occt.createPyramid(width, height: height, length: length){
+            let ref = OCCTReference(cString: cString)
+            return ref
+        } else {
+            throw OCCTError.couldNotCreateGeometry
+        }
+    }
+
     func createCylinder(radius:Double, height:Double) throws -> OCCTReference {
         if let cString = occt.createCylinder(radius, height: height) {
             let ref = OCCTReference(cString: cString)

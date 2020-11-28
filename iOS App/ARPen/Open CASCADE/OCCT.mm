@@ -77,6 +77,12 @@
     return [Builders createBox:width height:height length:length];
 }
 
+- (const char *) createPyramid:(double) width
+                    height:(double) height
+                    length:(double) length {
+    return [Builders createPyramid:width height:height length:length];
+}
+
 - (const char *) createCylinder:(double) radius
                          height:(double) height {
     return [Builders createCylinder:radius height:height];

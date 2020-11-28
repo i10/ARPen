@@ -19,6 +19,11 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
      */
     private var startingPoint: SCNVector3?
     
+    
+    private var finalCylinderRadius: Double?
+    private var finalCylinderHeight: Double?
+    private var finalCylinderPosition: SCNVector3?
+    
     override init() {
         super.init()
         
@@ -62,12 +67,19 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                 // Set the radius and height of the cylinder
                 cylinderNodeGeometry.radius = cylinderRadius
                 cylinderNodeGeometry.height = cylinderHeight
+                
+                //update cylinder Height and Radius for ARPCylinder
+                finalCylinderRadius = Double(cylinderRadius)
+                finalCylinderHeight = Double(cylinderHeight)
 
                 // Calculate the center position of the cylinder node to be at the geometric center of the cylinder.
                 let cylinderCenterXPosition = startingPoint.x
                 let cylinderCenterYPosition = startingPoint.y + (scene.pencilPoint.position.y - startingPoint.y)/2
                 let cylinderCenterZPosition = startingPoint.z + (scene.pencilPoint.position.z - startingPoint.z)/2
                 cylinderNode.position = SCNVector3.init(cylinderCenterXPosition, cylinderCenterYPosition, cylinderCenterZPosition)
+                
+                //update cylinder position for ARPCylinder
+                finalCylinderPosition = cylinderNode.position
             } else {
                 //if the button is pressed but no startingPoint exists -> first frame with the button pressed. Set current pencil position as the start point
                 self.startingPoint = scene.pencilPoint.position
@@ -76,18 +88,24 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
             //if the button is not pressed, check if a startingPoint is set -> released button. Reset the startingPoint to nil and set the name of the drawn box to "finished"
             if self.startingPoint != nil {
                 self.startingPoint = nil
-                if let cylinderNode = scene.drawingNode.childNode(withName: "currentDragCylinderNode", recursively: false), let cylinderNodeGeometry = cylinderNode.geometry as? SCNCylinder {
-                    cylinderNode.name = "FinishedCylinderNode"
+                if let cylinderNode = scene.drawingNode.childNode(withName: "currentDragCylinderNode", recursively: false)
+                {
+                    //assign a random name to the boxNode for identification in further process
+                    cylinderNode.name = randomString(length: 32)
+                    //remove "SceneKit Box"
+                    cylinderNode.removeFromParentNode()
                     
-                    // Store a new record with the radius and height of the finished cylinder.
-                    let cylinderDimensionsRect = ["Radius": String(describing: cylinderNodeGeometry.radius), "Height" : String(describing: cylinderNodeGeometry.height)]
-                    self.recordManager.addNewRecord(withIdentifier: "CylinderFinished", andData: cylinderDimensionsRect)
+                    let cylinder = ARPCylinder(radius: finalCylinderRadius!, height: finalCylinderHeight!)
+                    
+                    DispatchQueue.main.async {
+                        scene.drawingNode.addChildNode(cylinder)
+                    }
+                    
+                    cylinder.localTranslate(by: self.finalCylinderPosition!)
+                    cylinder.applyTransform()
                 }
             }
-            
         }
-        
-        
     }
 }
 

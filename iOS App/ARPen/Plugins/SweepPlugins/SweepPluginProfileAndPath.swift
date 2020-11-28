@@ -39,6 +39,8 @@ class SweepPluginProfileAndPath: ModelingPlugin {
                     DispatchQueue.main.async {
                         self.currentScene?.drawingNode.addChildNode(sweep)                     
                         self.freePaths.removeAll(where: { $0 === profile || $0 === spine })
+                        print("sweep world pos\(sweep.worldPosition)")
+                        print("sweep pos \(sweep.position)")
                     }
 
                     

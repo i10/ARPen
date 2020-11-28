@@ -43,6 +43,7 @@ class ARPGeomNode: ARPNode {
     /// This function is blocking and should be called asynchronous.
     override init() {
         self.pivotChild = SCNNode()
+        
         super.init()
         appendVisualization()
         self.content.addChildNode(pivotChild)
@@ -62,6 +63,7 @@ class ARPGeomNode: ARPNode {
         self.content.isHidden = true
        
         rebuild()
+
         
     }
     
@@ -156,11 +158,7 @@ class ARPGeomNode: ARPNode {
         }
     }
     
-    
-    
-    
-    
-    
+
     /// Updates the pivot to be where the `pivotChild` is.
     final func pivotToChild() {
         /*

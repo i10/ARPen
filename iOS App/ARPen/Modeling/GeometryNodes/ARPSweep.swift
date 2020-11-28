@@ -35,7 +35,7 @@ class ARPSweep: ARPGeomNode {
         if let r = ref {
             OCCTAPI.shared.setPivotOf(handle: r, pivot: pivotChild.worldTransform)
         }
-        
+
         return ref ?? ""
     }
 }

@@ -19,6 +19,10 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
      */
     private var startingPoint: SCNVector3?
     
+    //sphere attributes
+    private var finalRadiusSphere : Double?
+    private var finalPositionSphere : SCNVector3?
+    
     override init() {
         super.init()
         
@@ -40,9 +44,12 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         
         //if the button is pressed -> either set the starting point of the cube (first action) or scale the cube to fit from the starting point to the current point
         if pressed {
-            if let startingPoint = self.startingPoint {
+            if let startingPoint = self.startingPoint
+            {
                 // Use existing sphere node; if one doesn't exist, create it.
-                guard let sphereNode = scene.drawingNode.childNode(withName: "currentDragSphereNode", recursively: false) else {
+                guard let sphereNode = scene.drawingNode.childNode(withName: "currentDragSphereNode", recursively: false)
+                else
+                {
                     let sphereNode = SCNNode()
                     sphereNode.name = "currentDragSphereNode"
                     scene.drawingNode.addChildNode(sphereNode)
@@ -58,7 +65,9 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                 let sphereRadius: CGFloat = CGFloat(sqrt(sumOfSquaredDisplacements))
                 
                 // Get the sphere node geometry (if it is not a SCNSphere, create that with the calculated dimensions)
-                guard let sphereNodeGeometry = sphereNode.geometry as? SCNSphere else {
+                guard let sphereNodeGeometry = sphereNode.geometry as? SCNSphere
+                else
+                {
                     sphereNode.geometry = SCNSphere.init(radius: sphereRadius)
                     return
                 }
@@ -66,26 +75,49 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                 // Set the radius and position of the sphere
                 sphereNodeGeometry.radius = sphereRadius
                 sphereNode.position = startingPoint
-            } else {
+                
+                //update the final variables for ARPSphere Creation to current startingPoint and sphere Radius
+                self.finalPositionSphere = startingPoint
+                self.finalRadiusSphere = Double(sphereRadius)
+                
+            }
+            
+            else
+            {
                 //if the button is pressed but no startingPoint exists -> first frame with the button pressed. Set current pencil position as the start point
                 self.startingPoint = scene.pencilPoint.position
             }
-        } else {
-            //if the button is not pressed, check if a startingPoint is set -> released button. Reset the startingPoint to nil and set the name of the drawn box to "finished"
-            if self.startingPoint != nil {
-                self.startingPoint = nil
-                if let sphereNode = scene.drawingNode.childNode(withName: "currentDragSphereNode", recursively: false), let sphereNodeGeometry = sphereNode.geometry as? SCNSphere {
-                    sphereNode.name = "FinishedSphereNode"
-                    
-                    // Store a new record with the radius of the finished sphere.
-                    let sphereDimensionsDict = ["Radius" : String(describing: sphereNodeGeometry.radius)]
-                    self.recordManager.addNewRecord(withIdentifier: "SphereFinished", andData: sphereDimensionsDict)
-                }
-            }
-            
         }
         
-        
+        else
+        {
+            //if the button is not pressed, check if a startingPoint is set -> released button. Reset the startingPoint to nil and set the name of the drawn box to "finished"
+            if self.startingPoint != nil
+            {
+                self.startingPoint = nil
+                if let sphereNode = scene.drawingNode.childNode(withName: "currentDragSphereNode", recursively: false)
+                {
+                    //assign a random name to the boxNode for identification in further process
+                    sphereNode.name = randomString(length: 32)
+                    //remove "SceneKit Sphere"
+                    sphereNode.removeFromParentNode()
+                    
+                    let sphere = ARPSphere(radius: finalRadiusSphere!)
+                   
+                    
+                    DispatchQueue.main.async
+                    {
+                        scene.drawingNode.addChildNode(sphere)
+                    }
+                    
+                    sphere.localTranslate(by: self.finalPositionSphere!)
+                    sphere.applyTransform()
+                    
+                }
+                
+            }        
+        }
+ 
     }
 }
 

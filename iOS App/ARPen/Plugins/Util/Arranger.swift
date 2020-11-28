@@ -81,7 +81,7 @@ class Arranger {
     
     func update(scene: PenScene, buttons: [Button : Bool]) {
         buttonEvents.update(buttons: buttons)
-     
+       
         
         if let hit = hitTest(pointerPosition: scene.pencilPoint.position) {
             hoverTarget = hit
@@ -103,10 +103,10 @@ class Arranger {
                 for target in selectedTargets
                 {
                     //SCNVector3 with position of boundingBox.min
-                    let world_pos_min = target.convertPosition(target.boundingBox.min, to: self.currentScene?.rootNode)
+                    let world_pos_min = target.convertPosition(target.boundingBox.min, to: self.currentScene?.drawingNode)
                         
                     //SCNVector3 with position of boundingBox.min
-                    let world_pos_max = target.convertPosition(target.boundingBox.max, to: self.currentScene?.rootNode)
+                    let world_pos_max = target.convertPosition(target.boundingBox.max, to: self.currentScene?.drawingNode)
                
                     //Determine height, width and length of bounding box
                     let height = world_pos_max.y - world_pos_min.y
@@ -119,6 +119,7 @@ class Arranger {
                     centersOfSelectedTargets.append(center)
                 }
                 
+                //aproximate center position of all selectedTargets
                 let center = centersOfSelectedTargets.reduce(SCNVector3(0,0,0), {$0 + $1})/Float(centersOfSelectedTargets.count)
                 let shift = scene.pencilPoint.position - center
                         
@@ -255,6 +256,8 @@ class Arranger {
             let hitResults = sceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
            
             return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPNode
+        
+            
            
     }
 }

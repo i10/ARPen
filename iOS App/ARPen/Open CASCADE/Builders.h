@@ -17,6 +17,9 @@
 + (const char *) createBox:(double) width
                     height:(double) height
                     length:(double) length;
++ (const char *) createPyramid:(double) width
+                        height:(double) height
+                        length:(double) length;
 + (const char *) createCylinder:(double) radius
                          height:(double) height;
 + (const char *) createPath:(const SCNVector3 []) points

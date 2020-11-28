@@ -33,6 +33,7 @@
 #include <occt/BRepAlgoAPI_Fuse.hxx>
 #include <occt/BRepAlgoAPI_Cut.hxx>
 #include <occt/Standard_ErrorHandler.hxx>
+#include <occt/BRepPrimAPI_MakeWedge.hxx>
 
 
 @implementation Builders : NSObject
@@ -46,6 +47,21 @@
     TCollection_AsciiString key = [Registry storeInRegistry:aBox];
     
     return [Registry toHeapCString:key];
+}
+
++ (const char *) createPyramid:(double) width
+                    height:(double) height
+                    length:(double) length
+{
+    
+    TopoDS_Shape aPyramid = BRepPrimAPI_MakeWedge(width, height, length, width/2, length/2, width/2, length/2);
+    
+    
+
+    TCollection_AsciiString key = [Registry storeInRegistry:aPyramid];
+    
+    return [Registry toHeapCString:key];
+    
 }
 
 + (const char *) createCylinder:(double) radius

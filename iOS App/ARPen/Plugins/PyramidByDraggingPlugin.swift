@@ -19,6 +19,14 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
      */
     private var startingPoint: SCNVector3?
     
+    ///final box dimensions
+    private var finalPyramidWidth: Double?
+    private var finalPyramidHeight: Double?
+    private var finalPyramidLength: Double?
+    
+    ///final box position
+    private var finalPyriamidPos: SCNVector3?
+    
     override init() {
         super.init()
         
@@ -50,7 +58,6 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                 }
                 
                 // Calculate the width, height, and length of the pyramid from ARPen translation.
-                
                 let pyramidWidth = CGFloat(abs(scene.pencilPoint.position.x - startingPoint.x))
                 let pyramidHeight = CGFloat(abs(scene.pencilPoint.position.y - startingPoint.y))
                 let pyramidLength = CGFloat(abs(scene.pencilPoint.position.z - startingPoint.z))
@@ -66,31 +73,50 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                 pyramidNodeGeometry.height = pyramidHeight
                 pyramidNodeGeometry.length = pyramidLength
                 
+                self.finalPyramidWidth = Double(pyramidWidth)
+                self.finalPyramidHeight = Double(pyramidHeight)
+                self.finalPyramidLength = Double(pyramidLength)
+                
                 // Calculate the center position of the pyramid node
                 let pyramidCenterXPosition = scene.pencilPoint.position.x
                 let pyramidCenterYPosition = startingPoint.y
                 let pyramidCenterZPosition = startingPoint.z + (scene.pencilPoint.position.z - startingPoint.z)/2
+                
+
                 pyramidNode.position = SCNVector3.init(pyramidCenterXPosition, pyramidCenterYPosition, pyramidCenterZPosition)
+                
+                //MAINUPULIERE DIE POS VON AR NODE
+                self.finalPyriamidPos = pyramidNode.convertPosition(pyramidNode.boundingBox.min, to: self.currentScene?.drawingNode)
+                
+                
             } else {
                 //if the button is pressed but no startingPoint exists -> first frame with the button pressed. Set current pencil position as the start point
                 self.startingPoint = scene.pencilPoint.position
             }
         } else {
             //if the button is not pressed, check if a startingPoint is set -> released button. Reset the startingPoint to nil and set the name of the drawn pyramid to "finished"
-            if self.startingPoint != nil {
+            if self.startingPoint != nil
+            {
                 self.startingPoint = nil
-                if let pyramidNode = scene.drawingNode.childNode(withName: "currentDragPyramidNode", recursively: false), let pyramidNodeGeometry = pyramidNode.geometry as? SCNPyramid {
-                    pyramidNode.name = "FinishedPyramidNode"
+                if let pyramidNode = scene.drawingNode.childNode(withName: "currentDragPyramidNode", recursively: false)
+                {
+                    //assign a random name to the boxNode for identification in further process
+                    pyramidNode.name = randomString(length: 32)
+                    //remove "SceneKit" Pyramid
+                    pyramidNode.removeFromParentNode()
                     
-                    // Store a new record with the width, height, and length of the finished pyramid.
-                    let pyramidDimensionsDict = ["Width": String(describing: pyramidNodeGeometry.width), "Height": String(describing: pyramidNodeGeometry.height), "Length": String(describing: pyramidNodeGeometry.length)]
-                    self.recordManager.addNewRecord(withIdentifier: "PyramidFinished", andData: pyramidDimensionsDict)
+                    let pyramid = ARPPyramid(width: finalPyramidWidth!, height: finalPyramidHeight!, length: finalPyramidLength!)
+                
+                    DispatchQueue.main.async {
+                        scene.drawingNode.addChildNode(pyramid)
+                    }
+                    
+                    pyramid.localTranslate(by: self.finalPyriamidPos!)
+                    pyramid.applyTransform()
+
                 }
             }
-            
         }
-        
-        
     }
 }
 
