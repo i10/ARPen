@@ -10,7 +10,7 @@ import Foundation
 import ARKit
 
 
-class CubeByDraggingPlugin: ModelingPlugin {
+class CubeByDraggingPlugin: Plugin {
 
     /**
      The starting point is the point of the pencil where the button was first pressed.
@@ -37,14 +37,7 @@ class CubeByDraggingPlugin: ModelingPlugin {
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
-    /// Called whenever the user switches to the plugin, or returns from the settings with the plugin selected.
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
-        
-        self.button1Label.text = "Drag"
-        self.button2Label.text = "Merge"
-        self.button3Label.text = "Cut"
-    }
+    
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {

@@ -9,7 +9,7 @@
 import Foundation
 import ARKit
 
-class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
+class CylinderByDraggingPlugin: Plugin {
     //reference to userStudyRecordManager to add new records
     var recordManager: UserStudyRecordManager!
     
@@ -31,6 +31,8 @@ class CylinderByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginInstructionsImage = UIImage.init(named: "CylinderPluginInstructions")
         self.pluginIdentifier = "Cylinder"
         self.needsBluetoothARPen = false
+        self.pluginGroupName = "Modeling"
+        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

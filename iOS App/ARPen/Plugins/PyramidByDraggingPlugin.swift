@@ -9,9 +9,8 @@
 import Foundation
 import ARKit
 
-class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
-    //reference to userStudyRecordManager to add new records
-    var recordManager: UserStudyRecordManager!
+class PyramidByDraggingPlugin: Plugin {
+    
     
     /**
      The starting point is the point of the pencil where the button was first pressed.
@@ -34,6 +33,8 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginInstructionsImage = UIImage.init(named: "PyramidPluginInstructions")
         self.pluginIdentifier = "Pyramid"
         self.needsBluetoothARPen = false
+        self.pluginGroupName = "Modeling"
+        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

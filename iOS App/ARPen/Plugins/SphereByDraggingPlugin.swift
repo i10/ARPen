@@ -9,9 +9,8 @@
 import Foundation
 import ARKit
 
-class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
-    //reference to userStudyRecordManager to add new records
-    var recordManager: UserStudyRecordManager!
+class SphereByDraggingPlugin: Plugin {
+    
     
     /**
      The starting point is the point of the pencil where the button was first pressed.
@@ -30,6 +29,8 @@ class SphereByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginInstructionsImage = UIImage.init(named: "SpherePluginInstructions")
         self.pluginIdentifier = "Sphere"
         self.needsBluetoothARPen = false
+        self.pluginGroupName = "Modeling"
+        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
