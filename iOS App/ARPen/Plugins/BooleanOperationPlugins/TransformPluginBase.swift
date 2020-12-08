@@ -60,22 +60,24 @@ class TransformPluginBase: ModelingPlugin {
         case .Button1:
             break
         case .Button2:
-            if arranger.selectedTargets.count != 0 {
-                let selected = arranger.selectedTargets.removeFirst() as? ARPGeomNode
-                let label = selected?.occtReference
-                
-                let scnGeometry = OCCTAPI().occt.sceneKitMesh(of: label)
-                
-                let scnNode = SCNNode()
-                scnNode.geometry = scnGeometry
-                scnNode.position = selected!.position
-                
-                selected?.removeFromParentNode()
-                self.currentScene?.drawingNode.addChildNode(scnNode)
-            }
+            button2Pressed()
+            break
         case .Button3:
             break
                     }
+        
+    }
+    
+    func button2Pressed(){
+        let scnNode = SCNNode()
+        scnNode.geometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+        scnNode.position = SCNVector3(0,0,0)
+        
+        DispatchQueue.main.async {
+            self.currentScene?.drawingNode.addChildNode(scnNode)
+        }
+        
+        
         
     }
 
