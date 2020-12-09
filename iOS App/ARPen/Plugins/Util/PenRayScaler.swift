@@ -175,17 +175,44 @@ class PenRayScaler {
                 
                 //for each hit with we scale hit.worldCoordinates.y
                 for hit in hitTest {
+                    
+                    let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
+                    let before = diagonalNode?.position
 
                     let updatedMeshHeight = abs(hit.worldCoordinates.y - (diagonalNode?.position.y)!)
                     let scaleFactor = Float(updatedMeshHeight / originalMeshHeight!)
                     currentScaleFactor = scaleFactor
-                    DispatchQueue.main.sync
-                    {
-                        self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true)?.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                        self.cornerScaleBoundingBox(target: (self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true))!, diagonalNode: diagonalNode!)
+                    
+                    self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true)?.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                    self.showBoundingBoxForGivenMesh(mesh: (self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true))!)
+                    
+                    let after = getDiagonalNode(selectedCorner: selectedCorner!)?.position
+
+                    let upper = ["lbu", "rbu", "lfu", "rfu"]
+
+                    //the diagonal node is an upper node
+                    if(upper.contains((getDiagonalNode(selectedCorner: selectedCorner!)?.name)!)){
+                        let x_of_diff = after!.x - before!.x
+                        let y_of_diff = after!.y - before!.y
+                        let z_of_diff = after!.z - before!.z
+
+                        let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
+                        self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true)?.position -= diff
                     }
                     
-                
+                    else {
+                        let x_of_diff = before!.x - after!.x
+                        let y_of_diff = before!.y - after!.y
+                        let z_of_diff = before!.z - after!.z
+
+                        let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
+
+                        self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true)?.position += diff
+                        
+                    }
+                    
+                    self.showBoundingBoxForGivenMesh(mesh: (self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true))!)
+ 
                }
             }
         }
@@ -222,111 +249,6 @@ class PenRayScaler {
     }
     
 
-    ///corner Scaling of the bounded Box itself
-    /**
-        via parameter we receive the node that should not be changed. Outgoing from that node, we calculate the positions of all the other node
-        *IMPORTANT*: THIS IS AN ILLUSION! When this method is called, the actual bounding Box is getting scaled uniformlly. We just steal the height, width, and length and outgoing form the chosen diagonalNode we calculate were the other corners must lay in our illusion.
-     */
-    func cornerScaleBoundingBox(target: SCNNode, diagonalNode: SCNNode) {
-        
-        let maxScaled = target.convertPosition(target.boundingBox.max, to: self.currentScene?.drawingNode)
-        let minScaled = target.convertPosition(target.boundingBox.min, to: self.currentScene?.drawingNode)
-        
-        let scaleHeight = maxScaled.y - minScaled.y
-        let scaleWidth = maxScaled.x - minScaled.x
-        let scaleLength = maxScaled.z - minScaled.z
-        
-        let name = diagonalNode.name
-        
-        if(name == "lbd")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: 0, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: scaleHeight, z: scaleLength)
-        }
-        
-        if(name == "rfu")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: 0, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: scaleWidth, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: 0, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: 0, y: scaleHeight, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: scaleWidth, y: scaleHeight, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: scaleWidth, y: scaleHeight, z: 0)
-            
-        }
-        
-        if(name == "rbd")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)!.position)! - SCNVector3(x: scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)!.position)! + SCNVector3(x: 0 - scaleWidth, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)!.position)! + SCNVector3(x: 0, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)!.position)! + SCNVector3(x: 0 - scaleWidth, y: scaleHeight, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)!.position)! + SCNVector3(x: 0 - scaleWidth, y: 0, z: scaleLength)
-        }
-        
-        if(name == "lbu")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)!.position)! - SCNVector3(x: 0, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0 - scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0-scaleHeight, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0-scaleHeight, z: scaleLength)
-        }
-        
-        if(name == "rbu")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: 0, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0-scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0-scaleHeight, z: scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: 0-scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: 0-scaleHeight, z: scaleLength)
-        }
-        
-        if(name == "lfd")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)!.position)! + SCNVector3(x: 0, y: 0, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: scaleHeight, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: 0-scaleLength)
-        }
-        
-        if(name == "rfd")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)!.position)! + SCNVector3(x: 0, y: 0, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: 0, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: scaleHeight, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)!.position)! + SCNVector3(x: 0-scaleWidth, y: scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)!.position)! + SCNVector3(x: 0, y: scaleHeight, z: 0-scaleLength)
-        }
-        
-        if(name == "lfu")
-        {
-            self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0-scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)!.position)! + SCNVector3(x: 0, y: 0-scaleHeight, z: 0-scaleLength)
-            self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0-scaleHeight, z: 0)
-            self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)!.position)! + SCNVector3(x: scaleWidth, y: 0-scaleHeight, z: 0-scaleLength)
-        }
-    }
     
     ///get the diagonal Node of a selectedCorner
     /**

@@ -107,6 +107,7 @@ class PenRayScalingPlugin: ModelingPlugin {
                 scnNode.geometry = scnGeometry
                 scnNode.name = "scalingSceneKitMesh"
                 scnNode.scale = occtMesh!.scale
+                print(occtMesh!.scale)
                 scnNode.position = occtMesh!.position
                 scnNode.isHidden = false
                         
@@ -120,107 +121,13 @@ class PenRayScalingPlugin: ModelingPlugin {
                     self.currentScene?.drawingNode.addChildNode(scnNode)
                     self.scaler.showBoundingBoxForGivenMesh(mesh: scnNode)
                 }
-                        
-                let diagonalNode = self.scaler.getDiagonalNode(selectedCorner: self.scaler.selectedCorner!)
                 
-                /*
-                /// Changing the pivot in SceneKit has two oddities:
-                /// (1) The node shifts, s.t. the node's pivot stays in the same place relative to the scene
-                /// (2) The node's internal coordinate system does not change. Its position does however. Pivot != origin in SceneKit
-                /// Shift the pivot to the diagonalCorner so the scaling is relative to a corner.
-                */
-                        
-                scnNode.pivot = SCNMatrix4MakeTranslation((diagonalNode?.position.x)! - scnNode.position.x, (diagonalNode?.position.y)! - scnNode.position.y, (diagonalNode?.position.z)! - scnNode.position.z)
-                        
-                scnNode.localTranslate(by: diagonalNode!.position - scnNode.position)
-                    
                 scaler.isACornerSelected = true
-                
             }
             
             //Case: deselect
             else
             {
-                let diagonalNodeBefore = scaler.getDiagonalNode(selectedCorner: scaler.selectedCorner!)
-               
-                /*
-                /// Changing the pivot in SceneKit has two oddities:
-                /// (1) The node shifts, s.t. the node's pivot stays in the same place relative to the scene
-                /// (2) The node's internal coordinate system does not change. Its position does however. Pivot != origin in SceneKit
-                /// This is resetting the Pivot property to the inital value
-                */
-                
-                DispatchQueue.main.sync {
-                    sceneMesh!.position.x -= sceneMesh!.pivot.m41
-                    sceneMesh!.position.y -= sceneMesh!.pivot.m42
-                    sceneMesh!.position.z -= sceneMesh!.pivot.m43
-                    sceneMesh!.pivot = SCNMatrix4Identity
-                    
-                }
-               
-                //mincorner of bounding box
-                let min = sceneMesh!.convertPosition(sceneMesh!.boundingBox.min, to: self.currentScene?.drawingNode)
-                
-                //maxcorner of bounding box
-                let max = sceneMesh!.convertPosition(sceneMesh!.boundingBox.max, to: self.currentScene?.drawingNode)
-                
-                //Determine height and width of bounding box
-                let height = max.y - min.y
-                let width = max.x - min.x
-               
-                if(diagonalNodeBefore!.name == "lfd"){
-                    let diagonalNodeAfter = max - SCNVector3(x: width, y: height, z: 0)
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
-                }
-                
-                if(diagonalNodeBefore!.name == "rbd"){
-                    let diagonalNodeAfter = min + SCNVector3(x: width, y: 0, z: 0)
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
- 
-                }
-                if(diagonalNodeBefore!.name == "lbu"){
-                    let diagonalNodeAfter = min + SCNVector3(x: 0, y: height, z: 0)
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
- 
-                }
-                if(diagonalNodeBefore!.name == "rbu"){
-                    let diagonalNodeAfter = min + SCNVector3(x: width, y: height, z: 0)
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
-   
-                }
-                  
-                if(diagonalNodeBefore!.name == "rfd"){
-                    let diagonalNodeAfter = max - SCNVector3(x: 0, y: height, z: 0)
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
- 
-                }
-                
-                if(diagonalNodeBefore!.name == "lfu"){
-                    let diagonalNodeAfter = max - SCNVector3(x: width, y: 0, z: 0)
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
-
-                }
-                
-                if(diagonalNodeBefore!.name == "rfu"){
-                    let diagonalNodeAfter = max
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
-  
-                }
-                
-                if(diagonalNodeBefore!.name == "lbd"){
-                    let diagonalNodeAfter = min
-                    let differenceOfPos = diagonalNodeBefore!.position - diagonalNodeAfter
-                    sceneMesh!.position += differenceOfPos
-
-                }
-
                 DispatchQueue.main.sync
                 {
                     self.occtMesh?.position = self.sceneMesh!.position
