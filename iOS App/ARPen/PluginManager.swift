@@ -74,7 +74,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.arManager = ARManager(scene: self.penScene)
         self.paintPlugin = PaintPlugin()
         self.experimentalPluginsStartAtIndex = 7
-        self.plugins = [CubeByDraggingPlugin(), PyramidByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), CubeByExtractionPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), CombinePluginFunction(), CombinePluginSolidHole(), TransformPluginBase(), PenRayScalingPlugin()]
+        self.plugins = [CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), CubeByExtractionPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), CombinePluginFunction(), CombinePluginSolidHole(), TransformPluginBase(), PenRayScalingPlugin(), DirectDeviceRotationPlugin()]
         self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.arPenManager = PenManager()
         //self.activePlugin = plugins.first

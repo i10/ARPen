@@ -19,15 +19,7 @@ class PenRayScalingPlugin: ModelingPlugin {
     
     private var scaler: PenRayScaler
     private var buttonEvents: ButtonEvents
-    
-    //reference for the OCCT mesh
-    var occtMesh: ARPGeomNode?
-    //reference for the sceneKit represenatation of the OCCT mesh
-    var sceneMesh: SCNNode?
-    //
-    var prevPos: SCNVector3?
-    
-    
+        
     override init() {
         buttonEvents = ButtonEvents()
         scaler = PenRayScaler()
@@ -49,7 +41,7 @@ class PenRayScalingPlugin: ModelingPlugin {
         
         self.button1Label.text = "View Bounding Box"
         self.button2Label.text = "Select Corner"
-        self.button3Label.text = "Scale"
+        self.button3Label.text = ""
 
     }
     
@@ -98,58 +90,24 @@ class PenRayScalingPlugin: ModelingPlugin {
                 //color selectedCorner
                 scaler.selectedCorner!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 98/100, alpha: 1.0)
                 
-                
-                occtMesh = (scaler.currentScene?.drawingNode.childNode(withName: "selected", recursively: true)) as? ARPGeomNode
-        
-                let label = occtMesh!.occtReference
-                let scnGeometry = OCCTAPI().occt.sceneKitMesh(of: label)
-                let scnNode = SCNNode()
-                scnNode.geometry = scnGeometry
-                scnNode.name = "scalingSceneKitMesh"
-                scnNode.scale = occtMesh!.scale
-                print(occtMesh!.scale)
-                scnNode.position = occtMesh!.position
-                scnNode.isHidden = false
-                        
-                prevPos = scnNode.position
-                
-                //declaring what the sceneMesh is
-                sceneMesh = scnNode
-
-                DispatchQueue.main.sync {
-                    self.occtMesh!.removeFromParentNode()
-                    self.currentScene?.drawingNode.addChildNode(scnNode)
-                    self.scaler.showBoundingBoxForGivenMesh(mesh: scnNode)
-                }
-                
                 scaler.isACornerSelected = true
             }
             
             //Case: deselect
             else
             {
-                DispatchQueue.main.sync
-                {
-                    self.occtMesh?.position = self.sceneMesh!.position
-                    if scaler.currentScaleFactor != nil {
-                        self.occtMesh?.scale = SCNVector3(self.scaler.currentScaleFactor!, self.scaler.currentScaleFactor!, self.scaler.currentScaleFactor!)
-                    }
-                    self.occtMesh?.applyTransform()
-                    
-                    self.sceneMesh!.removeFromParentNode()
-                    self.sceneMesh! = SCNNode()
-                    self.currentScene?.drawingNode.addChildNode(self.occtMesh!)
-                    self.scaler.showBoundingBoxForGivenMesh(mesh: self.occtMesh!)
-                   
-                }
-                
+                scaler.selectedTargets.first!.applyTransform()
                 scaler.selectedCorner = SCNNode()
                 scaler.selectedCorner!.name = "generic"
+                
                 scaler.isACornerSelected = false
                 
             }
         }
     }
+    
+    
+    
     
 }
     

@@ -23,18 +23,12 @@ class PenRayScaler {
     var originalMeshHeight: Float?
     ///the current scale Factor with which the mesh is scaled by
     var currentScaleFactor: Float?
-    
     ///the currently selected corner of the meshes bounding box
     var selectedCorner: SCNNode?
     ///the corner the pencilPoint hovers over
     var hoverCorner: SCNNode?
-    
     ///boolean which indicates if a corner is currently selected
     var isACornerSelected: Bool = false
-    
-    var difference: SCNVector3?
- 
-    
     /// The time (in seconds) after which holding the main button on an object results in dragging it.
     let timeTillDrag: Double = 3
     /// The minimum distance to move the pen starting at an object while holding the main button which results in dragging it.
@@ -103,11 +97,13 @@ class PenRayScaler {
         //check for button press
         buttonEvents.update(buttons: buttons)
        
-        //check whether or not you hover over created geometry
-        if let hit = hitTest(pointerPosition: scene.pencilPoint.position) {
-            hoverTarget = hit
-        } else {
-            hoverTarget = nil
+        if selectedTargets.count != 1 {
+            //check whether or not you hover over created geometry
+            if let hit = hitTest(pointerPosition: scene.pencilPoint.position) {
+                hoverTarget = hit
+            } else {
+                hoverTarget = nil
+            }
         }
         
         //geometry was selected and bounding box is visible
@@ -171,7 +167,7 @@ class PenRayScaler {
                 //check for hitTest on the diagonal
                 var hitTest = self.currentView!.hitTest(currentPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
                 
-                hitTest = hitTest.filter({namesOfCorners.contains($0.node.name!)})
+                hitTest = hitTest.filter({namesOfCorners.contains($0.node.name ?? "empty")})
                 
                 //for each hit with we scale hit.worldCoordinates.y
                 for hit in hitTest {
@@ -183,8 +179,8 @@ class PenRayScaler {
                     let scaleFactor = Float(updatedMeshHeight / originalMeshHeight!)
                     currentScaleFactor = scaleFactor
                     
-                    self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true)?.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                    self.showBoundingBoxForGivenMesh(mesh: (self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true))!)
+                    selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                    self.showBoundingBoxForGivenMesh(mesh: selectedTargets.first!)
                     
                     let after = getDiagonalNode(selectedCorner: selectedCorner!)?.position
 
@@ -197,7 +193,7 @@ class PenRayScaler {
                         let z_of_diff = after!.z - before!.z
 
                         let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-                        self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true)?.position -= diff
+                        selectedTargets.first!.position -= diff
                     }
                     
                     else {
@@ -207,11 +203,11 @@ class PenRayScaler {
 
                         let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
 
-                        self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true)?.position += diff
+                        selectedTargets.first!.position += diff
                         
                     }
                     
-                    self.showBoundingBoxForGivenMesh(mesh: (self.currentScene?.drawingNode.childNode(withName: "scalingSceneKitMesh", recursively: true))!)
+                    self.showBoundingBoxForGivenMesh(mesh: selectedTargets.first!)
  
                }
             }
@@ -229,8 +225,7 @@ class PenRayScaler {
         
         let height = max.y - min.y
         let width = max.x - min.x
-        let length = max.z - min.z
-        
+       
         self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = min
         
         self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = max
@@ -384,10 +379,9 @@ class PenRayScaler {
             return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPNode
     }
     
-    ///a hit Test specifically for the corners of the bounding box. Returns the SCNNode node which is hit
+    ///a hit Test specifically for the corners of the bounding box. Returns the SCNNode node which is hit if it is a corner
     /**
         First projects the position onto the image Plane and then searches for a hit with an object. This is fundamental for PenRay.
-        MAYBE INSERT NAME FILTER FOR CORNERS
      */
     func hitTestCorners(pointerPosition: SCNVector3) -> SCNNode? {
         guard let sceneView = self.currentView  else { return nil }
@@ -397,7 +391,9 @@ class PenRayScaler {
         // Cast a ray from that position and find the first ARPenNode
         let hitResults = sceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
         
-        return hitResults.filter( { $0.node != currentScene?.pencilPoint} ).first?.node as SCNNode?
+        let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
+        
+        return hitResults.filter( { $0.node != currentScene?.pencilPoint && namesOfCorners.contains($0.node.name ?? "empty") }).first?.node as SCNNode?
         
     }
     

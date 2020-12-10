@@ -88,6 +88,8 @@
 		75152A912573B8750051E15D /* PenRayScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A902573B8750051E15D /* PenRayScalingPlugin.swift */; };
 		75152A932573BAB30051E15D /* PenRayScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A922573BAB30051E15D /* PenRayScaler.swift */; };
 		757200D4255AE3170084C8F4 /* TransformPluginBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757200D3255AE3170084C8F4 /* TransformPluginBase.swift */; };
+		75EBB71C25825EE2001ADB8F /* DirectDeviceRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */; };
+		75EBB72025826009001ADB8F /* DirectDeviceRotationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
@@ -223,6 +225,8 @@
 		75152A902573B8750051E15D /* PenRayScalingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScalingPlugin.swift; sourceTree = "<group>"; };
 		75152A922573BAB30051E15D /* PenRayScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScaler.swift; sourceTree = "<group>"; };
 		757200D3255AE3170084C8F4 /* TransformPluginBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPluginBase.swift; sourceTree = "<group>"; };
+		75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectDeviceRotator.swift; sourceTree = "<group>"; };
+		75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectDeviceRotationPlugin.swift; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -365,6 +369,7 @@
 				4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */,
 				4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */,
 				75152A922573BAB30051E15D /* PenRayScaler.swift */,
+				75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -453,6 +458,14 @@
 			path = ScalingPlugins;
 			sourceTree = "<group>";
 		};
+		75EBB71625822D12001ADB8F /* RotationPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */,
+			);
+			path = RotationPlugins;
+			sourceTree = "<group>";
+		};
 		DC18B2B820237A7200884920 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +538,7 @@
 		DC28B476200E64C0008B77AB /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				75EBB71625822D12001ADB8F /* RotationPlugins */,
 				75152A8F2573B84E0051E15D /* ScalingPlugins */,
 				DC28B460200E46DC008B77AB /* Plugin.swift */,
 				DC28B466200E4BF1008B77AB /* PaintPlugin.swift */,
@@ -704,6 +718,7 @@
 				EA0C796222F078EE00E820E8 /* ARPenWireBoxNode.swift in Sources */,
 				4A10BFBE251E2C8600950CBE /* ARPenPluginTableViewCell.swift in Sources */,
 				4AAC4AE823A24A20003B6E83 /* Util.swift in Sources */,
+				75EBB71C25825EE2001ADB8F /* DirectDeviceRotator.swift in Sources */,
 				4A56953920581B6700C8065E /* UserStudyRecordManager.swift in Sources */,
 				4AC1F5BE2524D1BD002B0A7F /* MidairPlugin.swift in Sources */,
 				4AAC4AF123A24A20003B6E83 /* ARPPath.swift in Sources */,
@@ -768,6 +783,7 @@
 				DC28B473200E6025008B77AB /* SCNVector3Extensions.swift in Sources */,
 				4AAC4AEA23A24A20003B6E83 /* ARPGeomNode.swift in Sources */,
 				DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */,
+				75EBB72025826009001ADB8F /* DirectDeviceRotationPlugin.swift in Sources */,
 				DC28B463200E471F008B77AB /* PluginManager.swift in Sources */,
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
 				4AC1F5BB2524D1BD002B0A7F /* HapticMenuPlugin.swift in Sources */,
