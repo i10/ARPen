@@ -19,6 +19,10 @@ class PenRayScaler {
     var currentScene: PenScene?
     var currentView: ARSCNView?
   
+    
+    ///
+    var rotationSave: SCNVector4?
+    
     ///original Height of the mesh when instantiated. Used for calculating scaleFactor
     var originalMeshHeight: Float?
     ///the current scale Factor with which the mesh is scaled by
@@ -571,6 +575,7 @@ class PenRayScaler {
         selectedTargets.removeAll(where: { $0 === target })
         removeBoundingBox()
         target.name = "generic"
+        target.rotation = rotationSave!
     }
     
     ///
@@ -584,6 +589,11 @@ class PenRayScaler {
             selectedTargets.append(target)
             justSelectedSomething = true
             didSelectSomething?(target)
+            
+            
+            rotationSave = target.rotation
+            target.rotation = SCNVector4(0,0,0,0)
+            target.applyTransform()
             viewBoundingBox(target)
         }
     }

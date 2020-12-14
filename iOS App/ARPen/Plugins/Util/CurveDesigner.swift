@@ -51,32 +51,89 @@ class CurveDesigner {
         self.addedThisFrame = false
     }
     
+    
+    
+    
+    
     func update(scene: PenScene, buttons: [Button : Bool]) {
         self.scene = scene
         addedThisFrame = false
         buttonEvents.update(buttons: buttons)
         
+        //if there is an active path
         if let path = activePath {
+            
+            //if the path is about to be closed, snap the last point to the first
             if path.points.first!.position.distance(vector: scene.pencilPoint.position) < CurveDesigner.snappingDistance && path.points.count > 2 {
+                
+                //snapping the last point to the first
                 path.getNonFixedPoint()?.position = path.points.first!.worldPosition
+                
                 if buttonEvents.buttons[.Button2]! || buttonEvents.buttons[.Button3]! {
                     addNode(noNewPath: true)
                 }
-            } else {
+            }
+            
+            //update the position of the non fixed point
+            else {
                 path.getNonFixedPoint()?.position = scene.pencilPoint.position
             }
             
+            //if ARPen is not found, updates the nonFixed node active status
             if let nonFixed = path.getNonFixedPoint() {
                 nonFixed.active = scene.markerFound
             }
             
+            //rebuild the entire path
             tryRebuildPreview()
         }
         
+        //
         if (buttonEvents.buttons[.Button2]! || buttonEvents.buttons[.Button3]!) && readyForNextPoint() {
             addNode(noNewPath: true)
         }
     }
+    
+    /// Add a node to either the currently active path, or create a new path if none is active (unless `noNewPath`is set).
+    private func addNode(noNewPath: Bool = false) {
+        if addedThisFrame {
+            return
+        }
+        addedThisFrame = true
+        let cornerStyle = buttonEvents.buttons[.Button2]! ? CornerStyle.sharp : CornerStyle.round
+        
+        
+        //there is no active path, thus we create a new path, first node is created
+        if activePath == nil && !noNewPath {
+            let path = ARPPath(points: [ARPPathNode(scene.pencilPoint.position, cornerStyle: cornerStyle)], closed: false)
+            activePath = path
+            scene.drawingNode.addChildNode(path)
+            didStartPath?(path)
+        }
+        
+        //there now an active path, second node is created and will change position via update
+        if let path = activePath {
+            //if the last and first position are snapped and button was pressed, the path is finished
+            if pathEndsTouch(path) {
+                finishActivePath()
+            }
+            
+            //not closed/finished path yet
+            else {
+                
+                let activePoint = path.getNonFixedPoint()
+                if cornerStyle == activePoint?.cornerStyle {
+                    activePoint?.fixed = true
+                    path.appendPoint(ARPPathNode(scene.pencilPoint.position, cornerStyle: cornerStyle))
+                } else {
+                    activePoint?.cornerStyle = cornerStyle
+                    blocked = true
+                }
+            }
+        }
+    }
+    
+    
     
     func undo() {
         if let path = self.activePath {
@@ -117,37 +174,7 @@ class CurveDesigner {
         }*/
     }
     
-    /// Add a node to either the currently active path, or create a new path if none is active (unless `noNewPath`is set).
-    private func addNode(noNewPath: Bool = false) {
-        if addedThisFrame {
-            return
-        }
-        addedThisFrame = true
-        let cornerStyle = buttonEvents.buttons[.Button2]! ? CornerStyle.sharp : CornerStyle.round
-        
-        if activePath == nil && !noNewPath {
-            let path = ARPPath(points: [ARPPathNode(scene.pencilPoint.position, cornerStyle: cornerStyle)], closed: false)
-            activePath = path
-            scene.drawingNode.addChildNode(path)
-            didStartPath?(path)
-        }
-        
-        if let path = activePath {
-            if pathEndsTouch(path) {
-                finishActivePath()
-            } else {
-                let activePoint = path.getNonFixedPoint()
-                if cornerStyle == activePoint?.cornerStyle {
-                    activePoint?.fixed = true
-                    path.appendPoint(ARPPathNode(scene.pencilPoint.position, cornerStyle: cornerStyle))
-                } else {
-                    activePoint?.cornerStyle = cornerStyle
-                    blocked = true
-                }
-            }
-        }
-    }
-    
+   
     private func pathEndsTouch(_ path: ARPPath) -> Bool {
         if let nonFixedPoint = path.getNonFixedPoint(), path.points.count > 2 {
             if path.points.first!.worldPosition.distance(vector: nonFixedPoint.worldPosition) < CurveDesigner.snappingDistance {
@@ -157,6 +184,9 @@ class CurveDesigner {
         return false
     }
     
+    
+    //finishing a path
+
     private func finishActivePath() {
         if let path = activePath {
             if pathEndsTouch(path) {
@@ -172,6 +202,8 @@ class CurveDesigner {
             didCompletePath?(path)
         }
     }
+    
+    
     
     func readyForNextPoint() -> Bool {
         if let path = activePath,

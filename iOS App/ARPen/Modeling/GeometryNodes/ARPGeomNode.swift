@@ -137,6 +137,9 @@ class ARPGeomNode: ARPNode {
         fatalError("Must Override")
     }
     
+    
+    
+    
     /// Needs to be called when properties of an object change, which influence its appearance, e.g. when a node moved in a path. This function is blocking and should be called asynchronous.
     final func rebuild() {
         if let ref = occtReference {
@@ -159,6 +162,9 @@ class ARPGeomNode: ARPNode {
     }
     
 
+    
+    
+    
     /// Updates the pivot to be where the `pivotChild` is.
     final func pivotToChild() {
         /*

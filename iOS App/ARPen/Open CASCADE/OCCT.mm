@@ -18,8 +18,8 @@
 @implementation OCCT : NSObject
 
 // Registry
-- (void) freeShape:(const char *) label {
-    [Registry freeShape:label];
+- (void) freeShape:(const char *) handle {
+    [Registry freeShape:handle];
 }
 
 
@@ -88,6 +88,14 @@
     return [Builders createCylinder:radius height:height];
 }
 
+
+
+
+
+
+
+
+
 - (const char *) createPath:(const SCNVector3 []) points
                      length:(int) length
                     corners:(const int []) corners
@@ -96,8 +104,26 @@
 }
 
 
-- (const char *) sweep:(const char *) profile
-                 along:(const char *) path {
+- (const char *) updatePath:(const char *)label
+                     points: (const SCNVector3 []) points
+                     length:(int) length
+                     corners:(const int []) corners
+                     closed:(bool) closed{
+    return [Builders updatePath:label points:points length:length corners:corners closed:closed ];
+}
+
+
+
+
+
+
+
+
+
+
+
+- (const char *) sweep:(NSString *) profile
+                 along:(NSString *) path {
     return [Builders sweep:profile along:path];
 }
 

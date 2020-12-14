@@ -32,10 +32,23 @@ class ARPSweep: ARPGeomNode {
     override func build() throws -> OCCTReference {
         let ref = try? OCCTAPI.shared.sweep(profile: profile.occtReference!, path: path.occtReference!)
         
+        print("profile")
+        print(profile.occtReference)
+        print("path")
+        print(path.occtReference)
+        
         if let r = ref {
             OCCTAPI.shared.setPivotOf(handle: r, pivot: pivotChild.worldTransform)
         }
 
         return ref ?? ""
     }
+
+
+   
+    
+
+    
+    
+    
 }

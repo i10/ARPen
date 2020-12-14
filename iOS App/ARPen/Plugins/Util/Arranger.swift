@@ -201,6 +201,7 @@ class Arranger {
         if button == .Button1,
             let scene = currentScene {
             if let hit = hitTest(pointerPosition: scene.pencilPoint.position) as? ARPGeomNode {
+                //hit.parent.parent is the scene itself
                 if hit.parent?.parent === visitTarget || visitTarget == nil {
                     visitTarget(hit)
                 } else {
@@ -256,8 +257,5 @@ class Arranger {
             let hitResults = sceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
            
             return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPNode
-        
-            
-           
     }
 }

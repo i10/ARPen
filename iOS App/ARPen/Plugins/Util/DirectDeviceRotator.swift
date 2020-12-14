@@ -5,7 +5,6 @@
 //  Created by Andreas RF Dymek on 10.12.20.
 //  Copyright © 2020 RWTH Aachen. All rights reserved.
 //
-
 import Foundation
 import ARKit
 
@@ -150,6 +149,7 @@ class DirectDeviceRotator {
                 
                 quaternionFromStartToUpdatedDeviceOrientation = simd_quatf(angle: quaternionFromStartToUpdatedDeviceOrientation.angle, axis: rotationAxis)
                 quaternionFromStartToUpdatedDeviceOrientation = quaternionFromStartToUpdatedDeviceOrientation.normalized
+                
                 
                 
                 selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedDeviceOrientation)

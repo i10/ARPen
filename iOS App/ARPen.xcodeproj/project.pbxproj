@@ -87,7 +87,8 @@
 		750292912559C87A00963547 /* ARPPyramid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750292902559C87A00963547 /* ARPPyramid.swift */; };
 		75152A912573B8750051E15D /* PenRayScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A902573B8750051E15D /* PenRayScalingPlugin.swift */; };
 		75152A932573BAB30051E15D /* PenRayScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A922573BAB30051E15D /* PenRayScaler.swift */; };
-		757200D4255AE3170084C8F4 /* TransformPluginBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757200D3255AE3170084C8F4 /* TransformPluginBase.swift */; };
+		75C7A8392583B70D00A10953 /* ModelManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C7A8382583B70D00A10953 /* ModelManipulator.swift */; };
+		75C7A83B2583B83600A10953 /* SubsequentManipulationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C7A83A2583B83600A10953 /* SubsequentManipulationPlugin.swift */; };
 		75EBB71C25825EE2001ADB8F /* DirectDeviceRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */; };
 		75EBB72025826009001ADB8F /* DirectDeviceRotationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
@@ -224,7 +225,8 @@
 		750292902559C87A00963547 /* ARPPyramid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPPyramid.swift; sourceTree = "<group>"; };
 		75152A902573B8750051E15D /* PenRayScalingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScalingPlugin.swift; sourceTree = "<group>"; };
 		75152A922573BAB30051E15D /* PenRayScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScaler.swift; sourceTree = "<group>"; };
-		757200D3255AE3170084C8F4 /* TransformPluginBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPluginBase.swift; sourceTree = "<group>"; };
+		75C7A8382583B70D00A10953 /* ModelManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManipulator.swift; sourceTree = "<group>"; };
+		75C7A83A2583B83600A10953 /* SubsequentManipulationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsequentManipulationPlugin.swift; sourceTree = "<group>"; };
 		75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectDeviceRotator.swift; sourceTree = "<group>"; };
 		75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectDeviceRotationPlugin.swift; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */,
 				75152A922573BAB30051E15D /* PenRayScaler.swift */,
 				75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */,
+				75C7A8382583B70D00A10953 /* ModelManipulator.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -417,7 +420,6 @@
 				4AAC4B2023A2949D003B6E83 /* CombinePluginTutorial.swift */,
 				4AAC4B2223A37D15003B6E83 /* CombinePluginFunction.swift */,
 				4AAC4B2523A37D16003B6E83 /* CombinePluginSolidHole.swift */,
-				757200D3255AE3170084C8F4 /* TransformPluginBase.swift */,
 			);
 			path = BooleanOperationPlugins;
 			sourceTree = "<group>";
@@ -559,6 +561,7 @@
 				4AA09F8624DD504600B59F9E /* DepthVisualizationPlugins */,
 				4A27E28223A1032400C4BF75 /* PluginUIs */,
 				4AAC4AF423A24A3F003B6E83 /* Util */,
+				75C7A83A2583B83600A10953 /* SubsequentManipulationPlugin.swift */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				4AC1F5BC2524D1BD002B0A7F /* MovingCursorPlugin.swift in Sources */,
 				DC28B469200E4C43008B77AB /* CylinderLine.swift in Sources */,
 				E9B530632487965A0051C0C3 /* MultipeerSession.swift in Sources */,
+				75C7A8392583B70D00A10953 /* ModelManipulator.swift in Sources */,
 				4AAC4B0E23A24A6E003B6E83 /* Registry.mm in Sources */,
 				4AAC4B1723A27DFE003B6E83 /* ModelingPlugin.swift in Sources */,
 				4AAC4AEF23A24A20003B6E83 /* ARPCylinder.swift in Sources */,
@@ -759,6 +763,7 @@
 				4AC1F5AF2524D02E002B0A7F /* MenuContentCreater.swift in Sources */,
 				4AC1F5A42524C0AD002B0A7F /* HapticMenu.swift in Sources */,
 				4AAC4B2A23A37D17003B6E83 /* RevolvePluginTwoProfiles.swift in Sources */,
+				75C7A83B2583B83600A10953 /* SubsequentManipulationPlugin.swift in Sources */,
 				4AAC4AF323A24A20003B6E83 /* OCCTAPI.swift in Sources */,
 				4AC1F5AC2524C817002B0A7F /* MovingCursorMenu.swift in Sources */,
 				4AA09F9024DD508B00B59F9E /* DepthRayPlugin.swift in Sources */,
@@ -773,7 +778,6 @@
 				4AAC4B2923A37D17003B6E83 /* LoftPlugin.swift in Sources */,
 				4AAC4AFA23A24A3F003B6E83 /* ButtonEvents.swift in Sources */,
 				4A895F0C2052D46000CC2C8E /* CubeByExtractionPlugin.swift in Sources */,
-				757200D4255AE3170084C8F4 /* TransformPluginBase.swift in Sources */,
 				DC28B454200E4389008B77AB /* ARManager.swift in Sources */,
 				4A5695322058192B00C8065E /* UserStudyIDListTableViewController.swift in Sources */,
 				4A56953720581B4500C8065E /* UserStudyRecord.swift in Sources */,

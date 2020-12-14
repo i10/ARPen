@@ -18,6 +18,9 @@
 #include <occt/BRepBuilderAPI_MakeVertex.hxx>
 #include <occt/BRepBuilderAPI_MakeEdge.hxx>
 #include <occt/BRepBuilderAPI_MakeWire.hxx>
+
+#include <occt/ShapeExtend_WireData.hxx>
+
 #include <occt/BRepBuilderAPI_MakeFace.hxx>
 #include <occt/BRepBuilderAPI_Transform.hxx>
 #include <occt/gp_Trsf.hxx>
@@ -92,6 +95,13 @@
     
     return [Registry toHeapCString:key];
 }
+
+
+
+
+
+
+
 
 + (const char *) createPath:(const SCNVector3 []) points
                      length:(int) length
@@ -195,21 +205,203 @@
     return [Registry toHeapCString:key];
 }
 
-+ (const char *) sweep:(const char *) profile
-                 along:(const char *) path;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++ (const char *) updatePath: (const char *)label
+                        points: (const SCNVector3 []) points
+                        length:(int) length
+                        corners:(const int []) corners
+                        closed:(bool) closed
 {
-    TCollection_AsciiString keyProfile = TCollection_AsciiString(profile);
-    TCollection_AsciiString keyPath = TCollection_AsciiString(path);
+    TCollection_AsciiString key = TCollection_AsciiString(label);
+    TopoDS_Shape shape_wire = [Registry retrieveFromRegistry:key];
+    
+    [Registry freeShape:label];
+    
+    BRepBuilderAPI_MakeWire makeWire;
+
+    TColgp_SequenceOfPnt curvePoints;
+    
+    int startAt = 0;
+    bool onlyRoundCorners = true;
+    
+    if (closed) {
+        // A little trick to make curvature continuity at the start/endpoint easier:
+        // Find out if the path consists purely of round corners. In that case OCCT can handle this for us.
+        // Otherwise, choose a sharp corner to start with, so that there is no round corner at the seam.
+        for (int i = 0; i < length; i++) {
+            if (corners[i] == 1) {
+                onlyRoundCorners = false;
+                startAt = i;
+                break;
+            }
+        }
+    }
+    
+    // If the path is closed and there is a sharp corner at the seam, we need to make one additional step to add the closing edge.
+    // Remember that we always start/end at a sharp corner if there is one.
+    int overshoot = (closed && !onlyRoundCorners) ? 1 : 0;
+
+    bool curveMode = false;
+    for (int i = 1; i < length + overshoot; i++) {
+        
+        int ci = (startAt + i) % length;
+        int pi = (startAt + i-1) % length;
+        gp_Pnt currPoint(points[ci].x, points[ci].y, points[ci].z);
+        gp_Pnt prevPoint(points[pi].x, points[pi].y, points[pi].z);
+        int currCorner = corners[ci];
+        int prevCorner = corners[pi];
+
+        if (currCorner == 1 && prevCorner == 1) {
+            if (!prevPoint.IsEqual(currPoint, 0.0001)) {
+                TopoDS_Edge edge = BRepBuilderAPI_MakeEdge(prevPoint, currPoint);
+                makeWire.Add(edge);
+            }
+        }
+        
+        // A curve has started
+        if (!curveMode && (prevCorner == 2 || currCorner == 2)) {
+            curvePoints = TColgp_SequenceOfPnt();
+            curvePoints.Append(prevPoint);
+            curveMode = true;
+        }
+        
+        // A curve continues
+        if (curveMode) {
+            curvePoints.Append(currPoint);
+        }
+        
+        // A curve has ended
+        if (curveMode && (currCorner != 2 || i == length+overshoot-1)) {
+            curveMode = false;
+            
+            int segmentLength = curvePoints.Length();
+            Handle(TColgp_HArray1OfPnt) segmentPoints = new TColgp_HArray1OfPnt(1, segmentLength);
+            TColgp_SequenceOfPnt::Iterator iter = TColgp_SequenceOfPnt::Iterator(curvePoints);
+            int j = 1;
+            for (; iter.More(); iter.Next()) {
+                segmentPoints->SetValue(j++, iter.Value());
+            }
+            
+            try {
+                OCC_CATCH_SIGNALS
+                
+                GeomAPI_Interpolate interpolate = GeomAPI_Interpolate(segmentPoints, closed && onlyRoundCorners, 0.001);
+                interpolate.Perform();
+                Handle(Geom_BSplineCurve) curve = interpolate.Curve();
+                BRepBuilderAPI_MakeEdge makeEdge = BRepBuilderAPI_MakeEdge(curve);
+                TopoDS_Edge edge = makeEdge.Edge();
+                makeWire.Add(edge);
+            } catch (...) {}
+        }
+    }
+    
+    TopoDS_Shape wire;
+    
+    try {
+        OCC_CATCH_SIGNALS
+        wire = makeWire.Wire();
+    } catch (...) {
+        if (length == 1) {
+            gp_Pnt point(points[0].x, points[0].y, points[0].z);
+            wire = BRepBuilderAPI_MakeVertex(point);
+        } else {
+            wire = TopoDS_Wire();
+        }
+    }
+    
+
+    [Registry storeInRegistry:wire withKey:key];
+    
+    return [Registry toHeapCString:key];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++ (const char *) sweep:(NSString *) profile
+                 along:(NSString *) path;
+{
+    TCollection_AsciiString keyProfile = TCollection_AsciiString(profile.UTF8String);
+    TCollection_AsciiString keyPath = TCollection_AsciiString(path.UTF8String);
     
     TopoDS_Shape shapeProfile = [Registry retrieveFromRegistryTransformed: keyProfile];
+    
+   
     TopoDS_Shape shapePath = [Registry retrieveFromRegistryTransformed: keyPath];
     
-    TopoDS_Face profileFace = BRepBuilderAPI_MakeFace(TopoDS::Wire(shapeProfile));
+    TopoDS_Face profileFace = BRepBuilderAPI_MakeFace(TopoDS::Wire(shapeProfile), Standard_True);
     
-    TopoDS_Shape solid = BRepOffsetAPI_MakePipe(TopoDS::Wire(shapePath), profileFace);
+    TopoDS_Shape solid;
+    
+    try {
+        OCC_CATCH_SIGNALS
+        
+        solid = BRepOffsetAPI_MakePipe(TopoDS::Wire(shapePath), profileFace);
+    }
+    
+    catch (...) {
+        printf("DIDNT WORK");
+    }
+    
+    
+    //gets lost here when updating profile
+    //TopoDS_Shape solid = BRepOffsetAPI_MakePipe(TopoDS::Wire(shapePath), profileFace);
 
     return [Registry storeInRegistryWithCString:solid];
 }
+
+
+
+
 
 + (const char *) revolve:(const char *) profile
               aroundAxis:(SCNVector3) axisPosition
@@ -231,16 +423,28 @@
     return [Registry storeInRegistryWithCString:revolution];
 }
 
+
+
+
+
+
+
+
 + (const char *) loft:(NSArray *) profiles
                length:(int) length;
 {
     BRepOffsetAPI_ThruSections thruSections = BRepOffsetAPI_ThruSections(Standard_True);
+    
     for (int i = 0; i < length; i++) {
         NSString *profile = profiles[i];
+        
         TCollection_AsciiString keyProfile = TCollection_AsciiString(profile.UTF8String);
+        
         TopoDS_Shape shapeProfile = [Registry retrieveFromRegistryTransformed: keyProfile];
+        
         if (shapeProfile.ShapeType() == TopAbs_WIRE) {
             thruSections.AddWire(TopoDS::Wire(shapeProfile));
+            
         } else if (shapeProfile.ShapeType() == TopAbs_VERTEX) {
             thruSections.AddVertex(TopoDS::Vertex(shapeProfile));
         }
@@ -250,6 +454,13 @@
     
     return [Registry storeInRegistryWithCString:loft];
 }
+
+
+
+
+
+
+
 
 
 

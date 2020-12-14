@@ -61,6 +61,11 @@ class OCCTAPI {
         }
     }
     
+    
+    
+    
+   
+    
     func createPath(points:[SCNVector3], corners:[CornerStyle], closed:Bool) throws -> OCCTReference {
         if let cString = occt.createPath(points, length:Int32(points.count), corners: corners.map({ $0.rawValue }), closed:closed) {
             let ref = OCCTReference(cString: cString)
@@ -69,6 +74,33 @@ class OCCTAPI {
             throw OCCTError.couldNotCreateGeometry
         }
     }
+    
+    
+    
+    
+    
+    //ToDo
+    func updatePath(label: OCCTReference, points:[SCNVector3], corners:[CornerStyle], closed:Bool) throws -> OCCTReference {
+        if let cString = occt.updatePath(label, points: points, length: Int32(points.count), corners: corners.map({$0.rawValue}), closed: closed){
+            let ref = OCCTReference(cString: cString)
+            return ref
+        }
+        
+        else {
+            throw OCCTError.couldNotCreateGeometry
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func boolean(from a: OCCTReference, cut b: OCCTReference) throws -> OCCTReference {
         if let difference = occt.booleanCut(a, subtract: b) {
@@ -98,7 +130,7 @@ class OCCTAPI {
     }
     
     func sweep(profile: OCCTReference, path: OCCTReference) throws -> OCCTReference {
-        if let sum = occt.sweep(profile, along: path) {
+        if let sum = occt.sweep(profile as String?, along: path as String?) {
             let ref = OCCTReference(cString: sum)
             return ref
         } else {
@@ -115,6 +147,8 @@ class OCCTAPI {
         }
     }
     
+    
+    
     func loft(profiles: [OCCTReference]) throws -> OCCTReference {
         if let sum = occt.loft(profiles as [Any], length: Int32(profiles.count)) {
             let ref = OCCTReference(cString: sum)
@@ -123,6 +157,10 @@ class OCCTAPI {
             throw OCCTError.couldNotCreateGeometry
         }
     }
+    
+    
+    
+    
     
     func transform(handle: OCCTReference, transformation: SCNMatrix4) {
         occt.setTransformOf(handle, transformation: transformation)
