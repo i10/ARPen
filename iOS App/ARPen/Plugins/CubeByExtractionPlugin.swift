@@ -24,6 +24,7 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
         self.pluginImage = UIImage.init(named: "CubeByExtractionPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "ExtrudePluginInstructions")
         self.pluginIdentifier = "Extrude"
+        self.pluginGroupName = "Primitives"
         self.needsBluetoothARPen = false
         self.pluginDisabledImage = UIImage.init(named: "CubeByExtractionPluginDisabled")
         

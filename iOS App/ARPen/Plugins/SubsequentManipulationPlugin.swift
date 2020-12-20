@@ -24,7 +24,7 @@ class SubsequentManipulationPlugin: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Bool(Function)")
         self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
         self.pluginIdentifier = "Manipulation"
-        self.pluginGroupName = "Modeling"
+        self.pluginGroupName = "Editing"
         self.needsBluetoothARPen = false
         
         buttonEvents.didPressButton = self.didPressButton

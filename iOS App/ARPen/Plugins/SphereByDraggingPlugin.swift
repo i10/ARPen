@@ -29,7 +29,7 @@ class SphereByDraggingPlugin: Plugin {
         self.pluginInstructionsImage = UIImage.init(named: "SpherePluginInstructions")
         self.pluginIdentifier = "Sphere"
         self.needsBluetoothARPen = false
-        self.pluginGroupName = "Modeling"
+        self.pluginGroupName = "Primitives"
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     

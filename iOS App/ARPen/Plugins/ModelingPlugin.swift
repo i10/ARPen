@@ -77,6 +77,7 @@ class ModelingPlugin: Plugin {
         }
         NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
+
     @IBAction func undoButtonPressed(_ sender: Any) {
         curveDesigner.undo()
     }

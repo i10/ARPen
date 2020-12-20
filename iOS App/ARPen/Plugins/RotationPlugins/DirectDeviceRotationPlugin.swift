@@ -28,7 +28,7 @@ class DirectDeviceRotationPlugin: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "ObjectCreationPlugin")
         //self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
         self.pluginIdentifier = "Direct Device Rotation"
-        self.pluginGroupName = "Modeling"
+        self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false
         
         buttonEvents.didPressButton = self.didPressButton

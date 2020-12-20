@@ -31,7 +31,7 @@ class CylinderByDraggingPlugin: Plugin {
         self.pluginInstructionsImage = UIImage.init(named: "CylinderPluginInstructions")
         self.pluginIdentifier = "Cylinder"
         self.needsBluetoothARPen = false
-        self.pluginGroupName = "Modeling"
+        self.pluginGroupName = "Primitives"
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     

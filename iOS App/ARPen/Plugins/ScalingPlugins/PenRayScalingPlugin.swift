@@ -27,8 +27,8 @@ class PenRayScalingPlugin: ModelingPlugin {
         
         self.pluginImage = UIImage.init(named: "Bool(Function)")
         self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
-        self.pluginIdentifier = "Scaling(PenRay)"
-        self.pluginGroupName = "Modeling"
+        self.pluginIdentifier = "Scaling (PenRay)"
+        self.pluginGroupName = "Scaling"
         self.needsBluetoothARPen = false
         
         buttonEvents.didPressButton = self.didPressButton
@@ -39,9 +39,9 @@ class PenRayScalingPlugin: ModelingPlugin {
         super.activatePlugin(withScene: scene, andView: view)
         self.scaler.activate(withScene: scene, andView: view)
         
-        self.button1Label.text = "View Bounding Box"
-        self.button2Label.text = "Select Corner"
-        self.button3Label.text = ""
+        self.button1Label.text = "Select/Deselect Model"
+        self.button2Label.text = "Corner Scaling"
+        self.button3Label.text = "Uniform Scaling"
 
     }
     
@@ -63,51 +63,14 @@ class PenRayScalingPlugin: ModelingPlugin {
             break
             
         case .Button2:
-            cornerSelection()
+          
             break
         
         case .Button3:
             break
         }
     }
-    
-    ///selects the corner of the bounding box for scaling
-    /**
-        Selection: If we hover over a corner and press the button, we select the corner for scaling. The mesh is changed out for a sceneKit representation of the OCCT mesh. The pivot is moved for the scale to be relative to the diagonal corner of the mesh.
-     */
-    func cornerSelection(){
-        
-        //if pencil Point hovers over a corner
-        if scaler.hoverCorner != nil {
-            
-            //Case: select
-            if (scaler.isACornerSelected == false){
-                
-                let selectedCornerName = scaler.hoverCorner?.name
-                
-                //get the selected corner
-                scaler.selectedCorner = scaler.currentScene?.drawingNode.childNode(withName: selectedCornerName!, recursively: true)
-                //color selectedCorner
-                scaler.selectedCorner!.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 98/100, alpha: 1.0)
-                
-                scaler.isACornerSelected = true
-            }
-            
-            //Case: deselect
-            else
-            {
-                scaler.selectedTargets.first!.applyTransform()
-                scaler.selectedCorner = SCNNode()
-                scaler.selectedCorner!.name = "generic"
-                
-                scaler.isACornerSelected = false
-                
-            }
-        }
-    }
-    
-    
-    
+
     
 }
     

@@ -33,7 +33,7 @@ class PyramidByDraggingPlugin: Plugin {
         self.pluginInstructionsImage = UIImage.init(named: "PyramidPluginInstructions")
         self.pluginIdentifier = "Pyramid"
         self.needsBluetoothARPen = false
-        self.pluginGroupName = "Modeling"
+        self.pluginGroupName = "Primitives"
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
