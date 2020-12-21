@@ -32,10 +32,12 @@ class PenRayScaler {
     /// Move the object with its center to the pen tip when dragging starts.
     static let snapWhenDragging: Bool = true
     
+    var positionSave: SCNVector3?
+    
     ///for scaling
     var rotationSave: SCNVector4?
     ///original Height of the mesh when instantiated. Used for calculating scaleFactor for corner scaling
-    var originalMeshHeight: [String: Float] = [:]
+    var originalDiagonalLength: [String: Float] = [:]
     ///original half of the Height of the mesh when instantiated. Used for calculating scaleFactor for uniform scaling
     var originalHalfHeight: [String: Float] = [:]
     ///the currently selected corner of the meshes bounding box
@@ -148,7 +150,7 @@ class PenRayScaler {
                 && ((Date() - (lastClickTime ?? Date())) > self.timeTillDrag) && hoverCorner != nil
                         
             {
-                isACornerSelected = true
+                //isACornerSelected = true
                 dragging = true
                 
                 
@@ -165,41 +167,59 @@ class PenRayScaler {
                 hitTest = hitTest.filter({namesOfCorners.contains($0.node.name ?? "empty")})
                 
                 for hit in hitTest{
+                    
+                    if(positionSave != nil)
+                    {
+                        // DS = selected - diagonal
+                        let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
+                        //DP = pencil - diagonal
+                        let DP = simd_float3(x: hit.worldCoordinates.x - diagonalNode!.position.x, y: hit.worldCoordinates.y - diagonalNode!.position.y, z: hit.worldCoordinates.z - diagonalNode!.position.z)
+                        let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
+                        let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
+                                                
+                        let shift = simdProjPenciLPoint - selectedCorner!.simdPosition
+                        selectedCorner?.simdLocalTranslate(by: shift)
                         
-                    let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
-                    let before = diagonalNode?.position
+                        let updatedDiagonal = selectedCorner!.position - diagonalNode!.position
+                        let updatedDiagonalLength = updatedDiagonal.length()
+                            
+                        var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
+                        if scaleFactor < 0.2 {
+                            scaleFactor = 0.2
+                        }
+                        
+                        
+                        let before = diagonalNode?.position
+                        selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                        
+                        self.updateBoundingBox(selectedTargets.first!)
+                                                
+                        let after = getDiagonalNode(selectedCorner: selectedCorner!)?.position
 
-                    let updatedMeshHeight = abs(hit.worldCoordinates.y - (diagonalNode?.position.y)!)
-                    let scaleFactor = Float(updatedMeshHeight / originalMeshHeight[selectedTargets.first!.occtReference!]!)
-                   
-                    selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                    self.updateBoundingBoxForGivenMesh(mesh: selectedTargets.first!)
-                                                            
-                    let after = getDiagonalNode(selectedCorner: selectedCorner!)?.position
+                        let upper = ["lbu", "rbu", "lfu", "rfu"]
 
-                    let upper = ["lbu", "rbu", "lfu", "rfu"]
+                        //the diagonal node is an upper node
+                        if(upper.contains((getDiagonalNode(selectedCorner: selectedCorner!)?.name)!)){
+                                let x_of_diff = after!.x - before!.x
+                                let y_of_diff = after!.y - before!.y
+                                let z_of_diff = after!.z - before!.z
 
-                    //the diagonal node is an upper node
-                    if(upper.contains((getDiagonalNode(selectedCorner: selectedCorner!)?.name)!)){
-                        let x_of_diff = after!.x - before!.x
-                        let y_of_diff = after!.y - before!.y
-                        let z_of_diff = after!.z - before!.z
+                                let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
+                                selectedTargets.first!.position -= diff
+                        }
+                                                                                    
+                        else {
+                            let x_of_diff = before!.x - after!.x
+                            let y_of_diff = before!.y - after!.y
+                            let z_of_diff = before!.z - after!.z
 
-                        let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-                        selectedTargets.first!.position -= diff
+                            let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
+                            selectedTargets.first!.position += diff
+                        }
+                                                
+                        self.updateBoundingBox(selectedTargets.first!)
+
                     }
-                                                            
-                    else {
-                        let x_of_diff = before!.x - after!.x
-                        let y_of_diff = before!.y - after!.y
-                        let z_of_diff = before!.z - after!.z
-
-                        let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-
-                        selectedTargets.first!.position += diff
-                    }
-                                        
-                    self.updateBoundingBoxForGivenMesh(mesh: selectedTargets.first!)
 
                 }
             }
@@ -218,29 +238,23 @@ class PenRayScaler {
                     let projCurrPP = projectOntoImagePlane(pointerPosition: scene.pencilPoint.position)
                         
                     let newHalfHeight = abs(Float( projCurrPP!.y - projPosGeo!.y))
-                    print(newHalfHeight)
-                    print(originalHalfHeight)
+                    
                         
-                    var scaleFactor = Float(newHalfHeight / originalHalfHeight[selectedTargets.first!.occtReference!]!)
+                    var scaleFactor = Float(newHalfHeight / originalHalfHeight[selectedTargets.first!.occtReference!]!) * 0.7
                     if scaleFactor < 0.2 {
                         scaleFactor = 0.2
                     }
                         
                     selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                    print(scaleFactor)
+                   
                         
-                    self.updateBoundingBoxForGivenMesh(mesh: selectedTargets.first!)
+                    self.updateBoundingBox(selectedTargets.first!)
+
 
                 }
             }
         }
     }
-    
-    
-    
-    
-    
-    
     
 
     ///projects the pencilPoint on a given diagonal on the image plane
@@ -249,43 +263,20 @@ class PenRayScaler {
      */
     func projectOntoDiagonal(pencilPoint: SCNVector3, selectedCorner: SCNNode, diagonal: SCNVector3) -> CGPoint {
         
-        let upper = ["lbu", "rbu", "lfu", "rfu"]
-        
-        if(upper.contains(selectedCorner.name!)){
-            let projP = projectOntoImagePlane(pointerPosition: pencilPoint)
-            let projS = projectOntoImagePlane(pointerPosition: selectedCorner.position)
-            let projD = projectOntoImagePlane(pointerPosition: diagonal)
+    
+        let projP = projectOntoImagePlane(pointerPosition: pencilPoint)
+        let projS = projectOntoImagePlane(pointerPosition: selectedCorner.position)
+        let projD = projectOntoImagePlane(pointerPosition: diagonal)
             
-            let DS = CGPoint(x: projS!.x - projD!.x, y: projS!.y - projD!.y)
+        let DS = CGPoint(x: projS!.x - projD!.x, y: projS!.y - projD!.y)
             
-            let DP = CGPoint(x: projP!.x - projD!.x, y: projP!.y - projD!.y)
+        let DP = CGPoint(x: projP!.x - projD!.x, y: projP!.y - projD!.y)
             
-            let scalar = (dotProduct(DP, DS) / dotProduct(DS, DS))
+        let scalar = (dotProduct(DP, DS) / dotProduct(DS, DS))
             
-            let scalarDS = CGPoint(x: DS.x * scalar, y: DS.y * scalar)
+        let scalarDS = CGPoint(x: DS.x * scalar, y: DS.y * scalar)
             
-            return projD! + scalarDS
-        }
-        
-        else{
-            let projP = projectOntoImagePlane(pointerPosition: pencilPoint)
-            let projS = projectOntoImagePlane(pointerPosition: selectedCorner.position)
-            let projD = projectOntoImagePlane(pointerPosition: diagonal)
-            
-            let DS = CGPoint(x: projS!.x - projD!.x, y: projS!.y - projD!.y)
-            
-            let DP = CGPoint(x: projP!.x - projD!.x, y: projP!.y - projD!.y)
-            
-            let scalar = (dotProduct(DP, DS) / dotProduct(DS, DS))
-            
-            let scalarDS = CGPoint(x: DS.x * scalar, y: DS.y * scalar)
-            
-            return projD! + scalarDS
-            
-            
-        }
-        
-        
+        return projD! + scalarDS
     }
     
  
@@ -307,11 +298,9 @@ class PenRayScaler {
         case .Button2:
             lastClickPosition = currentScene?.pencilPoint.position
             lastClickTime = Date()
+            positionSave = hoverCorner?.position
         
         case.Button3:
-            break
-        
-        default:
             break
         }
     }
@@ -427,6 +416,12 @@ class PenRayScaler {
      */
     func viewBoundingBox(_ target: ARPGeomNode) {
         
+        let pitch = target.eulerAngles.x
+        let yaw = target.eulerAngles.y
+        let roll = target.eulerAngles.z
+            
+        target.eulerAngles = SCNVector3(0,0,0)
+            
         let ref = target.occtReference
         
         //mincorner of bounding box
@@ -444,14 +439,17 @@ class PenRayScaler {
             originalHalfHeight.updateValue(halfHeight, forKey: ref!)
         }
         
-        //Determine height and width of bounding box
-        let height = rfu.y - lbd.y
+       
+        let diagonal = rfu - lbd
+        let diagonalLength = diagonal.length()
         
         //first time we selected geometry so store new value
-        if !(originalMeshHeight.keys.contains(ref!)){
-            originalMeshHeight.updateValue(height, forKey: ref!)
+        if !(originalDiagonalLength.keys.contains(ref!)){
+            originalDiagonalLength.updateValue(diagonalLength, forKey: ref!)
         }
         
+        //Determine height and width of bounding box
+        let height = rfu.y - lbd.y
         let width = rfu.x - lbd.x
         
         let rbd = lbd + SCNVector3(x: width, y: 0, z: 0)
@@ -462,7 +460,22 @@ class PenRayScaler {
         let lfu = rfu - SCNVector3(x: width, y: 0, z: 0)
         let lfd = lfu - SCNVector3(x: 0, y: height, z: 0)
         
-        let corners: [String: SCNVector3] = ["lbd": lbd, "rbd": rbd, "lbu": lbu, "rbu": rbu, "lfd": lfd, "rfd": rfd, "lfu": lfu, "rfu": rfu]
+       
+        var corners: [String: SCNVector3] = ["lbd": lbd, "rbd": rbd, "lbu": lbu, "rbu": rbu, "lfd": lfd, "rfd": rfd, "lfu": lfu, "rfu": rfu]
+        
+        for (key , position) in corners {
+            
+            let tempPos = position - target.position
+            
+            let rotatedX = (cos(roll)*cos(yaw))*tempPos.x + (cos(roll)*sin(yaw)*sin(pitch)-sin(roll)*cos(pitch))*tempPos.y + (cos(roll)*sin(yaw)*cos(pitch)+sin(roll)*sin(pitch))*tempPos.z
+            let rotatedY = (sin(roll)*cos(yaw))*tempPos.x + (sin(roll)*sin(yaw)*sin(pitch)+cos(roll)*cos(pitch))*tempPos.y + (sin(roll)*sin(yaw)*cos(pitch)-cos(roll)*sin(pitch))*tempPos.z
+            let rotatedZ = (-sin(yaw))*tempPos.x + (cos(yaw)*sin(pitch))*tempPos.y + (cos(yaw)*cos(pitch))*tempPos.z
+            
+            corners[key] = SCNVector3(rotatedX + target.position.x, rotatedY + target.position.y, rotatedZ + target.position.z)
+        }
+        
+        target.eulerAngles = SCNVector3(pitch,yaw,roll)
+        
 
         //add sphere for every corner in the scene
         for (key, position) in corners {
@@ -471,6 +484,7 @@ class PenRayScaler {
             node.position = position
             node.geometry = SCNBox(width: 0.01, height: 0.01, length: 0.01, chamferRadius: 0)
             node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 38/100, brightness: 68/100, alpha: 1.0)
+            node.rotation = target.rotation
             
             DispatchQueue.main.async {
                 self.currentScene?.drawingNode.addChildNode(node)
@@ -482,28 +496,58 @@ class PenRayScaler {
     /**
         searches for the nodes of the bounding box and updates their position
      */
-    func updateBoundingBoxForGivenMesh(mesh: SCNNode) {
-        let max = mesh.convertPosition(mesh.boundingBox.max, to: self.currentScene?.drawingNode)
-        let min = mesh.convertPosition(mesh.boundingBox.min, to: self.currentScene?.drawingNode)
+    func updateBoundingBox(_ target: ARPGeomNode) {
         
-        let height = max.y - min.y
-        let width = max.x - min.x
-       
-        self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = min
+        let pitch = target.eulerAngles.x
+        let yaw = target.eulerAngles.y
+        let roll = target.eulerAngles.z
+            
+        target.eulerAngles = SCNVector3(0,0,0)
         
-        self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = max
+        let rfu = target.convertPosition(target.boundingBox.max, to: self.currentScene?.drawingNode)
+        let lbd = target.convertPosition(target.boundingBox.min, to: self.currentScene?.drawingNode)
+        
+        let height = rfu.y - lbd.y
+        let width = rfu.x - lbd.x
+        
+        let rbd = lbd + SCNVector3(x: width, y: 0, z: 0)
+        let lbu = lbd + SCNVector3(x: 0, y: height, z: 0)
+        let rbu = lbu + SCNVector3(x: width, y: 0, z: 0)
+        
+        let rfd = rfu - SCNVector3(x: 0, y: height, z: 0)
+        let lfu = rfu - SCNVector3(x: width, y: 0, z: 0)
+        let lfd = lfu - SCNVector3(x: 0, y: height, z: 0)
+        
+        var corners: [String: SCNVector3] = ["lbd": lbd, "rbd": rbd, "lbu": lbu, "rbu": rbu, "lfd": lfd, "rfd": rfd, "lfu": lfu, "rfu": rfu]
+        
+        for (key , position) in corners {
             
-        self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: width, y: 0, z: 0)
+            let tempPos = position - target.position
             
-        self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: 0, y: height, z: 0)
+            let rotatedX = (cos(roll)*cos(yaw))*tempPos.x + (cos(roll)*sin(yaw)*sin(pitch)-sin(roll)*cos(pitch))*tempPos.y + (cos(roll)*sin(yaw)*cos(pitch)+sin(roll)*sin(pitch))*tempPos.z
+            let rotatedY = (sin(roll)*cos(yaw))*tempPos.x + (sin(roll)*sin(yaw)*sin(pitch)+cos(roll)*cos(pitch))*tempPos.y + (sin(roll)*sin(yaw)*cos(pitch)-cos(roll)*sin(pitch))*tempPos.z
+            let rotatedZ = (-sin(yaw))*tempPos.x + (cos(yaw)*sin(pitch))*tempPos.y + (cos(yaw)*cos(pitch))*tempPos.z
             
-        self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)!.position)! + SCNVector3(x: width, y: height, z: 0)
+            corners[key] = SCNVector3(rotatedX + target.position.x, rotatedY + target.position.y, rotatedZ + target.position.z)
+        }
+        
+        self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = corners["lbd"]!
+        
+        self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = corners["rfu"]!
             
-        self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: 0, y: height, z: 0)
+        self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = corners["rbd"]!
             
-        self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: width, y: 0, z: 0)
+        self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = corners["lbu"]!
             
-        self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = (self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)!.position)! - SCNVector3(x: width, y: height, z: 0)
+        self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = corners["rbu"]!
+    
+        self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = corners["rfd"]!
+    
+        self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = corners["lfu"]!
+            
+        self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = corners["lfd"]!
+        
+        target.eulerAngles = SCNVector3(pitch,yaw,roll)
     }
     
     ///search the scene for the boundingBox corners and then remove them
@@ -650,6 +694,9 @@ class PenRayScaler {
            
             target.applyTransform()
             viewBoundingBox(target)
+            
+            
+            
         }
     }
 }

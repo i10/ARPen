@@ -41,7 +41,7 @@ class PenRayScalingPlugin: ModelingPlugin {
         
         self.button1Label.text = "Select/Deselect Model"
         self.button2Label.text = "Corner Scaling"
-        self.button3Label.text = "Uniform Scaling"
+        self.button3Label.text = "Center Scaling"
 
     }
     

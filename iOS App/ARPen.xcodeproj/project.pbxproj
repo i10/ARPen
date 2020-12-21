@@ -370,8 +370,6 @@
 				4AAC4AF723A24A3F003B6E83 /* Arranger.swift */,
 				4AAC4AF823A24A3F003B6E83 /* CurveDesigner.swift */,
 				4AAC4AF923A24A3F003B6E83 /* TaskTimeLogger.swift */,
-				75152A922573BAB30051E15D /* PenRayScaler.swift */,
-				75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */,
 				75C7A8382583B70D00A10953 /* ModelManipulator.swift */,
 			);
 			path = Util;
@@ -455,6 +453,7 @@
 		75152A8F2573B84E0051E15D /* ScalingPlugins */ = {
 			isa = PBXGroup;
 			children = (
+				75152A922573BAB30051E15D /* PenRayScaler.swift */,
 				75152A902573B8750051E15D /* PenRayScalingPlugin.swift */,
 			);
 			path = ScalingPlugins;
@@ -464,6 +463,7 @@
 			isa = PBXGroup;
 			children = (
 				75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */,
+				75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */,
 			);
 			path = RotationPlugins;
 			sourceTree = "<group>";
