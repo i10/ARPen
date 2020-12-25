@@ -87,6 +87,12 @@
 		750292912559C87A00963547 /* ARPPyramid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750292902559C87A00963547 /* ARPPyramid.swift */; };
 		75152A912573B8750051E15D /* PenRayScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A902573B8750051E15D /* PenRayScalingPlugin.swift */; };
 		75152A932573BAB30051E15D /* PenRayScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A922573BAB30051E15D /* PenRayScaler.swift */; };
+		7538B7142595FC2A00C14DD1 /* TSRotationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B7132595FC2A00C14DD1 /* TSRotationPlugin.swift */; };
+		7538B7162595FC3E00C14DD1 /* TSRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B7152595FC3E00C14DD1 /* TSRotator.swift */; };
+		7538B718259627C200C14DD1 /* PenRotationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B717259627C200C14DD1 /* PenRotationPlugin.swift */; };
+		7538B71A2596298000C14DD1 /* PenRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B7192596298000C14DD1 /* PenRotator.swift */; };
+		7538B71C2596388C00C14DD1 /* PinchScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B71B2596388C00C14DD1 /* PinchScalingPlugin.swift */; };
+		7538B71E2596392000C14DD1 /* PinchScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B71D2596392000C14DD1 /* PinchScaler.swift */; };
 		75C7A8392583B70D00A10953 /* ModelManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C7A8382583B70D00A10953 /* ModelManipulator.swift */; };
 		75C7A83B2583B83600A10953 /* SubsequentManipulationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C7A83A2583B83600A10953 /* SubsequentManipulationPlugin.swift */; };
 		75EBB71C25825EE2001ADB8F /* DirectDeviceRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */; };
@@ -225,6 +231,12 @@
 		750292902559C87A00963547 /* ARPPyramid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPPyramid.swift; sourceTree = "<group>"; };
 		75152A902573B8750051E15D /* PenRayScalingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScalingPlugin.swift; sourceTree = "<group>"; };
 		75152A922573BAB30051E15D /* PenRayScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScaler.swift; sourceTree = "<group>"; };
+		7538B7132595FC2A00C14DD1 /* TSRotationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSRotationPlugin.swift; sourceTree = "<group>"; };
+		7538B7152595FC3E00C14DD1 /* TSRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSRotator.swift; sourceTree = "<group>"; };
+		7538B717259627C200C14DD1 /* PenRotationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRotationPlugin.swift; sourceTree = "<group>"; };
+		7538B7192596298000C14DD1 /* PenRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRotator.swift; sourceTree = "<group>"; };
+		7538B71B2596388C00C14DD1 /* PinchScalingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchScalingPlugin.swift; sourceTree = "<group>"; };
+		7538B71D2596392000C14DD1 /* PinchScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchScaler.swift; sourceTree = "<group>"; };
 		75C7A8382583B70D00A10953 /* ModelManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManipulator.swift; sourceTree = "<group>"; };
 		75C7A83A2583B83600A10953 /* SubsequentManipulationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsequentManipulationPlugin.swift; sourceTree = "<group>"; };
 		75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectDeviceRotator.swift; sourceTree = "<group>"; };
@@ -455,6 +467,8 @@
 			children = (
 				75152A922573BAB30051E15D /* PenRayScaler.swift */,
 				75152A902573B8750051E15D /* PenRayScalingPlugin.swift */,
+				7538B71B2596388C00C14DD1 /* PinchScalingPlugin.swift */,
+				7538B71D2596392000C14DD1 /* PinchScaler.swift */,
 			);
 			path = ScalingPlugins;
 			sourceTree = "<group>";
@@ -464,6 +478,10 @@
 			children = (
 				75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */,
 				75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */,
+				7538B7132595FC2A00C14DD1 /* TSRotationPlugin.swift */,
+				7538B7152595FC3E00C14DD1 /* TSRotator.swift */,
+				7538B717259627C200C14DD1 /* PenRotationPlugin.swift */,
+				7538B7192596298000C14DD1 /* PenRotator.swift */,
 			);
 			path = RotationPlugins;
 			sourceTree = "<group>";
@@ -737,19 +755,23 @@
 				DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */,
 				E983D24A22ABFE680000B8D5 /* PyramidByDraggingPlugin.swift in Sources */,
 				DC28B45C200E4470008B77AB /* OpenCVWrapper.mm in Sources */,
+				7538B71C2596388C00C14DD1 /* PinchScalingPlugin.swift in Sources */,
 				DC28B444200E4353008B77AB /* ViewController.swift in Sources */,
 				EA0C796422F078EE00E820E8 /* ARPenBoxNode.swift in Sources */,
 				4AC1F5A82524C15F002B0A7F /* SelectableNode.swift in Sources */,
 				4AAC4B1B23A28600003B6E83 /* SweepPluginProfileAndPath.swift in Sources */,
 				4AAC4B2C23A37D17003B6E83 /* RevolvePluginProfileAndCircle.swift in Sources */,
 				4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */,
+				7538B7162595FC3E00C14DD1 /* TSRotator.swift in Sources */,
 				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
 				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
 				4AA09F8D24DD508B00B59F9E /* ShadowPlugin.swift in Sources */,
+				7538B718259627C200C14DD1 /* PenRotationPlugin.swift in Sources */,
 				E906324522E3174B008E320F /* Utilities.swift in Sources */,
 				E906324722E31770008E320F /* SnapshotAnchor.swift in Sources */,
 				4A59BA262244E69400EA23E7 /* CombinationPlugin.swift in Sources */,
+				7538B71A2596298000C14DD1 /* PenRotator.swift in Sources */,
 				DC28B46D200E4E6E008B77AB /* MarkerBox.swift in Sources */,
 				75152A912573B8750051E15D /* PenRayScalingPlugin.swift in Sources */,
 				4AC1F5BC2524D1BD002B0A7F /* MovingCursorPlugin.swift in Sources */,
@@ -773,6 +795,7 @@
 				4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */,
 				4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */,
 				EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */,
+				7538B7142595FC2A00C14DD1 /* TSRotationPlugin.swift in Sources */,
 				4AAC4AE923A24A20003B6E83 /* ARPSphere.swift in Sources */,
 				4AAC4AFE23A24A3F003B6E83 /* TaskTimeLogger.swift in Sources */,
 				4AAC4B2923A37D17003B6E83 /* LoftPlugin.swift in Sources */,
@@ -802,6 +825,7 @@
 				EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */,
 				4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */,
 				4AC1F5A32524C0AD002B0A7F /* Menu.swift in Sources */,
+				7538B71E2596392000C14DD1 /* PinchScaler.swift in Sources */,
 				4AC1F5A62524C0AD002B0A7F /* LinearMenu.swift in Sources */,
 				4AA09F8E24DD508B00B59F9E /* BubblePlugin.swift in Sources */,
 				4AAC4AFC23A24A3F003B6E83 /* Arranger.swift in Sources */,

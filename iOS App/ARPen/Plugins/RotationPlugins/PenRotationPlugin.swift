@@ -1,8 +1,8 @@
 //
-//  DirectDeviceRotationPlugin.swift
+//  PenRotationPlugin.swift
 //  ARPen
 //
-//  Created by Andreas RF Dymek on 10.12.20.
+//  Created by Andreas RF Dymek on 25.12.20.
 //  Copyright © 2020 RWTH Aachen. All rights reserved.
 //
 
@@ -13,19 +13,19 @@ import ARKit
  This plugin is used for rotating an object via device input.
 */
 
-class DirectDeviceRotationPlugin: ModelingPlugin {
+class PenRotationPlugin: ModelingPlugin {
     
-    private var rotator: DirectDeviceRotator
+    private var rotator: PenRotator
     private var buttonEvents: ButtonEvents
 
     override init() {
         buttonEvents = ButtonEvents()
-        rotator = DirectDeviceRotator()
+        rotator = PenRotator()
         super.init()
         
         self.pluginImage = UIImage.init(named: "ObjectCreationPlugin")
         //self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
-        self.pluginIdentifier = "Direct Device Rotation"
+        self.pluginIdentifier = "Pen Rotation"
         self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false
         

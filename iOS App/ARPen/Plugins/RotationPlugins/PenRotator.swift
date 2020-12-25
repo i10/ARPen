@@ -1,29 +1,29 @@
 //
-//  DirectDeviceRotator.swift
+//  PenRotator.swift
 //  ARPen
 //
-//  Created by Andreas RF Dymek on 10.12.20.
+//  Created by Andreas RF Dymek on 25.12.20.
 //  Copyright © 2020 RWTH Aachen. All rights reserved.
 //
+
 import Foundation
 import ARKit
 
 /**
 This class handles the "visiting" and rotation of meshes.
  */
-class DirectDeviceRotator {
+class PenRotator {
     
     var currentScene: PenScene?
     var currentView: ARSCNView?
-    //counts the updates since selecting a mesh
-    var updatesSincePressed = 0
-    //the device orientation when rotation button is first pressed
-    var startDeviceOrientation = simd_quatf()
-    //the updated device orientation
-    var updatedDeviceOrientation = simd_quatf()
-    var quaternionFromStartToUpdatedDeviceOrientation = simd_quatf()
-    var rotationAxis = simd_float3()
 
+    var startPenOrientation = simd_quatf()
+    var updatedPenOrientation = simd_quatf()
+    var quaternionFromStartToUpdatedPenOrientation = simd_quatf()
+    var updatesSincePressed = 0
+    var selected : Bool = false
+    var firstSelection : Bool = false
+        
     //hoverTarget uses didSet to update any dependency automatically
     var hoverTarget: ARPNode? {
         didSet {
@@ -84,41 +84,36 @@ class DirectDeviceRotator {
                 hoverTarget = nil
             }
         }
-            
+        
         //geometry was selected
         if selectedTargets.count == 1 {
             let pressed = buttons[Button.Button2]!
             
             if pressed
             {
-                //"activate" box while buttons is pressed and select it therefore
-                //project point onto image plane and see if geometry is behind it via hittest
-   
-                //if just selected, initialize DeviceOrientation
+                
+                //if just pressed, initialize PenOrientation
                 if updatesSincePressed == 0 {
-                    if let orientation = self.currentView!.pointOfView?.simdOrientation {
-                        startDeviceOrientation = orientation
-                    }
+                    startPenOrientation = scene.pencilPoint.simdOrientation
                 }
                 
+                print(startPenOrientation)
                 updatesSincePressed += 1
                 
-                if let updatedDeviceOrient = self.currentView!.pointOfView?.simdOrientation {
-                    updatedDeviceOrientation = updatedDeviceOrient
+                updatedPenOrientation = scene.pencilPoint.simdOrientation
+                print(updatedPenOrientation)
+                quaternionFromStartToUpdatedPenOrientation = updatedPenOrientation * simd_inverse(startPenOrientation)
+                
+                let rotationAxis = selectedTargets.first!.simdConvertVector(quaternionFromStartToUpdatedPenOrientation.axis, from: nil)
+                quaternionFromStartToUpdatedPenOrientation = simd_quatf(angle: quaternionFromStartToUpdatedPenOrientation.angle, axis: rotationAxis)
+                
+                if selected == true && quaternionFromStartToUpdatedPenOrientation.angle.radiansToDegrees < 20.0 {
+                    quaternionFromStartToUpdatedPenOrientation = quaternionFromStartToUpdatedPenOrientation.normalized
+                    selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedPenOrientation)
+                    //for measurement
                 }
                 
-                //calculate quaternion to get from start to updated device orientation and apply the same rotation to the object
-                quaternionFromStartToUpdatedDeviceOrientation = updatedDeviceOrientation * simd_inverse(startDeviceOrientation)
-                
-                rotationAxis = quaternionFromStartToUpdatedDeviceOrientation.axis
-                rotationAxis = selectedTargets.first!.simdConvertVector(rotationAxis, from: nil)
-                
-                quaternionFromStartToUpdatedDeviceOrientation = simd_quatf(angle: quaternionFromStartToUpdatedDeviceOrientation.angle, axis: rotationAxis)
-                quaternionFromStartToUpdatedDeviceOrientation = quaternionFromStartToUpdatedDeviceOrientation.normalized
-            
-                selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedDeviceOrientation)
-
-                startDeviceOrientation = updatedDeviceOrientation
+                startPenOrientation = updatedPenOrientation
             }
       
         }
@@ -234,6 +229,7 @@ class DirectDeviceRotator {
         selectedTargets.removeAll(where: { $0 === target })
         hoverTarget = nil
         target.name = "generic"
+        selected = false
     }
     
     ///
@@ -244,6 +240,7 @@ class DirectDeviceRotator {
         if selectedTargets.count != 1 {
             target.selected = true
             target.name = "selected"
+            selected = true
             selectedTargets.append(target)
             justSelectedSomething = true
             didSelectSomething?(target)

@@ -1,32 +1,28 @@
 //
-//  DirectDeviceRotationPlugin.swift
+//  PinchScalingPlugin.swift
 //  ARPen
 //
-//  Created by Andreas RF Dymek on 10.12.20.
+//  Created by Andreas RF Dymek on 25.12.20.
 //  Copyright © 2020 RWTH Aachen. All rights reserved.
 //
 
 import Foundation
 import ARKit
 
-/**
- This plugin is used for rotating an object via device input.
-*/
-
-class DirectDeviceRotationPlugin: ModelingPlugin {
+class  PinchScalingPlugin: ModelingPlugin {
     
-    private var rotator: DirectDeviceRotator
+    private var scaler: PinchScaler
     private var buttonEvents: ButtonEvents
-
+        
     override init() {
         buttonEvents = ButtonEvents()
-        rotator = DirectDeviceRotator()
+        scaler = PinchScaler()
         super.init()
         
-        self.pluginImage = UIImage.init(named: "ObjectCreationPlugin")
-        //self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
-        self.pluginIdentifier = "Direct Device Rotation"
-        self.pluginGroupName = "Rotation"
+        self.pluginImage = UIImage.init(named: "Bool(Function)")
+        self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
+        self.pluginIdentifier = "Scaling (Pinch)"
+        self.pluginGroupName = "Scaling"
         self.needsBluetoothARPen = false
         
         buttonEvents.didPressButton = self.didPressButton
@@ -35,23 +31,23 @@ class DirectDeviceRotationPlugin: ModelingPlugin {
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
         super.activatePlugin(withScene: scene, andView: view)
-        self.rotator.activate(withScene: scene, andView: view)
+        self.scaler.activate(withScene: scene, andView: view)
         
-        self.button1Label.text = "Select"
-        self.button2Label.text = "Hold for Rotation"
+        self.button1Label.text = ""
+        self.button2Label.text = ""
         self.button3Label.text = ""
 
     }
     
     override func deactivatePlugin() {
-        rotator.deactivate()
+        scaler.deactivate()
         
         super.deactivatePlugin()
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         buttonEvents.update(buttons: buttons)
-        rotator.update(scene: scene, buttons: buttons)
+        scaler.update(scene: scene, buttons: buttons)
     }
     
     func didPressButton(_ button: Button) {
@@ -61,15 +57,16 @@ class DirectDeviceRotationPlugin: ModelingPlugin {
             break
             
         case .Button2:
+          
             break
         
         case .Button3:
             break
         }
     }
-    
-    
-        
-    
+
     
 }
+    
+    
+    
