@@ -52,8 +52,8 @@ class DepthRayPlugin: MinVisPlugin {
         }
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         let renderToTextureScene = SKScene(size: CGSize(width: 2000, height: 250))
         renderToTextureScene.backgroundColor = UIColor.clear

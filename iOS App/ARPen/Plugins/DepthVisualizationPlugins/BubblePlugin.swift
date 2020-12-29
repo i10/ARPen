@@ -71,8 +71,8 @@ class BubblePlugin: MinVisPlugin {
         }
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         for i : Int in 0 ..< self.sonarBubbleNum {
             var sonarBubble = SCNNode()

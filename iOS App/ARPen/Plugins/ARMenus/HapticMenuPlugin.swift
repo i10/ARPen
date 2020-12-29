@@ -14,8 +14,8 @@ class HapticMenuPlugin: StudyPlugin {
         self.pluginInstructionsImage = UIImage.init(named: "ARMenusSurfaceInstructions")
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         MenuManager.shared.menuType = .Haptic
         
         pluginManager?.allowPenInput = true

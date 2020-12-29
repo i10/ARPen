@@ -126,8 +126,8 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.previousPoint = scene.pencilPoint.position
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager){
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         if (MinVisPlugin.nodeType == ARPenWireBoxNode.self) {
             MinVisPlugin.nodeType = ARPenBoxNode.self

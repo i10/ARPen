@@ -18,12 +18,16 @@ class PenRayScaler {
     
     var currentScene: PenScene?
     var currentView: ARSCNView?
-    private var buttonEvents: ButtonEvents
+    var urManager: UndoRedoManager?
     
+    private var buttonEvents: ButtonEvents
     private var lastClickPosition: SCNVector3?
     public var lastClickTime: Date?
     private var lastPenPosition: SCNVector3?
     
+    var initialScale: SCNVector3?
+    var updatedScale: SCNVector3?
+
     /// The time (in seconds) after which holding the main button on an object results in dragging it.
     let timeTillDrag: Double = 0.5
     /// The minimum distance to move the pen starting at an object while holding the main button which results in dragging it.
@@ -66,9 +70,10 @@ class PenRayScaler {
         buttonEvents.didDoubleClick = self.didDoubleClick
     }
 
-    func activate(withScene scene: PenScene, andView view: ARSCNView) {
+    func activate(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
         self.currentView = view
         self.currentScene = scene
+        self.urManager = urManager
         self.visitTarget = nil
         self.dragging = false
         self.lastClickPosition = nil
@@ -87,7 +92,7 @@ class PenRayScaler {
              
         //check for button press
         buttonEvents.update(buttons: buttons)
-       
+        
         //for highlighting geometry the pencil point is over
         if selectedTargets.count != 1 {
             //check whether or not you hover over created geometry
@@ -102,6 +107,8 @@ class PenRayScaler {
         //a geometry is selected
         if selectedTargets.count == 1
         {
+            updateBoundingBox(selectedTargets.first!)
+            
             //there is no corner selected at the moment
             if isACornerSelected == false
             {
@@ -202,6 +209,7 @@ class PenRayScaler {
                         }
                                                 
                         self.updateBoundingBox(selectedTargets.first!)
+                        
 
                     }
 
@@ -302,6 +310,7 @@ class PenRayScaler {
             lastClickPosition = currentScene?.pencilPoint.position
             lastClickTime = Date()
             positionSave = hoverCorner?.position
+            initialScale = selectedTargets.first?.scale
 
         }
     }
@@ -325,6 +334,7 @@ class PenRayScaler {
                     DispatchQueue.global(qos: .userInitiated).async {
                         // Do this in the background, as it may cause a time-intensive rebuild in the parent object
                         target.applyTransform()
+                        
                     }
                 }
             }
@@ -336,7 +346,13 @@ class PenRayScaler {
             selectedCorner!.name = "generic"
             isACornerSelected = false
             
-
+            if selectedTargets.count == 1 {
+                updatedScale = selectedTargets.first?.scale
+                let diffInScale =  updatedScale! - initialScale!
+                let scalingAction = ScalingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInScale: diffInScale)
+                self.urManager?.actionDone(scalingAction)
+                
+            }
         }
     }
     

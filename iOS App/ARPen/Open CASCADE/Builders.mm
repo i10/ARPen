@@ -59,8 +59,6 @@
     
     TopoDS_Shape aPyramid = BRepPrimAPI_MakeWedge(width, height, length, width/2, length/2, width/2, length/2);
     
-    
-
     TCollection_AsciiString key = [Registry storeInRegistry:aPyramid];
     
     return [Registry toHeapCString:key];

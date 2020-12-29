@@ -204,9 +204,9 @@ class CombinationPlugin: Plugin {
     }
     
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager){
         
-        super.activatePlugin(withScene: scene, andView: view)
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         self.fillSceneWithCubes(withScene: scene, andView : view)
         

@@ -10,9 +10,9 @@ class TwoHandedTouch: MidairPlugin {
         self.pluginInstructionsImage = UIImage.init(named: "ARMenus2HandedInstructions")
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
        
-        super.activatePlugin(withScene: scene, andView: view)
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         pluginManager?.allowPenInput = true
         pluginManager?.allowTouchInput = true
         isPenTipHidden = true

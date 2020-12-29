@@ -42,6 +42,8 @@ class Plugin: NSObject {
     var currentScene : PenScene?
     var currentView : ARSCNView?
     
+    var undoRedoManager: UndoRedoManager?
+    
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
     var pluginDisabledImage: UIImage?
     
@@ -55,14 +57,41 @@ class Plugin: NSObject {
         
     }
     
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager){
+        self.undoRedoManager = urManager
         self.currentScene = scene
         self.currentView = view
     }
+    
     func deactivatePlugin(){
         self.currentScene = nil
         self.currentView = nil
     }
+    
+    
+    
+    
+    
+    
+    func undo(){
+        self.undoRedoManager?.undo()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //added a generic function fo random String creation
     //as found on StackOverflow

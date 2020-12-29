@@ -54,8 +54,8 @@ class StudyPlugin: Plugin, PenDelegate, TouchDelegate, SelectionDelegate, UserSt
     
     //-----------------------------------------------------------------------------------------------------------
     //MARK: Setup and deactivate plugin
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         let sceneConstructor = ARPenGridSceneConstructor.init()
         self.sceneConstructionResults = sceneConstructor.preparedARPenNodes(withScene: pluginManager!.penScene, andView: pluginManager!.sceneView, andStudyNodeType: ARPenBoxNode.self)

@@ -10,9 +10,9 @@ class MovingCursorPlugin: MidairPlugin {
         self.pluginInstructionsImage = UIImage.init(named: "ARMenusDeviceInstructions")
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
        
-        super.activatePlugin(withScene: scene, andView: view)
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         MenuManager.shared.menuType = .MovingCursor
         
         pluginManager?.allowPenInput = true

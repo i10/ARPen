@@ -34,12 +34,12 @@ class ModelingPlugin: Plugin {
         
         // This UI contains buttons to represent the other two buttons on the pen and an undo button
         // Important: when using this xib-file, implement the IBActions shown below and the IBOutlets above
-        nibNameOfCustomUIView = "AllButtonsAndUndo"
+        nibNameOfCustomUIView = "ThreeButtons"
  
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         self.curveDesigner.reset()
         
@@ -77,8 +77,9 @@ class ModelingPlugin: Plugin {
         }
         NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
+    
+    //override func undo(){
+       // curveDesigner.undo()
+   // }
 
-    @IBAction func undoButtonPressed(_ sender: Any) {
-        curveDesigner.undo()
-    }
 }

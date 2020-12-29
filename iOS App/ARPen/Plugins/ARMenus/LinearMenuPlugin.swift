@@ -20,9 +20,9 @@ class LinearMenuPlugin: StudyPlugin {
         self.pluginInstructionsImage = UIImage.init(named: "ARMenus1HandedInstructions")
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
         
-        super.activatePlugin(withScene: scene, andView: view)
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         MenuManager.shared.menuType = .LinearTouch
         
         pluginManager?.allowPenInput = true

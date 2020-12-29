@@ -17,9 +17,6 @@ import ARKit
  */
 class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate, UITableViewDelegate {
 
-    
-
-    
     @IBOutlet var arSceneView: ARSCNView!
     @IBOutlet weak var softwarePenButton: UIButton!
     @IBOutlet weak var imageForPluginInstructions: UIImageView!
@@ -390,9 +387,20 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
     }
     
+    
+    
+    
+    
     @IBAction func undoButtonPressed(_ sender: Any) {
         self.pluginManager.undoPreviousStep()
     }
+
+    
+    
+    
+    
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.pluginManager.touchesBegan(touches, with: event)
     }

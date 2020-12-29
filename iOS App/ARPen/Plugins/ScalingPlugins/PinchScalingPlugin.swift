@@ -29,8 +29,8 @@ class  PinchScalingPlugin: ModelingPlugin {
         
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         self.scaler.activate(withScene: scene, andView: view)
         
         self.button1Label.text = ""

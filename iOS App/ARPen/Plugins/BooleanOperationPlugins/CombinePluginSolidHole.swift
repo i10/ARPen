@@ -27,8 +27,8 @@ class CombinePluginSolidHole: ModelingPlugin {
         buttonEvents.didPressButton = self.didPressButton
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         // Forward activation to arranger
         self.arranger.activate(withScene: scene, andView: view)
         

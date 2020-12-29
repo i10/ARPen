@@ -24,7 +24,8 @@ class PyramidByDraggingPlugin: Plugin {
     private var finalPyramidLength: Double?
     
     ///final box position
-    private var finalPyriamidPos: SCNVector3?
+    private var finalPyramidMin: SCNVector3?
+    private var finalPyramidCenter: SCNVector3?
     
     override init() {
         super.init()
@@ -82,13 +83,20 @@ class PyramidByDraggingPlugin: Plugin {
                 let pyramidCenterXPosition = scene.pencilPoint.position.x
                 let pyramidCenterYPosition = startingPoint.y
                 let pyramidCenterZPosition = startingPoint.z + (scene.pencilPoint.position.z - startingPoint.z)/2
-                
-
                 pyramidNode.position = SCNVector3.init(pyramidCenterXPosition, pyramidCenterYPosition, pyramidCenterZPosition)
                 
                 //MAINUPULIERE DIE POS VON AR NODE
-                self.finalPyriamidPos = pyramidNode.convertPosition(pyramidNode.boundingBox.min, to: self.currentScene?.drawingNode)
                 
+                let min = pyramidNode.convertPosition(pyramidNode.boundingBox.min, to: self.currentScene?.drawingNode)
+                let max = pyramidNode.convertPosition(pyramidNode.boundingBox.max, to: self.currentScene?.drawingNode)
+                
+                let width = max.x - min.x
+                let height = max.y - min.y
+                let length = max.z - min.z
+                
+                let centerPosition = min + SCNVector3(width/2, height/2, length/2)
+                self.finalPyramidCenter = centerPosition
+                self.finalPyramidMin = min
                 
             } else {
                 //if the button is pressed but no startingPoint exists -> first frame with the button pressed. Set current pencil position as the start point
@@ -101,6 +109,7 @@ class PyramidByDraggingPlugin: Plugin {
                 self.startingPoint = nil
                 if let pyramidNode = scene.drawingNode.childNode(withName: "currentDragPyramidNode", recursively: false)
                 {
+                    
                     //assign a random name to the boxNode for identification in further process
                     pyramidNode.name = randomString(length: 32)
                     //remove "SceneKit" Pyramid
@@ -112,7 +121,38 @@ class PyramidByDraggingPlugin: Plugin {
                         scene.drawingNode.addChildNode(pyramid)
                     }
                     
-                    pyramid.localTranslate(by: self.finalPyriamidPos!)
+                    
+                    pyramid.position = finalPyramidMin!
+                    
+                    
+                    
+                    let min = pyramid.convertPosition(pyramid.boundingBox.min, to: self.currentScene?.drawingNode)
+                    print(min)
+                    let max = pyramid.convertPosition(pyramid.boundingBox.max, to: self.currentScene?.drawingNode)
+                    print(max)
+                    
+                    let height = abs(max.y - min.y)
+                    let width = abs(max.x - min.x)
+                    let length = abs(max.z - min.z)
+                    
+                    let centerOfBB = min + SCNVector3(width/2, height/2, length/2)
+                    print(centerOfBB)
+                    print(finalPyramidMin)
+                    
+                    print(currentScene?.drawingNode.convertPosition(centerOfBB, to: pyramid))
+                    print(currentScene?.drawingNode.convertPosition(min, to: pyramid))
+                    
+                    
+                   // let pivotShift = finalPyramidCenter! - finalPyramidMin!
+                    
+                   // pyramid.pivot = SCNMatrix4MakeTranslation(pivotShift.x, pivotShift.y, pivotShift.z)
+                    
+                   // pyramid.position = finalPyramidCenter!
+                    
+              
+                  
+                 
+                    
                     pyramid.applyTransform()
 
                 }

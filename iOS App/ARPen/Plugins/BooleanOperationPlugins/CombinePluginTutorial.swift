@@ -37,8 +37,8 @@ class CombinePluginTutorial: ModelingPlugin {
     }
 
     /// Called whenever the user switches to the plugin, or returns from the settings with the plugin selected.
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         // Forward activation to arranger
         self.arranger.activate(withScene: scene, andView: view)
