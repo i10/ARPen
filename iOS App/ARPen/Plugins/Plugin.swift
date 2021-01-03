@@ -68,30 +68,13 @@ class Plugin: NSObject {
         self.currentView = nil
     }
     
-    
-    
-    
-    
-    
     func undo(){
         self.undoRedoManager?.undo()
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func redo(){
+        self.undoRedoManager?.redo()
+    }
     
     //added a generic function fo random String creation
     //as found on StackOverflow

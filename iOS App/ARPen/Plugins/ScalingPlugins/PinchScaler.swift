@@ -19,8 +19,16 @@ class PinchScaler {
     
     var currentScene: PenScene?
     var currentView: ARSCNView?
+    var urManager: UndoRedoManager?
     var tapGesture : UITapGestureRecognizer?
     var pinchGesture: UIPinchGestureRecognizer?
+    
+    //everything needed for undo/redo
+    var initialScale: SCNVector3?
+    var updatedScale: SCNVector3?
+    var diagonalNodeBefore: SCNNode?
+    var diffInScale: SCNVector3?
+    var active: Bool?
     
     private var buttonEvents: ButtonEvents
     private var lastClickPosition: SCNVector3?
@@ -41,8 +49,7 @@ class PinchScaler {
     ///boolean which indicates if a corner is currently selected
     var isACornerSelected: Bool = false
     var dragging: Bool = false
-    
-    var prevRecognizerScale: CGFloat?
+
     var prevRecScaleByOCCTRef: [String: CGFloat] = [:]
     
     
@@ -73,9 +80,13 @@ class PinchScaler {
         buttonEvents.didDoubleClick = self.didDoubleClick
     }
 
-    func activate(withScene scene: PenScene, andView view: ARSCNView) {
+    func activate(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
         self.currentView = view
         self.currentScene = scene
+        self.urManager = urManager
+        self.active = true
+        
+        self.urManager?.notifier = self
         
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.currentView?.addGestureRecognizer(tapGesture!)
@@ -94,6 +105,8 @@ class PinchScaler {
     }
 
     func deactivate() {
+        self.active = false
+        
         for target in selectedTargets {
             unselectTarget(target)
         }
@@ -175,12 +188,14 @@ class PinchScaler {
                 if (prevRecScaleByOCCTRef.keys.contains(ref!)){
                     recognizer.scale = prevRecScaleByOCCTRef[ref!]!
                 }
+                initialScale = selectedTargets.first?.scale
             }
             
             if (recognizer.state == .changed)
             {
                 let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
                 
+                diagonalNodeBefore = diagonalNode
                 let before = diagonalNode?.position
                 
                 let scaleFactor = Float(recognizer.scale)
@@ -215,14 +230,25 @@ class PinchScaler {
                 self.updateBoundingBox(selectedTargets.first!)
                 
                 prevRecScaleByOCCTRef.updateValue(recognizer.scale, forKey: selectedTargets.first!.occtReference!)
- 
+                print(scaleFactor)
+                print(recognizer.scale)
+                
+            }
+            
+            if (recognizer.state == .ended){
+                if diagonalNodeBefore != nil {
+                    updatedScale = selectedTargets.first?.scale
+                    diffInScale =  updatedScale! - initialScale!
+                    let scalingAction = CornerScalingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInScale: diffInScale!, diagonalNodeBefore: diagonalNodeBefore!)
+                    self.urManager?.actionDone(scalingAction)
+                }
             }
         }
     }
 
     ///gets executed each frame and is mainly responsible for scaling
     func update(scene: PenScene, buttons: [Button : Bool]) {
-        
+    
     }
     
 
@@ -568,6 +594,29 @@ class PinchScaler {
             didSelectSomething?(target)
             target.applyTransform()
             viewBoundingBox(target)
+        }
+    }
+    
+}
+
+extension PinchScaler : UndoRedoManagerNotifier{
+    func actionUndone(_ manager: UndoRedoManager)
+    {
+        if self.active == true {
+            prevRecScaleByOCCTRef.updateValue(prevRecScaleByOCCTRef[selectedTargets.first!.occtReference!]! - CGFloat(diffInScale!.x), forKey: selectedTargets.first!.occtReference!)
+            if selectedTargets.count == 1{
+                self.updateBoundingBox(selectedTargets.first!)
+            }
+        }
+    }
+    
+    func actionRedone(_ manager: UndoRedoManager)
+    {
+        if self.active == true {
+            prevRecScaleByOCCTRef.updateValue(prevRecScaleByOCCTRef[selectedTargets.first!.occtReference!]! + CGFloat(diffInScale!.x), forKey: selectedTargets.first!.occtReference!)
+            if selectedTargets.count == 1{
+                self.updateBoundingBox(selectedTargets.first!)
+            }
         }
     }
     

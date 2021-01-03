@@ -23,6 +23,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     @IBOutlet weak var pluginInstructionsLookupButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var redoButton: UIButton!
     @IBOutlet weak var viewForCustomPluginView: UIView!
     
     // Persistence: Saving and loading current model
@@ -73,12 +74,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.makeRoundedCorners(button: self.pluginInstructionsLookupButton)
         self.makeRoundedCorners(button: self.settingsButton)
         self.makeRoundedCorners(button: self.undoButton)
+        self.makeRoundedCorners(button: self.redoButton)
         self.makeRoundedCorners(button: self.saveModelButton)
         self.makeRoundedCorners(button: self.loadModelButton)
         self.makeRoundedCorners(button: self.shareModelButton)
         
         self.undoButton.isHidden = false
         self.undoButton.isEnabled = true
+        
+        self.redoButton.isHidden = false
+        self.redoButton.isEnabled = true
         
         self.shareModelButton.isHidden = true
         
@@ -395,7 +400,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
         self.pluginManager.undoPreviousStep()
     }
 
-    
+    @IBAction func redoButtonPressed(_ sender: Any) {
+        self.pluginManager.redoPreviousStep()
+    }
     
     
     

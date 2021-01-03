@@ -130,22 +130,15 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     
     
     
-    
-    
     func undoPreviousStep() {
-        // Todo: Add undo functionality for all plugins.
-        // self.paintPlugin.undoPreviousAction()
-        //if activePlugin is StudyPlugin {
-        //    (activePlugin as! StudyPlugin).repeatTarget()
-        //}
-        
         activePlugin?.undo()
     }
     
+    func redoPreviousStep() {
+        activePlugin?.redo()
+    }
     
-    
-    
-    
+
     
 }
 

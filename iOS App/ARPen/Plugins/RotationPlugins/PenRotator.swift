@@ -16,7 +16,12 @@ class PenRotator {
     
     var currentScene: PenScene?
     var currentView: ARSCNView?
-
+    var urManager: UndoRedoManager?
+    
+    //everything needed for undo/redo
+    private var initialEulerAngles: SCNVector3?
+    private var diffInEulerAngles: SCNVector3?
+    
     var startPenOrientation = simd_quatf()
     var updatedPenOrientation = simd_quatf()
     var quaternionFromStartToUpdatedPenOrientation = simd_quatf()
@@ -25,7 +30,7 @@ class PenRotator {
     var firstSelection : Bool = false
         
     //hoverTarget uses didSet to update any dependency automatically
-    var hoverTarget: ARPNode? {
+    var hoverTarget: ARPGeomNode? {
         didSet {
             if let old = oldValue {
                 old.highlighted = false
@@ -36,15 +41,15 @@ class PenRotator {
         }
     }
     
-    //selectedTargets is the Array of selected ARPNodes
-    var selectedTargets: [ARPNode] = []
+    //selectedTargets is the Array of selected ARPGeomNodes
+    var selectedTargets: [ARPGeomNode] = []
     
     var visitTarget: ARPGeomNode?
     private var buttonEvents: ButtonEvents
     private var justSelectedSomething = false
 
     
-    var didSelectSomething: ((ARPNode) -> Void)?
+    var didSelectSomething: ((ARPGeomNode) -> Void)?
     
     init() {
         buttonEvents = ButtonEvents()
@@ -54,9 +59,10 @@ class PenRotator {
         
     }
 
-    func activate(withScene scene: PenScene, andView view: ARSCNView) {
+    func activate(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
         self.currentView = view
         self.currentScene = scene
+        self.urManager = urManager
         self.visitTarget = nil
         self.justSelectedSomething = false
     }
@@ -123,7 +129,7 @@ class PenRotator {
     /**
         
      */
-    func hitTest(pointerPosition: SCNVector3) -> ARPNode? {
+    func hitTest(pointerPosition: SCNVector3) -> ARPGeomNode? {
             guard let sceneView = self.currentView  else { return nil }
             let projectedPencilPosition = sceneView.projectPoint(pointerPosition)
             let projectedCGPoint = CGPoint(x: CGFloat(projectedPencilPosition.x), y: CGFloat(projectedPencilPosition.y))
@@ -131,7 +137,7 @@ class PenRotator {
             // Cast a ray from that position and find the first ARPenNode
             let hitResults = sceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
            
-            return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPNode
+            return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPGeomNode
     }
     
     ///
@@ -153,6 +159,9 @@ class PenRotator {
                     unselectTarget(target)
                 }
             }
+        
+        case .Button2:
+            initialEulerAngles = selectedTargets.first!.eulerAngles
             
         default:
             break
@@ -181,6 +190,11 @@ class PenRotator {
                 }
             }
             updatesSincePressed = 0
+            diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
+            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEuler: diffInEulerAngles!)
+            self.urManager?.actionDone(rotationAction)
+            
+            
         default:
             break
         }
@@ -224,7 +238,7 @@ class PenRotator {
     /**
         
      */
-    func unselectTarget(_ target: ARPNode) {
+    func unselectTarget(_ target: ARPGeomNode) {
         target.selected = false
         selectedTargets.removeAll(where: { $0 === target })
         hoverTarget = nil
@@ -236,7 +250,7 @@ class PenRotator {
     /**
         
      */
-    func selectTarget(_ target: ARPNode) {
+    func selectTarget(_ target: ARPGeomNode) {
         if selectedTargets.count != 1 {
             target.selected = true
             target.name = "selected"

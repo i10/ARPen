@@ -15,6 +15,14 @@ class DirectDeviceRotator {
     
     var currentScene: PenScene?
     var currentView: ARSCNView?
+    var urManager: UndoRedoManager?
+    
+    
+    //everything needed fo undo/redo
+    private var initialEuler: SCNVector3?
+    private var diffInEuler: SCNVector3?
+    
+    
     //counts the updates since selecting a mesh
     var updatesSincePressed = 0
     //the device orientation when rotation button is first pressed
@@ -25,7 +33,7 @@ class DirectDeviceRotator {
     var rotationAxis = simd_float3()
 
     //hoverTarget uses didSet to update any dependency automatically
-    var hoverTarget: ARPNode? {
+    var hoverTarget: ARPGeomNode? {
         didSet {
             if let old = oldValue {
                 old.highlighted = false
@@ -36,15 +44,15 @@ class DirectDeviceRotator {
         }
     }
     
-    //selectedTargets is the Array of selected ARPNodes
-    var selectedTargets: [ARPNode] = []
+    //selectedTargets is the Array of selected ARPGeomNodes
+    var selectedTargets: [ARPGeomNode] = []
     
     var visitTarget: ARPGeomNode?
     private var buttonEvents: ButtonEvents
     private var justSelectedSomething = false
 
     
-    var didSelectSomething: ((ARPNode) -> Void)?
+    var didSelectSomething: ((ARPGeomNode) -> Void)?
     
     init() {
         buttonEvents = ButtonEvents()
@@ -54,9 +62,11 @@ class DirectDeviceRotator {
         
     }
 
-    func activate(withScene scene: PenScene, andView view: ARSCNView) {
+    func activate(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
         self.currentView = view
         self.currentScene = scene
+        self.urManager = urManager
+        
         self.visitTarget = nil
         self.justSelectedSomething = false
     }
@@ -98,6 +108,7 @@ class DirectDeviceRotator {
                 if updatesSincePressed == 0 {
                     if let orientation = self.currentView!.pointOfView?.simdOrientation {
                         startDeviceOrientation = orientation
+                        initialEuler = selectedTargets.first?.eulerAngles
                     }
                 }
                 
@@ -117,7 +128,7 @@ class DirectDeviceRotator {
                 quaternionFromStartToUpdatedDeviceOrientation = quaternionFromStartToUpdatedDeviceOrientation.normalized
             
                 selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedDeviceOrientation)
-
+                
                 startDeviceOrientation = updatedDeviceOrientation
             }
       
@@ -128,7 +139,7 @@ class DirectDeviceRotator {
     /**
         
      */
-    func hitTest(pointerPosition: SCNVector3) -> ARPNode? {
+    func hitTest(pointerPosition: SCNVector3) -> ARPGeomNode? {
             guard let sceneView = self.currentView  else { return nil }
             let projectedPencilPosition = sceneView.projectPoint(pointerPosition)
             let projectedCGPoint = CGPoint(x: CGFloat(projectedPencilPosition.x), y: CGFloat(projectedPencilPosition.y))
@@ -136,7 +147,7 @@ class DirectDeviceRotator {
             // Cast a ray from that position and find the first ARPenNode
             let hitResults = sceneView.hitTest(projectedCGPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue])
            
-            return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPNode
+            return hitResults.filter( { $0.node != currentScene?.pencilPoint } ).first?.node.parent as? ARPGeomNode
     }
     
     ///
@@ -186,6 +197,11 @@ class DirectDeviceRotator {
                 }
             }
             updatesSincePressed = 0
+            diffInEuler = selectedTargets.first!.eulerAngles - initialEuler!
+            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEuler: diffInEuler!)
+            self.urManager?.actionDone(rotationAction)
+            
+            
         default:
             break
         }
@@ -229,7 +245,7 @@ class DirectDeviceRotator {
     /**
         
      */
-    func unselectTarget(_ target: ARPNode) {
+    func unselectTarget(_ target: ARPGeomNode) {
         target.selected = false
         selectedTargets.removeAll(where: { $0 === target })
         hoverTarget = nil
@@ -240,7 +256,7 @@ class DirectDeviceRotator {
     /**
         
      */
-    func selectTarget(_ target: ARPNode) {
+    func selectTarget(_ target: ARPGeomNode) {
         if selectedTargets.count != 1 {
             target.selected = true
             target.name = "selected"

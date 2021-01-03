@@ -19,6 +19,10 @@ class TSRotator {
     var panGesture : UIPanGestureRecognizer?
     var tapGesture : UITapGestureRecognizer?
     
+    //everything needed for undo/redo
+    private var initialEulerAngles: SCNVector3?
+    private var diffInEulerAngles: SCNVector3?
+    
     var tapped : Bool = false
     var pressedBool: Bool = false
     var firstSelection : Bool = false
@@ -33,9 +37,10 @@ class TSRotator {
     
     var currentScene: PenScene?
     var currentView: ARSCNView?
+    var urManager: UndoRedoManager?
 
     //hoverTarget uses didSet to update any dependency automatically
-    var hoverTarget: ARPNode? {
+    var hoverTarget: ARPGeomNode? {
         didSet {
             if let old = oldValue {
                 old.highlighted = false
@@ -46,26 +51,27 @@ class TSRotator {
         }
     }
     
-    //selectedTargets is the Array of selected ARPNodes
-    var selectedTargets: [ARPNode] = []
+    //selectedTargets is the Array of selected ARPGeomNodes
+    var selectedTargets: [ARPGeomNode] = []
     
     private var buttonEvents: ButtonEvents
     private var justSelectedSomething = false
     
-    var didSelectSomething: ((ARPNode) -> Void)?
+    var didSelectSomething: ((ARPGeomNode) -> Void)?
     
     
     init() {
         buttonEvents = ButtonEvents()
     }
 
-    func activate(withScene scene: PenScene, andView view: ARSCNView) {
+    func activate(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
     
         self.tapped = false
         self.pressedBool = false
         
         self.currentView = view
         self.currentScene = scene
+        self.urManager = urManager
         
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
         self.currentView?.addGestureRecognizer(tapGesture!)
@@ -120,6 +126,8 @@ class TSRotator {
             if let cameraT = sceneView.pointOfView{
                 self.camera.orientation = cameraT.orientation
             }
+            
+            initialEulerAngles = selectedTargets.first!.eulerAngles
         }
         else if sender.state == .changed{
             self.previousPoint = self.currentPoint
@@ -135,8 +143,13 @@ class TSRotator {
             self.yVector = simd_float3(x: self.camera.transform.m21, y: self.camera.transform.m22, z: self.camera.transform.m23)
             self.yVector = selectedTargets.first!.simdConvertVector(self.yVector, from: sceneView.pointOfView!.parent!)
         }
+        
         else if sender.state == .ended{
             self.currentPoint = CGPoint(x:0, y:0)
+            
+            diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
+            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEuler: diffInEulerAngles!)
+            self.urManager?.actionDone(rotationAction)
         }
         
         //transform the translation of the pan across the touchscreen into radians for the rotation
@@ -165,7 +178,7 @@ class TSRotator {
         
         let hitResults = self.currentView!.hitTest(touchPoint, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
         
-        if let hit = hitResults.first?.node.parent as? ARPNode {
+        if let hit = hitResults.first?.node.parent as? ARPGeomNode {
             
             if tapped == false{
                 tapped = true
@@ -192,7 +205,7 @@ class TSRotator {
     /**
         
      */
-    func unselectTarget(_ target: ARPNode) {
+    func unselectTarget(_ target: ARPGeomNode) {
         target.selected = false
         target.applyTransform()
         hoverTarget = nil
@@ -204,7 +217,7 @@ class TSRotator {
     /**
         
      */
-    func selectTarget(_ target: ARPNode) {
+    func selectTarget(_ target: ARPGeomNode) {
         if selectedTargets.count != 1 {
             target.selected = true
             selectedTargets.append(target)

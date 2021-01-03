@@ -13,6 +13,8 @@ class UndoRedoManager {
     var undoStack = Stack<Action>()
     var redoStack = Stack<Action>()
     
+    var notifier: UndoRedoManagerNotifier? = nil
+    
     public func actionDone(_ action: Action) {
         undoStack.push(action)
     }
@@ -22,6 +24,10 @@ class UndoRedoManager {
             let lastAction = undoStack.pop()
             lastAction?.undo()
             redoStack.push(lastAction!)
+            
+            if let notifier = notifier {
+                  notifier.actionUndone(self)
+            }
         }
     }
     
@@ -29,11 +35,18 @@ class UndoRedoManager {
         if redoStack.count != 0 {
             let lastAction = redoStack.pop()
             lastAction?.redo()
-            redoStack.push(lastAction!)
+            undoStack.push(lastAction!)
+            
+            if let notifier = notifier {
+                  notifier.actionRedone(self)
+            }
         }
         
     }
     
-    
-    
+}
+
+protocol UndoRedoManagerNotifier {
+    func actionUndone(_ manager: UndoRedoManager)
+    func actionRedone(_ manager: UndoRedoManager)
 }

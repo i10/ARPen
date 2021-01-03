@@ -87,8 +87,8 @@
 		750292912559C87A00963547 /* ARPPyramid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750292902559C87A00963547 /* ARPPyramid.swift */; };
 		75152A912573B8750051E15D /* PenRayScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A902573B8750051E15D /* PenRayScalingPlugin.swift */; };
 		75152A932573BAB30051E15D /* PenRayScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A922573BAB30051E15D /* PenRayScaler.swift */; };
+		752EB22225A0D5A000C3116A /* CornerScalingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752EB22125A0D5A000C3116A /* CornerScalingAction.swift */; };
 		753150C6259B6AEC00201595 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753150C5259B6AEC00201595 /* Action.swift */; };
-		753150C8259B6E6700201595 /* ScalingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753150C7259B6E6700201595 /* ScalingAction.swift */; };
 		753150CA259B6E7700201595 /* TranslationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753150C9259B6E7700201595 /* TranslationAction.swift */; };
 		753150CC259B6E8C00201595 /* RotatingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753150CB259B6E8C00201595 /* RotatingAction.swift */; };
 		753150CE259B6EC500201595 /* BuildingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753150CD259B6EC500201595 /* BuildingAction.swift */; };
@@ -240,8 +240,8 @@
 		750292902559C87A00963547 /* ARPPyramid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPPyramid.swift; sourceTree = "<group>"; };
 		75152A902573B8750051E15D /* PenRayScalingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScalingPlugin.swift; sourceTree = "<group>"; };
 		75152A922573BAB30051E15D /* PenRayScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScaler.swift; sourceTree = "<group>"; };
+		752EB22125A0D5A000C3116A /* CornerScalingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerScalingAction.swift; sourceTree = "<group>"; };
 		753150C5259B6AEC00201595 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		753150C7259B6E6700201595 /* ScalingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalingAction.swift; sourceTree = "<group>"; };
 		753150C9259B6E7700201595 /* TranslationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAction.swift; sourceTree = "<group>"; };
 		753150CB259B6E8C00201595 /* RotatingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingAction.swift; sourceTree = "<group>"; };
 		753150CD259B6EC500201595 /* BuildingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingAction.swift; sourceTree = "<group>"; };
@@ -496,12 +496,12 @@
 			children = (
 				753150D3259B8DD800201595 /* DataStructure */,
 				753150C5259B6AEC00201595 /* Action.swift */,
-				753150C7259B6E6700201595 /* ScalingAction.swift */,
 				753150C9259B6E7700201595 /* TranslationAction.swift */,
 				753150CB259B6E8C00201595 /* RotatingAction.swift */,
 				753150CD259B6EC500201595 /* BuildingAction.swift */,
 				753150CF259B6ED200201595 /* PathAction.swift */,
 				753150D1259B6EDE00201595 /* ManipulationAction.swift */,
+				752EB22125A0D5A000C3116A /* CornerScalingAction.swift */,
 			);
 			path = UndoRedo;
 			sourceTree = "<group>";
@@ -768,6 +768,7 @@
 				DC28B461200E46DC008B77AB /* Plugin.swift in Sources */,
 				4ACE473324659B450037F9EE /* PositionFilter.swift in Sources */,
 				E983D24622ABEDBB0000B8D5 /* SphereByDraggingPlugin.swift in Sources */,
+				752EB22225A0D5A000C3116A /* CornerScalingAction.swift in Sources */,
 				4AC1F5BF2524D1BD002B0A7F /* LinearMenuPlugin.swift in Sources */,
 				EA0C796122F078EE00E820E8 /* ARPenGridSceneConstructor.swift in Sources */,
 				4A56953B20581B9000C8065E /* UserStudyRecordPluginProtocol.swift in Sources */,
@@ -809,7 +810,6 @@
 				4AA09F8F24DD508B00B59F9E /* MinVisPlugin.swift in Sources */,
 				7538B7162595FC3E00C14DD1 /* TSRotator.swift in Sources */,
 				4AAC4B0A23A24A6E003B6E83 /* Helpers.mm in Sources */,
-				753150C8259B6E6700201595 /* ScalingAction.swift in Sources */,
 				4AAC4AEE23A24A20003B6E83 /* ARPSweep.swift in Sources */,
 				4A59BA1E2244E66D00EA23E7 /* TranslationDemoPlugin.swift in Sources */,
 				4AA09F8D24DD508B00B59F9E /* ShadowPlugin.swift in Sources */,

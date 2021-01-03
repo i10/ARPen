@@ -12,7 +12,6 @@ import ARKit
 This class handles the "visiting" and selecting of meshes. When one mesh is selected the boundingBox corners are also visualized. We hover over corerns and then select them using the PenRayScaling Plugin. Scaling then happens in the update method.
  
  Scaling is supporred for one selected mesh. Mulitple selection is not possible.
- Some code was inspired by the work of Farhadiba Mohammed on ARPen.
 */
 class PenRayScaler {
     
@@ -25,9 +24,12 @@ class PenRayScaler {
     public var lastClickTime: Date?
     private var lastPenPosition: SCNVector3?
     
+    //everything needed for undo/redo
     var initialScale: SCNVector3?
     var updatedScale: SCNVector3?
-
+    var diagonalNodeBefore: SCNNode?
+    var active: Bool?
+    
     /// The time (in seconds) after which holding the main button on an object results in dragging it.
     let timeTillDrag: Double = 0.5
     /// The minimum distance to move the pen starting at an object while holding the main button which results in dragging it.
@@ -74,6 +76,8 @@ class PenRayScaler {
         self.currentView = view
         self.currentScene = scene
         self.urManager = urManager
+        self.urManager?.notifier = self
+        self.active = true
         self.visitTarget = nil
         self.dragging = false
         self.lastClickPosition = nil
@@ -82,6 +86,7 @@ class PenRayScaler {
     }
 
     func deactivate() {
+        self.active = false
         for target in selectedTargets {
             unselectTarget(target)
         }
@@ -107,8 +112,6 @@ class PenRayScaler {
         //a geometry is selected
         if selectedTargets.count == 1
         {
-            updateBoundingBox(selectedTargets.first!)
-            
             //there is no corner selected at the moment
             if isACornerSelected == false
             {
@@ -180,6 +183,7 @@ class PenRayScaler {
                             scaleFactor = 0.2
                         }
                         
+                        diagonalNodeBefore = diagonalNode
                         let before = diagonalNode?.position
                         selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
                         
@@ -191,12 +195,13 @@ class PenRayScaler {
 
                         //the diagonal node is an upper node
                         if(upper.contains((getDiagonalNode(selectedCorner: selectedCorner!)?.name)!)){
-                                let x_of_diff = after!.x - before!.x
-                                let y_of_diff = after!.y - before!.y
-                                let z_of_diff = after!.z - before!.z
-
-                                let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-                                selectedTargets.first!.position -= diff
+                            let x_of_diff = after!.x - before!.x
+                            let y_of_diff = after!.y - before!.y
+                            let z_of_diff = after!.z - before!.z
+                            
+                            let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
+                           
+                            selectedTargets.first!.position -= diff
                         }
                                                                                     
                         else {
@@ -205,6 +210,7 @@ class PenRayScaler {
                             let z_of_diff = before!.z - after!.z
 
                             let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
+                            
                             selectedTargets.first!.position += diff
                         }
                                                 
@@ -339,7 +345,6 @@ class PenRayScaler {
                 }
             }
             
-            
             dragging = false
             
             selectedCorner = SCNNode()
@@ -347,11 +352,12 @@ class PenRayScaler {
             isACornerSelected = false
             
             if selectedTargets.count == 1 {
-                updatedScale = selectedTargets.first?.scale
-                let diffInScale =  updatedScale! - initialScale!
-                let scalingAction = ScalingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInScale: diffInScale)
-                self.urManager?.actionDone(scalingAction)
-                
+                if diagonalNodeBefore != nil {
+                    updatedScale = selectedTargets.first?.scale
+                    let diffInScale =  updatedScale! - initialScale!
+                    let scalingAction = CornerScalingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInScale: diffInScale, diagonalNodeBefore: diagonalNodeBefore!)
+                    self.urManager?.actionDone(scalingAction)
+                }
             }
         }
     }
@@ -659,6 +665,27 @@ class PenRayScaler {
             didSelectSomething?(target)
             target.applyTransform()
             viewBoundingBox(target)
+        }
+    }
+    
+}
+
+extension PenRayScaler : UndoRedoManagerNotifier{
+    func actionUndone(_ manager: UndoRedoManager)
+    {
+        if self.active == true {
+            if selectedTargets.count == 1{
+                self.updateBoundingBox(selectedTargets.first!)
+            }
+        }
+    }
+    
+    func actionRedone(_ manager: UndoRedoManager)
+    {
+        if self.active == true {
+            if selectedTargets.count == 1{
+                self.updateBoundingBox(selectedTargets.first!)
+            }
         }
     }
     

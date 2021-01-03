@@ -35,7 +35,7 @@ class DirectDeviceRotationPlugin: ModelingPlugin {
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager){
         super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
-        self.rotator.activate(withScene: scene, andView: view)
+        self.rotator.activate(withScene: scene, andView: view, urManager: urManager)
         
         self.button1Label.text = "Select"
         self.button2Label.text = "Hold for Rotation"

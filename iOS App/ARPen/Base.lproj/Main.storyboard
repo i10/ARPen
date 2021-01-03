@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,7 +67,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Gi-6V-ula">
-                                <rect key="frame" x="720" y="11" width="38" height="38"/>
+                                <rect key="frame" x="671" y="11" width="38" height="38"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="Fef-xh-U1z"/>
@@ -120,7 +119,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3L-x2-chr" userLabel="Share Model Button">
-                                <rect key="frame" x="720" y="90" width="38" height="38"/>
+                                <rect key="frame" x="720" y="125" width="38" height="38"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="mb2-Zw-PWy"/>
@@ -147,6 +146,20 @@
                                     <action selector="toggleMenuPosition:" destination="BV1-FR-VrT" eventType="touchUpInside" id="ylA-qy-epv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQa-OG-9wt">
+                                <rect key="frame" x="720" y="11" width="38" height="38"/>
+                                <color key="backgroundColor" red="0.78824967150000003" green="0.25887447600000002" blue="0.83911734819999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="38" id="OA9-MQ-lho"/>
+                                    <constraint firstAttribute="height" constant="38" id="xFs-qB-5Jp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                <color key="tintColor" red="0.99991279840000002" green="1" blue="0.99988144639999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="↻"/>
+                                <connections>
+                                    <action selector="redoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="1NC-oK-8pL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EIQ-Ip-Tyt"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -165,7 +178,7 @@
                             <constraint firstItem="dOb-wu-mrB" firstAttribute="leading" secondItem="GLJ-9W-09V" secondAttribute="trailing" constant="10" id="F9T-uW-eVl"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="trailing" secondItem="A5z-U4-mJN" secondAttribute="trailing" id="Fbv-gT-v6I"/>
                             <constraint firstItem="N8V-Yd-QvC" firstAttribute="centerX" secondItem="Z1i-B5-dqO" secondAttribute="centerX" id="KSS-nK-4CV"/>
-                            <constraint firstItem="A5z-U4-mJN" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" id="Kpd-0d-iKX"/>
+                            <constraint firstItem="A5z-U4-mJN" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" constant="49" id="Kpd-0d-iKX"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="YSQ-pH-N6L" secondAttribute="top" id="LBk-3V-d3Y"/>
                             <constraint firstItem="vKU-2l-six" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="58" id="Lye-aX-OE3"/>
                             <constraint firstItem="38F-TB-HkT" firstAttribute="centerY" secondItem="7vt-XS-Ox1" secondAttribute="centerY" id="MVf-Zz-c6i"/>
@@ -174,28 +187,30 @@
                             <constraint firstItem="MVo-PZ-EaL" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="34" id="OEe-Wo-V6o"/>
                             <constraint firstItem="4Gi-6V-ula" firstAttribute="centerY" secondItem="7vt-XS-Ox1" secondAttribute="centerY" id="Pgv-A4-Vdc"/>
                             <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="bottom" secondItem="A5z-U4-mJN" secondAttribute="bottom" constant="10" id="QsW-2Q-MbL"/>
+                            <constraint firstItem="JQa-OG-9wt" firstAttribute="leading" secondItem="E3L-x2-chr" secondAttribute="leading" id="SW0-OC-Ti3"/>
                             <constraint firstItem="Z1i-B5-dqO" firstAttribute="top" secondItem="MVo-PZ-EaL" secondAttribute="bottom" constant="-162" id="SXL-fd-1rs"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="top" secondItem="kra-NZ-pmu" secondAttribute="bottom" constant="6" id="Tgp-qg-oXH"/>
-                            <constraint firstItem="4Gi-6V-ula" firstAttribute="leading" secondItem="MVo-PZ-EaL" secondAttribute="trailing" constant="37" id="Wtd-Do-gQn"/>
+                            <constraint firstItem="4Gi-6V-ula" firstAttribute="leading" secondItem="MVo-PZ-EaL" secondAttribute="trailing" constant="-12" id="Wtd-Do-gQn"/>
                             <constraint firstItem="dOb-wu-mrB" firstAttribute="centerY" secondItem="EIQ-Ip-Tyt" secondAttribute="centerY" id="X32-Xm-Vpg"/>
                             <constraint firstAttribute="trailing" secondItem="Z1i-B5-dqO" secondAttribute="trailing" id="ZCc-G1-ORQ"/>
                             <constraint firstItem="EIQ-Ip-Tyt" firstAttribute="bottom" secondItem="vKU-2l-six" secondAttribute="bottom" constant="35" id="ZDr-z3-Ml6"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="centerX" secondItem="A5z-U4-mJN" secondAttribute="centerX" id="ZvE-DW-ksj"/>
                             <constraint firstItem="A5z-U4-mJN" firstAttribute="top" secondItem="0DW-gH-vc2" secondAttribute="bottom" constant="8" symbolic="YES" id="aEw-mp-uh7"/>
                             <constraint firstItem="38F-TB-HkT" firstAttribute="trailing" secondItem="GLJ-9W-09V" secondAttribute="trailing" priority="750" id="aOV-h4-fat"/>
-                            <constraint firstItem="0DW-gH-vc2" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" id="av4-Fb-3iV"/>
+                            <constraint firstItem="0DW-gH-vc2" firstAttribute="centerX" secondItem="4Gi-6V-ula" secondAttribute="centerX" constant="49" id="av4-Fb-3iV"/>
                             <constraint firstItem="kra-NZ-pmu" firstAttribute="centerX" secondItem="h1V-HR-2WE" secondAttribute="centerX" id="cIa-N3-VJg"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="top" secondItem="EIQ-Ip-Tyt" secondAttribute="top" constant="5" id="cab-DC-Dko"/>
-                            <constraint firstItem="E3L-x2-chr" firstAttribute="trailing" secondItem="4Gi-6V-ula" secondAttribute="trailing" id="fkE-qa-VZC"/>
+                            <constraint firstItem="E3L-x2-chr" firstAttribute="trailing" secondItem="4Gi-6V-ula" secondAttribute="trailing" constant="49" id="fkE-qa-VZC"/>
                             <constraint firstItem="vKU-2l-six" firstAttribute="centerX" secondItem="EIQ-Ip-Tyt" secondAttribute="centerX" id="fxF-NW-pbm"/>
                             <constraint firstItem="GLJ-9W-09V" firstAttribute="top" secondItem="38F-TB-HkT" secondAttribute="bottom" constant="5" id="hzn-Ug-uYH"/>
                             <constraint firstItem="7vt-XS-Ox1" firstAttribute="leading" secondItem="dOb-wu-mrB" secondAttribute="leading" id="iPy-o0-L6j"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="centerX" secondItem="0DW-gH-vc2" secondAttribute="centerX" id="lDS-Rd-B32"/>
                             <constraint firstItem="0DW-gH-vc2" firstAttribute="top" secondItem="h1V-HR-2WE" secondAttribute="bottom" constant="8" id="prO-aN-lxA"/>
                             <constraint firstItem="h1V-HR-2WE" firstAttribute="height" secondItem="0DW-gH-vc2" secondAttribute="height" id="r8e-0l-s3G"/>
-                            <constraint firstItem="E3L-x2-chr" firstAttribute="leading" secondItem="4Gi-6V-ula" secondAttribute="leading" id="rBw-Hf-jz4"/>
-                            <constraint firstItem="E3L-x2-chr" firstAttribute="top" secondItem="4Gi-6V-ula" secondAttribute="bottom" constant="41" id="wgn-SQ-sol"/>
+                            <constraint firstItem="E3L-x2-chr" firstAttribute="leading" secondItem="4Gi-6V-ula" secondAttribute="leading" constant="49" id="rBw-Hf-jz4"/>
+                            <constraint firstItem="E3L-x2-chr" firstAttribute="top" secondItem="4Gi-6V-ula" secondAttribute="bottom" constant="76" id="wgn-SQ-sol"/>
                             <constraint firstItem="N8V-Yd-QvC" firstAttribute="top" secondItem="Z1i-B5-dqO" secondAttribute="bottom" constant="-60" id="yEQ-oF-rgP"/>
+                            <constraint firstItem="JQa-OG-9wt" firstAttribute="baseline" secondItem="4Gi-6V-ula" secondAttribute="baseline" id="ypF-UM-CKS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6Ro-dD-aza"/>
@@ -207,6 +222,7 @@
                         <outlet property="menuToggleButton" destination="38F-TB-HkT" id="0RV-ba-LBo"/>
                         <outlet property="menuView" destination="GLJ-9W-09V" id="NbQ-VR-mGQ"/>
                         <outlet property="pluginInstructionsLookupButton" destination="0DW-gH-vc2" id="JbU-Hk-e2z"/>
+                        <outlet property="redoButton" destination="JQa-OG-9wt" id="Xcd-Ww-IcP"/>
                         <outlet property="saveModelButton" destination="h1V-HR-2WE" id="jx2-XQ-1Vw"/>
                         <outlet property="settingsButton" destination="A5z-U4-mJN" id="PSJ-pf-5hE"/>
                         <outlet property="shareModelButton" destination="E3L-x2-chr" id="npv-RW-41s"/>
