@@ -63,8 +63,6 @@ public class ARPGeomNode: ARPNode {
         self.content.isHidden = true
        
         rebuild()
-
-        
     }
     
     private func appendVisualization() {

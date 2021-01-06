@@ -29,16 +29,17 @@ class UndoRedoManager {
     func removePathActions(){
         let k = undoStack.count
         
-        for _ in 1...k{
-            if ((undoStack.peek() as? PathAction) != nil){
-                    _ = undoStack.pop()
-            }
-            
-            else if ((redoStack.peek() as? PathAction) != nil){
-                _ = redoStack.pop()
+        if k >= 1 {
+            for _ in 1...k{
+                if ((undoStack.peek() as? PathAction) != nil){
+                        _ = undoStack.pop()
+                }
+                
+                else if ((redoStack.peek() as? PathAction) != nil){
+                    _ = redoStack.pop()
+                }
             }
         }
-        
     }
     
     public func undo(){
