@@ -10,7 +10,7 @@ import Foundation
 /**
  Node for creating a swept solid.
  */
-class ARPSweep: ARPGeomNode {
+public class ARPSweep: ARPGeomNode {
     
     var profile: ARPPath
     var path: ARPPath

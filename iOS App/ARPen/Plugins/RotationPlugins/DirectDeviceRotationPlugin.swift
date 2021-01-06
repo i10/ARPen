@@ -13,13 +13,11 @@ import ARKit
  This plugin is used for rotating an object via device input.
 */
 
-class DirectDeviceRotationPlugin: ModelingPlugin {
+class DirectDeviceRotationPlugin: RotatingPlugin {
     
     private var rotator: DirectDeviceRotator
-    private var buttonEvents: ButtonEvents
 
     override init() {
-        buttonEvents = ButtonEvents()
         rotator = DirectDeviceRotator()
         super.init()
         
@@ -29,7 +27,7 @@ class DirectDeviceRotationPlugin: ModelingPlugin {
         self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false
         
-        buttonEvents.didPressButton = self.didPressButton
+
         
     }
     
@@ -50,25 +48,11 @@ class DirectDeviceRotationPlugin: ModelingPlugin {
         super.deactivatePlugin()
     }
     
-    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
-        buttonEvents.update(buttons: buttons)
+    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]){
         rotator.update(scene: scene, buttons: buttons)
     }
     
-    func didPressButton(_ button: Button) {
-        
-        switch button {
-        case .Button1:
-            break
-            
-        case .Button2:
-            break
-        
-        case .Button3:
-            break
-        }
-    }
-    
+  
     
         
     

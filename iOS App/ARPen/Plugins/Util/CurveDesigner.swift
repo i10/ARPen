@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ARKit
 
 /**
  This class handles the interactive creation of ARPPaths, as this functionality is shared across multiple plugins. An examplary usage can be seen in `SweepPluginTutorial.swift`.
@@ -34,6 +35,8 @@ class CurveDesigner {
     
     private var buttonEvents: ButtonEvents
     
+    private var urManager: UndoRedoManager?
+    
     /// Guard to avoid inserting multiple nodes in one frame
     private var addedThisFrame: Bool = false
 
@@ -41,21 +44,39 @@ class CurveDesigner {
         buttonEvents = ButtonEvents()
         buttonEvents.didPressButton = self.didPressButton
         buttonEvents.didReleaseButton = self.didReleaseButton
-        self.reset()
     }
     
-    func reset() {
+    func activate(urManager: UndoRedoManager) {
+        self.urManager = urManager
         self.blocked = false
         self.busy = false
         self.activePath = nil
         self.addedThisFrame = false
+        
     }
+    
+   
+    func deactivate() {
+        for node in self.scene.drawingNode.childNodes {
+            
+            if ((node as? ARPPath) != nil) {
+                let path = node as! ARPPath
+                if !path.usedInGeometry {
+                    path.removeFromParentNode()
+                }
+            }
+        }
+        
+        urManager?.removePathActions()
+    }
+    
     
     
     
     
     
     func update(scene: PenScene, buttons: [Button : Bool]) {
+       
         self.scene = scene
         addedThisFrame = false
         buttonEvents.update(buttons: buttons)
@@ -69,9 +90,6 @@ class CurveDesigner {
                 //snapping the last point to the first
                 path.getNonFixedPoint()?.position = path.points.first!.worldPosition
                 
-                if buttonEvents.buttons[.Button2]! || buttonEvents.buttons[.Button3]! {
-                    addNode(noNewPath: true)
-                }
             }
             
             //update the position of the non fixed point
@@ -116,16 +134,30 @@ class CurveDesigner {
             //if the last and first position are snapped and button was pressed, the path is finished
             if pathEndsTouch(path) {
                 finishActivePath()
+                
             }
             
             //not closed/finished path yet
             else {
                 
                 let activePoint = path.getNonFixedPoint()
-                if cornerStyle == activePoint?.cornerStyle {
+                
+                if cornerStyle == activePoint?.cornerStyle
+                {
                     activePoint?.fixed = true
-                    path.appendPoint(ARPPathNode(scene.pencilPoint.position, cornerStyle: cornerStyle))
-                } else {
+                    
+                    //the activePoint now is fixed.. its already in the path
+                    let nodeAddedAction = AddedNodeToPathAction(scene: scene, path: path, node: activePoint!, curveDesigner: self)
+                    self.urManager?.actionDone(nodeAddedAction)
+                    
+                    //new active point
+                    let newNode = ARPPathNode(scene.pencilPoint.position, cornerStyle: cornerStyle)
+                    path.appendPoint(newNode)
+                
+                }
+                
+                else
+                {
                     activePoint?.cornerStyle = cornerStyle
                     blocked = true
                 }
@@ -134,7 +166,7 @@ class CurveDesigner {
     }
     
     
-    
+    /*
     func undo() {
         if let path = self.activePath {
             path.removeLastPoint()
@@ -144,7 +176,9 @@ class CurveDesigner {
                 self.activePath = nil
             }
         }
-    }
+    }*/
+    
+    
     
     func injectUIButtons(_ buttons: [Button : UIButton]) {
         buttons[.Button1]?.setTitle("Finish", for: .normal)
@@ -156,6 +190,7 @@ class CurveDesigner {
         switch button {
         case .Button1:
             finishActivePath()
+            
         case .Button2, .Button3:
             addNode()
         }
@@ -174,7 +209,6 @@ class CurveDesigner {
         }*/
     }
     
-   
     private func pathEndsTouch(_ path: ARPPath) -> Bool {
         if let nonFixedPoint = path.getNonFixedPoint(), path.points.count > 2 {
             if path.points.first!.worldPosition.distance(vector: nonFixedPoint.worldPosition) < CurveDesigner.snappingDistance {
@@ -196,10 +230,12 @@ class CurveDesigner {
             path.removeNonFixedPoints()
             path.rebuild()
             path.runAction(ARPPath.finalizeAnimation)
-            
+            path.finished = true
             activePath = nil
-            
             didCompletePath?(path)
+            
+            let pathFinishedAction = PathFinishedAction(scene: self.scene, path: path, lastNode: path.points.last!, originallyClosed: path.closed , curveDesigner: self)
+            self.urManager?.actionDone(pathFinishedAction)
         }
     }
     

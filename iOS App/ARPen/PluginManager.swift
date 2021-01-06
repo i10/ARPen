@@ -73,7 +73,6 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.penScene = penScene
         self.sceneView = sceneView
         self.undoRedoManager = UndoRedoManager()
-        
         self.arManager = ARManager(scene: self.penScene)
         self.paintPlugin = PaintPlugin()
         self.experimentalPluginsStartAtIndex = 7
@@ -86,6 +85,8 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         
         //listen to softwarePenButton notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.softwareButtonEvent(_:)), name: .softwarePenButtonEvent, object: nil)
+        
+        
 
     }
     

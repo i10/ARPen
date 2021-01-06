@@ -152,6 +152,8 @@ class ARPPath: ARPGeomNode {
     
     var points: [ARPPathNode] = [ARPPathNode]()
     var closed: Bool = false
+    var finished: Bool = false
+    var usedInGeometry: Bool = false
     
     init(points: [ARPPathNode], closed: Bool) {
         self.closed = closed

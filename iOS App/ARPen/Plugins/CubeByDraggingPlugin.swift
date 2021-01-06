@@ -126,6 +126,12 @@ class CubeByDraggingPlugin: Plugin {
                     
                     box.localTranslate(by: self.finalBoxCenterPos!)
                     box.applyTransform()
+                    
+                    let buildingAction = PrimitiveBuildingAction(occtRef: box.occtReference!, scene: self.currentScene!, box: box)
+                    self.undoRedoManager?.actionDone(buildingAction)
+                    
+                    
+                    
                 }
             }
         }

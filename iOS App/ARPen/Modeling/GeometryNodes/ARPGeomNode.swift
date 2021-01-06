@@ -11,7 +11,7 @@ import Foundation
 /**
  This is the base class for all Nodes which have an underlying representation in Open CASCADE (OCCT).
  */
-class ARPGeomNode: ARPNode {
+public class ARPGeomNode: ARPNode {
     
     /// Reference to the underlying shape in OCCT
     var occtReference:OCCTReference?

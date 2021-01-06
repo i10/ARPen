@@ -114,6 +114,11 @@ class SphereByDraggingPlugin: Plugin {
                     sphere.localTranslate(by: self.finalPositionSphere!)
                     sphere.applyTransform()
                     
+                    let buildingAction = PrimitiveBuildingAction(occtRef: sphere.occtReference!, scene: self.currentScene!, sphere: sphere)
+                    self.undoRedoManager?.actionDone(buildingAction)
+                    
+                    
+                    
                 }
                 
             }        

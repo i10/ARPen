@@ -11,7 +11,7 @@ import Foundation
 /**
  Node for creating a lofted solid.
  */
-class ARPLoft: ARPGeomNode {
+public class ARPLoft: ARPGeomNode {
     
     var profiles: [ARPPath]
     

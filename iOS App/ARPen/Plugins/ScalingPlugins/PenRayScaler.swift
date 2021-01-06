@@ -225,48 +225,51 @@ class PenRayScaler {
             //center scaling
             if (buttons[.Button3] ?? false)
             {
-                isACornerSelected = true
-                dragging = true
-                
-                selectedCorner = hoverCorner
+                if hoverCorner != nil {
                     
-                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 98/100, alpha: 1.0)
-                
-                let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
+                    isACornerSelected = true
+                    dragging = true
                     
-                let pencilPointOnDiagonalinSC = projectOntoDiagonal(pencilPoint: scene.pencilPoint.position, selectedCorner: selectedCorner!, diagonal: diagonalNode!.position)
-                    
-                var hitTest = self.currentView!.hitTest(pencilPointOnDiagonalinSC, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
-                let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
-                hitTest = hitTest.filter({namesOfCorners.contains($0.node.name ?? "empty")})
-                
-                for hit in hitTest{
-                    
-                    if(positionSave != nil)
-                    {
-                        // DS = selected - diagonal
-                        let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
-                        //DP = pencil - diagonal
-                        let DP = simd_float3(x: hit.worldCoordinates.x - diagonalNode!.position.x, y: hit.worldCoordinates.y - diagonalNode!.position.y, z: hit.worldCoordinates.z - diagonalNode!.position.z)
+                    selectedCorner = hoverCorner
                         
-                        let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
+                    selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 98/100, alpha: 1.0)
+                    
+                    let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
                         
-                        let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
-                                                
-                        let shift = simdProjPenciLPoint - selectedCorner!.simdPosition
-                        selectedCorner?.simdLocalTranslate(by: shift)
+                    let pencilPointOnDiagonalinSC = projectOntoDiagonal(pencilPoint: scene.pencilPoint.position, selectedCorner: selectedCorner!, diagonal: diagonalNode!.position)
                         
-                        let updatedDiagonal = selectedCorner!.position - diagonalNode!.position
-                        let updatedDiagonalLength = abs(updatedDiagonal.length())
+                    var hitTest = self.currentView!.hitTest(pencilPointOnDiagonalinSC, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
+                    let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
+                    hitTest = hitTest.filter({namesOfCorners.contains($0.node.name ?? "empty")})
+                    
+                    for hit in hitTest{
+                        
+                        if(positionSave != nil)
+                        {
+                            // DS = selected - diagonal
+                            let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
+                            //DP = pencil - diagonal
+                            let DP = simd_float3(x: hit.worldCoordinates.x - diagonalNode!.position.x, y: hit.worldCoordinates.y - diagonalNode!.position.y, z: hit.worldCoordinates.z - diagonalNode!.position.z)
                             
-                        var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
-                        if scaleFactor < 0.2 {
-                            scaleFactor = 0.2
+                            let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
+                            
+                            let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
+                                                    
+                            let shift = simdProjPenciLPoint - selectedCorner!.simdPosition
+                            selectedCorner?.simdLocalTranslate(by: shift)
+                            
+                            let updatedDiagonal = selectedCorner!.position - diagonalNode!.position
+                            let updatedDiagonalLength = abs(updatedDiagonal.length())
+                                
+                            var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
+                            if scaleFactor < 0.2 {
+                                scaleFactor = 0.2
+                            }
+                            
+                            selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                            
+                            self.updateBoundingBox(selectedTargets.first!)
                         }
-                        
-                        selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                        
-                        self.updateBoundingBox(selectedTargets.first!)
                     }
                 }
             }

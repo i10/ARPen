@@ -105,6 +105,9 @@ class CylinderByDraggingPlugin: Plugin {
                     
                     cylinder.localTranslate(by: self.finalCylinderPosition!)
                     cylinder.applyTransform()
+                    
+                    let buildingAction = PrimitiveBuildingAction(occtRef: cylinder.occtReference!, scene: self.currentScene!, cylinder: cylinder)
+                    self.undoRedoManager?.actionDone(buildingAction)
                 }
             }
         }

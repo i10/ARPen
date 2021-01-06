@@ -145,6 +145,8 @@ class PinchScaler {
                 {
                     hoverTarget = nil
                     unselectTarget(hit)
+                    selectedCorner = nil
+                    isACornerSelected = false  
                 }
             }
             
@@ -230,8 +232,6 @@ class PinchScaler {
                 self.updateBoundingBox(selectedTargets.first!)
                 
                 prevRecScaleByOCCTRef.updateValue(recognizer.scale, forKey: selectedTargets.first!.occtReference!)
-                print(scaleFactor)
-                print(recognizer.scale)
                 
             }
             
@@ -613,7 +613,9 @@ extension PinchScaler : UndoRedoManagerNotifier{
     func actionRedone(_ manager: UndoRedoManager)
     {
         if self.active == true {
-            prevRecScaleByOCCTRef.updateValue(prevRecScaleByOCCTRef[selectedTargets.first!.occtReference!]! + CGFloat(diffInScale!.x), forKey: selectedTargets.first!.occtReference!)
+            if prevRecScaleByOCCTRef.count != 0 {
+                prevRecScaleByOCCTRef.updateValue(prevRecScaleByOCCTRef[selectedTargets.first!.occtReference!]! + CGFloat(diffInScale!.x), forKey: selectedTargets.first!.occtReference!)
+            }
             if selectedTargets.count == 1{
                 self.updateBoundingBox(selectedTargets.first!)
             }

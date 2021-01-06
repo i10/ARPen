@@ -11,7 +11,7 @@ import Foundation
 /**
  This is the base class for all Nodes which have no underlying representation in Open CASCADE (OCCT), e.g. (currently) `ARPPathNode`s.
 */
-class ARPNode: SCNNode {
+public class ARPNode: SCNNode {
     
     var highlighted: Bool = false {
         didSet {

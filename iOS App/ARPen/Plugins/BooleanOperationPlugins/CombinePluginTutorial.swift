@@ -41,7 +41,7 @@ class CombinePluginTutorial: ModelingPlugin {
         super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         
         // Forward activation to arranger
-        self.arranger.activate(withScene: scene, andView: view)
+        self.arranger.activate(withScene: scene, andView: view, urManager: urManager)
         
         self.button1Label.text = "Select/Move"
         self.button2Label.text = "Merge"

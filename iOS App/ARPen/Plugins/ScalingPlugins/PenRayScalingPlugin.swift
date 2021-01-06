@@ -15,14 +15,9 @@ import ARKit
  For button where it is *essential* that they are executed once, the code is located here.
 */
 
-class PenRayScalingPlugin: ModelingPlugin {
+class PenRayScalingPlugin: ScalingPlugin {
     
-    private var scaler: PenRayScaler
-    private var buttonEvents: ButtonEvents
-        
     override init() {
-        buttonEvents = ButtonEvents()
-        scaler = PenRayScaler()
         super.init()
         
         self.pluginImage = UIImage.init(named: "Bool(Function)")
@@ -30,9 +25,6 @@ class PenRayScalingPlugin: ModelingPlugin {
         self.pluginIdentifier = "Scaling (PenRay)"
         self.pluginGroupName = "Scaling"
         self.needsBluetoothARPen = false
-        
-        buttonEvents.didPressButton = self.didPressButton
-        
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
@@ -41,36 +33,10 @@ class PenRayScalingPlugin: ModelingPlugin {
         
         self.button1Label.text = "Select/Deselect Model"
         self.button2Label.text = "Corner Scaling"
-        self.button3Label.text = "Center Scaling"
 
     }
     
-    override func deactivatePlugin() {
-        scaler.deactivate()
-        
-        super.deactivatePlugin()
-    }
-    
-    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
-        buttonEvents.update(buttons: buttons)
-        scaler.update(scene: scene, buttons: buttons)
-    }
-    
-    func didPressButton(_ button: Button) {
-        
-        switch button {
-        case .Button1:
-            break
-            
-        case .Button2:
-          
-            break
-        
-        case .Button3:
-            break
-        }
-    }
-
+ 
     
 }
     

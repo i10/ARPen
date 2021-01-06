@@ -9,13 +9,13 @@
 import Foundation
 import ARKit
 
-class  PinchScalingPlugin: ModelingPlugin {
+class  PinchScalingPlugin: Plugin {
     
     private var scaler: PinchScaler
-    private var buttonEvents: ButtonEvents
+
         
     override init() {
-        buttonEvents = ButtonEvents()
+     
         scaler = PinchScaler()
         super.init()
         
@@ -25,7 +25,7 @@ class  PinchScalingPlugin: ModelingPlugin {
         self.pluginGroupName = "Scaling"
         self.needsBluetoothARPen = false
         
-        buttonEvents.didPressButton = self.didPressButton
+
         
     }
     
@@ -33,10 +33,6 @@ class  PinchScalingPlugin: ModelingPlugin {
         super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         self.scaler.activate(withScene: scene, andView: view, urManager: urManager)
         
-        self.button1Label.text = ""
-        self.button2Label.text = ""
-        self.button3Label.text = ""
-
     }
     
     override func deactivatePlugin() {
@@ -46,24 +42,10 @@ class  PinchScalingPlugin: ModelingPlugin {
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
-        buttonEvents.update(buttons: buttons)
+
         scaler.update(scene: scene, buttons: buttons)
     }
     
-    func didPressButton(_ button: Button) {
-        
-        switch button {
-        case .Button1:
-            break
-            
-        case .Button2:
-          
-            break
-        
-        case .Button3:
-            break
-        }
-    }
 
     
 }

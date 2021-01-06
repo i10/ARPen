@@ -9,6 +9,7 @@
 import Foundation
 
 struct Stack<Element> {
+    
     fileprivate var array: [Element] = []
 
     public var count: Int {
@@ -18,7 +19,7 @@ struct Stack<Element> {
     public var isEmpty: Bool {
       return array.isEmpty
     }
-  
+    
     mutating func push(_ element: Element) {
         array.append(element)
     }

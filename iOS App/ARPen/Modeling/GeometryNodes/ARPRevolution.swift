@@ -11,7 +11,7 @@ import Foundation
 /**
  Node for creating a revolved solid.
  */
-class ARPRevolution: ARPGeomNode {
+public class ARPRevolution: ARPGeomNode {
     
     var profile: ARPPath
     var axis: ARPPath

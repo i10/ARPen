@@ -13,13 +13,11 @@ import ARKit
  This plugin is used for rotating an object via device input.
 */
 
-class PenRotationPlugin: ModelingPlugin {
+class PenRotationPlugin: RotatingPlugin {
     
     private var rotator: PenRotator
-    private var buttonEvents: ButtonEvents
 
     override init() {
-        buttonEvents = ButtonEvents()
         rotator = PenRotator()
         super.init()
         
@@ -28,8 +26,6 @@ class PenRotationPlugin: ModelingPlugin {
         self.pluginIdentifier = "Pen Rotation"
         self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false
-        
-        buttonEvents.didPressButton = self.didPressButton
         
     }
     
@@ -50,24 +46,10 @@ class PenRotationPlugin: ModelingPlugin {
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
-        buttonEvents.update(buttons: buttons)
         rotator.update(scene: scene, buttons: buttons)
     }
     
-    func didPressButton(_ button: Button) {
-        
-        switch button {
-        case .Button1:
-            break
-            
-        case .Button2:
-            break
-        
-        case .Button3:
-            break
-        }
-    }
-    
+
     
         
     

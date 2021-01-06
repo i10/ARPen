@@ -15,13 +15,12 @@ import ARKit
  For button where it is *essential* that they are executed once, the code is located here.
 */
 
-class TSRotationPlugin: ModelingPlugin {
+class TSRotationPlugin: Plugin {
     
     private var rotator: TSRotator
-    private var buttonEvents: ButtonEvents
+  
 
     override init() {
-        buttonEvents = ButtonEvents()
         rotator = TSRotator()
         super.init()
         
@@ -31,7 +30,6 @@ class TSRotationPlugin: ModelingPlugin {
         self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false
         
-        buttonEvents.didPressButton = self.didPressButton
         
     }
     
@@ -39,9 +37,6 @@ class TSRotationPlugin: ModelingPlugin {
         super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         self.rotator.activate(withScene: scene, andView: view, urManager: urManager)
         
-        self.button1Label.text = ""
-        self.button2Label.text = ""
-        self.button3Label.text = ""
 
     }
     
@@ -51,23 +46,6 @@ class TSRotationPlugin: ModelingPlugin {
         super.deactivatePlugin()
     }
     
-    override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
-        buttonEvents.update(buttons: buttons)
-       
-    }
-    
-    func didPressButton(_ button: Button) {
-        
-        switch button {
-        case .Button1:
-            break
-            
-        case .Button2:
-            break
-        
-        case .Button3:
-            break
-        }
-    }
+ 
     
 }

@@ -11,7 +11,7 @@ import Foundation
 public class Action {
     
     var inScene: PenScene
-    var occtRef : OCCTReference
+    var occtRef : OCCTReference?
     
     func undo(){}
     
@@ -20,5 +20,9 @@ public class Action {
     init(occtRef: OCCTReference, scene: PenScene){
         self.inScene = scene
         self.occtRef = occtRef
+    }
+    
+    init(scene: PenScene){
+        self.inScene = scene
     }
 }

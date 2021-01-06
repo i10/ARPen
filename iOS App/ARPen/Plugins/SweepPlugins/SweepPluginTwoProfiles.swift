@@ -101,12 +101,17 @@ class SweepPluginTwoProfiles: ModelingPlugin {
             DispatchQueue.global(qos: .userInitiated).async {
                 
                 if let sweep = try? ARPSweep(profile: profile1, path: spine) {
+                    profile1.usedInGeometry = true
+                    path.usedInGeometry = true
 
                     DispatchQueue.main.async {
                         self.currentScene?.drawingNode.addChildNode(sweep)
                         profile2.removeFromParentNode()
                         self.freePaths.removeAll(where: { $0 === profile1 || $0 === profile2 })
                     }
+                    
+                    let buildingAction = SweepBuildingAction(occtRef: sweep.occtReference!, scene: self.currentScene!, sweep: sweep)
+                    self.undoRedoManager?.actionDone(buildingAction)
                 }
             }
         }

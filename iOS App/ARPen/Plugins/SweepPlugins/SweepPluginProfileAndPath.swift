@@ -35,12 +35,16 @@ class SweepPluginProfileAndPath: ModelingPlugin {
                 profile.flatten()
                                 
                 if let sweep = try? ARPSweep(profile: profile, path: spine) {
-                    
+                    profile.usedInGeometry = true
+                    path.usedInGeometry = true
                     DispatchQueue.main.async {
                         self.currentScene?.drawingNode.addChildNode(sweep)                     
                         self.freePaths.removeAll(where: { $0 === profile || $0 === spine })
                         
                     }
+                    
+                    let buildingAction = SweepBuildingAction(occtRef: sweep.occtReference!, scene: self.currentScene!, sweep: sweep)
+                    self.undoRedoManager?.actionDone(buildingAction)
 
                     
                 }

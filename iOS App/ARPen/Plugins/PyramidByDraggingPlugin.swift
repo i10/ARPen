@@ -18,6 +18,7 @@ class PyramidByDraggingPlugin: Plugin {
      */
     private var startingPoint: SCNVector3?
     
+    
     ///final box dimensions
     private var finalPyramidWidth: Double?
     private var finalPyramidHeight: Double?
@@ -124,23 +125,21 @@ class PyramidByDraggingPlugin: Plugin {
                     
                     pyramid.position = finalPyramidMin!
                     
+                   // let min = pyramid.convertPosition(pyramid.boundingBox.min, to: self.currentScene?.drawingNode)
+                   // print(min)
+                   // let max = pyramid.convertPosition(pyramid.boundingBox.max, to: self.currentScene?.drawingNode)
+                   // print(max)
                     
+                   // let height = abs(max.y - min.y)
+                   // let width = abs(max.x - min.x)
+                  //  let length = abs(max.z - min.z)
                     
-                    let min = pyramid.convertPosition(pyramid.boundingBox.min, to: self.currentScene?.drawingNode)
-                    print(min)
-                    let max = pyramid.convertPosition(pyramid.boundingBox.max, to: self.currentScene?.drawingNode)
-                    print(max)
+                   // let centerOfBB = min + SCNVector3(width/2, height/2, length/2)
+                   // print(centerOfBB)
+                   // print(finalPyramidMin)
                     
-                    let height = abs(max.y - min.y)
-                    let width = abs(max.x - min.x)
-                    let length = abs(max.z - min.z)
-                    
-                    let centerOfBB = min + SCNVector3(width/2, height/2, length/2)
-                    print(centerOfBB)
-                    print(finalPyramidMin)
-                    
-                    print(currentScene?.drawingNode.convertPosition(centerOfBB, to: pyramid))
-                    print(currentScene?.drawingNode.convertPosition(min, to: pyramid))
+                    //print(currentScene?.drawingNode.convertPosition(centerOfBB, to: pyramid))
+                    //print(currentScene?.drawingNode.convertPosition(min, to: pyramid))
                     
                     
                    // let pivotShift = finalPyramidCenter! - finalPyramidMin!
@@ -148,12 +147,11 @@ class PyramidByDraggingPlugin: Plugin {
                    // pyramid.pivot = SCNMatrix4MakeTranslation(pivotShift.x, pivotShift.y, pivotShift.z)
                     
                    // pyramid.position = finalPyramidCenter!
-                    
-              
-                  
-                 
-                    
+
                     pyramid.applyTransform()
+                    
+                    let buildingAction = PrimitiveBuildingAction(occtRef: pyramid.occtReference!, scene: self.currentScene!, pyramid: pyramid)
+                    self.undoRedoManager?.actionDone(buildingAction)
 
                 }
             }
