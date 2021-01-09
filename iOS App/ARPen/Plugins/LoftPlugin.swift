@@ -44,20 +44,26 @@ class LoftPlugin: ModelingPlugin {
         path.flatten()
         freePaths.append(path)
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let l = self.loft {
-               // let prevProfiles = l.profiles
+        DispatchQueue.global(qos: .userInitiated).async
+        {
+            if let l = self.loft
+            {
+                let newName = self.randomString(length: 10)
+                path.name = newName
+                
                 l.addProfile(path)
                 self.freePaths.removeAll(where: { $0 === path })
                 
-               // path.usedInGeometry = true
-                //let buildingAction = LoftExpandingAction(occtRef: l.occtReference!, scene: self.currentScene!, prevLoft: l, newLoft: l)
+                path.usedInGeometry = true
                 
-               // print(prevProfiles)
                 
-                //self.undoRedoManager?.actionDone(buildingAction)
-                
-            } else {
+                let buildingAction = ExpandingLoftAction(occtRef: l.occtReference!, scene: self.currentScene!, loft: l, newProfile: path, nameOfNewProfile: newName)
+                self.undoRedoManager?.actionDone(buildingAction)
+               
+            }
+            
+            else
+            {
                 if self.freePaths.count >= 2 {
                     let paths = [self.freePaths.removeFirst(), self.freePaths.removeFirst()]
                     if let l = try? ARPLoft(profiles: paths) {
@@ -72,6 +78,7 @@ class LoftPlugin: ModelingPlugin {
                         
                         let buildingAction = LoftBuildingAction(occtRef: l.occtReference!, scene: self.currentScene!, loft: l)
                         self.undoRedoManager?.actionDone(buildingAction)
+                        
                     }
                 }
             }

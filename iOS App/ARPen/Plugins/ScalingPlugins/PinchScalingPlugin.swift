@@ -18,9 +18,8 @@ class  PinchScalingPlugin: Plugin {
      
         scaler = PinchScaler()
         super.init()
-        
-        self.pluginImage = UIImage.init(named: "Bool(Function)")
-        self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
+        self.pluginImage = UIImage.init(named: "Scaling")
+        self.pluginInstructionsImage = UIImage.init(named: "ScalingPinch")
         self.pluginIdentifier = "Scaling (Pinch)"
         self.pluginGroupName = "Scaling"
         self.needsBluetoothARPen = false

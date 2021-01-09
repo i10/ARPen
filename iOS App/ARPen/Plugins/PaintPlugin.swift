@@ -33,18 +33,6 @@ class PaintPlugin: Plugin {
         self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
-    func undoPreviousAction() {
-        if (self.previousDrawnLineNodes?.count ?? 0 > 0) {
-            let lastLine = self.previousDrawnLineNodes?.last
-            
-            self.previousDrawnLineNodes?.removeLast()
-            
-            // Remove the previous line
-            for currentNode in lastLine! {
-                currentNode.removeFromParentNode()
-            }
-        }
-    }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         guard scene.markerFound else {
@@ -54,22 +42,33 @@ class PaintPlugin: Plugin {
         }
         let pressed = buttons[Button.Button1]!
         
-        if pressed, let previousPoint = self.previousPoint {
-            if currentLine == nil {
+        if pressed, let previousPoint = self.previousPoint
+        {
+            if currentLine == nil
+            {
                 currentLine = [SCNNode]()
             }
+            
             let cylinderNode = SCNNode()
             cylinderNode.buildLineInTwoPointsWithRotation(from: previousPoint, to: scene.pencilPoint.position, radius: 0.001, color: penColor)
             cylinderNode.name = "cylinderLine"
             scene.drawingNode.addChildNode(cylinderNode)
             //add last drawn line element to currently drawn line collection
             currentLine?.append(cylinderNode)
-        } else if !pressed {
-            if let currentLine = self.currentLine {
-                self.previousDrawnLineNodes?.append(currentLine)
+        }
+        
+        else if !pressed
+        {
+            if let currentLine = self.currentLine
+            {
+                let paintAction = PaintAction(scene: self.currentScene!, line: currentLine)
+                self.undoRedoManager?.actionDone(paintAction)
+                
                 self.currentLine = nil
             }
         }
+        
+        
         
         let pressed2 = buttons[Button.Button2]!
         if pressed2, !removedOneLine, let lastLine = self.previousDrawnLineNodes?.last {

@@ -24,7 +24,7 @@ class CombinePluginFunction: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Bool(Function)")
         self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
         self.pluginIdentifier = "Combine(Function)"
-        self.pluginGroupName = "Modeling"
+        self.pluginGroupName = "Boolean Operations"
         self.needsBluetoothARPen = false
         
         buttonEvents.didPressButton = self.didPressButton

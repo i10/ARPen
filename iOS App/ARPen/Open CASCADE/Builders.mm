@@ -387,7 +387,7 @@
     }
     
     catch (...) {
-        printf("DIDNT WORK");
+        printf("Caught exception while building Sweep");
     }
     
     

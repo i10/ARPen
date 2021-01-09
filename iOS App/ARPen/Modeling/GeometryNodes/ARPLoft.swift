@@ -30,7 +30,7 @@ public class ARPLoft: ARPGeomNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addProfile(_ profile: ARPPath) {
+    func addProfile(_ profile: ARPPath){
         profiles.append(profile)
         content.addChildNode(profile)
         profile.isHidden = true
@@ -46,4 +46,7 @@ public class ARPLoft: ARPGeomNode {
         
         return ref ?? ""
     }
+    
+    
+    
 }

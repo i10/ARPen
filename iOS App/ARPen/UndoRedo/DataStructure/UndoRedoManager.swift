@@ -17,7 +17,7 @@ class UndoRedoManager {
     public func actionDone(_ action: Action) {
         
         //if sweep/revolve/loft remove all the previous path actions...
-        if ((action as? SweepBuildingAction) != nil) || ((action as? RevolveBuildingAction) != nil) || ((action as? LoftBuildingAction) != nil) {
+        if ((action as? SweepBuildingAction) != nil) || ((action as? RevolveBuildingAction) != nil) || ((action as? LoftBuildingAction) != nil) || ((action as? ExpandingLoftAction != nil)){
             
             removePathActions()
         }
@@ -29,7 +29,7 @@ class UndoRedoManager {
     func removePathActions(){
         let k = undoStack.count
         
-        if k >= 1 {
+        if k >= 1{
             for _ in 1...k{
                 if ((undoStack.peek() as? PathAction) != nil){
                         _ = undoStack.pop()

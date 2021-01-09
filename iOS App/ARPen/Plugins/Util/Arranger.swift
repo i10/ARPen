@@ -169,14 +169,15 @@ class Arranger {
             lastPenPosition = currentScene?.pencilPoint.position
             lastClickTime = Date()
             
-            if let target = hoverTarget {
+            if let target = hoverTarget
+            {
                 if !selectedTargets.contains(target) {
                     selectTarget(target)
                     
- 
-                    
                 }
-            } else {
+            }
+            
+            else {
                 for target in selectedTargets {
                     unselectTarget(target)
                 }

@@ -20,14 +20,11 @@ class DirectDeviceRotationPlugin: RotatingPlugin {
     override init() {
         rotator = DirectDeviceRotator()
         super.init()
-        
-        self.pluginImage = UIImage.init(named: "ObjectCreationPlugin")
-        //self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
+
+        self.pluginInstructionsImage = UIImage.init(named: "DirectDeviceRotation")
         self.pluginIdentifier = "Direct Device Rotation"
         self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false
-        
-
         
     }
     
@@ -38,6 +35,7 @@ class DirectDeviceRotationPlugin: RotatingPlugin {
         self.button1Label.text = "Select"
         self.button2Label.text = "Hold for Rotation"
         self.button3Label.text = ""
+        
     }
     
  

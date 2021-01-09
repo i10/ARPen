@@ -21,8 +21,8 @@ class PenRotationPlugin: RotatingPlugin {
         rotator = PenRotator()
         super.init()
         
-        self.pluginImage = UIImage.init(named: "ObjectCreationPlugin")
-        //self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
+
+        self.pluginInstructionsImage = UIImage.init(named: "PenRotation")
         self.pluginIdentifier = "Pen Rotation"
         self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false

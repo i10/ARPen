@@ -110,17 +110,19 @@ public class LoftBuildingAction : Action {
     init(occtRef: OCCTReference, scene: PenScene, loft: ARPLoft){
         self.loft = loft
         super.init(occtRef: occtRef, scene: scene)
+        print(occtRef)
     }
   
     override func undo() {
+        
         DispatchQueue.main.async
         {
             self.loft.removeFromParentNode()
         }
-        
     }
     
     override func redo() {
+       
         DispatchQueue.main.async
         {
             self.inScene.drawingNode.addChildNode(self.loft)
@@ -129,6 +131,28 @@ public class LoftBuildingAction : Action {
 }
 
 
+public class ExpandingLoftAction : Action {
+    
+    var loft: ARPLoft
+    var nameOfNewProfile: String
+    var newProfile: ARPPath
+    
+    init(occtRef: OCCTReference, scene: PenScene, loft: ARPLoft, newProfile: ARPPath , nameOfNewProfile: String){
+        self.loft = loft
+        self.newProfile = newProfile
+        self.nameOfNewProfile = nameOfNewProfile
+        super.init(occtRef: occtRef, scene: scene)
+    }
+  
+    override func undo() {
+        self.loft.profiles.removeLast()
+        self.loft.content.childNode(withName: nameOfNewProfile, recursively: true)?.removeFromParentNode()
+        self.loft.rebuild()
+        self.loft.applyTransform()
+    }
 
-
+    override func redo() {
+        self.loft.addProfile(newProfile)
+    }
+}
 

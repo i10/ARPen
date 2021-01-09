@@ -23,21 +23,16 @@ class TSRotationPlugin: Plugin {
     override init() {
         rotator = TSRotator()
         super.init()
-        
-        self.pluginImage = UIImage.init(named: "ObjectCreationPlugin")
-        //self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
+        self.pluginImage = UIImage.init(named: "Rotating")
+        self.pluginInstructionsImage = UIImage.init(named: "TSRotation")
         self.pluginIdentifier = "TS Rotation"
         self.pluginGroupName = "Rotation"
         self.needsBluetoothARPen = false
-        
-        
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
         super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
         self.rotator.activate(withScene: scene, andView: view, urManager: urManager)
-        
-
     }
     
     override func deactivatePlugin() {

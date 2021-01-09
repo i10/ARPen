@@ -18,9 +18,17 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
      */
     private var startingPoint: SCNVector3?
     
+    private var finalBoxWidth: Double?
+    private var finalBoxLength: Double?
+    private var finalBoxHeight: Double?
+
+    private var finalCenterX: Float?
+    private var finalCenterY: Float?
+    private var finalCenterZ: Float?
+    private var boxNode: SCNNode?
+    
     override init() {
         super.init()
-        
         self.pluginImage = UIImage.init(named: "CubeByExtractionPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "ExtrudePluginInstructions")
         self.pluginIdentifier = "Extrude"
@@ -29,6 +37,7 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
         self.pluginDisabledImage = UIImage.init(named: "CubeByExtractionPluginDisabled")
         
         nibNameOfCustomUIView = "SecondButton"
+       
     }
    
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
@@ -66,11 +75,19 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
                 boxNodeGeometry.height = CGFloat(boxHeight)
                 boxNodeGeometry.length = CGFloat(boxLength)
                 
+                self.finalBoxWidth = Double(boxNodeGeometry.width)
+                self.finalBoxLength = Double(boxNodeGeometry.length)
+                
                 //calculate the center position of the box node (halfway between the two base corners startingPoint and x&z of the current pencil position)
                 let boxCenterXPosition = startingPoint.x + (scene.pencilPoint.position.x - startingPoint.x)/2
                 let boxCenterYPosition = startingPoint.y
                 let boxCenterZPosition = startingPoint.z + (scene.pencilPoint.position.z - startingPoint.z)/2
                 boxNode.position = SCNVector3.init(boxCenterXPosition, boxCenterYPosition, boxCenterZPosition)
+                
+                self.finalCenterX = boxCenterXPosition
+                self.finalCenterZ = boxCenterZPosition
+                
+                
             } else {
                 //if the button is pressed but no startingPoint exists -> first frame with the button pressed. Set current pencil position as the start point
                 self.startingPoint = scene.pencilPoint.position
@@ -107,8 +124,17 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
             //update box geometry and position to show changes
             boxNodeGeometry.height = CGFloat(boxHeight)
             boxNode.position.y = boxCenterYPosition
+            
+            self.finalBoxHeight = Double(boxNodeGeometry.height)
+            self.finalCenterY = boxCenterYPosition
+            
+            self.boxNode = boxNode
         }
+        
     }
+    
+  
+    
     
     @IBAction func secondSoftwareButtonPressed(_ sender: Any) {
         let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button2, "buttonState" : true]
@@ -118,5 +144,19 @@ class CubeByExtractionPlugin: Plugin,UserStudyRecordPluginProtocol {
     @IBAction func secondSoftwareButtonReleased(_ sender: Any) {
         let buttonEventDict:[String: Any] = ["buttonPressed": Button.Button2, "buttonState" : false]
         NotificationCenter.default.post(name: .softwarePenButtonEvent, object: nil, userInfo: buttonEventDict)
+        
+        let box = ARPBox(width: self.finalBoxWidth!, height: self.finalBoxHeight!, length: self.finalBoxLength!)
+    
+        DispatchQueue.main.async {
+            self.boxNode?.removeFromParentNode()
+            self.currentScene?.drawingNode.addChildNode(box)
+            
+        }
+        
+        box.localTranslate(by: SCNVector3(self.finalCenterX!, self.finalCenterY!, self.finalCenterZ!))
+        box.applyTransform()
+        
+        let buildingAction = PrimitiveBuildingAction(occtRef: box.occtReference!, scene: self.currentScene!, box: box)
+        self.undoRedoManager?.actionDone(buildingAction)
     }
 }

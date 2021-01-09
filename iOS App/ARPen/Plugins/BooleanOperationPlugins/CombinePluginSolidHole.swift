@@ -21,7 +21,7 @@ class CombinePluginSolidHole: ModelingPlugin {
         self.pluginImage = UIImage.init(named: "Bool(Hole)")
         self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineSolidHoleInstructions")
         self.pluginIdentifier = "Combine(Hole)"
-        self.pluginGroupName = "Modeling"
+        self.pluginGroupName = "Boolean Operations"
         self.needsBluetoothARPen = false
         
         buttonEvents.didPressButton = self.didPressButton
@@ -56,9 +56,13 @@ class CombinePluginSolidHole: ModelingPlugin {
         case .Button2:
             for case let target as ARPGeomNode in arranger.selectedTargets {
                 target.isHole = !target.isHole
+                let solidOrHoleAction = SolidOrHoleAction(scene: self.currentScene!, target: target)
+                self.undoRedoManager?.actionDone(solidOrHoleAction)
             }
             if case let target as ARPGeomNode = arranger.hoverTarget, !arranger.selectedTargets.contains(target) {
                 target.isHole = !target.isHole
+                let solidOrHoleAction = SolidOrHoleAction(scene: self.currentScene!, target: target)
+                self.undoRedoManager?.actionDone(solidOrHoleAction)
             }
         case .Button3:
             if arranger.selectedTargets.count == 2 {

@@ -185,6 +185,12 @@ class ARPPath: ARPGeomNode {
         removed.removeFromParentNode()
     }
     
+    func popLastPoint() -> ARPPathNode {
+        let removed = self.points.removeLast()
+        removed.removeFromParentNode()
+        return removed
+    }
+    
     /// Returns 0 of the points are at the same location, 1 if they are on the same line, 2 if they are on the same plane, 3 otherwise, given a certain tolerance.
     func coincidentDimensions() -> Int {
         return OCCTAPI.shared.conincidentDimensions(getPointsAsVectors())
@@ -253,19 +259,9 @@ class ARPPath: ARPGeomNode {
         return ref ?? ""
     }
     
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
     ///
     func update() {
-        if let ref = try? updatePath() {
+        if let ref = try? build() {
             occtReference = ref
             
             pivotToChild()
@@ -278,37 +274,6 @@ class ARPPath: ARPGeomNode {
         }
     }
     
-    
-    
-    
-    func updatePath() throws -> OCCTReference {
-        //is the path closed
-        var calcClosed = closed
-        
-        //check if its really closed
-        if let first = points.first, let last = points.last,
-            first.position.distance(vector: last.position) < ARPPathNode.samePointTolerance {
-            calcClosed = true
-        }
 
-        let positions = points.compactMap { (!calcClosed || $0.fixed) && $0.active ? $0.worldPosition : nil }
-
-        let corners = points.compactMap { (!calcClosed || $0.fixed) && $0.active ? $0.cornerStyle : nil }
-        
-        let ref = try? OCCTAPI.shared.createPath(points: positions, corners: corners, closed: calcClosed)
-
-        if let r = ref {
-            OCCTAPI.shared.setPivotOf(handle: r, pivot: pivotChild.worldTransform)
-        }
-        
-        self.lineColor = calcClosed ? UIColor.green : UIColor.red
-
-        print(ref)
-        
-        return ref ?? ""
-        
-    }
-    
-    
     
 }

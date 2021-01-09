@@ -27,6 +27,7 @@ class RotatingPlugin: Plugin {
         // This UI contains buttons to represent the other two buttons on the pen and an undo button
         // Important: when using this xib-file, implement the IBActions shown below and the IBOutlets above
         nibNameOfCustomUIView = "ThreeButtons"
+        self.pluginImage = UIImage.init(named: "Rotating")
  
     }
     

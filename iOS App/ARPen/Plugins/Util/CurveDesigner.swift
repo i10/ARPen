@@ -46,7 +46,8 @@ class CurveDesigner {
         buttonEvents.didReleaseButton = self.didReleaseButton
     }
     
-    func activate(urManager: UndoRedoManager) {
+    func activate(scene: PenScene, urManager: UndoRedoManager) {
+        self.scene = scene
         self.urManager = urManager
         self.blocked = false
         self.busy = false
@@ -71,12 +72,8 @@ class CurveDesigner {
     }
     
     
-    
-    
-    
-    
     func update(scene: PenScene, buttons: [Button : Bool]) {
-       
+        
         self.scene = scene
         addedThisFrame = false
         buttonEvents.update(buttons: buttons)
