@@ -111,6 +111,7 @@
 		75EFDC4E25A8835100867275 /* SolidOrHoleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EFDC4D25A8835100867275 /* SolidOrHoleAction.swift */; };
 		75EFDC5125A884BE00867275 /* PathManipulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EFDC5025A884BE00867275 /* PathManipulator.swift */; };
 		75EFDC5525A8854E00867275 /* PathEditorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EFDC5425A8854E00867275 /* PathEditorPlugin.swift */; };
+		75EFDC5725ABB9BB00867275 /* CenterScalingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EFDC5625ABB9BB00867275 /* CenterScalingAction.swift */; };
 		DC18B2BC202384D700884920 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */; };
 		DC28B440200E4353008B77AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28B43F200E4353008B77AB /* AppDelegate.swift */; };
 		DC28B442200E4353008B77AB /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = DC28B441200E4353008B77AB /* art.scnassets */; };
@@ -269,6 +270,7 @@
 		75EFDC4D25A8835100867275 /* SolidOrHoleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidOrHoleAction.swift; sourceTree = "<group>"; };
 		75EFDC5025A884BE00867275 /* PathManipulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathManipulator.swift; sourceTree = "<group>"; };
 		75EFDC5425A8854E00867275 /* PathEditorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathEditorPlugin.swift; sourceTree = "<group>"; };
+		75EFDC5625ABB9BB00867275 /* CenterScalingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterScalingAction.swift; sourceTree = "<group>"; };
 		DC18B2BB202384D700884920 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		DC28B43C200E4353008B77AB /* ARPen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC28B43F200E4353008B77AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 				75EFDC4325A333A600867275 /* BooleanAction.swift */,
 				75EFDC4B25A866B000867275 /* PaintAction.swift */,
 				75EFDC4D25A8835100867275 /* SolidOrHoleAction.swift */,
+				75EFDC5625ABB9BB00867275 /* CenterScalingAction.swift */,
 			);
 			path = UndoRedo;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				4AC1F5A02524C0AD002B0A7F /* ARMenu.swift in Sources */,
 				4AC1F5BD2524D1BD002B0A7F /* TwoHandedTouch.swift in Sources */,
 				4AAC4AEB23A24A20003B6E83 /* ARPRevolution.swift in Sources */,
+				75EFDC5725ABB9BB00867275 /* CenterScalingAction.swift in Sources */,
 				4A27E27D239FCEA800C4BF75 /* NotificationName.swift in Sources */,
 				753150D5259B8DEF00201595 /* Stack.swift in Sources */,
 				EA0C796322F078EE00E820E8 /* ARPenDropTargetNode.swift in Sources */,

@@ -29,6 +29,9 @@ class PenRayScaler {
     var updatedScale: SCNVector3?
     var diagonalNodeBefore: SCNNode?
     var active: Bool?
+    var pivotInCenter: Bool?
+    var centerPosBefore: SCNVector3?
+    
     
     /// The time (in seconds) after which holding the main button on an object results in dragging it.
     let timeTillDrag: Double = 0.5
@@ -72,6 +75,10 @@ class PenRayScaler {
         buttonEvents.didDoubleClick = self.didDoubleClick
     }
 
+    ///
+    /**
+        
+     */
     func activate(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
         self.currentView = view
         self.currentScene = scene
@@ -83,13 +90,31 @@ class PenRayScaler {
         self.lastClickPosition = nil
         self.lastClickTime = nil
         self.lastPenPosition = nil
+        
     }
 
+    ///
+    /**
+        
+     */
     func deactivate() {
         self.active = false
         for target in selectedTargets {
             unselectTarget(target)
         }
+    }
+    
+    ///
+    /**
+        
+     */
+    func isPivotLocatedInCenter(target: ARPGeomNode) -> Bool {
+        
+        let center = target.convertPosition(target.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+
+        let worldTransf = SCNVector3(target.worldTransform.m41, target.worldTransform.m42, target.worldTransform.m43)
+        
+        return SCNVector3EqualToVector3(center, worldTransf)
     }
     
     ///gets executed each frame and is mainly responsible for scaling
@@ -103,6 +128,7 @@ class PenRayScaler {
             //check whether or not you hover over created geometry
             if let hit = hitTest(pointerPosition: scene.pencilPoint.position) {
                 hoverTarget = hit
+                
                 
             } else {
                 hoverTarget = nil
@@ -142,7 +168,6 @@ class PenRayScaler {
             //hovering over a corner and holding button2 results in selecting and dragging corner/scaling the geometry
             if (buttons[.Button2] ?? false)
                 && ((Date() - (lastClickTime ?? Date())) > self.timeTillDrag) && hoverCorner != nil
-                        
             {
                 isACornerSelected = true
                 dragging = true
@@ -190,33 +215,18 @@ class PenRayScaler {
                         self.updateBoundingBox(selectedTargets.first!)
                                                 
                         let after = getDiagonalNode(selectedCorner: selectedCorner!)?.position
+                     
+                        let x_of_diff = before!.x - after!.x
+                        let y_of_diff = before!.y - after!.y
+                        let z_of_diff = before!.z - after!.z
 
-                        let upper = ["lbu", "rbu", "lfu", "rfu"]
-
-                        //the diagonal node is an upper node
-                        if(upper.contains((getDiagonalNode(selectedCorner: selectedCorner!)?.name)!)){
-                            let x_of_diff = after!.x - before!.x
-                            let y_of_diff = after!.y - before!.y
-                            let z_of_diff = after!.z - before!.z
+                        let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
                             
-                            let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-                           
-                            selectedTargets.first!.position -= diff
-                        }
-                                                                                    
-                        else {
-                            let x_of_diff = before!.x - after!.x
-                            let y_of_diff = before!.y - after!.y
-                            let z_of_diff = before!.z - after!.z
-
-                            let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-                            
-                            selectedTargets.first!.position += diff
-                        }
+                        selectedTargets.first!.position += diff
+                        
                                                 
                         self.updateBoundingBox(selectedTargets.first!)
                         
-
                     }
 
                 }
@@ -266,9 +276,38 @@ class PenRayScaler {
                                 scaleFactor = 0.2
                             }
                             
-                            selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                           //the nodes pivot point around which it scales, is not in the center of the object, we need to translate
+                            if !isPivotLocatedInCenter(target: selectedTargets.first!){
+                                pivotInCenter = false
+                                
+                                let centerBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                                
+                                centerPosBefore = centerBefore
+                                
+                                selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+
+                                self.updateBoundingBox(selectedTargets.first!)
+                                
+                                let centerAfter = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+
+                                let diff = centerBefore - centerAfter
+        
+                                selectedTargets.first!.position += diff
+         
+                                self.updateBoundingBox(selectedTargets.first!)
+                                
+                            }
                             
-                            self.updateBoundingBox(selectedTargets.first!)
+                            //pivot is in center
+                            else {
+                                pivotInCenter = true
+                                
+                                centerPosBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                                
+                                selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                                self.updateBoundingBox(selectedTargets.first!)
+                            }
+                            
                         }
                     }
                 }
@@ -337,7 +376,7 @@ class PenRayScaler {
             
             geometrySelected = false
         
-        case .Button2, .Button3:
+        case .Button2:
             if dragging {
                 for target in selectedTargets {
                     DispatchQueue.global(qos: .userInitiated).async {
@@ -362,6 +401,36 @@ class PenRayScaler {
                     self.urManager?.actionDone(scalingAction)
                 }
             }
+            
+        case .Button3:
+            if dragging {
+                for target in selectedTargets {
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        // Do this in the background, as it may cause a time-intensive rebuild in the parent object
+                        target.applyTransform()
+                        
+                    }
+                }
+            }
+            
+            dragging = false
+            
+            selectedCorner = SCNNode()
+            selectedCorner!.name = "generic"
+            isACornerSelected = false
+            
+            if selectedTargets.count == 1 {
+                if centerPosBefore != nil && pivotInCenter != nil {
+ 
+                    updatedScale = selectedTargets.first?.scale
+                    let diffInScale =  updatedScale! - initialScale!
+                    
+                    let scalingAction = CenterScalingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInScale: diffInScale, centerBefore: centerPosBefore!, pivotCentered: pivotInCenter!)
+          
+                    self.urManager?.actionDone(scalingAction)
+                }
+            }
+            
         }
     }
     
@@ -670,6 +739,10 @@ class PenRayScaler {
             viewBoundingBox(target)
         }
     }
+    
+    
+    
+    
     
 }
 

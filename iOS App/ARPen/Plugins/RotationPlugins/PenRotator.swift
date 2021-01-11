@@ -21,6 +21,8 @@ class PenRotator {
     //everything needed for undo/redo
     private var initialEulerAngles: SCNVector3?
     private var diffInEulerAngles: SCNVector3?
+    private var initialPos: SCNVector3?
+    private var updatedPos: SCNVector3?
     
     var startPenOrientation = simd_quatf()
     var updatedPenOrientation = simd_quatf()
@@ -28,6 +30,8 @@ class PenRotator {
     var updatesSincePressed = 0
     var selected : Bool = false
     var firstSelection : Bool = false
+    
+ 
         
     //hoverTarget uses didSet to update any dependency automatically
     var hoverTarget: ARPGeomNode? {
@@ -73,6 +77,21 @@ class PenRotator {
         }
     }
     
+    ///
+    /**
+        
+     */
+    func isPivotLocatedInCenter(target: ARPGeomNode) -> Bool {
+        
+        let center = target.convertPosition(target.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+
+        let worldTransf = SCNVector3(target.worldTransform.m41, target.worldTransform.m42, target.worldTransform.m43)
+        
+        return SCNVector3EqualToVector3(center, worldTransf)
+    }
+    
+  
+    
     ///gets executed each frame and is responsible for scaling
     /**
         
@@ -93,6 +112,7 @@ class PenRotator {
         
         //geometry was selected
         if selectedTargets.count == 1 {
+            
             let pressed = buttons[Button.Button2]!
             
             if pressed
@@ -103,20 +123,36 @@ class PenRotator {
                     startPenOrientation = scene.pencilPoint.simdOrientation
                 }
                 
-                print(startPenOrientation)
+                
                 updatesSincePressed += 1
                 
                 updatedPenOrientation = scene.pencilPoint.simdOrientation
-                print(updatedPenOrientation)
+                
                 quaternionFromStartToUpdatedPenOrientation = updatedPenOrientation * simd_inverse(startPenOrientation)
                 
                 let rotationAxis = selectedTargets.first!.simdConvertVector(quaternionFromStartToUpdatedPenOrientation.axis, from: nil)
                 quaternionFromStartToUpdatedPenOrientation = simd_quatf(angle: quaternionFromStartToUpdatedPenOrientation.angle, axis: rotationAxis)
                 
                 if selected == true && quaternionFromStartToUpdatedPenOrientation.angle.radiansToDegrees < 20.0 {
+                    
                     quaternionFromStartToUpdatedPenOrientation = quaternionFromStartToUpdatedPenOrientation.normalized
-                    selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedPenOrientation)
-                    //for measurement
+                    
+                    if(!isPivotLocatedInCenter(target: selectedTargets.first!)){
+                        
+                        let center = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                        
+                        let simdCenter = simd_float3(center)
+                        
+                        
+                        selectedTargets.first?.simdRotate(by: quaternionFromStartToUpdatedPenOrientation, aroundTarget: simdCenter)
+                        
+                    }
+                    
+                    else{
+                        
+                        selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedPenOrientation)
+                    }
+                   
                 }
                 
                 startPenOrientation = updatedPenOrientation
@@ -161,7 +197,9 @@ class PenRotator {
             }
         
         case .Button2:
+            
             initialEulerAngles = selectedTargets.first!.eulerAngles
+            initialPos = selectedTargets.first!.position
             
         default:
             break
@@ -190,8 +228,12 @@ class PenRotator {
                 }
             }
             updatesSincePressed = 0
+        
             diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
-            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEuler: diffInEulerAngles!)
+            
+            updatedPos = selectedTargets.first!.position
+            
+            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEulerAngles: diffInEulerAngles!, prevPos: initialPos!, newPos: updatedPos!)
             self.urManager?.actionDone(rotationAction)
             
             

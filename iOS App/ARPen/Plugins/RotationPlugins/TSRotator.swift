@@ -22,6 +22,8 @@ class TSRotator {
     //everything needed for undo/redo
     private var initialEulerAngles: SCNVector3?
     private var diffInEulerAngles: SCNVector3?
+    private var initialPos: SCNVector3?
+    private var updatedPos: SCNVector3?
     
     var tapped : Bool = false
     var pressedBool: Bool = false
@@ -64,6 +66,19 @@ class TSRotator {
         buttonEvents = ButtonEvents()
     }
 
+    ///
+    /**
+        
+     */
+    func isPivotLocatedInCenter(target: ARPGeomNode) -> Bool {
+        
+        let center = target.convertPosition(target.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+
+        let worldTransf = SCNVector3(target.worldTransform.m41, target.worldTransform.m42, target.worldTransform.m43)
+        
+        return SCNVector3EqualToVector3(center, worldTransf)
+    }
+    
     func activate(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
     
         self.tapped = false
@@ -128,6 +143,7 @@ class TSRotator {
             }
             
             initialEulerAngles = selectedTargets.first!.eulerAngles
+            initialPos = selectedTargets.first!.position
         }
         else if sender.state == .changed{
             self.previousPoint = self.currentPoint
@@ -148,7 +164,9 @@ class TSRotator {
             self.currentPoint = CGPoint(x:0, y:0)
             
             diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
-            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEuler: diffInEulerAngles!)
+            updatedPos = selectedTargets.first?.position
+            
+            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEulerAngles: diffInEulerAngles!, prevPos: initialPos!, newPos: updatedPos!)
             self.urManager?.actionDone(rotationAction)
         }
         
@@ -160,12 +178,44 @@ class TSRotator {
         if(abs(rotationX) > abs(rotationY)){
             rotationQuat = simd_quatf(angle: rotationX, axis: self.yVector)
             rotationQuat = rotationQuat.normalized
-            selectedTargets.first!.simdLocalRotate(by: rotationQuat)
+            
+            if(!isPivotLocatedInCenter(target: selectedTargets.first!)){
+                
+                let center = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                
+                let simdCenter = simd_float3(center)
+                
+                selectedTargets.first!.simdRotate(by: rotationQuat, aroundTarget: simdCenter)
+                selectedTargets.first!.applyTransform()
+            }
+            
+            else{
+                
+                selectedTargets.first!.simdLocalRotate(by: rotationQuat)
+                selectedTargets.first!.applyTransform()
+            }
+            
+            
         }
         else{
             rotationQuat = simd_quatf(angle: rotationY, axis: self.xVector)
             rotationQuat = rotationQuat.normalized
-            selectedTargets.first!.simdLocalRotate(by: rotationQuat)
+            
+            if(!isPivotLocatedInCenter(target: selectedTargets.first!)){
+                
+                let center = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                
+                let simdCenter = simd_float3(center)
+                
+                selectedTargets.first!.simdRotate(by: rotationQuat, aroundTarget: simdCenter)
+                selectedTargets.first!.applyTransform()
+            }
+            
+            else{
+                
+                selectedTargets.first!.simdLocalRotate(by: rotationQuat)
+                selectedTargets.first!.applyTransform()
+            }
         }
     }
     

@@ -17,11 +17,12 @@ class DirectDeviceRotator {
     var currentView: ARSCNView?
     var urManager: UndoRedoManager?
     
-    
-    //everything needed fo undo/redo
-    private var initialEuler: SCNVector3?
-    private var diffInEuler: SCNVector3?
-    
+    //everything needed for undo/redo
+    private var initialEulerAngles: SCNVector3?
+    private var diffInEulerAngles: SCNVector3?
+    private var initialPos: SCNVector3?
+    private var updatedPos: SCNVector3?
+
     
     //counts the updates since selecting a mesh
     var updatesSincePressed = 0
@@ -77,6 +78,20 @@ class DirectDeviceRotator {
         }
     }
     
+    ///
+    /**
+        
+     */
+    func isPivotLocatedInCenter(target: ARPGeomNode) -> Bool {
+        
+        let center = target.convertPosition(target.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+
+        let worldTransf = SCNVector3(target.worldTransform.m41, target.worldTransform.m42, target.worldTransform.m43)
+        
+        return SCNVector3EqualToVector3(center, worldTransf)
+    }
+    
+    
     ///gets executed each frame and is responsible for scaling
     /**
         
@@ -108,7 +123,6 @@ class DirectDeviceRotator {
                 if updatesSincePressed == 0 {
                     if let orientation = self.currentView!.pointOfView?.simdOrientation {
                         startDeviceOrientation = orientation
-                        initialEuler = selectedTargets.first?.eulerAngles
                     }
                 }
                 
@@ -126,9 +140,24 @@ class DirectDeviceRotator {
                 
                 quaternionFromStartToUpdatedDeviceOrientation = simd_quatf(angle: quaternionFromStartToUpdatedDeviceOrientation.angle, axis: rotationAxis)
                 quaternionFromStartToUpdatedDeviceOrientation = quaternionFromStartToUpdatedDeviceOrientation.normalized
-            
-                selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedDeviceOrientation)
                 
+            
+                if(!isPivotLocatedInCenter(target: selectedTargets.first!)){
+                    
+                    let center = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                    
+                    let simdCenter = simd_float3(center)
+                    
+                    
+                    selectedTargets.first?.simdRotate(by: quaternionFromStartToUpdatedDeviceOrientation, aroundTarget: simdCenter)
+                }
+                
+                else{
+                    
+                    
+                    selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedDeviceOrientation)
+                }
+            
                 startDeviceOrientation = updatedDeviceOrientation
             }
       
@@ -170,6 +199,10 @@ class DirectDeviceRotator {
                 }
             }
             
+        case .Button2:
+            initialEulerAngles = selectedTargets.first!.eulerAngles
+            initialPos = selectedTargets.first!.position
+            
         default:
             break
         }
@@ -189,18 +222,25 @@ class DirectDeviceRotator {
                 }
             justSelectedSomething = false
             
+            
         case .Button2:
+            
             for target in selectedTargets {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    // Do this in the background, as it may cause a time-intensive rebuild in the parent object
-                    target.applyTransform()
-                }
+                
+                target.applyTransform()
+                
             }
-            updatesSincePressed = 0
-            diffInEuler = selectedTargets.first!.eulerAngles - initialEuler!
-            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEuler: diffInEuler!)
+            
+            diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
+            
+            updatedPos = selectedTargets.first!.position
+            
+            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEulerAngles: diffInEulerAngles!, prevPos: initialPos!, newPos: updatedPos!)
             self.urManager?.actionDone(rotationAction)
             
+            updatesSincePressed = 0
+            
+          
             
         default:
             break

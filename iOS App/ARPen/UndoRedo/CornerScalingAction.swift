@@ -97,30 +97,17 @@ public class CornerScalingAction : Action {
             corners[key] = SCNVector3(rotatedX + node.position.x, rotatedY + node.position.y, rotatedZ + node.position.z)
            
         }
-        node.eulerAngles = SCNVector3(pitch,yaw,roll)
         
-        let upper = ["lbu", "rbu", "lfu", "rfu"]
+        node.eulerAngles = SCNVector3(pitch,yaw,roll)
+      
+        let x_of_diff = before.x - corners[name!]!.x
+        let y_of_diff = before.y - corners[name!]!.y
+        let z_of_diff = before.z - corners[name!]!.z
 
-        //the diagonal node is an upper node
-        if(upper.contains(name!)){
-            let x_of_diff = corners[name!]!.x - before.x
-            let y_of_diff = corners[name!]!.y - before.y
-            let z_of_diff = corners[name!]!.z - before.z
+        let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
             
-            let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-           
-            node.position -= diff
-        }
-                                                                    
-        else {
-            let x_of_diff = before.x - corners[name!]!.x
-            let y_of_diff = before.y - corners[name!]!.y
-            let z_of_diff = before.z - corners[name!]!.z
-
-            let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-            
-            node.position += diff
-        }
+        node.position += diff
+        
     }
     
 }

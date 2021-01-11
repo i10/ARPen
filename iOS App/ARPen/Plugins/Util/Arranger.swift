@@ -115,7 +115,8 @@ class Arranger {
                 self.translationStarted = true
             }
             
-            if Arranger.snapWhenDragging {
+            if Arranger.snapWhenDragging
+            {
                     
                 var centersOfSelectedTargets: [SCNVector3] = []
                 

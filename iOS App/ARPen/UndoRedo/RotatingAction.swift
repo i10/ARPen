@@ -10,12 +10,17 @@ import Foundation
 
 public class RotatingAction : Action {
     
-    //private let diffInOrientation: simd_quatf
-    
-    private let diffInEuler: SCNVector3
-    
-    init(occtRef: OCCTReference, scene: PenScene, diffInEuler: SCNVector3){
-        self.diffInEuler = diffInEuler
+    //ewe save position before and after rotation to account for a non-centered pivot point. Should be the easiest approach
+    var diffInEulerAngles: SCNVector3
+    var previousPosition: SCNVector3
+    var newPosition: SCNVector3
+
+   
+    init(occtRef: OCCTReference, scene: PenScene, diffInEulerAngles: SCNVector3, prevPos: SCNVector3, newPos: SCNVector3){
+       
+        self.diffInEulerAngles = diffInEulerAngles
+        self.previousPosition = prevPos
+        self.newPosition = newPos
         super.init(occtRef: occtRef, scene: scene)
     }
     
@@ -26,9 +31,12 @@ public class RotatingAction : Action {
             let geomNode = node as? ARPGeomNode
             
             if geomNode?.occtReference == self.occtRef {
-                geomNode?.eulerAngles -= diffInEuler
+    
+                geomNode?.eulerAngles -= diffInEulerAngles
+                geomNode?.position = previousPosition
                 geomNode!.applyTransform()
                 
+               
             }
         }
         
@@ -41,8 +49,11 @@ public class RotatingAction : Action {
             let geomNode = node as? ARPGeomNode
             
             if geomNode?.occtReference == self.occtRef {
-                geomNode?.eulerAngles += diffInEuler
+                
+                geomNode?.eulerAngles += diffInEulerAngles
+                geomNode?.position = newPosition
                 geomNode!.applyTransform()
+                
             }
         }
     }
