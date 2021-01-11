@@ -207,7 +207,7 @@ class PenRayScaler {
                         if scaleFactor < 0.2 {
                             scaleFactor = 0.2
                         }
-                        
+                     
                         diagonalNodeBefore = diagonalNode
                         let before = diagonalNode?.position
                         selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
@@ -751,7 +751,12 @@ extension PenRayScaler : UndoRedoManagerNotifier{
     {
         if self.active == true {
             if selectedTargets.count == 1{
-                self.updateBoundingBox(selectedTargets.first!)
+                
+                for target in selectedTargets {
+                    unselectTarget(target)
+                }
+                self.removeBoundingBox()
+                
             }
         }
     }
@@ -760,7 +765,10 @@ extension PenRayScaler : UndoRedoManagerNotifier{
     {
         if self.active == true {
             if selectedTargets.count == 1{
-                self.updateBoundingBox(selectedTargets.first!)
+                for target in selectedTargets {
+                    unselectTarget(target)
+                }
+                self.removeBoundingBox()
             }
         }
     }

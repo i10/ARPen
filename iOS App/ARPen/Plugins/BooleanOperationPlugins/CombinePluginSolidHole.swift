@@ -95,6 +95,7 @@ class CombinePluginSolidHole: ModelingPlugin {
                         
                         DispatchQueue.main.async {
                             self.currentScene?.drawingNode.addChildNode(res)
+                            
                             res.isHole = createHole
                         }
                         

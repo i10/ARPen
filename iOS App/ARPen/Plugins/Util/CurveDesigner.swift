@@ -72,6 +72,11 @@ class CurveDesigner {
     }
     
     
+    
+    
+    
+    
+    
     func update(scene: PenScene, buttons: [Button : Bool]) {
         
         self.scene = scene

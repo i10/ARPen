@@ -72,6 +72,7 @@ class CombinePluginFunction: ModelingPlugin {
                     if let diff = try? ARPBoolNode(a: a, b: b, operation: button == .Button2 ? .join : .cut) {
                         DispatchQueue.main.async {
                             self.currentScene?.drawingNode.addChildNode(diff)
+                            
 
                         }
                         

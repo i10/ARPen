@@ -24,14 +24,12 @@ class Arranger {
     var initialPositions: [ARPGeomNode : SCNVector3]?
     var updatedPositions: [ARPGeomNode : SCNVector3]?
     
-    
     /// The time (in seconds) after which holding the main button on an object results in dragging it.
     static let timeTillDrag: Double = 1
     /// The minimum distance to move the pen starting at an object while holding the main button which results in dragging it.
     static let maxDistanceTillDrag: Float = 0.015
     /// Move the object with its center to the pen tip when dragging starts.
     static let snapWhenDragging: Bool = true
-    
     
     //hoverTarget uses didSet to update any dependency automatically
     var hoverTarget: ARPGeomNode? {
@@ -77,14 +75,11 @@ class Arranger {
         self.translationStarted = false
     }
 
-
     func deactivate() {
         for target in selectedTargets {
             unselectTarget(target)
         }
     }
-    
-    
     
     func update(scene: PenScene, buttons: [Button : Bool]) {
         buttonEvents.update(buttons: buttons)
@@ -117,35 +112,14 @@ class Arranger {
             
             if Arranger.snapWhenDragging
             {
-                    
-                var centersOfSelectedTargets: [SCNVector3] = []
+            
+                let center = selectedTargets.reduce(SCNVector3(0,0,0), { $0 + $1.convertPosition($1.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode) }) / Float(selectedTargets.count)
                 
-                for target in selectedTargets
-                {
-                    //SCNVector3 with position of boundingBox.min
-                    let world_pos_min = target.convertPosition(target.boundingBox.min, to: self.currentScene?.drawingNode)
-                        
-                    //SCNVector3 with position of boundingBox.min
-                    let world_pos_max = target.convertPosition(target.boundingBox.max, to: self.currentScene?.drawingNode)
-               
-                    //Determine height, width and length of bounding box
-                    let height = world_pos_max.y - world_pos_min.y
-                    let length = world_pos_max.z - world_pos_min.z
-                    let width = world_pos_max.x - world_pos_min.x
-                        
-                    //vector of the halfs of every dimension, to determine center
-                    let center = world_pos_min + SCNVector3(x: width/2, y: height/2, z: length/2)
-                        
-                    centersOfSelectedTargets.append(center)
-                }
-                
-                //aproximate center position of all selectedTargets
-                let center = centersOfSelectedTargets.reduce(SCNVector3(0,0,0), {$0 + $1})/Float(centersOfSelectedTargets.count)
                 let shift = scene.pencilPoint.position - center
-                        
+                
                 for target in selectedTargets
                 {
-                    target.localTranslate(by: shift)
+                    target.position += shift
                 }
                     
             }
@@ -158,8 +132,6 @@ class Arranger {
             lastPenPosition = scene.pencilPoint.position
         }
     }
-    
-    
     
     func didPressButton(_ button: Button) {
         
@@ -188,8 +160,6 @@ class Arranger {
             break
         }
     }
-    
-    
     
     func didReleaseButton(_ button: Button) {
         switch button {
