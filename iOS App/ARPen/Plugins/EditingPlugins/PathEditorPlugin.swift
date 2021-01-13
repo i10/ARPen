@@ -26,7 +26,7 @@ class PathEditorPlugin: Plugin {
         super.init()
 
         self.pluginImage = UIImage.init(named: "ModelingPathPlugin")
-        self.pluginInstructionsImage = UIImage.init(named: "ModelingCombineFunctionInstructions")
+        self.pluginInstructionsImage = UIImage.init(named: "PathEditorInstructions")
         self.pluginIdentifier = "Path Editor"
         self.pluginGroupName = "Editor"
         self.needsBluetoothARPen = false
