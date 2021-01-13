@@ -112,16 +112,6 @@
     return [Builders updatePath:label points:points length:length corners:corners closed:closed ];
 }
 
-
-
-
-
-
-
-
-
-
-
 - (const char *) sweep:(NSString *) profile
                  along:(NSString *) path {
     return [Builders sweep:profile along:path];

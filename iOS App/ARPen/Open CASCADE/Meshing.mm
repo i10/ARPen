@@ -258,7 +258,13 @@ static const int tubeSides = 3;
         TopLoc_Location location;
         // Triangulate current face
         Handle (Poly_Triangulation) triangulation = BRep_Tool::Triangulation(face, location);
+        
+        if(triangulation.IsNull()){
+            return nil;
+        }
+        
         Poly::ComputeNormals(triangulation);
+        
         gp_Trsf transformation = location.Transformation();
         if (!triangulation.IsNull())
         {

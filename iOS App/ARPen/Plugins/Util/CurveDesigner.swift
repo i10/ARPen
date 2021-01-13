@@ -66,6 +66,11 @@ class CurveDesigner {
                     path.removeFromParentNode()
                 }
             }
+            
+            if ((node as? ARPGeomNode)?.buildSuccess == false) {
+                node.removeFromParentNode()
+            }
+            
         }
         
         urManager?.removePathActions()

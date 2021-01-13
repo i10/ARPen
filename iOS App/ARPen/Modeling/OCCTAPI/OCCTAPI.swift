@@ -201,7 +201,7 @@ class OCCTAPI {
     }    
     
     /// Returns a triangulated version of the shape as an `SCNGeometry` object.
-    func triangulate(handle: OCCTReference) -> SCNGeometry {
+    func triangulate(handle: OCCTReference) -> SCNGeometry? {
         return occt.sceneKitMesh(of: handle)
     }
     

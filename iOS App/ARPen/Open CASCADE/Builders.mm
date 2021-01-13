@@ -20,6 +20,7 @@
 #include <occt/BRepBuilderAPI_MakeWire.hxx>
 
 #include <occt/ShapeExtend_WireData.hxx>
+#include <occt/NCollection_Array1.hxx>
 
 #include <occt/BRepBuilderAPI_MakeFace.hxx>
 #include <occt/BRepBuilderAPI_Transform.hxx>
@@ -326,45 +327,6 @@
     return [Registry toHeapCString:key];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 + (const char *) sweep:(NSString *) profile
                  along:(NSString *) path;
 {
@@ -390,10 +352,6 @@
         printf("Caught exception while building Sweep");
     }
     
-    
-    //gets lost here when updating profile
-    //TopoDS_Shape solid = BRepOffsetAPI_MakePipe(TopoDS::Wire(shapePath), profileFace);
-
     return [Registry storeInRegistryWithCString:solid];
 }
 
