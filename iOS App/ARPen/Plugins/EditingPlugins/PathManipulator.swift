@@ -133,6 +133,7 @@ class PathManipulator {
             pathNodeHover = nil
         }
         
+        //Currently hovering over a node
         if pathNodeHover != nil {
             // Start dragging when either the button has been held for long enough or pen has moved a certain distance.
             if (buttons[.Button2] ?? false)
@@ -459,9 +460,12 @@ class PathManipulator {
         
      */
     func selectTarget(_ target: ARPGeomNode) {
-        target.selected = true
-        target.visited = true
-        selectedTargets.append(target)
+        if ((target as? ARPBox == nil && target as? ARPPyramid == nil && target as? ARPCylinder == nil && target as? ARPSphere == nil && target as? ARPBoolNode == nil))
+        {
+            target.selected = true
+            target.visited = true
+            selectedTargets.append(target)
+        }
         
     }
     

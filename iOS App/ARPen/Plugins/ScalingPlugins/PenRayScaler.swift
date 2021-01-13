@@ -9,7 +9,7 @@ import Foundation
 import ARKit
 
 /**
-This class handles the "visiting" and selecting of meshes. When one mesh is selected the boundingBox corners are also visualized. We hover over corerns and then select them using the PenRayScaling Plugin. Scaling then happens in the update method.
+This class handles the  selecting of meshes. When one mesh is selected the boundingBox corners are also visualized. We hover over corners and then select them using the PenRayScaling Plugin. Scaling then happens in the update method.
  
  Scaling is supporred for one selected mesh. Mulitple selection is not possible.
 */
@@ -146,10 +146,20 @@ class PenRayScaler {
                 let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
                 
                 //A corner is hit - update hoverCorner and color corner
-                if namesOfCorners.contains(cornerHit?.name ?? "empty"){
+                if namesOfCorners.contains(cornerHit?.name ?? "empty")
+                {
                     if(isACornerSelected == false){
-                        cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 68/100, alpha: 1.0)
+                        //cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 68/100, alpha: 1.0)
+                        cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 177/255, green: 29/255, blue: 194/255, alpha: 1.0)
+
                     }
+                    
+                    for item in namesOfCorners {
+                        if(item != cornerHit?.name ?? "empty"){
+                            self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
+                        }
+                    }
+                    
                     hoverCorner = cornerHit
                 }
                 
@@ -158,7 +168,10 @@ class PenRayScaler {
                 {
                     for item in namesOfCorners {
                         if(item != selectedCorner?.name ?? "empty"){
-                            self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 38/100, alpha: 1.0)
+                            
+                            self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
+                            
+                            
                         }
                     }
                     hoverCorner = nil
@@ -174,9 +187,11 @@ class PenRayScaler {
                 
                 selectedCorner = hoverCorner
                     
-                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 98/100, alpha: 1.0)
+                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                 
                 let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
+                
+                diagonalNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                     
                 let pencilPointOnDiagonalinSC = projectOntoDiagonal(pencilPoint: scene.pencilPoint.position, selectedCorner: selectedCorner!, diagonal: diagonalNode!.position)
                     
@@ -241,15 +256,19 @@ class PenRayScaler {
                     dragging = true
                     
                     selectedCorner = hoverCorner
+                    
+                    let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
                         
-                    selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 98/100, alpha: 1.0)
+                    for item in namesOfCorners {
+                        self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                    }
                     
                     let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
                         
                     let pencilPointOnDiagonalinSC = projectOntoDiagonal(pencilPoint: scene.pencilPoint.position, selectedCorner: selectedCorner!, diagonal: diagonalNode!.position)
                         
                     var hitTest = self.currentView!.hitTest(pencilPointOnDiagonalinSC, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
-                    let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
+                   
                     hitTest = hitTest.filter({namesOfCorners.contains($0.node.name ?? "empty")})
                     
                     for hit in hitTest{
@@ -377,6 +396,8 @@ class PenRayScaler {
             geometrySelected = false
         
         case .Button2:
+            isACornerSelected = false
+            
             if dragging {
                 for target in selectedTargets {
                     DispatchQueue.global(qos: .userInitiated).async {
@@ -391,7 +412,7 @@ class PenRayScaler {
             
             selectedCorner = SCNNode()
             selectedCorner!.name = "generic"
-            isACornerSelected = false
+            
             
             if selectedTargets.count == 1 {
                 if diagonalNodeBefore != nil {
@@ -545,7 +566,9 @@ class PenRayScaler {
             node.name = key
             node.position = position
             node.geometry = SCNBox(width: 0.01, height: 0.01, length: 0.01, chamferRadius: 0)
-            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 38/100, brightness: 68/100, alpha: 1.0)
+            //node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 38/100, brightness: 68/100, alpha: 1.0)
+            
+            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
             node.rotation = target.rotation
             
             DispatchQueue.main.async {

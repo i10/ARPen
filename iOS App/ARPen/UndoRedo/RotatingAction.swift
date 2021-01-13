@@ -10,7 +10,7 @@ import Foundation
 
 public class RotatingAction : Action {
     
-    //ewe save position before and after rotation to account for a non-centered pivot point. Should be the easiest approach
+    //Save position before and after rotation to account for a non-centered pivot point.
     var diffInEulerAngles: SCNVector3
     var previousPosition: SCNVector3
     var newPosition: SCNVector3

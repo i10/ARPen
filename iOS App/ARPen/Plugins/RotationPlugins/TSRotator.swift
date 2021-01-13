@@ -10,7 +10,7 @@ import Foundation
 import ARKit
 
 /**
-This class handles the selecting and rotating objects via touch gestures
+ This class handles the selecting and rotating objects via touch gestures
  
 */
 class TSRotator {

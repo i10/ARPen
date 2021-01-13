@@ -13,7 +13,6 @@ import ARKit
 This class handles the "visiting" and selecting of meshes. When one mesh is selected the boundingBox corners are also visualized. We hover over corerns and then select them using the PenRayScaling Plugin. Scaling then happens in the update method.
  
  Scaling is supporred for one selected mesh. Mulitple selection is not possible.
- Some code was inspired by the work of Farhadiba Mohammed on ARPen.
 */
 class PinchScaler {
     
@@ -160,7 +159,7 @@ class PinchScaler {
                 //selecting corner
                 if(isACornerSelected == false)
                 {
-                    cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 68/100, alpha: 1.0)
+                    cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 177/255, green: 29/255, blue: 194/255, alpha: 1.0)
                     selectedCorner = cornerHit
                     positionSave = selectedCorner?.position
                     isACornerSelected = true
@@ -169,7 +168,7 @@ class PinchScaler {
                 //deselecting corner
                 else if(isACornerSelected == true && cornerHit == selectedCorner)
                 {
-                    cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 38/100, alpha: 1.0)
+                    cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
                     selectedCorner = nil
                     positionSave = nil
                     isACornerSelected = false
@@ -191,6 +190,12 @@ class PinchScaler {
                     recognizer.scale = prevRecScaleByOCCTRef[ref!]!
                 }
                 initialScale = selectedTargets.first?.scale
+                
+                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                
+                let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
+                
+                diagonalNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
             }
             
             if (recognizer.state == .changed)
@@ -242,6 +247,13 @@ class PinchScaler {
                     let scalingAction = CornerScalingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInScale: diffInScale!, diagonalNodeBefore: diagonalNodeBefore!)
                     self.urManager?.actionDone(scalingAction)
                 }
+                
+                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 177/255, green: 29/255, blue: 194/255, alpha: 1.0)
+                
+                let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
+                
+                diagonalNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
+                
             }
         }
     }
@@ -399,7 +411,7 @@ class PinchScaler {
             node.name = key
             node.position = position
             node.geometry = SCNBox(width: 0.01, height: 0.01, length: 0.01, chamferRadius: 0)
-            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 38/100, alpha: 1.0)
+            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
             node.rotation = target.rotation
             
             DispatchQueue.main.async {

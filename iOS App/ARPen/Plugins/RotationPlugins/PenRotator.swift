@@ -10,7 +10,7 @@ import Foundation
 import ARKit
 
 /**
-This class handles the "visiting" and rotation of meshes.
+ This class handles the "selecintg" and rotation of meshes with the ARPen.
  */
 class PenRotator {
     

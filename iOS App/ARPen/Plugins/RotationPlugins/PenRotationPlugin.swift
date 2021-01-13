@@ -10,7 +10,7 @@ import Foundation
 import ARKit
 
 /**
- This plugin is used for rotating an object via device input.
+ This plugin is used for rotating an object via pen input.
 */
 
 class PenRotationPlugin: RotatingPlugin {

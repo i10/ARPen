@@ -9,6 +9,7 @@
 import Foundation
 import ARKit
 
+//base type for all rotation plugins
 class RotatingPlugin: Plugin {
     
     var buttonEvents: ButtonEvents

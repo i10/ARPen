@@ -10,9 +10,7 @@ import Foundation
 import ARKit
 
 /**
- This plugin is used for PenRayScaling of an object.
- Uses "PenRayScaler" for updating the scale of an object per frame.
- For button where it is *essential* that they are executed once, the code is located here.
+ This plugin is used for rotating an object via TouchScreen input.
 */
 
 class TSRotationPlugin: Plugin {
