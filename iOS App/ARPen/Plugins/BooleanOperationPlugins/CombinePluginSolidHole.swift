@@ -95,8 +95,8 @@ class CombinePluginSolidHole: ModelingPlugin {
                         
                         DispatchQueue.main.async {
                             self.currentScene?.drawingNode.addChildNode(res)
-                            
                             res.isHole = createHole
+                            
                         }
                         
                         let boolAction = BooleanAction(occtRef: res.occtReference!, scene: self.currentScene!, boolNode: res)

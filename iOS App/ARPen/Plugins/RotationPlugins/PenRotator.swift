@@ -138,13 +138,11 @@ class PenRotator {
                     quaternionFromStartToUpdatedPenOrientation = quaternionFromStartToUpdatedPenOrientation.normalized
                     
                     if(!isPivotLocatedInCenter(target: selectedTargets.first!)){
-                        
-                        let center = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
-                        
-                        let simdCenter = simd_float3(center)
-                        
-                        
-                        selectedTargets.first?.simdRotate(by: quaternionFromStartToUpdatedPenOrientation, aroundTarget: simdCenter)
+                        let centerBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                        selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedPenOrientation)
+                        let centerAfter = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                        let diff = centerBefore - centerAfter
+                        selectedTargets.first!.position += diff
                         
                     }
                     
@@ -197,9 +195,10 @@ class PenRotator {
             }
         
         case .Button2:
-            
-            initialEulerAngles = selectedTargets.first!.eulerAngles
-            initialPos = selectedTargets.first!.position
+            if selectedTargets.count == 1 {
+                initialEulerAngles = selectedTargets.first!.eulerAngles
+                initialPos = selectedTargets.first!.position
+            }
             
         default:
             break
@@ -221,21 +220,22 @@ class PenRotator {
             justSelectedSomething = false
             
         case .Button2:
-            for target in selectedTargets {
+            if selectedTargets.count == 1 {
+               
                 DispatchQueue.global(qos: .userInitiated).async {
                     // Do this in the background, as it may cause a time-intensive rebuild in the parent object
-                    target.applyTransform()
+                    self.selectedTargets.first!.applyTransform()
                 }
+                
+                updatesSincePressed = 0
+            
+                diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
+                
+                updatedPos = selectedTargets.first!.position
+                
+                let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEulerAngles: diffInEulerAngles!, prevPos: initialPos!, newPos: updatedPos!)
+                self.urManager?.actionDone(rotationAction)
             }
-            updatesSincePressed = 0
-        
-            diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
-            
-            updatedPos = selectedTargets.first!.position
-            
-            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEulerAngles: diffInEulerAngles!, prevPos: initialPos!, newPos: updatedPos!)
-            self.urManager?.actionDone(rotationAction)
-            
             
         default:
             break

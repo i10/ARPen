@@ -143,18 +143,14 @@ class DirectDeviceRotator {
                 
             
                 if(!isPivotLocatedInCenter(target: selectedTargets.first!)){
-                    
-                    let center = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
-                    
-                    let simdCenter = simd_float3(center)
-                    
-                    
-                    selectedTargets.first?.simdRotate(by: quaternionFromStartToUpdatedDeviceOrientation, aroundTarget: simdCenter)
+                    let centerBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                    selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedDeviceOrientation)
+                    let centerAfter = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                    let diff = centerBefore - centerAfter
+                    selectedTargets.first!.position += diff
                 }
                 
                 else{
-                    
-                    
                     selectedTargets.first!.simdLocalRotate(by: quaternionFromStartToUpdatedDeviceOrientation)
                 }
             
@@ -200,8 +196,10 @@ class DirectDeviceRotator {
             }
             
         case .Button2:
-            initialEulerAngles = selectedTargets.first!.eulerAngles
-            initialPos = selectedTargets.first!.position
+            if selectedTargets.count == 1 {
+                initialEulerAngles = selectedTargets.first!.eulerAngles
+                initialPos = selectedTargets.first!.position
+            }
             
         default:
             break
@@ -224,23 +222,22 @@ class DirectDeviceRotator {
             
             
         case .Button2:
-            
-            for target in selectedTargets {
+            if selectedTargets.count == 1 {
                 
-                target.applyTransform()
+                DispatchQueue.global(qos: .userInitiated).async {
+                    // Do this in the background, as it may cause a time-intensive rebuild in the parent object
+                    self.selectedTargets.first!.applyTransform()
+                }
+
+                diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
                 
+                updatedPos = selectedTargets.first!.position
+                
+                let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEulerAngles: diffInEulerAngles!, prevPos: initialPos!, newPos: updatedPos!)
+                self.urManager?.actionDone(rotationAction)
+                
+                updatesSincePressed = 0
             }
-            
-            diffInEulerAngles = selectedTargets.first!.eulerAngles - initialEulerAngles!
-            
-            updatedPos = selectedTargets.first!.position
-            
-            let rotationAction = RotatingAction(occtRef: selectedTargets.first!.occtReference!, scene: self.currentScene!, diffInEulerAngles: diffInEulerAngles!, prevPos: initialPos!, newPos: updatedPos!)
-            self.urManager?.actionDone(rotationAction)
-            
-            updatesSincePressed = 0
-            
-          
             
         default:
             break

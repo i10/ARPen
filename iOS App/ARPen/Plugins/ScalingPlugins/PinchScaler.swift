@@ -50,6 +50,9 @@ class PinchScaler {
     var dragging: Bool = false
 
     var prevRecScaleByOCCTRef: [String: CGFloat] = [:]
+    ///original Scale of the mesh when instantiated. If scale is not SCNVector3(1,1,1) this is necessary for accurate calculations
+    ///since we only look at uniform scaling we store the x value of the SCNVector3
+    var originalScale: [String: Float] = [:]
     
     
     
@@ -205,7 +208,18 @@ class PinchScaler {
                 diagonalNodeBefore = diagonalNode
                 let before = diagonalNode?.position
                 
-                let scaleFactor = Float(recognizer.scale)
+                var scaleFactor = Float(recognizer.scale)
+                
+                //when the mesh was first selected, it did not have the scale of 1,1,1
+                if (originalScale[selectedTargets.first!.occtReference!] != 1){
+                    if scaleFactor == 1 {
+                        scaleFactor = originalScale[selectedTargets.first!.occtReference!]! / scaleFactor
+                    }
+                    
+                    if scaleFactor < 1 || scaleFactor > 1 {
+                        scaleFactor = originalScale[selectedTargets.first!.occtReference!]! * scaleFactor
+                    }
+                }
                 
                 selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
                 
@@ -366,6 +380,8 @@ class PinchScaler {
      */
     func viewBoundingBox(_ target: ARPGeomNode) {
         
+        let ref = target.occtReference
+        
         let pitch = target.eulerAngles.x
         let yaw = target.eulerAngles.y
         let roll = target.eulerAngles.z
@@ -378,6 +394,11 @@ class PinchScaler {
         //maxcorner of bounding box
         let rfu = target.convertPosition(target.boundingBox.max, to: self.currentScene?.drawingNode)
      
+        //first time we selected geometry, so we need to store scale to later check for non-1 scale
+        if !(originalScale.keys.contains(ref!)){
+            originalScale.updateValue(target.scale.x, forKey: ref!)
+        }
+        
         //Determine height and width of bounding box
         let height = rfu.y - lbd.y
         let width = rfu.x - lbd.x

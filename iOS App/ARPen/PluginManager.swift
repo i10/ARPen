@@ -76,7 +76,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.arManager = ARManager(scene: self.penScene)
         self.paintPlugin = PaintPlugin()
         self.experimentalPluginsStartAtIndex = 7
-        self.plugins = [PaintPlugin(),CubeByDraggingPlugin(), CubeByExtractionPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), PathEditorPlugin(), CombinePluginFunction(), CombinePluginSolidHole(), PenRayScalingPlugin(), DirectDeviceRotationPlugin(), TSRotationPlugin(), PenRotationPlugin(), PinchScalingPlugin()]
+        self.plugins = [PaintPlugin(),CubeByDraggingPlugin(), CubeByExtractionPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), PathEditorPlugin(), CombinePluginFunction(), CombinePluginSolidHole(), TranslationPlugin(), PenRayScalingPlugin(), DirectDeviceRotationPlugin(), TSRotationPlugin(), PenRotationPlugin(), PinchScalingPlugin()]
         self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.arPenManager = PenManager()
         //self.activePlugin = plugins.first

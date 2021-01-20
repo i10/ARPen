@@ -98,26 +98,26 @@ class SphereByDraggingPlugin: Plugin {
                 self.startingPoint = nil
                 if let sphereNode = scene.drawingNode.childNode(withName: "currentDragSphereNode", recursively: false)
                 {
-                    //assign a random name to the boxNode for identification in further process
-                    sphereNode.name = randomString(length: 32)
-                    //remove "SceneKit Sphere"
-                    sphereNode.removeFromParentNode()
-                    
-                    let sphere = ARPSphere(radius: finalRadiusSphere!)
-                   
-                    
-                    DispatchQueue.main.async
-                    {
-                        scene.drawingNode.addChildNode(sphere)
+                    if finalRadiusSphere != nil {
+                        //assign a random name to the boxNode for identification in further process
+                        sphereNode.name = randomString(length: 32)
+                        //remove "SceneKit Sphere"
+                        sphereNode.removeFromParentNode()
+                        
+                        let sphere = ARPSphere(radius: finalRadiusSphere!)
+                       
+                        
+                        DispatchQueue.main.async
+                        {
+                            scene.drawingNode.addChildNode(sphere)
+                        }
+                        
+                        sphere.localTranslate(by: self.finalPositionSphere!)
+                        sphere.applyTransform()
+                        
+                        let buildingAction = PrimitiveBuildingAction(occtRef: sphere.occtReference!, scene: self.currentScene!, sphere: sphere)
+                        self.undoRedoManager?.actionDone(buildingAction)
                     }
-                    
-                    sphere.localTranslate(by: self.finalPositionSphere!)
-                    sphere.applyTransform()
-                    
-                    let buildingAction = PrimitiveBuildingAction(occtRef: sphere.occtReference!, scene: self.currentScene!, sphere: sphere)
-                    self.undoRedoManager?.actionDone(buildingAction)
-                    
-                    
                     
                 }
                 

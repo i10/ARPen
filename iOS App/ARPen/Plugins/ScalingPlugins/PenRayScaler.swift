@@ -41,6 +41,11 @@ class PenRayScaler {
     var positionSave: SCNVector3?
     ///original Height of the mesh when instantiated. Used for calculating scaleFactor for corner scaling
     var originalDiagonalLength: [String: Float] = [:]
+    ///original Scale of the mesh when instantiated. If scale is not SCNVector3(1,1,1) this is necessary for accurate calculations
+    ///since we only look at uniform scaling we store the x value of the SCNVector3
+    var originalScale: [String: Float] = [:]
+    
+    
  
     ///the corner the pencilPoint hovers over
     var hoverCorner: SCNNode?
@@ -61,7 +66,6 @@ class PenRayScaler {
 
     //selectedTargets is the Array of selected ARPNodes
     var selectedTargets: [ARPGeomNode] = []
-    var visitTarget: ARPGeomNode?
     var didSelectSomething: ((ARPGeomNode) -> Void)?
     private var geometrySelected = false
 
@@ -82,7 +86,6 @@ class PenRayScaler {
         self.urManager = urManager
         self.urManager?.notifier = self
         self.active = true
-        self.visitTarget = nil
         self.dragging = false
         self.lastClickPosition = nil
         self.lastClickTime = nil
@@ -174,23 +177,30 @@ class PenRayScaler {
                     
                     if(positionSave != nil)
                     {
-                        // DS = selected - diagonal
-                        let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
-                        //DP = pencil - diagonal
-                        let DP = simd_float3(x: cornerHit!.worldCoordinates.x - diagonalNode!.position.x, y: cornerHit!.worldCoordinates.y - diagonalNode!.position.y, z: cornerHit!.worldCoordinates.z - diagonalNode!.position.z)
-                                    
-                        let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
-                                    
-                        let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
+                        let simdProjPencilPoint = projectOntoDiagonal(cornerHit: cornerHit!.worldCoordinates, selectedCorner: positionSave!, diagonal: diagonalNode!.simdPosition)
+                       
+                        hoverCorner?.simdPosition = simdProjPencilPoint
                         
                         scene.pencilPoint.position = cornerHit!.worldCoordinates
                         scene.pencilPoint.isHidden = true
-                        hoverCorner!.simdPosition = simdProjPenciLPoint * 1.02
+                        hoverCorner!.simdPosition = simdProjPencilPoint
                  
                         let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
                         let updatedDiagonalLength = abs(updatedDiagonal.length())
           
                         var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
+                        
+                        //when the mesh was first selected, it did not have the scale of 1,1,1
+                        if (originalScale[selectedTargets.first!.occtReference!] != 1){
+                            if scaleFactor == 1 {
+                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! / scaleFactor
+                            }
+                            
+                            if scaleFactor < 1 || scaleFactor > 1 {
+                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! * scaleFactor
+                            }
+                        }
+                        
                         if scaleFactor < 0.2 {
                             scaleFactor = 0.2
                         }
@@ -228,21 +238,27 @@ class PenRayScaler {
   
                     if(positionSave != nil)
                     {
-                        // DS = selected - diagonal
-                        let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
-                        //DP = pencil - diagonal
-                        let DP = simd_float3(x: cornerHit!.worldCoordinates.x - diagonalNode!.position.x, y: cornerHit!.worldCoordinates.y - diagonalNode!.position.y, z: cornerHit!.worldCoordinates.z - diagonalNode!.position.z)
-                                
-                        let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
-                                
-                        let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
-                                                        
-                        hoverCorner?.simdPosition = simdProjPenciLPoint
+             
+                        let simdProjPencilPoint = projectOntoDiagonal(cornerHit: cornerHit!.worldCoordinates, selectedCorner: positionSave!, diagonal: diagonalNode!.simdPosition)
+                       
+                        hoverCorner?.simdPosition = simdProjPencilPoint
                         
                         let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
                         let updatedDiagonalLength = abs(updatedDiagonal.length())
                                     
                         var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
+                        
+                        //when the mesh was first selected, it did not have the scale of 1,1,1
+                        if (originalScale[selectedTargets.first!.occtReference!] != 1){
+                            if scaleFactor == 1 {
+                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! / scaleFactor
+                            }
+                            
+                            if scaleFactor < 1 || scaleFactor > 1 {
+                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! * scaleFactor
+                            }
+                        }
+                        
                         if scaleFactor < 0.3 {
                             scaleFactor = 0.3
                         }
@@ -303,22 +319,17 @@ class PenRayScaler {
     /**
         
      */
-    func projectOntoDiagonal(pencilPoint: SCNVector3, selectedCorner: SCNNode, diagonal: SCNVector3) -> CGPoint {
+    func projectOntoDiagonal(cornerHit: SCNVector3, selectedCorner: SCNVector3, diagonal: simd_float3) -> simd_float3 {
         
-    
-        let projP = projectOntoImagePlane(pointerPosition: pencilPoint)
-        let projS = projectOntoImagePlane(pointerPosition: selectedCorner.position)
-        let projD = projectOntoImagePlane(pointerPosition: diagonal)
-            
-        let DS = CGPoint(x: projS!.x - projD!.x, y: projS!.y - projD!.y)
-            
-        let DP = CGPoint(x: projP!.x - projD!.x, y: projP!.y - projD!.y)
-            
-        let scalar = (dotProduct(DP, DS) / dotProduct(DS, DS))
-            
-        let scalarDS = CGPoint(x: DS.x * scalar, y: DS.y * scalar)
-            
-        return projD! + scalarDS
+        // DS = selected - diagonal
+        let DS = simd_float3(x: selectedCorner.x - diagonal.x, y: selectedCorner.y - diagonal.y, z: selectedCorner.z - diagonal.z)
+        //DP = pencil - diagonal
+        let DP = simd_float3(x: cornerHit.x - diagonal.x, y: cornerHit.y - diagonal.y, z: cornerHit.z - diagonal.z)
+                
+        let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
+                
+        return diagonal + projection
+        
     }
     
  
@@ -365,12 +376,9 @@ class PenRayScaler {
             
             if dragging
             {
-                for target in selectedTargets {
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        // Do this in the background, as it may cause a time-intensive rebuild in the parent object
-                        target.applyTransform()
-                        
-                    }
+                DispatchQueue.global(qos: .userInitiated).async {
+                    // Do this in the background, as it may cause a time-intensive rebuild in the parent object
+                    self.selectedTargets.first!.applyTransform()
                 }
             }
             dragging = false
@@ -389,13 +397,11 @@ class PenRayScaler {
             
             if dragging
             {
-                for target in selectedTargets {
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        // Do this in the background, as it may cause a time-intensive rebuild in the parent object
-                        target.applyTransform()
-                        
-                    }
+                DispatchQueue.global(qos: .userInitiated).async {
+                    // Do this in the background, as it may cause a time-intensive rebuild in the parent object
+                    self.selectedTargets.first!.applyTransform()
                 }
+                
             }
             dragging = false
             
@@ -490,6 +496,11 @@ class PenRayScaler {
         //first time we selected geometry so store new value
         if !(originalDiagonalLength.keys.contains(ref!)){
             originalDiagonalLength.updateValue(diagonalLength, forKey: ref!)
+        }
+        
+        //first time we selected geometry, so we need to store scale to later check for non-1 scale
+        if !(originalScale.keys.contains(ref!)){
+            originalScale.updateValue(target.scale.x, forKey: ref!)
         }
         
         //Determine height and width of bounding box
@@ -653,15 +664,6 @@ class PenRayScaler {
         return projectedCGPoint
     }
     
-    
-    ///calculates the dotProduct of two given vectors
-    /**
-        
-     */
-    func dotProduct(_ vecA: CGPoint, _ vecB: CGPoint)-> CGFloat{
-        return (vecA.x * vecB.x + vecA.y * vecB.y)
-    }
-
     ///
     /**
         
@@ -670,32 +672,7 @@ class PenRayScaler {
        //empty on purpose
     }
      
-    ///
-    /**
-        
-     */
-    func visitTarget(_ target: ARPGeomNode) {
-        unselectTarget(target)
-        target.visited = true
-        visitTarget = target
-    }
-    
-    ///
-    /**
-        
-     */
-    func leaveTarget() {
-        if let target = visitTarget {
-            target.visited = false
-            if let parent = target.parent?.parent as? ARPGeomNode {
-                parent.visited = true
-                visitTarget = parent
-            } else {
-                visitTarget = nil
-            }
-        }
-    }
-    
+
     ///
     /**
         

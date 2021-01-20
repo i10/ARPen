@@ -102,6 +102,7 @@
 		7538B71A2596298000C14DD1 /* PenRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B7192596298000C14DD1 /* PenRotator.swift */; };
 		7538B71C2596388C00C14DD1 /* PinchScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B71B2596388C00C14DD1 /* PinchScalingPlugin.swift */; };
 		7538B71E2596392000C14DD1 /* PinchScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538B71D2596392000C14DD1 /* PinchScaler.swift */; };
+		75A0261825B82146009241E4 /* TranslationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A0261725B82146009241E4 /* TranslationPlugin.swift */; };
 		75EBB71C25825EE2001ADB8F /* DirectDeviceRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */; };
 		75EBB72025826009001ADB8F /* DirectDeviceRotationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */; };
 		75EFDC4425A333A600867275 /* BooleanAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EFDC4325A333A600867275 /* BooleanAction.swift */; };
@@ -261,6 +262,7 @@
 		7538B7192596298000C14DD1 /* PenRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRotator.swift; sourceTree = "<group>"; };
 		7538B71B2596388C00C14DD1 /* PinchScalingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchScalingPlugin.swift; sourceTree = "<group>"; };
 		7538B71D2596392000C14DD1 /* PinchScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchScaler.swift; sourceTree = "<group>"; };
+		75A0261725B82146009241E4 /* TranslationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPlugin.swift; sourceTree = "<group>"; };
 		75EBB71B25825EE2001ADB8F /* DirectDeviceRotator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectDeviceRotator.swift; sourceTree = "<group>"; };
 		75EBB71F25826009001ADB8F /* DirectDeviceRotationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectDeviceRotationPlugin.swift; sourceTree = "<group>"; };
 		75EFDC4325A333A600867275 /* BooleanAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanAction.swift; sourceTree = "<group>"; };
@@ -531,6 +533,14 @@
 			path = DataStructure;
 			sourceTree = "<group>";
 		};
+		75A0261625B8211A009241E4 /* TranslationPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				75A0261725B82146009241E4 /* TranslationPlugin.swift */,
+			);
+			path = TranslationPlugins;
+			sourceTree = "<group>";
+		};
 		75EBB71625822D12001ADB8F /* RotationPlugins */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,6 +637,7 @@
 		DC28B476200E64C0008B77AB /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				75A0261625B8211A009241E4 /* TranslationPlugins */,
 				75EFDC4F25A884A100867275 /* EditingPlugins */,
 				75EBB71625822D12001ADB8F /* RotationPlugins */,
 				75152A8F2573B84E0051E15D /* ScalingPlugins */,
@@ -902,6 +913,7 @@
 				75EFDC5125A884BE00867275 /* PathManipulator.swift in Sources */,
 				4AC1F5A12524C0AD002B0A7F /* MenuManager.swift in Sources */,
 				75EFDC4C25A866B000867275 /* PaintAction.swift in Sources */,
+				75A0261825B82146009241E4 /* TranslationPlugin.swift in Sources */,
 				EA0C796022F078EE00E820E8 /* ARPenSceneConstructor.swift in Sources */,
 				4AAC4AFD23A24A3F003B6E83 /* CurveDesigner.swift in Sources */,
 				4AC1F5A32524C0AD002B0A7F /* Menu.swift in Sources */,
