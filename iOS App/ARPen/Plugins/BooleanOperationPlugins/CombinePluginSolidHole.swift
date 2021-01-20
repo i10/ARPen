@@ -71,6 +71,9 @@ class CombinePluginSolidHole: ModelingPlugin {
                         return
                 }
                 
+                a.name = randomString(length: 10)
+                b.name = randomString(length: 10)
+                
                 arranger.unselectTarget(a)
                 arranger.unselectTarget(b)
                 

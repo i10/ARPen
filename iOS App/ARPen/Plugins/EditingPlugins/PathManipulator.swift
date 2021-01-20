@@ -110,6 +110,11 @@ class PathManipulator {
         for target in selectedTargets {
             unselectTarget(target)
         }
+        
+        for pathNode in pathPartSelector {
+            pathPartSelector.removeLast()
+            pathNode.geometryNode.geometry?.firstMaterial?.diffuse.contents = (pathNode.cornerStyle == .sharp ? pathNode.sharpColor : pathNode.roundColor)
+        }
     }
     
     ///
@@ -235,10 +240,11 @@ class PathManipulator {
             for point in activePath!.points{
                 point.geometryNode.geometry?.firstMaterial?.diffuse.contents = (point.cornerStyle == .sharp ? point.sharpColor : point.roundColor)
             }
-             
-            pathPartSelector.removeLast()
-            pathPartSelector.removeLast()
             
+            for _ in pathPartSelector {
+                pathPartSelector.removeLast()
+            }
+          
             let insertedNodeAction = InsertedNodeAction(scene: self.currentScene!, atIndex: index0, path: activePath!, pathNode: newPathNode)
             self.urManager?.actionDone(insertedNodeAction)
         }
@@ -479,6 +485,11 @@ class PathManipulator {
         target.selected = false
         target.visited = false
         selectedTargets.removeAll(where: { $0 === target })
+        
+        for pathNode in pathPartSelector {
+            pathPartSelector.removeLast()
+            pathNode.geometryNode.geometry?.firstMaterial?.diffuse.contents = (pathNode.cornerStyle == .sharp ? pathNode.sharpColor : pathNode.roundColor)
+        }
     }
     
     ///Hit test for the geomtry in the scene

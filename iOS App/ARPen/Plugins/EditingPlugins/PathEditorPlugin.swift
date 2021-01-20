@@ -41,8 +41,8 @@ class PathEditorPlugin: Plugin {
         self.manipulator.activate(withScene: scene, andView: view, urManager: urManager)
             
         self.button1Label.text = "Select Geometry"
-        self.button2Label.text = "Change Style / Move Node"
-        self.button3Label.text = "Insert Node"
+        self.button2Label.text = "Change Style / Move"
+        self.button3Label.text = "0/2 chosen to insert betw."
     }
     
     override func deactivatePlugin() {
@@ -54,6 +54,21 @@ class PathEditorPlugin: Plugin {
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         buttonEvents.update(buttons: buttons)
         manipulator.update(scene: scene, buttons: buttons)
+        
+        DispatchQueue.main.async
+        {
+           /* if self.manipulator.pathPartSelector.count == 1
+            {
+                self.button3Label.text = "1/2 chosen to insert betw."
+            }
+            
+            if self.manipulator.pathPartSelector.count == 2
+            {
+                self.button3Label.text = "0/2 chosen to insert betw."
+            }*/
+            
+            self.button3Label.text = "\(self.manipulator.pathPartSelector.count)/2 chosen to insert betw."
+        }
         
        
     }

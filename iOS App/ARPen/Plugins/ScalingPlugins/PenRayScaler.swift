@@ -38,7 +38,7 @@ class PenRayScaler {
     static let maxDistanceTillDrag: Float = 0.015
     /// Move the object with its center to the pen tip when dragging starts.
     static let snapWhenDragging: Bool = true
-    var positionSave: SCNVector3?
+   
     ///original Height of the mesh when instantiated. Used for calculating scaleFactor for corner scaling
     var originalDiagonalLength: [String: Float] = [:]
     ///original Scale of the mesh when instantiated. If scale is not SCNVector3(1,1,1) this is necessary for accurate calculations
@@ -116,7 +116,7 @@ class PenRayScaler {
         
         return SCNVector3EqualToVector3(center, worldTransf)
     }
-    
+  
     ///gets executed each frame and is mainly responsible for scaling
     /**
         
@@ -144,7 +144,7 @@ class PenRayScaler {
             let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
             
             //check for hit
-            let cornerHit = self.currentView!.hitTest(projectOntoImagePlane(pointerPosition: (self.currentScene?.pencilPoint.position)!)!, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue]).filter({namesOfCorners.contains($0.node.name ?? "empty")}).first
+            let cornerHit = hitTestCorners(pointerPosition: scene.pencilPoint.position)
                 
             //CASE: A corner is hit
             if cornerHit != nil
@@ -152,7 +152,7 @@ class PenRayScaler {
                 //if corner is not being dragged, update the hover Corner
                 if dragging == false
                 {
-                    hoverCorner = cornerHit?.node
+                    hoverCorner = cornerHit
                     
                     hoverCorner!.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                         
@@ -161,73 +161,59 @@ class PenRayScaler {
                             self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
                         }
                     }
-                    
                 }
-                
-                //Corner Scaling
-                if (buttons[.Button2] ?? false) && ((Date() - (lastClickTime ?? Date())) > timeTillDrag) && hoverCorner != nil
-                {
-                    dragging = true
+            }
+    
+            //Corner Scaling
+            if (buttons[.Button2] ?? false) && ((Date() - (lastClickTime ?? Date())) > timeTillDrag) && hoverCorner != nil
+            {
+                dragging = true
                                 
-                    hoverCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                hoverCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                                     
-                    let diagonalNode = getDiagonalNode(selectedCorner: hoverCorner!)
+                let diagonalNode = getDiagonalNode(selectedCorner: hoverCorner!)
                                     
-                    diagonalNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                diagonalNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                     
-                    if(positionSave != nil)
-                    {
-                        let simdProjPencilPoint = projectOntoDiagonal(cornerHit: cornerHit!.worldCoordinates, selectedCorner: positionSave!, diagonal: diagonalNode!.simdPosition)
-                       
-                        hoverCorner?.simdPosition = simdProjPencilPoint
-                        
-                        scene.pencilPoint.position = cornerHit!.worldCoordinates
-                        scene.pencilPoint.isHidden = true
-                        hoverCorner!.simdPosition = simdProjPencilPoint
-                 
-                        let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
-                        let updatedDiagonalLength = abs(updatedDiagonal.length())
-          
-                        var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
-                        
-                        //when the mesh was first selected, it did not have the scale of 1,1,1
-                        if (originalScale[selectedTargets.first!.occtReference!] != 1){
-                            if scaleFactor == 1 {
-                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! / scaleFactor
-                            }
-                            
-                            if scaleFactor < 1 || scaleFactor > 1 {
-                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! * scaleFactor
-                            }
-                        }
-                        
-                        if scaleFactor < 0.2 {
-                            scaleFactor = 0.2
-                        }
-
-                        diagonalNodeBefore = diagonalNode
-                        let before = diagonalNode?.position
-                        selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                                    
-                        self.updateBoundingBox(selectedTargets.first!)
-                        let after = getDiagonalNode(selectedCorner: hoverCorner!)?.position
-                                 
-                        let x_of_diff = before!.x - after!.x
-                        let y_of_diff = before!.y - after!.y
-                        let z_of_diff = before!.z - after!.z
-                        let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-                                        
-                        selectedTargets.first!.position += diff
-                      
-                        self.updateBoundingBox(selectedTargets.first!)
-                        
-      
-                    }
-                }
                 
-                //center scaling
-                if (buttons[.Button3] ?? false && ((Date() - (lastClickTime ?? Date())) > timeTillDrag) && hoverCorner != nil)
-                {
+                //we project onto the diagonal between the nodes on the imagePlane to avoid the visual offset of an orthogonal projection in 3d - with this method the corner will directly lay behind the pencilpoint
+                let proj = projectOntoDiagonalIP(pencilPoint: scene.pencilPoint.position, selectedCorner: hoverCorner!.position, diagonal: diagonalNode!.position)
+                       
+                hoverCorner?.position = (self.currentView?.unprojectPoint(proj))!
+                 
+                let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
+                let updatedDiagonalLength = abs(updatedDiagonal.length())
+          
+                var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
+                    
+                //when the mesh was first selected, it did not have the scale of 1,1,1
+                if (originalScale[selectedTargets.first!.occtReference!] != 1){
+                    scaleFactor = originalScale[selectedTargets.first!.occtReference!]! * scaleFactor
+                }
+                        
+                if scaleFactor < 0.2 {
+                    scaleFactor = 0.2
+                }
+
+                diagonalNodeBefore = diagonalNode
+                let before = diagonalNode?.position
+                selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                                    
+                self.updateBoundingBox(selectedTargets.first!)
+                let after = getDiagonalNode(selectedCorner: hoverCorner!)?.position
+                                 
+                let x_of_diff = before!.x - after!.x
+                let y_of_diff = before!.y - after!.y
+                let z_of_diff = before!.z - after!.z
+                let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
+                selectedTargets.first!.position += diff
+                self.updateBoundingBox(selectedTargets.first!)
+                
+            }
+                
+            //center scaling
+            if (buttons[.Button3] ?? false && ((Date() - (lastClickTime ?? Date())) > timeTillDrag) && hoverCorner != nil)
+            {
                     dragging = true
                            
                     for item in namesOfCorners {
@@ -236,103 +222,87 @@ class PenRayScaler {
                         
                     let diagonalNode = getDiagonalNode(selectedCorner: hoverCorner!)
   
-                    if(positionSave != nil)
-                    {
-             
-                        let simdProjPencilPoint = projectOntoDiagonal(cornerHit: cornerHit!.worldCoordinates, selectedCorner: positionSave!, diagonal: diagonalNode!.simdPosition)
+                   
+                    let proj = projectOntoDiagonalIP(pencilPoint: scene.pencilPoint.position, selectedCorner: hoverCorner!.position, diagonal: diagonalNode!.position)
                        
-                        hoverCorner?.simdPosition = simdProjPencilPoint
+                    hoverCorner?.position = (self.currentView?.unprojectPoint(proj))!
                         
-                        let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
-                        let updatedDiagonalLength = abs(updatedDiagonal.length())
+                    let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
+                    let updatedDiagonalLength = abs(updatedDiagonal.length())
                                     
-                        var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
+                    var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
                         
-                        //when the mesh was first selected, it did not have the scale of 1,1,1
-                        if (originalScale[selectedTargets.first!.occtReference!] != 1){
-                            if scaleFactor == 1 {
-                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! / scaleFactor
-                            }
-                            
-                            if scaleFactor < 1 || scaleFactor > 1 {
-                                scaleFactor = originalScale[selectedTargets.first!.occtReference!]! * scaleFactor
-                            }
-                        }
+                    //when the mesh was first selected, it did not have the scale of 1,1,1
+                    if (originalScale[selectedTargets.first!.occtReference!] != 1){
+                            scaleFactor = originalScale[selectedTargets.first!.occtReference!]! * scaleFactor
+                    }
                         
-                        if scaleFactor < 0.3 {
-                            scaleFactor = 0.3
-                        }
-                                
-                        //the nodes pivot point around which it scales, is not in the center of the object, we need to translate
-                        if !isPivotLocatedInCenter(target: selectedTargets.first!){
-                            pivotInCenter = false
+                    if scaleFactor < 0.3 {
+                        scaleFactor = 0.3
+                    }
+                        
+                    pivotInCenter = isPivotLocatedInCenter(target: selectedTargets.first!)
+                        
+                    centerPosBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
                                     
-                            let centerBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
-                                    
-                            centerPosBefore = centerBefore
-                                    
-                            selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                    selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
 
-                            self.updateBoundingBox(selectedTargets.first!)
+                    self.updateBoundingBox(selectedTargets.first!)
                                     
-                            let centerAfter = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                    let centerAfter = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
 
-                            let diff = centerBefore - centerAfter
+                    let diff = centerPosBefore! - centerAfter
             
-                            selectedTargets.first!.position += diff
+                    selectedTargets.first!.position += diff
              
-                            self.updateBoundingBox(selectedTargets.first!)
-                                    
-                        }
-                                
-                        //pivot is in center
-                        else {
-                            pivotInCenter = true
-                                    
-                            centerPosBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
-                                    
-                            selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                            self.updateBoundingBox(selectedTargets.first!)
-                        }
-                                
-                    }
-                }
+                    self.updateBoundingBox(selectedTargets.first!)
+                    
             }
-    
-            //CASE: No corner is hit
-            else
-            {
+
+            if dragging == false && cornerHit == nil {
                 for item in namesOfCorners {
-                    if(item != hoverCorner?.name ?? "empty"){
-                        self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
-                    }
+                    self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
                 }
-                hoverCorner = nil
-                scene.pencilPoint.isHidden = false
-                
             }
+
         }
     }
-
     
     ///projects the pencilPoint on a given diagonal on the image plane
     /**
+           
+    */
+    func projectOntoDiagonalIP(pencilPoint: SCNVector3, selectedCorner: SCNVector3, diagonal: SCNVector3) -> SCNVector3 {
         
-     */
-    func projectOntoDiagonal(cornerHit: SCNVector3, selectedCorner: SCNVector3, diagonal: simd_float3) -> simd_float3 {
+        let projP = self.currentView?.projectPoint(pencilPoint)
+        let projS = self.currentView?.projectPoint(selectedCorner)
+        let projD = self.currentView?.projectPoint(diagonal)
         
-        // DS = selected - diagonal
-        let DS = simd_float3(x: selectedCorner.x - diagonal.x, y: selectedCorner.y - diagonal.y, z: selectedCorner.z - diagonal.z)
-        //DP = pencil - diagonal
-        let DP = simd_float3(x: cornerHit.x - diagonal.x, y: cornerHit.y - diagonal.y, z: cornerHit.z - diagonal.z)
-                
-        let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
-                
-        return diagonal + projection
+        let DS = CGPoint(x: Double(projS!.x - projD!.x), y: Double(projS!.y - projD!.y))
+               
+        let DP = CGPoint(x: Double(projP!.x - projD!.x), y: Double(projP!.y - projD!.y))
+               
+        let scalar = (dotProduct(DP, DS) / dotProduct(DS, DS))
+               
+        let scalarDS = CGPoint(x: DS.x * scalar, y: DS.y * scalar)
+               
+        let ret = CGPoint(x: Double(projD!.x), y: Double(projD!.y)) + scalarDS
         
+        return SCNVector3(x: Float(ret.x), y: Float(ret.y), z: Float(projS!.z))
     }
     
- 
+    ///calculates the dotProduct of two given vectors
+    /**
+           
+    */
+    func dotProduct(_ vecA: CGPoint, _ vecB: CGPoint)-> CGFloat{
+        return (vecA.x * vecB.x + vecA.y * vecB.y)
+    }
+    
+    ///
+    /**
+           
+    */
     func didPressButton(_ button: Button) {
         
         switch button {
@@ -349,7 +319,6 @@ class PenRayScaler {
             }
         
         case .Button2, .Button3:
-            positionSave = hoverCorner?.position
             lastClickPosition = currentScene?.pencilPoint.position
             lastPenPosition = currentScene?.pencilPoint.position
             lastClickTime = Date()
@@ -358,7 +327,10 @@ class PenRayScaler {
         }
     }
     
- 
+    ///
+    /**
+           
+    */
     func didReleaseButton(_ button: Button) {
         switch button {
         case .Button1:
@@ -372,8 +344,7 @@ class PenRayScaler {
             geometrySelected = false
         
         case .Button2:
-            self.currentScene?.pencilPoint.isHidden = false
-            
+            hoverCorner = nil
             if dragging
             {
                 DispatchQueue.global(qos: .userInitiated).async {
@@ -393,8 +364,7 @@ class PenRayScaler {
             }
             
         case .Button3:
-            self.currentScene?.pencilPoint.isHidden = false
-            
+            hoverCorner = nil
             if dragging
             {
                 DispatchQueue.global(qos: .userInitiated).async {
@@ -536,9 +506,6 @@ class PenRayScaler {
             node.name = key
             node.position = position
             node.geometry = SCNSphere(radius: 0.008)
-                
-            //node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 38/100, brightness: 68/100, alpha: 1.0)
-            
             node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
             node.rotation = target.rotation
             
@@ -585,23 +552,8 @@ class PenRayScaler {
             let rotatedZ = (-sin(yaw))*tempPos.x + (cos(yaw)*sin(pitch))*tempPos.y + (cos(yaw)*cos(pitch))*tempPos.z
             
             corners[key] = SCNVector3(rotatedX + target.position.x, rotatedY + target.position.y, rotatedZ + target.position.z)
+            self.currentScene?.drawingNode.childNode(withName: key, recursively: true)?.position = corners[key]!
         }
-        
-        self.currentScene?.drawingNode.childNode(withName: "lbd", recursively: true)?.position = corners["lbd"]!
-        
-        self.currentScene?.drawingNode.childNode(withName: "rfu", recursively: true)?.position = corners["rfu"]!
-            
-        self.currentScene?.drawingNode.childNode(withName: "rbd", recursively: true)?.position = corners["rbd"]!
-            
-        self.currentScene?.drawingNode.childNode(withName: "lbu", recursively: true)?.position = corners["lbu"]!
-            
-        self.currentScene?.drawingNode.childNode(withName: "rbu", recursively: true)?.position = corners["rbu"]!
-    
-        self.currentScene?.drawingNode.childNode(withName: "rfd", recursively: true)?.position = corners["rfd"]!
-    
-        self.currentScene?.drawingNode.childNode(withName: "lfu", recursively: true)?.position = corners["lfu"]!
-            
-        self.currentScene?.drawingNode.childNode(withName: "lfd", recursively: true)?.position = corners["lfd"]!
         
         target.eulerAngles = SCNVector3(pitch,yaw,roll)
     }
@@ -652,27 +604,6 @@ class PenRayScaler {
         
     }
     
-    ///project a point onto Screen Coordinates / Image Plane
-    /**
-        
-     */
-    func projectOntoImagePlane(pointerPosition: SCNVector3) -> CGPoint? {
-        guard let sceneView = self.currentView  else { return nil }
-        let projectedPencilPosition = sceneView.projectPoint(pointerPosition)
-        let projectedCGPoint = CGPoint(x: CGFloat(projectedPencilPosition.x), y: CGFloat(projectedPencilPosition.y))
-
-        return projectedCGPoint
-    }
-    
-    ///
-    /**
-        
-     */
-    func didDoubleClick(_ button: Button) {
-       //empty on purpose
-    }
-     
-
     ///
     /**
         
@@ -698,6 +629,14 @@ class PenRayScaler {
             target.applyTransform()
             viewBoundingBox(target)
         }
+    }
+    
+    ///
+    /**
+           
+    */
+    func didDoubleClick(_ button: Button) {
+        //empty on purpose
     }
 }
 

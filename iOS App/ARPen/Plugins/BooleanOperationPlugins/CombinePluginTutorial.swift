@@ -74,6 +74,9 @@ class CombinePluginTutorial: ModelingPlugin {
                         return
                 }
                 
+                a.name = randomString(length: 10)
+                b.name = randomString(length: 10)
+                
                 // Geometry creation may take time and should be done asynchronous.
                 DispatchQueue.global(qos: .userInitiated).async {
                     // Choose either join/add or cut/subtract depending on the button pressed.

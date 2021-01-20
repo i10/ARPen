@@ -31,22 +31,18 @@ public class BooleanAction : Action {
     }
     
     override func redo() {
-        
-        let operation = boolNode.operation
-        let a = boolNode.a
-        let b = boolNode.b
-        
-       
+      
         DispatchQueue.global(qos: .userInitiated).async {
-            if let redoneBoolNode = try? ARPBoolNode(a: a, b: b, operation: operation)
-            {
-                DispatchQueue.main.async
-                {
-                    self.boolNode = redoneBoolNode
-                    self.inScene.drawingNode.addChildNode(self.boolNode)
-                }
-            }
+            
+            self.inScene.drawingNode.childNode(withName: self.boolNode.a.name!, recursively: true)?.removeFromParentNode()
+            self.inScene.drawingNode.childNode(withName: self.boolNode.b.name!, recursively: true)?.removeFromParentNode()
+            self.inScene.drawingNode.addChildNode(self.boolNode)
+            
         }
+        
+        
+        
+        
     
     }
     
