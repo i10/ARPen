@@ -110,27 +110,28 @@ class CubeByDraggingPlugin: Plugin {
                 self.startingPoint = nil
                 if let boxNode = scene.drawingNode.childNode(withName: "currentDragBoxNode", recursively: false)
                 {
-                    //assign a random name to the boxNode for identification in further process
-                    boxNode.name = randomString(length: 32)
-                    //remove "SceneKit Box"
-                    boxNode.removeFromParentNode()
+                    if (finalBoxLength != nil && finalBoxWidth != nil && finalBoxHeight != nil)
+                    {
+                        //assign a random name to the boxNode for identification in further process
+                        boxNode.name = randomString(length: 32)
+                        //remove "SceneKit Box"
+                        boxNode.removeFromParentNode()
+                        
+                        //save position for new ARPBox
+                        self.finalBoxCenterPos = boxNode.worldPosition
+                        
+                        let box = ARPBox(width: self.finalBoxWidth!, height: self.finalBoxHeight!, length: self.finalBoxLength!)
                     
-                    //save position for new ARPBox
-                    self.finalBoxCenterPos = boxNode.worldPosition
-                    
-                    let box = ARPBox(width: self.finalBoxWidth!, height: self.finalBoxHeight!, length: self.finalBoxLength!)
-                
-                    DispatchQueue.main.async {
-                        self.currentScene?.drawingNode.addChildNode(box)
+                        DispatchQueue.main.async {
+                            self.currentScene?.drawingNode.addChildNode(box)
+                        }
+                        
+                        box.localTranslate(by: self.finalBoxCenterPos!)
+                        box.applyTransform()
+                        
+                        let buildingAction = PrimitiveBuildingAction(occtRef: box.occtReference!, scene: self.currentScene!, box: box)
+                        self.undoRedoManager?.actionDone(buildingAction)
                     }
-                    
-                    box.localTranslate(by: self.finalBoxCenterPos!)
-                    box.applyTransform()
-                    
-                    let buildingAction = PrimitiveBuildingAction(occtRef: box.occtReference!, scene: self.currentScene!, box: box)
-                    self.undoRedoManager?.actionDone(buildingAction)
-                    
-                    
                     
                 }
             }

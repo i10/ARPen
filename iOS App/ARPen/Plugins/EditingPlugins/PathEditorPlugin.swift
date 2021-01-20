@@ -64,6 +64,9 @@ class PathEditorPlugin: Plugin {
         }
     }
     
+    
+    
+    
     @IBAction func softwarePenButtonPressed(_ sender: UIButton) {
         var buttonEventDict = [String: Any]()
         switch sender.tag {

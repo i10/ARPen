@@ -26,7 +26,7 @@ class PathManipulator {
     private var busy: Bool = false
     
     /// The time (in seconds) after which holding the main button on an object results in dragging it.
-    static let timeTillDrag: Double = 1
+    static let timeTillDrag: Double = 0.15
     /// The minimum distance to move the pen starting at an object while holding the main button which results in dragging it.
     static let maxDistanceTillDrag: Float = 0.015
     /// Move the object with its center to the pen tip when dragging starts.
@@ -137,7 +137,8 @@ class PathManipulator {
         if pathNodeHover != nil {
             // Start dragging when either the button has been held for long enough or pen has moved a certain distance.
             if (buttons[.Button2] ?? false)
-                && ((Date() - (lastClickTime ?? Date())) > PathManipulator.timeTillDrag){
+                && ((Date() - (lastClickTime ?? Date())) > PathManipulator.timeTillDrag
+                        || (lastPenPosition?.distance(vector: scene.pencilPoint.position) ?? 0) > PathManipulator.maxDistanceTillDrag) {
                 
                 if let target = pathNodeHover{
                     selectPathNode(target)
@@ -424,6 +425,7 @@ class PathManipulator {
                 
             }
             
+            selectedPathNode = nil
             justSelectedSomething = false
             lastPenPosition = nil
             dragging = false

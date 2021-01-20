@@ -159,7 +159,7 @@ class PinchScaler {
                 //selecting corner
                 if(isACornerSelected == false)
                 {
-                    cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 177/255, green: 29/255, blue: 194/255, alpha: 1.0)
+                    cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                     selectedCorner = cornerHit
                     positionSave = selectedCorner?.position
                     isACornerSelected = true
@@ -248,7 +248,7 @@ class PinchScaler {
                     self.urManager?.actionDone(scalingAction)
                 }
                 
-                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 177/255, green: 29/255, blue: 194/255, alpha: 1.0)
+                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                 
                 let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
                 
@@ -410,7 +410,7 @@ class PinchScaler {
             let node = SCNNode()
             node.name = key
             node.position = position
-            node.geometry = SCNBox(width: 0.01, height: 0.01, length: 0.01, chamferRadius: 0)
+            node.geometry = SCNSphere(radius: 0.009)
             node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
             node.rotation = target.rotation
             
@@ -585,6 +585,7 @@ class PinchScaler {
         
      */
     func unselectTarget(_ target: ARPGeomNode) {
+        target.highlighted = false
         target.selected = false
         target.applyTransform()
         geometrySelected = false
@@ -615,9 +616,20 @@ extension PinchScaler : UndoRedoManagerNotifier{
     func actionUndone(_ manager: UndoRedoManager)
     {
         if self.active == true {
-            prevRecScaleByOCCTRef.updateValue(prevRecScaleByOCCTRef[selectedTargets.first!.occtReference!]! - CGFloat(diffInScale!.x), forKey: selectedTargets.first!.occtReference!)
+            if prevRecScaleByOCCTRef.count != 0 && selectedTargets.count == 1{
+                prevRecScaleByOCCTRef.updateValue(prevRecScaleByOCCTRef[selectedTargets.first!.occtReference!]! - CGFloat(diffInScale!.x), forKey: selectedTargets.first!.occtReference!)
+            }
+            
             if selectedTargets.count == 1{
-                self.updateBoundingBox(selectedTargets.first!)
+                self.unselectTarget(selectedTargets.first!)
+            }
+            
+            self.removeBoundingBox()
+            
+            if(selectedCorner != nil){
+                selectedCorner = nil
+                positionSave = nil
+                isACornerSelected = false
             }
         }
     }
@@ -625,11 +637,18 @@ extension PinchScaler : UndoRedoManagerNotifier{
     func actionRedone(_ manager: UndoRedoManager)
     {
         if self.active == true {
-            if prevRecScaleByOCCTRef.count != 0 {
+            if prevRecScaleByOCCTRef.count != 0 && selectedTargets.count == 1{
                 prevRecScaleByOCCTRef.updateValue(prevRecScaleByOCCTRef[selectedTargets.first!.occtReference!]! + CGFloat(diffInScale!.x), forKey: selectedTargets.first!.occtReference!)
             }
             if selectedTargets.count == 1{
-                self.updateBoundingBox(selectedTargets.first!)
+                self.unselectTarget(selectedTargets.first!)
+            }
+            self.removeBoundingBox()
+            
+            if(selectedCorner != nil){
+                selectedCorner = nil
+                positionSave = nil
+                isACornerSelected = false
             }
         }
     }

@@ -32,9 +32,8 @@ class PenRayScaler {
     var pivotInCenter: Bool?
     var centerPosBefore: SCNVector3?
     
-    
     /// The time (in seconds) after which holding the main button on an object results in dragging it.
-    let timeTillDrag: Double = 0.5
+    let timeTillDrag: Double = 0.15
     /// The minimum distance to move the pen starting at an object while holding the main button which results in dragging it.
     static let maxDistanceTillDrag: Float = 0.015
     /// Move the object with its center to the pen tip when dragging starts.
@@ -42,12 +41,10 @@ class PenRayScaler {
     var positionSave: SCNVector3?
     ///original Height of the mesh when instantiated. Used for calculating scaleFactor for corner scaling
     var originalDiagonalLength: [String: Float] = [:]
-    ///the currently selected corner of the meshes bounding box
-    var selectedCorner: SCNNode?
+ 
     ///the corner the pencilPoint hovers over
     var hoverCorner: SCNNode?
-    ///boolean which indicates if a corner is currently selected
-    var isACornerSelected: Bool = false
+ 
     var dragging: Bool = false
     
     ///for selecting geometry
@@ -118,6 +115,9 @@ class PenRayScaler {
     }
     
     ///gets executed each frame and is mainly responsible for scaling
+    /**
+        
+     */
     func update(scene: PenScene, buttons: [Button : Bool]) {
              
         //check for button press
@@ -138,203 +138,167 @@ class PenRayScaler {
         //a geometry is selected
         if selectedTargets.count == 1
         {
-            //there is no corner selected at the moment
-            if isACornerSelected == false
-            {
-                //check for hit
-                let cornerHit = hitTestCorners(pointerPosition: scene.pencilPoint.position)
-                let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
-                
-                //A corner is hit - update hoverCorner and color corner
-                if namesOfCorners.contains(cornerHit?.name ?? "empty")
-                {
-                    if(isACornerSelected == false){
-                        //cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 68/100, brightness: 68/100, alpha: 1.0)
-                        cornerHit?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 177/255, green: 29/255, blue: 194/255, alpha: 1.0)
-
-                    }
-                    
-                    for item in namesOfCorners {
-                        if(item != cornerHit?.name ?? "empty"){
-                            self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
-                        }
-                    }
-                    
-                    hoverCorner = cornerHit
-                }
-                
-                //No corner is hit - update color of every corner EXCEPT the selectedCorner
-                else
-                {
-                    for item in namesOfCorners {
-                        if(item != selectedCorner?.name ?? "empty"){
-                            
-                            self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
-                            
-                            
-                        }
-                    }
-                    hoverCorner = nil
-                }
-            }
+            let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
             
-            //hovering over a corner and holding button2 results in selecting and dragging corner/scaling the geometry
-            if (buttons[.Button2] ?? false)
-                && ((Date() - (lastClickTime ?? Date())) > self.timeTillDrag) && hoverCorner != nil
+            //check for hit
+            let cornerHit = self.currentView!.hitTest(projectOntoImagePlane(pointerPosition: (self.currentScene?.pencilPoint.position)!)!, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue]).filter({namesOfCorners.contains($0.node.name ?? "empty")}).first
+                
+            //CASE: A corner is hit
+            if cornerHit != nil
             {
-                isACornerSelected = true
-                dragging = true
-                
-                selectedCorner = hoverCorner
+                //if corner is not being dragged, update the hover Corner
+                if dragging == false
+                {
+                    hoverCorner = cornerHit?.node
                     
-                selectedCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-                
-                let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
-                
-                diagonalNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                    hoverCorner!.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                        
+                    for item in namesOfCorners {
+                        if(item != hoverCorner!.name ?? "empty"){
+                            self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
+                        }
+                    }
                     
-                let pencilPointOnDiagonalinSC = projectOntoDiagonal(pencilPoint: scene.pencilPoint.position, selectedCorner: selectedCorner!, diagonal: diagonalNode!.position)
-                    
-                var hitTest = self.currentView!.hitTest(pencilPointOnDiagonalinSC, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
-                let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
-                hitTest = hitTest.filter({namesOfCorners.contains($0.node.name ?? "empty")})
+                }
                 
-                for hit in hitTest{
+                //Corner Scaling
+                if (buttons[.Button2] ?? false) && ((Date() - (lastClickTime ?? Date())) > timeTillDrag) && hoverCorner != nil
+                {
+                    dragging = true
+                                
+                    hoverCorner?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                                    
+                    let diagonalNode = getDiagonalNode(selectedCorner: hoverCorner!)
+                                    
+                    diagonalNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                     
                     if(positionSave != nil)
                     {
                         // DS = selected - diagonal
                         let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
                         //DP = pencil - diagonal
-                        let DP = simd_float3(x: hit.worldCoordinates.x - diagonalNode!.position.x, y: hit.worldCoordinates.y - diagonalNode!.position.y, z: hit.worldCoordinates.z - diagonalNode!.position.z)
-                        
+                        let DP = simd_float3(x: cornerHit!.worldCoordinates.x - diagonalNode!.position.x, y: cornerHit!.worldCoordinates.y - diagonalNode!.position.y, z: cornerHit!.worldCoordinates.z - diagonalNode!.position.z)
+                                    
                         let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
-                        
+                                    
                         let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
-                                                
-                        let shift = simdProjPenciLPoint - selectedCorner!.simdPosition
-                        selectedCorner?.simdLocalTranslate(by: shift)
                         
-                        let updatedDiagonal = selectedCorner!.position - diagonalNode!.position
+                        scene.pencilPoint.position = cornerHit!.worldCoordinates
+                        scene.pencilPoint.isHidden = true
+                        hoverCorner!.simdPosition = simdProjPenciLPoint * 1.02
+                 
+                        let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
                         let updatedDiagonalLength = abs(updatedDiagonal.length())
-                            
+          
                         var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
                         if scaleFactor < 0.2 {
                             scaleFactor = 0.2
                         }
-                     
+
                         diagonalNodeBefore = diagonalNode
                         let before = diagonalNode?.position
                         selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                        
+                                    
                         self.updateBoundingBox(selectedTargets.first!)
-                                                
-                        let after = getDiagonalNode(selectedCorner: selectedCorner!)?.position
-                     
+                        let after = getDiagonalNode(selectedCorner: hoverCorner!)?.position
+                                 
                         let x_of_diff = before!.x - after!.x
                         let y_of_diff = before!.y - after!.y
                         let z_of_diff = before!.z - after!.z
-
                         let diff = SCNVector3(x: x_of_diff, y: y_of_diff, z: z_of_diff)
-                            
+                                        
                         selectedTargets.first!.position += diff
-                        
-                                                
+                      
                         self.updateBoundingBox(selectedTargets.first!)
                         
+      
                     }
-
                 }
-            }
-            
-            //center scaling
-            if (buttons[.Button3] ?? false)
-            {
-                if hoverCorner != nil {
-                    
-                    isACornerSelected = true
+                
+                //center scaling
+                if (buttons[.Button3] ?? false && ((Date() - (lastClickTime ?? Date())) > timeTillDrag) && hoverCorner != nil)
+                {
                     dragging = true
-                    
-                    selectedCorner = hoverCorner
-                    
-                    let namesOfCorners = ["lbd", "rbd", "lbu", "rbu", "lfd", "rfd", "lfu", "rfu"]
-                        
+                           
                     for item in namesOfCorners {
                         self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.red
                     }
-                    
-                    let diagonalNode = getDiagonalNode(selectedCorner: selectedCorner!)
                         
-                    let pencilPointOnDiagonalinSC = projectOntoDiagonal(pencilPoint: scene.pencilPoint.position, selectedCorner: selectedCorner!, diagonal: diagonalNode!.position)
+                    let diagonalNode = getDiagonalNode(selectedCorner: hoverCorner!)
+  
+                    if(positionSave != nil)
+                    {
+                        // DS = selected - diagonal
+                        let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
+                        //DP = pencil - diagonal
+                        let DP = simd_float3(x: cornerHit!.worldCoordinates.x - diagonalNode!.position.x, y: cornerHit!.worldCoordinates.y - diagonalNode!.position.y, z: cornerHit!.worldCoordinates.z - diagonalNode!.position.z)
+                                
+                        let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
+                                
+                        let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
+                                                        
+                        hoverCorner?.simdPosition = simdProjPenciLPoint
                         
-                    var hitTest = self.currentView!.hitTest(pencilPointOnDiagonalinSC, options: [SCNHitTestOption.searchMode : SCNHitTestSearchMode.all.rawValue] )
-                   
-                    hitTest = hitTest.filter({namesOfCorners.contains($0.node.name ?? "empty")})
-                    
-                    for hit in hitTest{
-                        
-                        if(positionSave != nil)
-                        {
-                            // DS = selected - diagonal
-                            let DS = simd_float3(x: positionSave!.x - diagonalNode!.position.x, y: positionSave!.y - diagonalNode!.position.y, z: positionSave!.z - diagonalNode!.position.z)
-                            //DP = pencil - diagonal
-                            let DP = simd_float3(x: hit.worldCoordinates.x - diagonalNode!.position.x, y: hit.worldCoordinates.y - diagonalNode!.position.y, z: hit.worldCoordinates.z - diagonalNode!.position.z)
-                            
-                            let projection = (simd_dot(DP, DS) / simd_dot(DS, DS)) * DS
-                            
-                            let simdProjPenciLPoint = diagonalNode!.simdPosition + projection
-                                                    
-                            let shift = simdProjPenciLPoint - selectedCorner!.simdPosition
-                            selectedCorner?.simdLocalTranslate(by: shift)
-                            
-                            let updatedDiagonal = selectedCorner!.position - diagonalNode!.position
-                            let updatedDiagonalLength = abs(updatedDiagonal.length())
-                                
-                            var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
-                            if scaleFactor < 0.2 {
-                                scaleFactor = 0.2
-                            }
-                            
-                           //the nodes pivot point around which it scales, is not in the center of the object, we need to translate
-                            if !isPivotLocatedInCenter(target: selectedTargets.first!){
-                                pivotInCenter = false
-                                
-                                let centerBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
-                                
-                                centerPosBefore = centerBefore
-                                
-                                selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-
-                                self.updateBoundingBox(selectedTargets.first!)
-                                
-                                let centerAfter = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
-
-                                let diff = centerBefore - centerAfter
-        
-                                selectedTargets.first!.position += diff
-         
-                                self.updateBoundingBox(selectedTargets.first!)
-                                
-                            }
-                            
-                            //pivot is in center
-                            else {
-                                pivotInCenter = true
-                                
-                                centerPosBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
-                                
-                                selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
-                                self.updateBoundingBox(selectedTargets.first!)
-                            }
-                            
+                        let updatedDiagonal = hoverCorner!.position - diagonalNode!.position
+                        let updatedDiagonalLength = abs(updatedDiagonal.length())
+                                    
+                        var scaleFactor = Float(updatedDiagonalLength / originalDiagonalLength[selectedTargets.first!.occtReference!]!)
+                        if scaleFactor < 0.3 {
+                            scaleFactor = 0.3
                         }
+                                
+                        //the nodes pivot point around which it scales, is not in the center of the object, we need to translate
+                        if !isPivotLocatedInCenter(target: selectedTargets.first!){
+                            pivotInCenter = false
+                                    
+                            let centerBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                                    
+                            centerPosBefore = centerBefore
+                                    
+                            selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+
+                            self.updateBoundingBox(selectedTargets.first!)
+                                    
+                            let centerAfter = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+
+                            let diff = centerBefore - centerAfter
+            
+                            selectedTargets.first!.position += diff
+             
+                            self.updateBoundingBox(selectedTargets.first!)
+                                    
+                        }
+                                
+                        //pivot is in center
+                        else {
+                            pivotInCenter = true
+                                    
+                            centerPosBefore = selectedTargets.first!.convertPosition(selectedTargets.first!.geometryNode.boundingSphere.center, to: self.currentScene?.drawingNode)
+                                    
+                            selectedTargets.first!.scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+                            self.updateBoundingBox(selectedTargets.first!)
+                        }
+                                
                     }
                 }
             }
+    
+            //CASE: No corner is hit
+            else
+            {
+                for item in namesOfCorners {
+                    if(item != hoverCorner?.name ?? "empty"){
+                        self.currentScene?.drawingNode.childNode(withName: item, recursively: true)?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
+                    }
+                }
+                hoverCorner = nil
+                scene.pencilPoint.isHidden = false
+                
+            }
         }
     }
-    
 
+    
     ///projects the pencilPoint on a given diagonal on the image plane
     /**
         
@@ -374,9 +338,10 @@ class PenRayScaler {
             }
         
         case .Button2, .Button3:
-            lastClickPosition = currentScene?.pencilPoint.position
-            lastClickTime = Date()
             positionSave = hoverCorner?.position
+            lastClickPosition = currentScene?.pencilPoint.position
+            lastPenPosition = currentScene?.pencilPoint.position
+            lastClickTime = Date()
             initialScale = selectedTargets.first?.scale
 
         }
@@ -396,9 +361,10 @@ class PenRayScaler {
             geometrySelected = false
         
         case .Button2:
-            isACornerSelected = false
+            self.currentScene?.pencilPoint.isHidden = false
             
-            if dragging {
+            if dragging
+            {
                 for target in selectedTargets {
                     DispatchQueue.global(qos: .userInitiated).async {
                         // Do this in the background, as it may cause a time-intensive rebuild in the parent object
@@ -407,12 +373,7 @@ class PenRayScaler {
                     }
                 }
             }
-            
             dragging = false
-            
-            selectedCorner = SCNNode()
-            selectedCorner!.name = "generic"
-            
             
             if selectedTargets.count == 1 {
                 if diagonalNodeBefore != nil {
@@ -424,7 +385,10 @@ class PenRayScaler {
             }
             
         case .Button3:
-            if dragging {
+            self.currentScene?.pencilPoint.isHidden = false
+            
+            if dragging
+            {
                 for target in selectedTargets {
                     DispatchQueue.global(qos: .userInitiated).async {
                         // Do this in the background, as it may cause a time-intensive rebuild in the parent object
@@ -433,12 +397,7 @@ class PenRayScaler {
                     }
                 }
             }
-            
             dragging = false
-            
-            selectedCorner = SCNNode()
-            selectedCorner!.name = "generic"
-            isACornerSelected = false
             
             if selectedTargets.count == 1 {
                 if centerPosBefore != nil && pivotInCenter != nil {
@@ -565,7 +524,8 @@ class PenRayScaler {
             let node = SCNNode()
             node.name = key
             node.position = position
-            node.geometry = SCNBox(width: 0.01, height: 0.01, length: 0.01, chamferRadius: 0)
+            node.geometry = SCNSphere(radius: 0.008)
+                
             //node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(hue: 216/360, saturation: 38/100, brightness: 68/100, alpha: 1.0)
             
             node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: 149/255, green: 31/255, blue: 163/255, alpha: 1.0)
@@ -762,11 +722,6 @@ class PenRayScaler {
             viewBoundingBox(target)
         }
     }
-    
-    
-    
-    
-    
 }
 
 extension PenRayScaler : UndoRedoManagerNotifier{
@@ -774,12 +729,10 @@ extension PenRayScaler : UndoRedoManagerNotifier{
     {
         if self.active == true {
             if selectedTargets.count == 1{
-                
                 for target in selectedTargets {
                     unselectTarget(target)
                 }
                 self.removeBoundingBox()
-                
             }
         }
     }
