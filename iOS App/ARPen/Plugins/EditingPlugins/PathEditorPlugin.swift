@@ -40,7 +40,7 @@ class PathEditorPlugin: Plugin {
         
         self.manipulator.activate(withScene: scene, andView: view, urManager: urManager)
             
-        self.button1Label.text = "Select and Deselect Geometry"
+        self.button1Label.text = "Select Geometry"
         self.button2Label.text = "Change Style / Move Node"
         self.button3Label.text = "Insert Node"
     }
@@ -54,16 +54,34 @@ class PathEditorPlugin: Plugin {
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
         buttonEvents.update(buttons: buttons)
         manipulator.update(scene: scene, buttons: buttons)
+        
+       
     }
     
     func didPressButton(_ button: Button) {
         
         switch button {
-        case .Button1, .Button2, .Button3:
+        case .Button1:
+            if manipulator.selectedTargets.count == 1{
+                DispatchQueue.main.async
+                {
+                    self.button1Label.text = "Select Geometry"
+                }
+            }
+                
+            if manipulator.selectedTargets.count == 0{
+                DispatchQueue.main.async
+                {
+                    self.button1Label.text = "Deselect Geometry"
+                }
+            }
+             
+        case .Button2, .Button3:
             break
         }
     }
     
+
     
     
     
