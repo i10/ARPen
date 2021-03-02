@@ -66,7 +66,7 @@ class CombinationPlugin: Plugin {
         self.pluginImage = UIImage.init(named: "Move2DemoPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "Move2PluginInstruction")
         self.pluginIdentifier = "Move 2"
-        self.pluginGroupName = "Manipulation"
+        self.pluginGroupName = "Translation Demo"
         self.needsBluetoothARPen = true
         self.pluginDisabledImage = UIImage.init(named: "TranslationDemoPluginDisabled")
     }

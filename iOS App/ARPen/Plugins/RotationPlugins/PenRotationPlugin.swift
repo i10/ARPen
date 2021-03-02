@@ -23,8 +23,8 @@ class PenRotationPlugin: RotatingPlugin {
         
 
         self.pluginInstructionsImage = UIImage.init(named: "PenRotation")
-        self.pluginIdentifier = "Pen Rotation"
-        self.pluginGroupName = "Rotation"
+        self.pluginIdentifier = "Rotation (Pen)"
+        self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
         
     }

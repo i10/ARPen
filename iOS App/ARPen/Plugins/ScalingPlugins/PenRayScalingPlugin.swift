@@ -22,7 +22,7 @@ class PenRayScalingPlugin: ScalingPlugin {
         
         self.pluginInstructionsImage = UIImage.init(named: "PenRayScalingInstructions")
         self.pluginIdentifier = "Scaling (PenRay)"
-        self.pluginGroupName = "Scaling"
+        self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
     }
     

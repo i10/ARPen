@@ -23,8 +23,8 @@ class TSRotationPlugin: Plugin {
         super.init()
         self.pluginImage = UIImage.init(named: "Rotating")
         self.pluginInstructionsImage = UIImage.init(named: "TSRotation")
-        self.pluginIdentifier = "TS Rotation"
-        self.pluginGroupName = "Rotation"
+        self.pluginIdentifier = "Rotation (TS)"
+        self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
     }
     

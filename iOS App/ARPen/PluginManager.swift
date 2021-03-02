@@ -76,7 +76,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.arManager = ARManager(scene: self.penScene)
         self.paintPlugin = PaintPlugin()
         self.experimentalPluginsStartAtIndex = 7
-        self.plugins = [PaintPlugin(),CubeByDraggingPlugin(), CubeByExtractionPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), PathEditorPlugin(), CombinePluginFunction(), CombinePluginSolidHole(), TranslationPlugin(), PenRayScalingPlugin(), DirectDeviceRotationPlugin(), TSRotationPlugin(), PenRotationPlugin(), PinchScalingPlugin()]
+        self.plugins = [PaintPlugin(),CubeByDraggingPlugin(), CubeByExtractionPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), TranslationPlugin(), DirectDeviceRotationPlugin(), TSRotationPlugin(), PenRotationPlugin(), PenRayScalingPlugin(), PinchScalingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), PathEditorPlugin(), CombinePluginFunction(), CombinePluginSolidHole(), MidairPlugin(), LinearMenuPlugin(), TwoHandedTouch(), HapticMenuPlugin(), MovingCursorPlugin(), TranslationDemoPlugin(), CombinationPlugin(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
         self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.arPenManager = PenManager()
         //self.activePlugin = plugins.first

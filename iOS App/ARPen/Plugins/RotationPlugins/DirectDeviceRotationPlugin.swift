@@ -22,8 +22,8 @@ class DirectDeviceRotationPlugin: RotatingPlugin {
         super.init()
 
         self.pluginInstructionsImage = UIImage.init(named: "DirectDeviceRotation")
-        self.pluginIdentifier = "Direct Device Rotation"
-        self.pluginGroupName = "Rotation"
+        self.pluginIdentifier = "Rotation (Device)"
+        self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
         
     }

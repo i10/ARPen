@@ -21,7 +21,7 @@ class TranslationPlugin: Plugin {
         self.pluginImage = UIImage.init(named: "Move2DemoPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "DefaultInstructions")
         self.pluginIdentifier = "Translation (Pen)"
-        self.pluginGroupName = "Translating"
+        self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
 
         

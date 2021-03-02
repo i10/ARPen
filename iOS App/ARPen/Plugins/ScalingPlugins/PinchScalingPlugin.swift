@@ -21,7 +21,7 @@ class  PinchScalingPlugin: Plugin {
         self.pluginImage = UIImage.init(named: "Scaling")
         self.pluginInstructionsImage = UIImage.init(named: "ScalingPinch")
         self.pluginIdentifier = "Scaling (Pinch)"
-        self.pluginGroupName = "Scaling"
+        self.pluginGroupName = "Manipulation"
         self.needsBluetoothARPen = false
         
 
