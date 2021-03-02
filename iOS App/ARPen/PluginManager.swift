@@ -76,7 +76,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         self.arManager = ARManager(scene: self.penScene)
         self.paintPlugin = PaintPlugin()
         self.experimentalPluginsStartAtIndex = 7
-        self.plugins = [PaintPlugin(),CubeByDraggingPlugin(), CubeByExtractionPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), TranslationPlugin(), DirectDeviceRotationPlugin(), TSRotationPlugin(), PenRotationPlugin(), PenRayScalingPlugin(), PinchScalingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), PathEditorPlugin(), CombinePluginFunction(), CombinePluginSolidHole(), MidairPlugin(), LinearMenuPlugin(), TwoHandedTouch(), HapticMenuPlugin(), MovingCursorPlugin(), TranslationDemoPlugin(), CombinationPlugin(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
+        self.plugins = [PaintPlugin(),CubeByDraggingPlugin(), CubeByExtractionPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), TranslationPlugin(), DirectDeviceRotationPlugin(), TSRotationPlugin(), PenRotationPlugin(), PenRayScalingPlugin(), PinchScalingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), PathEditorPlugin(), CombinePluginFunction(), CombinePluginSolidHole(), MidairPlugin(), LinearMenuPlugin(), TwoHandedTouch(), HapticMenuPlugin(), MovingCursorPlugin(), TranslationDemoPlugin(), CombinationPlugin(), RotationWithPenPlugin(), RotationWithDevicePlugin(), RotationWithTSPlugin(), RotationWithPenPedalPlugin(), RotationWithDevicePedalPlugin(), DirectPenScalingPlugin(), PenRayScalingTechniquePlugin(), PinchScalingTechniquePlugin(), ScrollScalingPlugin(),  TouchAndPenScalingPlugin(), PointScalingPlugin(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
         self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.arPenManager = PenManager()
         //self.activePlugin = plugins.first
@@ -85,8 +85,6 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         
         //listen to softwarePenButton notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.softwareButtonEvent(_:)), name: .softwarePenButtonEvent, object: nil)
-        
-        
 
     }
     
