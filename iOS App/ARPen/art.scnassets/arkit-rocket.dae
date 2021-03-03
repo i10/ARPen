@@ -9,11 +9,6 @@
         <unit meter="0.01" name="centimeter"/>
         <up_axis>Y_UP</up_axis>
     </asset>
-    <library_images>
-        <image id="ID5">
-            <init_from>checkerboard-tile.png</init_from>
-        </image>
-    </library_images>
     <library_effects>
         <effect id="ID2">
             <profile_COMMON>
@@ -146,9 +141,6 @@
     <library_materials>
         <material id="ID1" name="Mat">
             <instance_effect url="#ID2"/>
-        </material>
-        <material id="ID3" name="checkerboard">
-            <instance_effect url="#ID4"/>
         </material>
         <material id="ID8" name="glass">
             <instance_effect url="#ID9"/>

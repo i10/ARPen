@@ -1765,7 +1765,7 @@ class PinchScalingTechniquePlugin: Plugin {
         let boundingBox = SCNNode(geometry: box)
         
         if boundingBox != scene.drawingNode.childNode(withName: "currentBoundingBox", recursively: false){
-            boundingBox.position = SCNVector3(0,0.2,0)
+            boundingBox.position = SCNVector3(0,0,-0.3)
             centerPosition = boundingBox.position
 //            print("position:\(boundingBox.position)")
             boundingBox.name = "currentBoundingBox"
@@ -1774,7 +1774,7 @@ class PinchScalingTechniquePlugin: Plugin {
             scene.drawingNode.addChildNode(boundingBox)
             }
         else{
-            boundingBox.position = SCNVector3(0,0.2,0)
+            boundingBox.position = SCNVector3(0,0,-0.3)
             
         }
 //        print (boundingBox)
