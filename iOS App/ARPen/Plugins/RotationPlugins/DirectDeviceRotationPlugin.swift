@@ -21,6 +21,7 @@ class DirectDeviceRotationPlugin: RotatingPlugin {
         rotator = DirectDeviceRotator()
         super.init()
 
+        self.pluginImage = UIImage.init(named: "RotationDirectDevice")
         self.pluginInstructionsImage = UIImage.init(named: "DirectDeviceRotation")
         self.pluginIdentifier = "Rotation (Device)"
         self.pluginGroupName = "Manipulation"

@@ -56,6 +56,9 @@ class RotationWithDevicePlugin: Plugin {
     override init() {
         super.init()
         
+        self.pluginImage = UIImage.init(named: "RotationDirectDevice")
+        self.pluginInstructionsImage = UIImage.init(named: "RotationDirectDeviceInstructions")
+        
         self.pluginIdentifier = "Direct Device"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"

@@ -20,6 +20,7 @@ class PenRayScalingPlugin: ScalingPlugin {
     override init() {
         super.init()
         
+        self.pluginImage = UIImage.init(named: "ScalingPen")
         self.pluginInstructionsImage = UIImage.init(named: "PenRayScalingInstructions")
         self.pluginIdentifier = "Scaling (PenRay)"
         self.pluginGroupName = "Manipulation"

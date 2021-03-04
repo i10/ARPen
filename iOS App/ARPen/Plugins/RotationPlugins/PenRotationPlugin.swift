@@ -22,6 +22,7 @@ class PenRotationPlugin: RotatingPlugin {
         super.init()
         
 
+        self.pluginImage = UIImage.init(named: "RotationDirectPen")
         self.pluginInstructionsImage = UIImage.init(named: "PenRotation")
         self.pluginIdentifier = "Rotation (Pen)"
         self.pluginGroupName = "Manipulation"

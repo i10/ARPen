@@ -62,6 +62,9 @@ class RotationWithDevicePedalPlugin: Plugin {
     override init() {
         super.init()
         
+        self.pluginImage = UIImage.init(named: "RotationPedalDevice")
+        self.pluginInstructionsImage = UIImage.init(named: "RotationPedalDeviceInstructions")
+        
         self.pluginIdentifier = "Device Pedal"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"

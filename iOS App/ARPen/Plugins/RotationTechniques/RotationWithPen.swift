@@ -52,6 +52,9 @@ class RotationWithPenPlugin: Plugin{
     override init() {
         super.init()
         
+        self.pluginImage = UIImage.init(named: "RotationDirectPen")
+        self.pluginInstructionsImage = UIImage.init(named: "RotationDirectPenInstructions")
+        
         self.pluginIdentifier = "Direct Pen"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"

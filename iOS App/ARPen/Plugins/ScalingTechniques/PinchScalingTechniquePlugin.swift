@@ -83,11 +83,14 @@ class PinchScalingTechniquePlugin: Plugin {
     //var delegate: PinchScalingPluginDelegate?
 
     override init() {
-    super.init()
-      
-    self.pluginIdentifier = "Pinch Scaling"
-    self.needsBluetoothARPen = false
-    self.pluginGroupName = "Scaling"
+        super.init()
+    
+        self.pluginImage = UIImage.init(named: "ScalingPinch")
+        self.pluginInstructionsImage = UIImage.init(named: "ScalingPinchInstructions-1")
+        
+        self.pluginIdentifier = "Pinch Scaling"
+        self.needsBluetoothARPen = false
+        self.pluginGroupName = "Scaling"
   }
 
     

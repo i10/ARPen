@@ -91,6 +91,9 @@ class PenRayScalingTechniquePlugin: Plugin {
     override init() {
         super.init()
     
+        self.pluginImage = UIImage.init(named: "ScalingPen")
+        self.pluginInstructionsImage = UIImage.init(named: "ScalingPenRayInstructions")
+        
         self.pluginIdentifier = "PenRay"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"

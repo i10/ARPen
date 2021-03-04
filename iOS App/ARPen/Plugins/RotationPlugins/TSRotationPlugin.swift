@@ -21,7 +21,7 @@ class TSRotationPlugin: Plugin {
     override init() {
         rotator = TSRotator()
         super.init()
-        self.pluginImage = UIImage.init(named: "Rotating")
+        self.pluginImage = UIImage.init(named: "RotationTouchscreen")
         self.pluginInstructionsImage = UIImage.init(named: "TSRotation")
         self.pluginIdentifier = "Rotation (TS)"
         self.pluginGroupName = "Manipulation"

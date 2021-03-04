@@ -59,6 +59,9 @@ class RotationWithTSPlugin : Plugin {
     override init() {
         super.init()
         
+        self.pluginImage = UIImage.init(named: "RotationTouchscreen")
+        self.pluginInstructionsImage = UIImage.init(named: "RotationTouchscreenInstructions")
+        
         self.pluginIdentifier = "Touchscreen"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"

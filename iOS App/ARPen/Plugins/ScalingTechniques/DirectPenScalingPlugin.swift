@@ -92,7 +92,10 @@ class DirectPenScalingPlugin: Plugin {
     
     override init() {
         super.init()
-    
+        
+        self.pluginImage = UIImage.init(named: "ScalingPen")
+        self.pluginInstructionsImage = UIImage.init(named: "ScalingDirectPenInstructions")
+        
         self.pluginIdentifier = "Direct Pen"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"

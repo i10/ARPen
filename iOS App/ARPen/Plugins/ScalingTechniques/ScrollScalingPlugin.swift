@@ -94,6 +94,9 @@ class ScrollScalingPlugin: Plugin {
     override init() {
         super.init()
          
+        self.pluginImage = UIImage.init(named: "ScalingScroll")
+        self.pluginInstructionsImage = UIImage.init(named: "ScalingScrollInstructions")
+        
         self.pluginIdentifier = "Scrolling"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"

@@ -106,6 +106,9 @@ class PointScalingPlugin: Plugin {
     override init() {
         super.init()
     
+        self.pluginImage = UIImage.init(named: "ScalingDistance")
+        self.pluginInstructionsImage = UIImage.init(named: "ScalingDistanceInstructions")
+        
         self.pluginIdentifier = "PointScaling"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"

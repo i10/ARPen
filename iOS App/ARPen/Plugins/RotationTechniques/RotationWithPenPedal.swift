@@ -58,6 +58,9 @@ class RotationWithPenPedalPlugin: Plugin {
     override init() {
         super.init()
         
+        self.pluginImage = UIImage.init(named: "RotationPedalPen")
+        self.pluginInstructionsImage = UIImage.init(named: "RotationPedalPenInstructions")
+        
         self.pluginIdentifier = "Pen Pedal"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"

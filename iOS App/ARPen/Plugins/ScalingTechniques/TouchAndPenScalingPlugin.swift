@@ -91,7 +91,11 @@ class TouchAndPenScalingPlugin: Plugin {
 
     override init() {
         super.init()
-
+        
+        self.pluginImage = UIImage.init(named: "ScalingTouchPen")
+        self.pluginInstructionsImage = UIImage.init(named: "ScalingTouchPenInstructions")
+        self.pluginDisabledImage = UIImage.init(named: "ScalingTouchPenDisabled")
+        
         self.pluginIdentifier = "Touch&Pen"
         self.pluginGroupName = "Scaling"
         self.needsBluetoothARPen = true
