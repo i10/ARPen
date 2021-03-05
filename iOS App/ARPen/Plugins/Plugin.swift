@@ -16,6 +16,7 @@ class Plugin: NSObject {
     var pluginImage : UIImage? = UIImage.init(named: "Cross")
     var pluginIdentifier : String = "ARPen Plugin"
     var pluginGroupName : String = "Basic"
+    var isExperimentalPlugin = false
     
     //to use a custom UI for your plugin:
     //  1) create a new xib file in the folder "PluginUIs". The name should be that of the plugin
@@ -42,6 +43,8 @@ class Plugin: NSObject {
     var currentScene : PenScene?
     var currentView : ARSCNView?
     
+    var undoRedoManager: UndoRedoManager?
+    
     var pluginInstructionsImage: UIImage? = UIImage.init(named: "DefaultInstructions")
     var pluginDisabledImage: UIImage?
     
@@ -55,12 +58,41 @@ class Plugin: NSObject {
         
     }
     
-    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView){
+    func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager){
+        self.undoRedoManager = urManager
         self.currentScene = scene
         self.currentView = view
     }
+    
     func deactivatePlugin(){
         self.currentScene = nil
         self.currentView = nil
     }
+    
+    func undo(){
+        self.undoRedoManager?.undo()
+    }
+    
+    func redo(){
+        self.undoRedoManager?.redo()
+    }
+    
+    //added a generic function fo random String creation
+    //as found on StackOverflow
+    func randomString(length: Int) -> String {
+
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+
+        var randomString = ""
+
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+
+        return randomString
+    }
+ 
 }

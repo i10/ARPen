@@ -48,6 +48,8 @@ class SweepPluginTutorial: ModelingPlugin {
                 
                 // Try to create a sweep
                 if let sweep = try? ARPSweep(profile: profile, path: spine) {
+                    profile.usedInGeometry = true
+                    path.usedInGeometry = true
                     // Attach the swept object to the scene synchronous.
                     DispatchQueue.main.async {
                         self.currentScene?.drawingNode.addChildNode(sweep)

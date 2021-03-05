@@ -64,11 +64,20 @@ class RevolvePluginTwoProfiles: ModelingPlugin {
                 
                 if let revolution = try? ARPRevolution(profile: profile1, axis: axisPath) {
                     
+                    profile1.usedInGeometry = true
+                    axisPath.usedInGeometry = true
+                    
                     DispatchQueue.main.async {
                         self.currentScene?.drawingNode.addChildNode(revolution)
                         profile2.removeFromParentNode()
                         self.freePaths.removeAll(where: { $0 === profile1 || $0 == profile2 })
                     }
+                    
+                    let buildingAction = RevolveBuildingAction(occtRef: revolution.occtReference!, scene: self.currentScene!, revolve: revolution)
+                    self.undoRedoManager?.actionDone(buildingAction)
+                    
+                    
+                    
                 }
             }
         }

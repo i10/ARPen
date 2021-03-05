@@ -130,6 +130,8 @@ static const int tubeSides = 3;
                     for (int j = 0; j <= tubeSides; j++) {
                         float rotation = (M_PI*2) * (((float)j) / tubeSides);
                         gp_Vec dir = perpendicular.Rotated(rotationAxis, rotation);
+                        
+                        //IMPORTANT LINE
                         gp_Vec offset = dir.Scaled(tubeRadius);
                         gp_Pnt v1 = prev.Translated(offset);
                         gp_Pnt v2 =   pt.Translated(offset);
@@ -256,7 +258,13 @@ static const int tubeSides = 3;
         TopLoc_Location location;
         // Triangulate current face
         Handle (Poly_Triangulation) triangulation = BRep_Tool::Triangulation(face, location);
+        
+        if(triangulation.IsNull()){
+            return nil;
+        }
+        
         Poly::ComputeNormals(triangulation);
+        
         gp_Trsf transformation = location.Transformation();
         if (!triangulation.IsNull())
         {

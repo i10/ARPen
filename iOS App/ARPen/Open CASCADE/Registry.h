@@ -17,6 +17,7 @@
 
 /// Generates a random null-terminated alphanumeric string of lenghth 32 to be used as a key for objects
 + (TCollection_AsciiString) randomString;
+
 /// Converts a OCCT string to a C string and stores in the heap.
 + (const char *) toHeapCString:(TCollection_AsciiString) input;
 
@@ -27,13 +28,19 @@
                  withKey:(TCollection_AsciiString) key;
 /// Stores a TopoDS_Shape in the registry and returns the generated key as a C string.
 + (const char *) storeInRegistryWithCString:(TopoDS_Shape &) shape;
+
+
+
 /// Stores a transform in the registry under a predefined key as an OCCT string.
 + (void) storeInTransformRegistry:(gp_Trsf &) transform
                           withKey:(TCollection_AsciiString) key;
 
 
 /// Effectively deletes a shape
-+ (void) freeShape:(const char *) label;
++ (void) freeShape:(const char *) handle;
+
+
+
 /// Deletes the TopoDS_Shape with the given key from the registry.
 + (void) deleteFromRegistry:(TCollection_AsciiString) key;
 

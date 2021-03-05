@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModelingPlugin" customModule="ARPen" customModuleProvider="target">
+            <connections>
+                <outlet property="button1Label" destination="n8C-Fp-aaG" id="UcV-ZR-UIu"/>
+                <outlet property="button2Label" destination="lgm-Ta-7As" id="V25-UT-kB6"/>
+                <outlet property="button3Label" destination="uRm-Lo-kox" id="78Z-ak-2hG"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PassthroughView" customModule="ARPen" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="655" height="425"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMJ-Cj-X8D">
+                    <rect key="frame" x="0.0" y="90.5" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="USO-Fz-1La"/>
+                        <constraint firstAttribute="height" constant="50" id="oI0-tT-YgR"/>
+                    </constraints>
+                    <state key="normal" image="SoftwareButton"/>
+                    <connections>
+                        <action selector="softwarePenButtonPressed:" destination="-1" eventType="touchDown" id="UFj-DH-MzZ"/>
+                        <action selector="softwarePenButtonReleased:" destination="-1" eventType="touchUpInside" id="9wd-ds-uLK"/>
+                        <action selector="softwarePenButtonReleased:" destination="-1" eventType="touchUpOutside" id="EkQ-ZF-meL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHA-tM-IZO">
+                    <rect key="frame" x="0.0" y="148.5" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="coe-fT-aty"/>
+                        <constraint firstAttribute="width" constant="50" id="iIj-9A-JYx"/>
+                    </constraints>
+                    <state key="normal" image="SoftwareButton"/>
+                    <connections>
+                        <action selector="softwarePenButtonPressed:" destination="-1" eventType="touchDown" id="EkO-T8-SmK"/>
+                        <action selector="softwarePenButtonReleased:" destination="-1" eventType="touchUpOutside" id="gMt-NT-t9Y"/>
+                        <action selector="softwarePenButtonReleased:" destination="-1" eventType="touchUpInside" id="pqj-aM-a5X"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8C-Fp-aaG">
+                    <rect key="frame" x="60" y="44" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgm-Ta-7As">
+                    <rect key="frame" x="60" y="105" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRm-Lo-kox">
+                    <rect key="frame" x="60" y="163" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="lgm-Ta-7As" firstAttribute="leading" secondItem="GMJ-Cj-X8D" secondAttribute="trailing" constant="10" id="5zW-qG-kqe"/>
+                <constraint firstItem="n8C-Fp-aaG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="Ak6-r4-681"/>
+                <constraint firstItem="IHA-tM-IZO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IQ8-2r-U2A"/>
+                <constraint firstItem="lgm-Ta-7As" firstAttribute="centerY" secondItem="GMJ-Cj-X8D" secondAttribute="centerY" id="ItB-Fg-dFQ"/>
+                <constraint firstItem="uRm-Lo-kox" firstAttribute="leading" secondItem="lgm-Ta-7As" secondAttribute="leading" id="RR5-1u-hdU"/>
+                <constraint firstItem="IHA-tM-IZO" firstAttribute="top" secondItem="GMJ-Cj-X8D" secondAttribute="bottom" constant="8" symbolic="YES" id="Thp-Q6-2jb"/>
+                <constraint firstItem="uRm-Lo-kox" firstAttribute="centerY" secondItem="IHA-tM-IZO" secondAttribute="centerY" id="YsQ-VB-050"/>
+                <constraint firstItem="n8C-Fp-aaG" firstAttribute="leading" secondItem="lgm-Ta-7As" secondAttribute="leading" id="bw9-Jf-no6"/>
+                <constraint firstItem="GMJ-Cj-X8D" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="czF-su-ilw"/>
+                <constraint firstItem="GMJ-Cj-X8D" firstAttribute="firstBaseline" secondItem="n8C-Fp-aaG" secondAttribute="baseline" constant="30" id="xfI-tC-ehZ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="72" y="38"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="SoftwareButton" width="66.666664123535156" height="66.666664123535156"/>
+    </resources>
+</document>
