@@ -81,7 +81,7 @@
                                     <action selector="undoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="QKz-fc-hZG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1V-HR-2WE">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1V-HR-2WE">
                                 <rect key="frame" x="720" y="214" width="38" height="38"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.1215686275" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
