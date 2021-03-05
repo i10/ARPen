@@ -289,6 +289,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             }
         }
         
+        //if the new plugin is an experimental plugin, hide the undo and redo button, otherwise show them
+        if newActivePlugin.isExperimentalPlugin {
+            self.undoButton.isHidden = true
+            self.redoButton.isHidden = true
+        } else {
+            self.undoButton.isHidden = false
+            self.redoButton.isHidden = false
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
