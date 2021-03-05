@@ -47,7 +47,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     
     private (set) var penScene: PenScene
     private (set) var sceneView: ARSCNView
-    private var undoRedoManager: UndoRedoManager
+    var undoRedoManager: UndoRedoManager
     
     var alternativeCursor: SCNNode? = nil
     var allowPenInput = true

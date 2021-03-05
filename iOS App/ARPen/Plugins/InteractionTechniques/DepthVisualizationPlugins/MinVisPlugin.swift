@@ -39,6 +39,7 @@ class MinVisPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginIdentifier = "MinVis"
         self.pluginGroupName = "Depth Visualization"
         self.needsBluetoothARPen = false
+        self.isExperimentalPlugin = true
         
         nibNameOfCustomUIView = "SecondButton"
     }

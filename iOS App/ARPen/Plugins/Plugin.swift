@@ -16,6 +16,7 @@ class Plugin: NSObject {
     var pluginImage : UIImage? = UIImage.init(named: "Cross")
     var pluginIdentifier : String = "ARPen Plugin"
     var pluginGroupName : String = "Basic"
+    var isExperimentalPlugin = false
     
     //to use a custom UI for your plugin:
     //  1) create a new xib file in the folder "PluginUIs". The name should be that of the plugin

@@ -97,6 +97,7 @@ class PenRayScalingTechniquePlugin: Plugin {
         self.pluginIdentifier = "PenRay"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"
+        self.isExperimentalPlugin = true
     }
     
     func reset(){

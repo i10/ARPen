@@ -64,6 +64,7 @@ class RotationWithPenPedalPlugin: Plugin {
         self.pluginIdentifier = "Pen Pedal"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"
+        self.isExperimentalPlugin = true
         
         nibNameOfCustomUIView = "ThreeButtons"
     }

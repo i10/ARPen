@@ -62,6 +62,7 @@ class RotationWithDevicePlugin: Plugin {
         self.pluginIdentifier = "Direct Device"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"
+        self.isExperimentalPlugin = true
         
         nibNameOfCustomUIView = "ThreeButtons"
     }

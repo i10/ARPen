@@ -207,6 +207,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             //pass reference to the record manager (to show active user ID and export data)
             destinationSettingsController.userStudyRecordManager = self.userStudyRecordManager
             destinationSettingsController.bluetoothARPenConnected = self.bluetoothARPenConnected
+            //pass reference to view controller so that the scene can be reset
+            destinationSettingsController.mainViewController = self
         }
         
     }
@@ -297,7 +299,29 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
             return nil
         } else {
             self.imageForPluginInstructions.isHidden = true
-            return indexPath
+            
+            //check if the next plugin is an experimental plugin and the current one is a modeling plugin
+            guard let currentActivePlugin = self.pluginManager.activePlugin else {return indexPath}
+            if selectedPlugin.isExperimentalPlugin && !currentActivePlugin.isExperimentalPlugin {
+                //display warning alert that the scene will be reset
+                let alertController = UIAlertController(title: "Experimental Plugin", message: "You are switching to an experimental plugin. All objects in your current scene will be removed. This cannot be undone.", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let deleteAction = UIAlertAction(title: "Proceed and reset scene", style: .destructive, handler: {action in
+                    self.resetScene()
+                    self.menuTableViewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                    self.tableView(self.menuTableViewController.tableView, didSelectRowAt: indexPath)
+                })
+                
+                alertController.addAction(cancelAction)
+                alertController.addAction(deleteAction)
+                
+                present(alertController, animated: true, completion: nil)
+                
+                return nil
+            } else {
+                return indexPath
+            }
+            
         }
     }
     
@@ -357,6 +381,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, PluginManagerDelegate
     
     @IBAction func showPluginInstructions(_ sender: Any) {
         self.displayPluginInstructions(withBluetoothErrorMessage: false)
+    }
+    
+    func resetScene() {
+        guard let penScene = self.arSceneView.scene as? PenScene else {return}
+        //remove all child nodes from drawing node
+        penScene.drawingNode.enumerateChildNodes {(node, pointer) in
+            node.removeFromParentNode()
+        }
+        //reset recorded actions of undo redo manager
+        self.pluginManager.undoRedoManager.resetUndoRedoManager()
     }
     
     // MARK: - ARManager delegate

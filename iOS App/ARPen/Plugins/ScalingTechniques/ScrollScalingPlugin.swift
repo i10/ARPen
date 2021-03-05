@@ -100,6 +100,7 @@ class ScrollScalingPlugin: Plugin {
         self.pluginIdentifier = "Scrolling"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"
+        self.isExperimentalPlugin = true
     }
     
     func reset(){

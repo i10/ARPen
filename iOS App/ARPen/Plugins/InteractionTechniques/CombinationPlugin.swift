@@ -69,6 +69,7 @@ class CombinationPlugin: Plugin {
         self.pluginGroupName = "Translation Demo"
         self.needsBluetoothARPen = true
         self.pluginDisabledImage = UIImage.init(named: "TranslationDemoPluginDisabled")
+        self.isExperimentalPlugin = true
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

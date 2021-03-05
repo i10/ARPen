@@ -91,6 +91,7 @@ class PinchScalingTechniquePlugin: Plugin {
         self.pluginIdentifier = "Pinch Scaling"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"
+        self.isExperimentalPlugin = true
   }
 
     

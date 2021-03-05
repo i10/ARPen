@@ -65,6 +65,7 @@ class RotationWithTSPlugin : Plugin {
         self.pluginIdentifier = "Touchscreen"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"
+        self.isExperimentalPlugin = true
         
         nibNameOfCustomUIView = "ThreeButtons"
     }

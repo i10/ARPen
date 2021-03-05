@@ -71,6 +71,7 @@ class TranslationDemoPlugin: Plugin {
         self.pluginIdentifier = "Move 1"
         self.pluginGroupName = "Translation Demo"
         self.needsBluetoothARPen = false
+        self.isExperimentalPlugin = true
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {

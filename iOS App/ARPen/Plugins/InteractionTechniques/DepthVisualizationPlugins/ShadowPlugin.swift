@@ -13,6 +13,7 @@ class ShadowPlugin: MinVisPlugin {
         self.pluginGroupName = "Depth Visualization"
         self.pluginImage = UIImage.init(named: "DepthVisualizationShadowPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "DepthVisualizationShadowInstructions")
+        self.isExperimentalPlugin = true
         
     }
     

@@ -95,6 +95,11 @@ class UndoRedoManager {
         
     }
     
+    public func resetUndoRedoManager() {
+        self.undoStack.clear()
+        self.redoStack.clear()
+    }
+    
 }
 
 protocol UndoRedoManagerNotifier {

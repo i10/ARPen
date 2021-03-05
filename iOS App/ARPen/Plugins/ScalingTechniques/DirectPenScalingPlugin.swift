@@ -99,7 +99,7 @@ class DirectPenScalingPlugin: Plugin {
         self.pluginIdentifier = "Direct Pen"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Scaling"
-        
+        self.isExperimentalPlugin = true
     }
     
     func reset(){

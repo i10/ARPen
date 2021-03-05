@@ -13,6 +13,7 @@ class HeatmapPlugin: MinVisPlugin {
         self.pluginGroupName = "Depth Visualization"
         self.pluginImage = UIImage.init(named: "DepthVisualizationHeatmapPlugin")
         self.pluginInstructionsImage = UIImage.init(named: "DepthVisualizationHeatmapInstructions")
+        self.isExperimentalPlugin = true
         
     }
     

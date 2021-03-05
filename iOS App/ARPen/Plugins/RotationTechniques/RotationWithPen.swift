@@ -58,6 +58,7 @@ class RotationWithPenPlugin: Plugin{
         self.pluginIdentifier = "Direct Pen"
         self.needsBluetoothARPen = false
         self.pluginGroupName = "Rotation"
+        self.isExperimentalPlugin = true
         
         nibNameOfCustomUIView = "ThreeButtons"
     }

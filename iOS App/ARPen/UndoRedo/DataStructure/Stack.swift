@@ -31,5 +31,9 @@ struct Stack<Element> {
     func peek() -> Element? {
         return array.last
     }
+    
+    mutating func clear() {
+        self.array.removeAll()
+    }
 
 }

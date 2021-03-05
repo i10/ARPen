@@ -99,6 +99,7 @@ class TouchAndPenScalingPlugin: Plugin {
         self.pluginIdentifier = "Touch&Pen"
         self.pluginGroupName = "Scaling"
         self.needsBluetoothARPen = true
+        self.isExperimentalPlugin = true
         
         }
 

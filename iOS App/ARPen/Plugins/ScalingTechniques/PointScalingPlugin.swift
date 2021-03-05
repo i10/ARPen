@@ -114,6 +114,7 @@ class PointScalingPlugin: Plugin {
         self.pluginGroupName = "Scaling"
         
         nibNameOfCustomUIView = "ThreeButtons"
+        self.isExperimentalPlugin = true
         
         }
     

@@ -12,6 +12,7 @@ class HapticMenuPlugin: StudyPlugin {
         self.pluginIdentifier = "Surface Menu"
         self.pluginGroupName = "ARMenus"
         self.pluginInstructionsImage = UIImage.init(named: "ARMenusSurfaceInstructions")
+        self.isExperimentalPlugin = true
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {

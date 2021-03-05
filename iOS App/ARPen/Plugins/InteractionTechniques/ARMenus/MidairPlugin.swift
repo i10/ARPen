@@ -8,6 +8,7 @@ class MidairPlugin: StudyPlugin{
         self.pluginIdentifier = "Mid-Air Pen"
         self.pluginGroupName = "ARMenus"
         self.pluginInstructionsImage = UIImage.init(named: "ARMenusMidAirPenInstructions")
+        self.isExperimentalPlugin = true
     }
     
     override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager) {
