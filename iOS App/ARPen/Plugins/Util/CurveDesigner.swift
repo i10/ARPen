@@ -97,6 +97,10 @@ class CurveDesigner {
                 //snapping the last point to the first
                 path.getNonFixedPoint()?.position = path.points.first!.worldPosition
                 
+                if buttonEvents.buttons[.Button2]! || buttonEvents.buttons[.Button3]! {
+                    addNode(noNewPath: true)
+                }
+                
             }
             
             //update the position of the non fixed point
