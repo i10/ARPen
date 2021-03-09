@@ -11,6 +11,7 @@ import UIKit
 class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
 
     var scene: PenScene!
+    var mainViewController: ViewController!
     var userStudyRecordManager: UserStudyRecordManager!
     var bluetoothARPenConnected: Bool!
     
@@ -83,10 +84,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         let alertController = UIAlertController(title: "Clear Scene?", message: "Should all elements in the scene be deleted? This cannot be undone.", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {action in
-            //remove all child nodes from drawing node
-            self.scene.drawingNode.enumerateChildNodes {(node, pointer) in
-                node.removeFromParentNode()
-            }
+            self.mainViewController.resetScene()
             self.setClearSceneButtonLabel()
         })
         

@@ -9,15 +9,24 @@
 import Foundation
 import ARKit
 
-class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
-    //reference to userStudyRecordManager to add new records
-    var recordManager: UserStudyRecordManager!
+class PyramidByDraggingPlugin: Plugin {
+    
     
     /**
      The starting point is the point of the pencil where the button was first pressed.
      If this var is nil, there was no initial point
      */
     private var startingPoint: SCNVector3?
+    
+    
+    ///final box dimensions
+    private var finalPyramidWidth: Double?
+    private var finalPyramidHeight: Double?
+    private var finalPyramidLength: Double?
+    
+    ///final box position
+    private var finalPyramidMin: SCNVector3?
+    private var finalPyramidCenter: SCNVector3?
     
     override init() {
         super.init()
@@ -26,6 +35,8 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
         self.pluginInstructionsImage = UIImage.init(named: "PyramidPluginInstructions")
         self.pluginIdentifier = "Pyramid"
         self.needsBluetoothARPen = false
+        self.pluginGroupName = "Primitives"
+        self.pluginDisabledImage = UIImage.init(named: "ARMenusPluginDisabled")
     }
     
     override func didUpdateFrame(scene: PenScene, buttons: [Button : Bool]) {
@@ -50,7 +61,6 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                 }
                 
                 // Calculate the width, height, and length of the pyramid from ARPen translation.
-                
                 let pyramidWidth = CGFloat(abs(scene.pencilPoint.position.x - startingPoint.x))
                 let pyramidHeight = CGFloat(abs(scene.pencilPoint.position.y - startingPoint.y))
                 let pyramidLength = CGFloat(abs(scene.pencilPoint.position.z - startingPoint.z))
@@ -66,31 +76,62 @@ class PyramidByDraggingPlugin: Plugin, UserStudyRecordPluginProtocol {
                 pyramidNodeGeometry.height = pyramidHeight
                 pyramidNodeGeometry.length = pyramidLength
                 
+                self.finalPyramidWidth = Double(pyramidWidth)
+                self.finalPyramidHeight = Double(pyramidHeight)
+                self.finalPyramidLength = Double(pyramidLength)
+                
                 // Calculate the center position of the pyramid node
                 let pyramidCenterXPosition = scene.pencilPoint.position.x
                 let pyramidCenterYPosition = startingPoint.y
                 let pyramidCenterZPosition = startingPoint.z + (scene.pencilPoint.position.z - startingPoint.z)/2
                 pyramidNode.position = SCNVector3.init(pyramidCenterXPosition, pyramidCenterYPosition, pyramidCenterZPosition)
+                
+                //MAINUPULIERE DIE POS VON AR NODE
+                
+                let min = pyramidNode.convertPosition(pyramidNode.boundingBox.min, to: self.currentScene?.drawingNode)
+                let max = pyramidNode.convertPosition(pyramidNode.boundingBox.max, to: self.currentScene?.drawingNode)
+                
+                let width = max.x - min.x
+                let height = max.y - min.y
+                let length = max.z - min.z
+                
+                let centerPosition = min + SCNVector3(width/2, height/2, length/2)
+                self.finalPyramidCenter = centerPosition
+                self.finalPyramidMin = min
+                
             } else {
                 //if the button is pressed but no startingPoint exists -> first frame with the button pressed. Set current pencil position as the start point
                 self.startingPoint = scene.pencilPoint.position
             }
         } else {
             //if the button is not pressed, check if a startingPoint is set -> released button. Reset the startingPoint to nil and set the name of the drawn pyramid to "finished"
-            if self.startingPoint != nil {
+            if self.startingPoint != nil
+            {
                 self.startingPoint = nil
-                if let pyramidNode = scene.drawingNode.childNode(withName: "currentDragPyramidNode", recursively: false), let pyramidNodeGeometry = pyramidNode.geometry as? SCNPyramid {
-                    pyramidNode.name = "FinishedPyramidNode"
+                if let pyramidNode = scene.drawingNode.childNode(withName: "currentDragPyramidNode", recursively: false)
+                {
                     
-                    // Store a new record with the width, height, and length of the finished pyramid.
-                    let pyramidDimensionsDict = ["Width": String(describing: pyramidNodeGeometry.width), "Height": String(describing: pyramidNodeGeometry.height), "Length": String(describing: pyramidNodeGeometry.length)]
-                    self.recordManager.addNewRecord(withIdentifier: "PyramidFinished", andData: pyramidDimensionsDict)
+                    //assign a random name to the boxNode for identification in further process
+                    pyramidNode.name = randomString(length: 32)
+                    //remove "SceneKit" Pyramid
+                    pyramidNode.removeFromParentNode()
+                    
+                    let pyramid = ARPPyramid(width: finalPyramidWidth!, height: finalPyramidHeight!, length: finalPyramidLength!)
+                
+                    DispatchQueue.main.async {
+                        scene.drawingNode.addChildNode(pyramid)
+                    }
+                    
+                    
+                    pyramid.position = finalPyramidMin!
+                    pyramid.applyTransform()
+                    
+                    let buildingAction = PrimitiveBuildingAction(occtRef: pyramid.occtReference!, scene: self.currentScene!, pyramid: pyramid)
+                    self.undoRedoManager?.actionDone(buildingAction)
+
                 }
             }
-            
         }
-        
-        
     }
 }
 

@@ -19,7 +19,7 @@
 
 // Methods from Registry
 /// Effectively deletes a shape
-- (void) freeShape:(const char *) label;
+- (void) freeShape:(const char *) handle;
 
 
 // Methods from Helpers
@@ -56,18 +56,44 @@
 - (const char *) createBox:(double) width
                     height:(double) height
                     length:(double) length;
+- (const char *) createPyramid:(double) width
+                    height:(double) height
+                    length:(double) length;
 - (const char *) createCylinder:(double) radius
                          height:(double) height;
+
+
+
+
+
+
 - (const char *) createPath:(const SCNVector3 []) points
                      length:(int) length
                     corners:(const int []) corners
                      closed:(bool) closed;
 
-- (const char *) sweep:(const char *) profile
-                 along:(const char *) path;
+
+- (const char *) updatePath:(const char *)label
+                     points: (const SCNVector3 []) points
+                     length:(int) length
+                     corners:(const int []) corners
+                     closed:(bool) closed;
+
+
+
+
+
+- (const char *) sweep:(NSString *) profile
+                 along:(NSString *) path;
+
+
+
 - (const char *) revolve:(const char *) profile
               aroundAxis:(SCNVector3) axisPosition
            withDirection:(SCNVector3) axisDirection;
+
+
+
 - (const char *) loft:(NSArray *) profiles
                length:(int) length;
 

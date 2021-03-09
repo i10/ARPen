@@ -28,8 +28,8 @@ class LoftPlugin: ModelingPlugin {
         self.needsBluetoothARPen = false
     }
     
-    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView) {
-        super.activatePlugin(withScene: scene, andView: view)
+    override func activatePlugin(withScene scene: PenScene, andView view: ARSCNView, urManager: UndoRedoManager){
+        super.activatePlugin(withScene: scene, andView: view, urManager: urManager)
 
         self.freePaths.removeAll()
         self.loft = nil
@@ -44,11 +44,26 @@ class LoftPlugin: ModelingPlugin {
         path.flatten()
         freePaths.append(path)
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let l = self.loft {
+        DispatchQueue.global(qos: .userInitiated).async
+        {
+            if let l = self.loft
+            {
+                let newName = self.randomString(length: 10)
+                path.name = newName
+                
                 l.addProfile(path)
                 self.freePaths.removeAll(where: { $0 === path })
-            } else {
+                
+                path.usedInGeometry = true
+                
+                
+                let buildingAction = ExpandingLoftAction(occtRef: l.occtReference!, scene: self.currentScene!, loft: l, newProfile: path, nameOfNewProfile: newName)
+                self.undoRedoManager?.actionDone(buildingAction)
+               
+            }
+            
+            else
+            {
                 if self.freePaths.count >= 2 {
                     let paths = [self.freePaths.removeFirst(), self.freePaths.removeFirst()]
                     if let l = try? ARPLoft(profiles: paths) {
@@ -56,6 +71,14 @@ class LoftPlugin: ModelingPlugin {
                         DispatchQueue.main.async {
                             self.currentScene?.drawingNode.addChildNode(l)
                         }
+                        
+                        for path in paths {
+                            path.usedInGeometry = true
+                        }
+                        
+                        let buildingAction = LoftBuildingAction(occtRef: l.occtReference!, scene: self.currentScene!, loft: l)
+                        self.undoRedoManager?.actionDone(buildingAction)
+                        
                     }
                 }
             }

@@ -43,6 +43,15 @@ class OCCTAPI {
         }
     }
     
+    func createPyramid(width:Double, height:Double, length:Double) throws -> OCCTReference {
+        if let cString = occt.createPyramid(width, height: height, length: length){
+            let ref = OCCTReference(cString: cString)
+            return ref
+        } else {
+            throw OCCTError.couldNotCreateGeometry
+        }
+    }
+
     func createCylinder(radius:Double, height:Double) throws -> OCCTReference {
         if let cString = occt.createCylinder(radius, height: height) {
             let ref = OCCTReference(cString: cString)
@@ -52,6 +61,11 @@ class OCCTAPI {
         }
     }
     
+    
+    
+    
+   
+    
     func createPath(points:[SCNVector3], corners:[CornerStyle], closed:Bool) throws -> OCCTReference {
         if let cString = occt.createPath(points, length:Int32(points.count), corners: corners.map({ $0.rawValue }), closed:closed) {
             let ref = OCCTReference(cString: cString)
@@ -60,6 +74,33 @@ class OCCTAPI {
             throw OCCTError.couldNotCreateGeometry
         }
     }
+    
+    
+    
+    
+    
+    //ToDo
+    func updatePath(label: OCCTReference, points:[SCNVector3], corners:[CornerStyle], closed:Bool) throws -> OCCTReference {
+        if let cString = occt.updatePath(label, points: points, length: Int32(points.count), corners: corners.map({$0.rawValue}), closed: closed){
+            let ref = OCCTReference(cString: cString)
+            return ref
+        }
+        
+        else {
+            throw OCCTError.couldNotCreateGeometry
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func boolean(from a: OCCTReference, cut b: OCCTReference) throws -> OCCTReference {
         if let difference = occt.booleanCut(a, subtract: b) {
@@ -89,7 +130,7 @@ class OCCTAPI {
     }
     
     func sweep(profile: OCCTReference, path: OCCTReference) throws -> OCCTReference {
-        if let sum = occt.sweep(profile, along: path) {
+        if let sum = occt.sweep(profile as String?, along: path as String?) {
             let ref = OCCTReference(cString: sum)
             return ref
         } else {
@@ -106,6 +147,8 @@ class OCCTAPI {
         }
     }
     
+    
+    
     func loft(profiles: [OCCTReference]) throws -> OCCTReference {
         if let sum = occt.loft(profiles as [Any], length: Int32(profiles.count)) {
             let ref = OCCTReference(cString: sum)
@@ -114,6 +157,10 @@ class OCCTAPI {
             throw OCCTError.couldNotCreateGeometry
         }
     }
+    
+    
+    
+    
     
     func transform(handle: OCCTReference, transformation: SCNMatrix4) {
         occt.setTransformOf(handle, transformation: transformation)
@@ -154,7 +201,7 @@ class OCCTAPI {
     }    
     
     /// Returns a triangulated version of the shape as an `SCNGeometry` object.
-    func triangulate(handle: OCCTReference) -> SCNGeometry {
+    func triangulate(handle: OCCTReference) -> SCNGeometry? {
         return occt.sceneKitMesh(of: handle)
     }
     

@@ -11,6 +11,7 @@
 #include "Registry.h"
 
 #include <occt/TopoDS_Shape.hxx>
+#include <occt/TopoDS_Wire.hxx>
 #include <occt/TCollection_AsciiString.hxx>
 #include <occt/NCollection_DataMap.hxx>
 #include <occt/gp_Trsf.hxx>
@@ -22,6 +23,8 @@
 // OCCT is weird when it comes to applying transformations. Sometimes they are idempotent, sometimes not. I therefore treat transformations separately from the objects and apply them when necessary.
 // It might have been more "elegant" to use pointers instead of strings for identifierts, but this solution was easier for me in combination with Swift.
 static NCollection_DataMap<TCollection_AsciiString, TopoDS_Shape> shapeRegistry = NCollection_DataMap<TCollection_AsciiString, TopoDS_Shape>();
+
+
 static NCollection_DataMap<TCollection_AsciiString, gp_Trsf> transformRegistry = NCollection_DataMap<TCollection_AsciiString, gp_Trsf>();
 
 /// Generates a random null-terminated alphanumeric string of lenghth 32 to be used as a key for objects
@@ -111,10 +114,10 @@ static NCollection_DataMap<TCollection_AsciiString, gp_Trsf> transformRegistry =
 }
 
 /// Effectively deletes a shape
-+ (void) freeShape:(const char *) label {
-    TopoDS_Shape shape = [self retrieveFromRegistryWithCString:label];
++ (void) freeShape:(const char *) handle {
+    TopoDS_Shape shape = [self retrieveFromRegistryWithCString:handle];
     shape.Nullify();
-    TCollection_AsciiString key = TCollection_AsciiString(label);
+    TCollection_AsciiString key = TCollection_AsciiString(handle);
     [self deleteFromRegistry:key];
 }
 

@@ -30,12 +30,13 @@ class ARPBoolNode: ARPGeomNode {
         self.a = a
         self.b = b
         self.operation = op
-        
+ 
         super.init(pivotChild: a)
         self.geometryColor = a.geometryColor
 
         self.content.addChildNode(a)
         self.content.addChildNode(b)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

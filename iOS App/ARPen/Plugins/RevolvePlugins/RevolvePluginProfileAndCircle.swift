@@ -45,12 +45,18 @@ class RevolvePluginProfileAndCircle: ModelingPlugin {
                     ], closed: false);
                 
                 if let revolution = try? ARPRevolution(profile: profile, axis: axisPath) {
+                    profile.usedInGeometry = true
+                    axisPath.usedInGeometry = true
                     
                     DispatchQueue.main.async {
                         self.currentScene?.drawingNode.addChildNode(revolution)
                         circle.removeFromParentNode()
                         self.freePaths.removeAll(where: { $0 === profile || $0 == circle })
                     }
+                    
+                    let buildingAction = RevolveBuildingAction(occtRef: revolution.occtReference!, scene: self.currentScene!, revolve: revolution)
+                    self.undoRedoManager?.actionDone(buildingAction)
+                    
                 }
             }
         }

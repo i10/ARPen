@@ -12,6 +12,7 @@ enum CornerStyle: Int32 {
     case sharp = 1, round = 2
 }
 
+
 /**
  A node of the path
  */
@@ -129,6 +130,13 @@ class ARPPathNode: ARPNode {
     }
 }
 
+
+
+
+
+
+
+
 /**
  A path which can be used e.g. as a profile for all types of extrusions (if closed) or as as spine for sweeps.
  */
@@ -144,6 +152,8 @@ class ARPPath: ARPGeomNode {
     
     var points: [ARPPathNode] = [ARPPathNode]()
     var closed: Bool = false
+    var finished: Bool = false
+    var usedInGeometry: Bool = false
     
     init(points: [ARPPathNode], closed: Bool) {
         self.closed = closed
@@ -173,6 +183,12 @@ class ARPPath: ARPGeomNode {
     func removeLastPoint() {
         let removed = self.points.removeLast()
         removed.removeFromParentNode()
+    }
+    
+    func popLastPoint() -> ARPPathNode {
+        let removed = self.points.removeLast()
+        removed.removeFromParentNode()
+        return removed
     }
     
     /// Returns 0 of the points are at the same location, 1 if they are on the same line, 2 if they are on the same plane, 3 otherwise, given a certain tolerance.
@@ -217,16 +233,23 @@ class ARPPath: ARPGeomNode {
     
     override func updateVisitedState() {}
     
+    
     override func build() throws -> OCCTReference {
+        //is the path closed
         var calcClosed = closed
+        
+        //check if its really closed
         if let first = points.first, let last = points.last,
             first.position.distance(vector: last.position) < ARPPathNode.samePointTolerance {
             calcClosed = true
         }
+
         let positions = points.compactMap { (!calcClosed || $0.fixed) && $0.active ? $0.worldPosition : nil }
+      
         let corners = points.compactMap { (!calcClosed || $0.fixed) && $0.active ? $0.cornerStyle : nil }
         
         let ref = try? OCCTAPI.shared.createPath(points: positions, corners: corners, closed: calcClosed)
+
         if let r = ref {
             OCCTAPI.shared.setPivotOf(handle: r, pivot: pivotChild.worldTransform)
         }
@@ -235,4 +258,22 @@ class ARPPath: ARPGeomNode {
 
         return ref ?? ""
     }
+    
+    ///
+    func update() {
+        if let ref = try? build() {
+            occtReference = ref
+            
+            pivotToChild()
+
+            updateView()
+        }
+        
+        else {
+            print("FAILED TO UPDATE")
+        }
+    }
+    
+
+    
 }

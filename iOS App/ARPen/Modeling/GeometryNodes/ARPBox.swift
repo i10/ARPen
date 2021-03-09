@@ -22,9 +22,10 @@ class ARPBox: ARPGeomNode {
         self.width = width
         self.height = height
         self.length = length
-        
+
         super.init()
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

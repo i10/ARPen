@@ -11,7 +11,7 @@ import Foundation
 /**
  Node for creating a lofted solid.
  */
-class ARPLoft: ARPGeomNode {
+public class ARPLoft: ARPGeomNode {
     
     var profiles: [ARPPath]
     
@@ -30,7 +30,7 @@ class ARPLoft: ARPGeomNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addProfile(_ profile: ARPPath) {
+    func addProfile(_ profile: ARPPath){
         profiles.append(profile)
         content.addChildNode(profile)
         profile.isHidden = true
@@ -46,4 +46,7 @@ class ARPLoft: ARPGeomNode {
         
         return ref ?? ""
     }
+    
+    
+    
 }

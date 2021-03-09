@@ -24,6 +24,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     var arPenManager: PenManager
     private (set) var buttons: [Button: Bool] = [.Button1: false, .Button2: false, .Button3: false]
     var paintPlugin: PaintPlugin
+    
     var activePlugin: Plugin? {
         willSet {
             //Reset everything
@@ -36,7 +37,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         }
         didSet {
             activePlugin?.pluginManager = self
-            activePlugin?.activatePlugin(withScene: penScene, andView: sceneView)
+            activePlugin?.activatePlugin(withScene: penScene, andView: sceneView, urManager: undoRedoManager)
         }
     }
     
@@ -46,6 +47,7 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     
     private (set) var penScene: PenScene
     private (set) var sceneView: ARSCNView
+    var undoRedoManager: UndoRedoManager
     
     var alternativeCursor: SCNNode? = nil
     var allowPenInput = true
@@ -70,11 +72,11 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
     init(penScene: PenScene, sceneView: ARSCNView) {
         self.penScene = penScene
         self.sceneView = sceneView
-        
+        self.undoRedoManager = UndoRedoManager()
         self.arManager = ARManager(scene: self.penScene)
         self.paintPlugin = PaintPlugin()
         self.experimentalPluginsStartAtIndex = 7
-        self.plugins = [paintPlugin, CubeByDraggingPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), CubeByExtractionPlugin(), TranslationDemoPlugin(), CombinationPlugin(), MidairPlugin(), LinearMenuPlugin(), TwoHandedTouch(), HapticMenuPlugin(), MovingCursorPlugin(), ModelingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), CombinePluginFunction(), CombinePluginSolidHole(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
+        self.plugins = [PaintPlugin(),CubeByDraggingPlugin(), CubeByExtractionPlugin(), SphereByDraggingPlugin(), CylinderByDraggingPlugin(), PyramidByDraggingPlugin(), TranslationPlugin(), DirectDeviceRotationPlugin(), TSRotationPlugin(), PenRotationPlugin(), PenRayScalingPlugin(), PinchScalingPlugin(), SweepPluginProfileAndPath(), SweepPluginTwoProfiles(), LoftPlugin(), RevolvePluginProfileAndAxis(), RevolvePluginProfileAndCircle(), RevolvePluginTwoProfiles(), PathEditorPlugin(), CombinePluginFunction(), CombinePluginSolidHole(), MidairPlugin(), LinearMenuPlugin(), TwoHandedTouch(), HapticMenuPlugin(), MovingCursorPlugin(), TranslationDemoPlugin(), CombinationPlugin(), RotationWithPenPlugin(), RotationWithDevicePlugin(), RotationWithTSPlugin(), RotationWithPenPedalPlugin(), RotationWithDevicePedalPlugin(), DirectPenScalingPlugin(), PenRayScalingTechniquePlugin(), PinchScalingTechniquePlugin(), ScrollScalingPlugin(),  TouchAndPenScalingPlugin(), PointScalingPlugin(), DepthRayPlugin(), BubblePlugin(), ShadowPlugin(), HeatmapPlugin()]
         self.pluginInstructionsCanBeHidden = Array(repeating: true, count: self.plugins.count)
         self.arPenManager = PenManager()
         //self.activePlugin = plugins.first
@@ -125,13 +127,18 @@ class PluginManager: ARManagerDelegate, PenManagerDelegate {
         }
     }
     
+    
+    
     func undoPreviousStep() {
-        // Todo: Add undo functionality for all plugins.
-//        self.paintPlugin.undoPreviousAction()
-        if activePlugin is StudyPlugin {
-            (activePlugin as! StudyPlugin).repeatTarget()
-        }
+        activePlugin?.undo()
     }
+    
+    func redoPreviousStep() {
+        activePlugin?.redo()
+    }
+    
+
+    
 }
 
 

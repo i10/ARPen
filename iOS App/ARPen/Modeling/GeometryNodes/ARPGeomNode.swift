@@ -11,11 +11,12 @@ import Foundation
 /**
  This is the base class for all Nodes which have an underlying representation in Open CASCADE (OCCT).
  */
-class ARPGeomNode: ARPNode {
+public class ARPGeomNode: ARPNode {
     
     /// Reference to the underlying shape in OCCT
     var occtReference:OCCTReference?
     
+    var buildSuccess: Bool?
     /// Contains the content of the node down the hierarchy, e.g. in case of a boolean operation between A and B, A and B will be placed here
     var content: SCNNode = SCNNode()
     /// Node for the main geometry.
@@ -43,6 +44,7 @@ class ARPGeomNode: ARPNode {
     /// This function is blocking and should be called asynchronous.
     override init() {
         self.pivotChild = SCNNode()
+        
         super.init()
         appendVisualization()
         self.content.addChildNode(pivotChild)
@@ -54,9 +56,13 @@ class ARPGeomNode: ARPNode {
     init(pivotChild:SCNNode) {
         self.pivotChild = pivotChild
         super.init()
+
         appendVisualization()
+       
         self.content.addChildNode(self.pivotChild)
+       
         self.content.isHidden = true
+       
         rebuild()
     }
     
@@ -70,6 +76,7 @@ class ARPGeomNode: ARPNode {
     final func updateView() {
         
         let geom  = OCCTAPI.shared.triangulate(handle: occtReference!)
+        
         let lines = OCCTAPI.shared.tubeframe(handle: occtReference!)
 
         // The node may have been transformed between the geometry's generation and the actual attachment in DispatchQueue.main.async
@@ -81,29 +88,44 @@ class ARPGeomNode: ARPNode {
         transformDelta.setWorldTransform(SCNMatrix4Identity)
         */
         
-        DispatchQueue.main.async {
-            self.geometryNode.geometry = geom
-            self.geometryNode.geometry?.firstMaterial?.diffuse.contents = self.geometryColor
-            self.geometryNode.geometry?.firstMaterial?.emission.contents = self.highlightColor
-            self.geometryNode.geometry?.firstMaterial?.lightingModel = .blinn
-            self.geometryNode.geometry?.firstMaterial?.diffuse.intensity = 1;
-            self.updateHighlightedState()
-            self.isoLinesNode.geometry = lines
-            self.isoLinesNode.geometry?.firstMaterial?.diffuse.contents = self.lineColor
-            self.isoLinesNode.geometry?.firstMaterial?.emission.contents = self.selectedColor
-            self.isoLinesNode.geometry?.firstMaterial?.lightingModel = .constant
-            self.updateSelectedState()
-            //self.isoLinesNode.geometry?.firstMaterial?.readsFromDepthBuffer = false
-            //self.geometryNode.renderingOrder = -1
-            
-            // This is necessary if you use world coordinates
-            //self.geometryNode.setWorldTransform(transformDelta.worldTransform)
-            //self.isoLinesNode.setWorldTransform(transformDelta.worldTransform)
-            //transformDelta.removeFromParentNode()
-            
-            //self.geometryNode.transform = SCNMatrix4Invert(self.content.transform)
-            //self.isoLinesNode.transform = SCNMatrix4Invert(self.content.transform)
+        if geom != nil {
+            DispatchQueue.main.async {
+                self.geometryNode.geometry = geom
+                self.geometryNode.geometry?.firstMaterial?.diffuse.contents = self.geometryColor
+                self.geometryNode.geometry?.firstMaterial?.emission.contents = self.highlightColor
+                self.geometryNode.geometry?.firstMaterial?.lightingModel = .blinn
+                self.geometryNode.geometry?.firstMaterial?.diffuse.intensity = 1;
+                self.updateHighlightedState()
+                self.isoLinesNode.geometry = lines
+                self.isoLinesNode.geometry?.firstMaterial?.diffuse.contents = self.lineColor
+                self.isoLinesNode.geometry?.firstMaterial?.emission.contents = self.selectedColor
+                self.isoLinesNode.geometry?.firstMaterial?.lightingModel = .constant
+                self.updateSelectedState()
+                //self.isoLinesNode.geometry?.firstMaterial?.readsFromDepthBuffer = false
+                //self.geometryNode.renderingOrder = -1
+                
+                // This is necessary if you use world coordinates
+                //self.geometryNode.setWorldTransform(transformDelta.worldTransform)
+                //self.isoLinesNode.setWorldTransform(transformDelta.worldTransform)
+                //transformDelta.removeFromParentNode()
+                
+                //self.geometryNode.transform = SCNMatrix4Invert(self.content.transform)
+                //self.isoLinesNode.transform = SCNMatrix4Invert(self.content.transform)
+            }
         }
+        
+        else{
+            DispatchQueue.main.async
+            {
+                self.buildSuccess = false
+                let myAlert = UIAlertController(title: "Could not build the geometry.", message: "Possible reason could be an overlapping path.", preferredStyle: UIAlertController.Style.alert)
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+                myAlert.addAction(okAction)
+                UIApplication.shared.delegate?.window??.rootViewController?.present(myAlert, animated: true, completion: nil)
+                
+            }
+        }
+
     }
     
     /// Call to apply changes in translation, rotation or scale to OCCT.
@@ -130,6 +152,9 @@ class ARPGeomNode: ARPNode {
         fatalError("Must Override")
     }
     
+    
+    
+    
     /// Needs to be called when properties of an object change, which influence its appearance, e.g. when a node moved in a path. This function is blocking and should be called asynchronous.
     final func rebuild() {
         if let ref = occtReference {
@@ -137,13 +162,23 @@ class ARPGeomNode: ARPNode {
         }
         if let ref = try? build() {
             occtReference = ref
+            
             pivotToChild()
+
             updateView()
+
             (parent?.parent as? ARPGeomNode)?.rebuild()
-        } else {
+    
+        }
+        
+        else {
             print("FAILED TO REBUILD")
         }
     }
+    
+    
+    
+    
     
     /// Updates the pivot to be where the `pivotChild` is.
     final func pivotToChild() {
@@ -157,8 +192,10 @@ class ARPGeomNode: ARPNode {
         /// ... and then change its pivot. Otherwise the child objects would have already been moved relative to the scene.
         self.pivot = child.transform
          */
+        
         self.setWorldTransform(pivotChild.worldTransform)
         content.transform = SCNMatrix4Invert(pivotChild.transform)
+        //self.pivot = pivotChild.transform
     }
     
     override func updateHighlightedState() {
