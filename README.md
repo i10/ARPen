@@ -7,7 +7,23 @@ ARPen is an [iOS app][8] that allows you to use a mobile pen to perform free-han
 This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).  
 
 # Instructions
+
 ## 1. Building the ARPen
+The ARPen was originally built around the "Read Bear Nano v2" chip. As this chip is not sold anymore we created a custom chip using the "RN4871". In the following we explain both setups.
+
+### 1.1 Setup using the "RN4871"
+You can 3D print the whole ARPen on your own. The 3d models can be found under the `Redesign` folder.  
+
+1. Print the 3d models for the ARPen.
+	* Choose one top half
+	* Print the lower half
+2. Insert three momentary switches or buttons into the holes in the ARPen as shown below and solder them to cables, which will be connected to a Bluetooth chip as described in the next step.
+3. Build and program the custom chip for the ARPen. The process is documented [here][9] in chapter 3. This chip will also work within the 3d models from the "Red Bear Nano v2"-setup. The other way does not work, as the Red Bear is to wide to fit into the new models.
+4. Print the marker sheet which corresponds to your chosen top half on an A4 paper using a normal 2D printer, cut out the individual marker codes (6x or 12x), and paste them around the printed box.
+5. Connect the momentary buttons and lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to the chip as shown below.
+6. Place the chip and battery inside the shaft of the pen. _Remember_ to disconnect the battery after using ARPen for sketching or modeling!
+
+### 1.2 Setup using the "Read Bear Nano v2"
 You can 3D print the whole ARPen on your own. The 3d models can be found under the `ARPen 3d Models and Marker` folder.  
 
 1. Print the 3d models for the ARPen.
@@ -46,6 +62,7 @@ Feel free to [submit pull requests][3], [create issues][2] and spread the word! 
 [6]: https://www.sparkfun.com/products/13853 "Lithium-Ion Battery"
 [7]: https://github.com/i10/ARPen/wiki/Developing-for-ARPen "Developing for ARPen"
 [8]: https://hci.rwth-aachen.de/arpen-ios "The ARPen iOS App"
+[9]: https://hci.rwth-aachen.de/publications/schaefer2020a.pdf "Redesigning ARPen"
 
 [image-1]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Buttons.JPG "Momentary Buttons"
 [image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20setup.png "Bluetooth Setup"
