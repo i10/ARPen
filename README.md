@@ -22,7 +22,7 @@ You can 3d print the whole ARPen on your own. The 3d models, markers and the dri
 3. Build and program the custom chip for the ARPen. The process is documented [here][9] in chapter 3. This chip will also work within the 3d models from the "Red Bear Nano v2"-setup. The other way does not work, as the Red Bear is to wide to fit into the new models.
 4. Print the marker sheet which corresponds to your chosen top half on an A4 paper using a normal 2D printer, cut out the individual marker codes (6x or 12x), and paste them around the printed box.
 5. Connect the momentary buttons (B1-B3) to their respective pins and the lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to VCC and one of the GND pins. The last GND pin has to be connected to the GND cable from the buttons (see the last image).
-	![][image-7]
+	![][image-7]<img src="https://github.com/i10/ARPen/blob/redesign-integration/Documentation/images/Redesign/breadboard.png" width="70%">
 6. Place the chip and battery inside the shaft of the pen. _Remember_ to disconnect the battery after using ARPen for sketching or modeling!
 
 ### 1.2 Setup using the "Read Bear Nano v2"
