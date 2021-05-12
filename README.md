@@ -2,7 +2,7 @@
 
 Ever wanted to 3d print a dock for your phone? Or maybe a coffee cup holder that can be attached next to your car dashboard? If so, you would have to measure the dimensions of your phone and dashboard, construct 3d models using CAD-like software, convert these models to appropriate format, and print them in 3d. As you can see, this is an arduous process.
 
-ARPen is an [iOS app][8] that allows you to use a mobile pen to perform free-hand 3D modeling _directly in the real world_. The app uses the in-built iPhone camera to do the tracking. ARPen uses the ARKit framework to track a special 3D-printed pen, called ARPen, in 3D. Instructions to build this pen can be found *below*.  
+ARPen is an [iOS app][8] that allows you to use a mobile pen to perform free-hand 3d modeling _directly in the real world_. The app uses the in-built iPhone camera to do the tracking. ARPen uses the ARKit framework to track a special 3d-printed pen, called ARPen, in 3d. Instructions to build this pen can be found *below*.  
 
 This project is sponsored by the German Federal Ministry of Education and Research (BMBF) as part of their Open Photonics call (Personal Photonics, 13N14065).  
 
@@ -12,19 +12,21 @@ This project is sponsored by the German Federal Ministry of Education and Resear
 The ARPen was originally built around the "Read Bear Nano v2" chip. As this chip is not sold anymore we created a custom chip using the "RN4871". In the following we explain both setups.
 
 ### 1.1 Setup using the "RN4871"
-You can 3D print the whole ARPen on your own. The 3d models can be found under the `Redesign` folder.  
+You can 3d print the whole ARPen on your own. The 3d models, markers and the drill files for the custom chip can be found under the `Redesign` folder.  
 
 1. Print the 3d models for the ARPen.
-	* Choose one top half
+	* Choose one top half (we recommend "Top.stl")
 	* Print the lower half
-2. Insert three momentary switches or buttons into the holes in the ARPen as shown below and solder them to cables, which will be connected to a Bluetooth chip as described in the next step.
+2. Insert three momentary switches or buttons into the holes in the ARPen and solder them to cables, which will be connected to a bluetooth chip as described in the next steps. Make sure not to solder the cables onto directly connected pins of the buttons. Take a look at the data sheet of your buttons to find out which pins are internally connected.
+	![][image-6]
 3. Build and program the custom chip for the ARPen. The process is documented [here][9] in chapter 3. This chip will also work within the 3d models from the "Red Bear Nano v2"-setup. The other way does not work, as the Red Bear is to wide to fit into the new models.
 4. Print the marker sheet which corresponds to your chosen top half on an A4 paper using a normal 2D printer, cut out the individual marker codes (6x or 12x), and paste them around the printed box.
-5. Connect the momentary buttons and lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to the chip as shown below.
+5. Connect the momentary buttons (B1-B3) to their respective pins and the lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to VCC and one of the GND pins. The last GND pin has to be connected to the GND cable from the buttons (see the last image).
+	![][image-7]
 6. Place the chip and battery inside the shaft of the pen. _Remember_ to disconnect the battery after using ARPen for sketching or modeling!
 
 ### 1.2 Setup using the "Read Bear Nano v2"
-You can 3D print the whole ARPen on your own. The 3d models can be found under the `ARPen 3d Models and Marker` folder.  
+You can 3d print the whole ARPen on your own. The 3d models can be found under the `ARPen 3d Models and Marker` folder.  
 
 1. Print the 3d models for the ARPen.
 	* If you are using a multi-material printer, which allows you to use more than one print material, print the following models
@@ -68,3 +70,7 @@ Feel free to [submit pull requests][3], [create issues][2] and spread the word! 
 [image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20setup.png "Bluetooth Setup"
 [image-3]:  https://github.com/i10/ARPen/blob/master/Documentation/images/BLE%20mount%20setup.png "BLE Mount Setup"
 [image-4]:  https://github.com/i10/ARPen/blob/master/Documentation/images/Soldering_Setup.png "Soldering Setup"
+
+[image-5]: https://github.com/i10/ARPen/blob/redesign-integration/Documentation/images/Redesign/breadboard.png "Breadboard Setup"
+[image-6]: https://github.com/i10/ARPen/blob/redesign-integration/Documentation/images/Redesign/pinheader.png "Pinheader Connections"
+[image-7]: https://github.com/i10/ARPen/blob/redesign-integration/Documentation/images/Redesign/rn4871_digital3.png "Pin Layout"
