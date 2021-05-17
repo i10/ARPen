@@ -20,7 +20,9 @@ using namespace std;
 
 aruco::MarkerDetector mDetector;
 /// markerSize is the size of the marker in real world in meters.
-float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Idee diesen Wert anzupassen, außer du druckst neue Marker! gez. Felix
+//float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Idee diesen Wert anzupassen, außer du druckst neue Marker! gez. Felix
+float markerSize = 0.0240;
+float markerSizeSmall = 0.0144;
 
 @interface OpenCVWrapper()
 @property NSOperationQueue* queue;
@@ -90,20 +92,31 @@ float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Ide
         std::vector<aruco::Marker> allMarkers;
         std::vector<aruco::Marker> markers;
 
+        std::vector<aruco::Marker> allMarkersSmall;
+        std::vector<aruco::Marker> markersSmall;
+        
         // Detect the markers in the image
         mDetector.detect(image, allMarkers, camParams, markerSize);
+        mDetector.detect(image, allMarkersSmall, camParams, markerSizeSmall);
 
         std::vector<aruco::Marker>::iterator it;
         int i = 0;
         
         for(it = allMarkers.begin(); it != allMarkers.end(); it++,i++) {
-            if (it->id < 1 || it->id > 8) {
+            if (it->id < 1 || it->id > 20) {
                 continue;
             }
             markers.push_back(*it);
         }
         
-        if(markers.size() == 0) {
+        for(it = allMarkersSmall.begin(); it != allMarkersSmall.end(); it++,i++) {
+            if (it->id < 21 || it->id > 26) {
+                continue;
+            }
+            markersSmall.push_back(*it);
+        }
+        
+        if(markers.size() == 0 && markersSmall.size() == 0) {
             [delegate noMarkerFound];
             return;
         }
@@ -114,6 +127,36 @@ float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Ide
             //SCNVector4 rotation = SCNVector4Make(r[0], r[1], r[2], r[3]);
             
             vector<cv::Point3f> objpoints = it->get3DPoints(markerSize);
+            
+            cv::Mat raux, taux;
+            cv::solvePnP(objpoints, *it, cameraMatrix, distCoeffs, raux, taux);
+            
+            cv::Mat rotationMatrix;
+            cv::Rodrigues(raux, rotationMatrix);
+            cv::Vec3f eulerAngles = [OpenCVWrapper rotationMatrixToEulerAngles:rotationMatrix];
+            SCNVector3 rotation = SCNVector3Make(eulerAngles[0], eulerAngles[1], eulerAngles[2]);
+            rotation.y *= -1;
+            rotation.z *= -1;
+            
+            taux.convertTo(it->Tvec, CV_32F);
+            
+            SCNVector3 translation = SCNVector3Make(it->Tvec.at<float>(0,0), it->Tvec.at<float>(0,1), it->Tvec.at<float>(0,2));
+            // Convert OpenGL to SceneKit
+            translation.y *= -1;
+            translation.z *= -1;
+            
+            [translations addObject:[NSValue valueWithSCNVector3:translation]];
+            [rotations addObject:[NSValue valueWithSCNVector3:rotation]];
+            [usedIds addObject:[NSNumber numberWithInt:it->id]];
+            
+        }
+        
+        for(i = 0, it = markersSmall.begin(); it != markersSmall.end(); it++,i++) {
+            //std::cout << "M = "<< std::endl << " "  << &rvecs << std::endl << std::endl;
+            
+            //SCNVector4 rotation = SCNVector4Make(r[0], r[1], r[2], r[3]);
+            
+            vector<cv::Point3f> objpoints = it->get3DPoints(markerSizeSmall);
             
             cv::Mat raux, taux;
             cv::solvePnP(objpoints, *it, cameraMatrix, distCoeffs, raux, taux);
