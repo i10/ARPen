@@ -95,6 +95,7 @@
 		4AFE55B525EE8D5D00333026 /* PointScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE55AF25EE8D5D00333026 /* PointScalingPlugin.swift */; };
 		4AFE55B625EE8D5D00333026 /* PinchScalingTechniquePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE55B025EE8D5D00333026 /* PinchScalingTechniquePlugin.swift */; };
 		4AFE55B725EE8D5D00333026 /* ScrollScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE55B125EE8D5D00333026 /* ScrollScalingPlugin.swift */; };
+		60D765E7264EAA2B00508004 /* ModelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D765E6264EAA2B00508004 /* ModelListViewController.swift */; };
 		750292912559C87A00963547 /* ARPPyramid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750292902559C87A00963547 /* ARPPyramid.swift */; };
 		75152A912573B8750051E15D /* PenRayScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A902573B8750051E15D /* PenRayScalingPlugin.swift */; };
 		75152A932573BAB30051E15D /* PenRayScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A922573BAB30051E15D /* PenRayScaler.swift */; };
@@ -266,6 +267,7 @@
 		4AFE55AF25EE8D5D00333026 /* PointScalingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointScalingPlugin.swift; sourceTree = "<group>"; };
 		4AFE55B025EE8D5D00333026 /* PinchScalingTechniquePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinchScalingTechniquePlugin.swift; sourceTree = "<group>"; };
 		4AFE55B125EE8D5D00333026 /* ScrollScalingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollScalingPlugin.swift; sourceTree = "<group>"; };
+		60D765E6264EAA2B00508004 /* ModelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelListViewController.swift; sourceTree = "<group>"; };
 		750292902559C87A00963547 /* ARPPyramid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPPyramid.swift; sourceTree = "<group>"; };
 		75152A902573B8750051E15D /* PenRayScalingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScalingPlugin.swift; sourceTree = "<group>"; };
 		75152A922573BAB30051E15D /* PenRayScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenRayScaler.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				4AC711C8204FDCE800CD4239 /* BluetoothDeviceListTableViewController.swift */,
 				4A5695312058192B00C8065E /* UserStudyIDListTableViewController.swift */,
 				4A5695332058195200C8065E /* UserStudyRecordsListTableViewController.swift */,
+				60D765E6264EAA2B00508004 /* ModelListViewController.swift */,
 			);
 			path = SettingsViewControllers;
 			sourceTree = "<group>";
@@ -972,6 +975,7 @@
 				DC28B467200E4BF1008B77AB /* PaintPlugin.swift in Sources */,
 				4AC1F5BB2524D1BD002B0A7F /* HapticMenuPlugin.swift in Sources */,
 				E983D24822ABF3830000B8D5 /* CylinderByDraggingPlugin.swift in Sources */,
+				60D765E7264EAA2B00508004 /* ModelListViewController.swift in Sources */,
 				EA0C795F22F078EE00E820E8 /* ARPenStudyNode.swift in Sources */,
 				4AC711C7204EDCBE00CD4239 /* SettingsTableViewController.swift in Sources */,
 				DC28B46B200E4C78008B77AB /* Button.swift in Sources */,
@@ -1141,7 +1145,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 286L2EXR23;
+				DEVELOPMENT_TEAM = F97YGFA75M;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1152,7 +1156,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				PRODUCT_BUNDLE_IDENTIFIER = rene.schaefer.arpen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1167,7 +1171,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 286L2EXR23;
+				DEVELOPMENT_TEAM = F97YGFA75M;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1178,7 +1182,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rwth-aachen.hci.arpen";
+				PRODUCT_BUNDLE_IDENTIFIER = rene.schaefer.arpen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ARPen/ARPen-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

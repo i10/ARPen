@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zyT-qq-7YR">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -253,7 +254,7 @@
                             <tableViewSection headerTitle="Scene" id="9RH-3z-5NB">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="1nw-TS-5oF">
-                                        <rect key="frame" x="0.0" y="157.33333206176758" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="151" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1nw-TS-5oF" id="pa5-HU-1bq">
                                             <rect key="frame" x="44" y="0.0" width="724" height="44"/>
@@ -286,7 +287,7 @@
                             <tableViewSection headerTitle="" id="CPN-6b-Rj7">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="9jT-b5-rN7">
-                                        <rect key="frame" x="0.0" y="241.66666603088379" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="230.33333396911621" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9jT-b5-rN7" id="gLB-K3-8zZ">
                                             <rect key="frame" x="44" y="0.0" width="724" height="44"/>
@@ -313,17 +314,41 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="ARPen Model" id="Zrc-Xb-HZY" userLabel="ARPen Model">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="KFq-CJ-vaS" style="IBUITableViewCellStyleDefault" id="ra4-ad-MEE" userLabel="ARPen Model Table View">
+                                        <rect key="frame" x="0.0" y="324" width="812" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ra4-ad-MEE" id="nBM-Pd-X1n">
+                                            <rect key="frame" x="44" y="0.0" width="694.33333333333337" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Select the ARPen Model" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KFq-CJ-vaS">
+                                                    <rect key="frame" x="20" y="0.0" width="666.33333333333337" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xx0-tI-GAq" kind="show" id="4sq-bC-vAX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Bluetooth ARPen" id="cma-1U-NYU">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="CjU-1l-hBX" style="IBUITableViewCellStyleDefault" id="hwo-f9-QtB">
-                                        <rect key="frame" x="0.0" y="341.66666603088379" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="417.66666603088379" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hwo-f9-QtB" id="uZu-5d-27b">
-                                            <rect key="frame" x="44" y="0.0" width="692.66666666666663" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="794.33333333333337" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Select the Bluetooth ARPen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CjU-1l-hBX">
-                                                    <rect key="frame" x="20" y="0.0" width="664.66666666666663" height="44"/>
+                                                    <rect key="frame" x="15" y="0.0" width="771.33333333333337" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -336,10 +361,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qgb-Mt-KWo">
-                                        <rect key="frame" x="0.0" y="385.66666603088379" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="461.66666603088379" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qgb-Mt-KWo" id="wCU-qh-lt3">
-                                            <rect key="frame" x="44" y="0.0" width="724" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="812" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgA-oj-qIZ">
@@ -366,7 +391,7 @@
                             <tableViewSection headerTitle="" id="DzS-fi-jqq">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="79" id="nBV-NU-uBx">
-                                        <rect key="frame" x="0.0" y="470" width="812" height="79"/>
+                                        <rect key="frame" x="0.0" y="541" width="812" height="79"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nBV-NU-uBx" id="DR9-i4-HDu">
                                             <rect key="frame" x="0.0" y="0.0" width="812" height="79"/>
@@ -418,7 +443,7 @@
                             <tableViewSection headerTitle="User Study Information" id="dkU-a0-JGx">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QCk-wY-IL4">
-                                        <rect key="frame" x="0.0" y="605" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="669.66666603088379" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QCk-wY-IL4" id="7xb-Fo-HBs">
                                             <rect key="frame" x="0.0" y="0.0" width="812" height="44"/>
@@ -457,14 +482,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="AI9-fw-eBb" style="IBUITableViewCellStyleDefault" id="BuW-El-RmV">
-                                        <rect key="frame" x="0.0" y="649" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="713.66666603088379" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BuW-El-RmV" id="zqY-uW-cr3">
-                                            <rect key="frame" x="0.0" y="0.0" width="792.66666666666663" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="794.33333333333337" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="View Entries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AI9-fw-eBb">
-                                                    <rect key="frame" x="15" y="0.0" width="769.66666666666663" height="44"/>
+                                                    <rect key="frame" x="15" y="0.0" width="771.33333333333337" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -477,7 +502,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6Cf-qi-iut">
-                                        <rect key="frame" x="0.0" y="693" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="757.66666603088379" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Cf-qi-iut" id="5L7-4E-4OW">
                                             <rect key="frame" x="0.0" y="0.0" width="812" height="44"/>
@@ -503,7 +528,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="br8-Wc-FXg">
-                                        <rect key="frame" x="0.0" y="737" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="801.66666603088379" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="br8-Wc-FXg" id="enz-Bh-Hnt">
                                             <rect key="frame" x="0.0" y="0.0" width="812" height="44"/>
@@ -529,7 +554,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="nB0-Iu-iRc">
-                                        <rect key="frame" x="0.0" y="781" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="845.66666603088379" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nB0-Iu-iRc" id="H77-fO-jvH">
                                             <rect key="frame" x="0.0" y="0.0" width="812" height="44"/>
@@ -559,7 +584,7 @@
                             <tableViewSection headerTitle="Modeling Kernel Information" id="YUm-br-3WZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MFQ-0Z-O2T">
-                                        <rect key="frame" x="0.0" y="881" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="939.33333206176758" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MFQ-0Z-O2T" id="7w2-gI-ia8">
                                             <rect key="frame" x="0.0" y="0.0" width="812" height="44"/>
@@ -581,7 +606,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="2Vq-SN-8U4">
-                                        <rect key="frame" x="0.0" y="925" width="812" height="44"/>
+                                        <rect key="frame" x="0.0" y="983.33333206176758" width="812" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Vq-SN-8U4" id="2Nk-fK-Nv0">
                                             <rect key="frame" x="0.0" y="0.0" width="812" height="44"/>
@@ -608,7 +633,6 @@
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="bV6-Dl-H7K" id="jfO-XG-XaS"/>
-                            <outlet property="delegate" destination="bV6-Dl-H7K" id="fmV-3S-TuA"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="k71-xu-EWW">
@@ -626,6 +650,7 @@
                     <connections>
                         <outlet property="bluetoothDeviceTableViewCell" destination="hwo-f9-QtB" id="rbY-ic-vas"/>
                         <outlet property="clearSceneButton" destination="ujQ-ry-0ID" id="GcI-g4-r43"/>
+                        <outlet property="penModelTableViewCell" destination="ra4-ad-MEE" id="ive-pg-DvO"/>
                         <outlet property="penSizeLabel" destination="Yzh-ZR-qGb" id="DjM-j6-FHi"/>
                         <outlet property="penSizeSlider" destination="Mtg-ZS-EeL" id="6he-r6-tom"/>
                         <outlet property="userIDTextField" destination="eTC-7m-Ryy" id="QT2-SA-THK"/>
@@ -634,6 +659,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agt-8e-z7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1665.5172413793105" y="16.800000000000001"/>
+        </scene>
+        <!--Model List Table View Controller-->
+        <scene sceneID="q2Q-7R-AIp">
+            <objects>
+                <tableViewController id="xx0-tI-GAq" userLabel="Model List Table View Controller" customClass="ModelListViewController" customModule="ARPen" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wsM-RU-4lp">
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ARPenModelCell" textLabel="GI5-8d-A6r" style="IBUITableViewCellStyleDefault" id="5wy-33-9kF" userLabel="ARPenModelCell">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="812" height="83.666664123535156"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5wy-33-9kF" id="MNt-ma-9Mt">
+                                    <rect key="frame" x="44" y="0.0" width="724" height="83.666664123535156"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GI5-8d-A6r">
+                                            <rect key="frame" x="20" y="0.0" width="684" height="83.666664123535156"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xx0-tI-GAq" id="Qsa-bB-U8c"/>
+                            <outlet property="delegate" destination="xx0-tI-GAq" id="sIW-Yb-mBs"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="2WD-kq-2bs"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e1y-QZ-TBv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2380" y="-1349"/>
         </scene>
         <!--Bluetooth Device List Table View Controller-->
         <scene sceneID="Nbz-FZ-lFL">
@@ -645,7 +708,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bluetoothDeviceCell" textLabel="Tni-Ty-NAB" detailTextLabel="60p-O8-1k4" style="IBUITableViewCellStyleSubtitle" id="Nhz-r7-yl9">
-                                <rect key="frame" x="0.0" y="28" width="812" height="55.666667938232422"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="812" height="55.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Nhz-r7-yl9" id="nlt-qv-sxW">
                                     <rect key="frame" x="44" y="0.0" width="724" height="55.666667938232422"/>
@@ -689,14 +752,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="userIDCell" textLabel="nl2-Xe-gec" style="IBUITableViewCellStyleDefault" id="SuS-VD-6az">
-                                <rect key="frame" x="0.0" y="28" width="812" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="812" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SuS-VD-6az" id="1tE-lY-xay">
-                                    <rect key="frame" x="44" y="0.0" width="692.66666666666663" height="43.666667938232422"/>
+                                    <rect key="frame" x="44" y="0.0" width="694.33333333333337" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nl2-Xe-gec">
-                                            <rect key="frame" x="20" y="0.0" width="664.66666666666663" height="43.666667938232422"/>
+                                            <rect key="frame" x="20" y="0.0" width="666.33333333333337" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -730,7 +793,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userRecordCell" textLabel="6uS-6h-SNH" detailTextLabel="weJ-w1-W5E" style="IBUITableViewCellStyleSubtitle" id="TFf-zH-qqX">
-                                <rect key="frame" x="0.0" y="28" width="812" height="55.666667938232422"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="812" height="55.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TFf-zH-qqX" id="MWS-6R-x5M">
                                     <rect key="frame" x="44" y="0.0" width="724" height="55.666667938232422"/>
@@ -810,6 +873,9 @@
         <image name="SoftwareButton" width="66.666664123535156" height="66.666664123535156"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

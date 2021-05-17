@@ -17,6 +17,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
     
     @IBOutlet weak var penSizeLabel: UILabel!
     @IBOutlet weak var penSizeSlider: UISlider!
+    @IBOutlet weak var penModelTableViewCell: UITableViewCell!
     @IBOutlet weak var bluetoothDeviceTableViewCell: UITableViewCell!
     @IBOutlet weak var userIDTextField: UITextField!
     @IBOutlet weak var clearSceneButton: UIButton!
@@ -31,6 +32,8 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
         let currentPenSize = UserDefaults.standard.float(forKey: UserDefaultsKeys.penLength.rawValue) * 100
         self.penSizeSlider.value = currentPenSize
         self.penSizeLabel.text = "\(currentPenSize) cm"
+        
+        self.setCurrentPenModelLabel()
         
         // If the Bluetooth ARPen is not connected, disable relevant menu items.
         if(self.bluetoothARPenConnected == false) {
@@ -78,6 +81,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate  {
             self.clearSceneButton.setTitle("No objects in the scene", for: UIControl.State.normal)
             self.clearSceneButton.isEnabled = false
         }
+    }
+    
+    func setCurrentPenModelLabel() {
+        let currentModel = UserDefaults.standard.integer(forKey: UserDefaultsKeys.arPenModel.rawValue)
+        self.penModelTableViewCell.textLabel?.text = ARPenModelKeys(rawValue: currentModel)!.string
+        self.scene.markerBox.updatePenTipCalculations()
     }
     
     @IBAction func clearSceneButtonPressed(_ sender: Any) {
