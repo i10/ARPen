@@ -77,8 +77,16 @@ class MarkerBox: SCNNode {
     
     func calculatePenTip(length: Double, model: ARPenModelKeys){
         //var penLength: Double = length //measured from center of the cube to the pen tip. In meters
-        let cubeSideLength: Double = 0.03 //in meters
-        let markerOffset: Double = 0.001 //x & y offset of marker from center of the cube's side. For "close" markers. In meters
+        let cubeSideLength: Double//in meters
+        let markerOffset: Double//x & y offset of marker from center of the cube's side. For "close" markers. In meters
+        if(model == ARPenModelKeys.original){
+            cubeSideLength = 0.04
+            markerOffset = 0.005
+        } else {
+            //Redesigned values
+            cubeSideLength = 0.03
+            markerOffset = 0.001
+        }
         let markerOffsetSmall: Double = 0.0006 //x & y offset of marker from center of the cube's side. For "close" markers. In meters
         // translation values from the detected marker position to the pen tip
         var xTranslationCloseBack, yTranslationCloseBack, zTranslationCloseBack,//translation values for the sides of the cube closer to the stem of the pen -> "close" markers
@@ -110,7 +118,7 @@ class MarkerBox: SCNNode {
         
         switch (model) {
         case ARPenModelKeys.original:
-            break
+            backToTipLength = length
         case ARPenModelKeys.rBack:
             backToTipLength  = 0.140
         case ARPenModelKeys.rTop:
@@ -130,7 +138,7 @@ class MarkerBox: SCNNode {
         }
             
         //BACKMODELPART START
-        if(model == ARPenModelKeys.rBack || model == ARPenModelKeys.rBackFront || model == ARPenModelKeys.rBackTop || model == ARPenModelKeys.rBackFrontSmall ){
+        if(model == ARPenModelKeys.original || model == ARPenModelKeys.rBack || model == ARPenModelKeys.rBackFront || model == ARPenModelKeys.rBackTop || model == ARPenModelKeys.rBackFrontSmall ){
             //calculation of translation values for the "close" markers. The calculations assume looking along the z Axis in positive direction (directly onto the marker)
             //for z, first move from position of the marker into the center of the cube (positive Z -> inside the cube)
             zTranslationCloseBack = 0.5 * cubeSideLength
