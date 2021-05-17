@@ -20,7 +20,7 @@ class MarkerBox: SCNNode {
     override public class var supportsSecureCoding: Bool { return secureCoding }
     let positionFilter = PositionFilter(alphaValue: 0.5, gammaValue: 0.5, slerpFactor: 0.5)
     
-    var currentModel = ARPenModelKeys.rFront
+    var currentModel = ARPenModelKeys.original
     
     /**
      * Describes in which landscape orientation the device is currently hold
@@ -570,7 +570,7 @@ class MarkerBox: SCNNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode()]
+        self.markerArray = [SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(),SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(), SCNNode(),SCNNode(),SCNNode(),SCNNode(),SCNNode(),SCNNode(),SCNNode()]
         super.init(coder: aDecoder)
     }
     

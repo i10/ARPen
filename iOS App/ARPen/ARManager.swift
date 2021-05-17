@@ -37,7 +37,7 @@ class ARManager: NSObject, ARSessionDelegate, ARSessionObserver, OpenCVWrapperDe
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        self.opencvWrapper.findMarker(frame.capturedImage, withCameraIntrinsics: frame.camera.intrinsics, cameraSize: frame.camera.imageResolution)
+        self.opencvWrapper.findMarker(frame.capturedImage, withCameraIntrinsics: frame.camera.intrinsics, cameraSize: frame.camera.imageResolution, currentModel: Int32(UserDefaults.standard.integer(forKey: UserDefaultsKeys.arPenModel.rawValue)))
         
         // create a dictionary literal to pass frame and trackingState
         let informationPackage: [String : Any] = ["frame": frame, "trackingState": frame.camera.trackingState]

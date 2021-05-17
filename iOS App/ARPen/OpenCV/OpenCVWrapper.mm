@@ -20,9 +20,15 @@ using namespace std;
 
 aruco::MarkerDetector mDetector;
 /// markerSize is the size of the marker in real world in meters.
-//float markerSize = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Idee diesen Wert anzupassen, außer du druckst neue Marker! gez. Felix
-float markerSize = 0.0240;
+float markerSizeOriginal = 0.0258; // Lieber Felix. Komm bitte nicht nochmal auf die Idee diesen Wert anzupassen, außer du druckst neue Marker! gez. Felix
+float markerSizeRedesigned = 0.0240;
 float markerSizeSmall = 0.0144;
+
+// Used to hold the indices for special ARPens
+// Original model
+const int ORIGINAL_MODEL = 0;
+// BackFrontSmall model
+const int SMALL_MODEL = 7;
 
 @interface OpenCVWrapper()
 @property NSOperationQueue* queue;
@@ -49,7 +55,7 @@ float markerSizeSmall = 0.0144;
 /**
  Finds a marker in a given CVPixelBufferRef
  */
--(void)findMarker:(CVPixelBufferRef)pixelBuffer withCameraIntrinsics:(matrix_float3x3)intrinsics cameraSize:(CGSize)cameraSize {
+-(void)findMarker:(CVPixelBufferRef)pixelBuffer withCameraIntrinsics:(matrix_float3x3)intrinsics cameraSize:(CGSize)cameraSize currentModel:(int)currentModel {
     
     //Convert intrinsics into cv::Mat
     //Took that from https://github.com/pukeanddie/aruco-arkit-localizer
@@ -89,31 +95,79 @@ float markerSizeSmall = 0.0144;
         NSMutableArray<NSValue*>* translations = [NSMutableArray array];
         NSMutableArray<NSNumber*>* usedIds = [NSMutableArray array];
         
-        std::vector<aruco::Marker> allMarkers;
+        std::vector<aruco::Marker> allMarkersOriginal;
+        std::vector<aruco::Marker> allMarkersRedesigned;
         std::vector<aruco::Marker> markers;
 
         std::vector<aruco::Marker> allMarkersSmall;
         std::vector<aruco::Marker> markersSmall;
         
-        // Detect the markers in the image
-        mDetector.detect(image, allMarkers, camParams, markerSize);
-        mDetector.detect(image, allMarkersSmall, camParams, markerSizeSmall);
+        // Detect the markers in the image -> indices must match ARPenModelKeys indices
+        // 0 = original model
+        if(currentModel == ORIGINAL_MODEL){
+            mDetector.detect(image, allMarkersOriginal, camParams, markerSizeOriginal);
+        } else {
+            // redesigned model
+            mDetector.detect(image, allMarkersRedesigned, camParams, markerSizeRedesigned);
+        }
+        //additionally check for small markers if needed (7 = backFrontSmall)
+        if(currentModel == SMALL_MODEL){
+            mDetector.detect(image, allMarkersSmall, camParams, markerSizeSmall);
+        }
 
         std::vector<aruco::Marker>::iterator it;
         int i = 0;
         
-        for(it = allMarkers.begin(); it != allMarkers.end(); it++,i++) {
-            if (it->id < 1 || it->id > 20) {
-                continue;
+        //0: original
+        //1: rTop
+        //2: rBack
+        //3: rFront
+        //4: rBackTop
+        //5: rBackFront
+        //6: rTopFront
+        //7:rBackFrontSmall
+        if(currentModel == ORIGINAL_MODEL){
+            for(it = allMarkersOriginal.begin(); it != allMarkersOriginal.end(); it++) {
+                if (it->id < 1 || it->id > 8) {
+                    continue;
+                }
+                markers.push_back(*it);
             }
-            markers.push_back(*it);
+        } else {
+            // Redesigned models
+            for(it = allMarkersRedesigned.begin(); it != allMarkersRedesigned.end(); it++) {
+                if (it->id < 1 || it->id > 20) {
+                    continue;
+                }
+                switch (it->id){
+                    //Back cube
+                    case 1 ... 6:
+                        if(not(currentModel == 2 || currentModel == 4 || currentModel == 5 || currentModel == 7)) {continue;}
+                        break;
+                    //CHIARPen(7) and laserMesseARPen(8) are always added
+                    case 7 ... 8:
+                        break;
+                    //Front cube
+                    case 9 ... 14:
+                        if(not(currentModel == 3 || currentModel == 5 || currentModel == 6)) {continue;}
+                        break;
+                    //Top cube
+                    case 15 ... 20:
+                        if(not(currentModel == 1 || currentModel == 4 || currentModel == 6)) {continue;}
+                        break;
+                }
+                markers.push_back(*it);
+            }
         }
         
-        for(it = allMarkersSmall.begin(); it != allMarkersSmall.end(); it++,i++) {
-            if (it->id < 21 || it->id > 26) {
-                continue;
+        //additionally check for small markers if needed (7 = backFrontSmall)
+        if(currentModel == SMALL_MODEL){
+            for(it = allMarkersSmall.begin(); it != allMarkersSmall.end(); it++) {
+                if (it->id < 21 || it->id > 26) {
+                    continue;
+                }
+                markersSmall.push_back(*it);
             }
-            markersSmall.push_back(*it);
         }
         
         if(markers.size() == 0 && markersSmall.size() == 0) {
@@ -126,7 +180,8 @@ float markerSizeSmall = 0.0144;
             
             //SCNVector4 rotation = SCNVector4Make(r[0], r[1], r[2], r[3]);
             
-            vector<cv::Point3f> objpoints = it->get3DPoints(markerSize);
+            //Set the correct marker size for the current model
+            vector<cv::Point3f> objpoints = currentModel == ORIGINAL_MODEL ? it->get3DPoints(markerSizeOriginal) : it->get3DPoints(markerSizeRedesigned);
             
             cv::Mat raux, taux;
             cv::solvePnP(objpoints, *it, cameraMatrix, distCoeffs, raux, taux);
@@ -151,34 +206,35 @@ float markerSizeSmall = 0.0144;
             
         }
         
-        for(i = 0, it = markersSmall.begin(); it != markersSmall.end(); it++,i++) {
-            //std::cout << "M = "<< std::endl << " "  << &rvecs << std::endl << std::endl;
-            
-            //SCNVector4 rotation = SCNVector4Make(r[0], r[1], r[2], r[3]);
-            
-            vector<cv::Point3f> objpoints = it->get3DPoints(markerSizeSmall);
-            
-            cv::Mat raux, taux;
-            cv::solvePnP(objpoints, *it, cameraMatrix, distCoeffs, raux, taux);
-            
-            cv::Mat rotationMatrix;
-            cv::Rodrigues(raux, rotationMatrix);
-            cv::Vec3f eulerAngles = [OpenCVWrapper rotationMatrixToEulerAngles:rotationMatrix];
-            SCNVector3 rotation = SCNVector3Make(eulerAngles[0], eulerAngles[1], eulerAngles[2]);
-            rotation.y *= -1;
-            rotation.z *= -1;
-            
-            taux.convertTo(it->Tvec, CV_32F);
-            
-            SCNVector3 translation = SCNVector3Make(it->Tvec.at<float>(0,0), it->Tvec.at<float>(0,1), it->Tvec.at<float>(0,2));
-            // Convert OpenGL to SceneKit
-            translation.y *= -1;
-            translation.z *= -1;
-            
-            [translations addObject:[NSValue valueWithSCNVector3:translation]];
-            [rotations addObject:[NSValue valueWithSCNVector3:rotation]];
-            [usedIds addObject:[NSNumber numberWithInt:it->id]];
-            
+        if(currentModel == SMALL_MODEL){
+            for(i = 0, it = markersSmall.begin(); it != markersSmall.end(); it++,i++) {
+                //std::cout << "M = "<< std::endl << " "  << &rvecs << std::endl << std::endl;
+                
+                //SCNVector4 rotation = SCNVector4Make(r[0], r[1], r[2], r[3]);
+                
+                vector<cv::Point3f> objpoints = it->get3DPoints(markerSizeSmall);
+                
+                cv::Mat raux, taux;
+                cv::solvePnP(objpoints, *it, cameraMatrix, distCoeffs, raux, taux);
+                
+                cv::Mat rotationMatrix;
+                cv::Rodrigues(raux, rotationMatrix);
+                cv::Vec3f eulerAngles = [OpenCVWrapper rotationMatrixToEulerAngles:rotationMatrix];
+                SCNVector3 rotation = SCNVector3Make(eulerAngles[0], eulerAngles[1], eulerAngles[2]);
+                rotation.y *= -1;
+                rotation.z *= -1;
+                
+                taux.convertTo(it->Tvec, CV_32F);
+                
+                SCNVector3 translation = SCNVector3Make(it->Tvec.at<float>(0,0), it->Tvec.at<float>(0,1), it->Tvec.at<float>(0,2));
+                // Convert OpenGL to SceneKit
+                translation.y *= -1;
+                translation.z *= -1;
+                
+                [translations addObject:[NSValue valueWithSCNVector3:translation]];
+                [rotations addObject:[NSValue valueWithSCNVector3:rotation]];
+                [usedIds addObject:[NSNumber numberWithInt:it->id]];
+            }
         }
         
         if(translations.count > 0) {

@@ -20,5 +20,11 @@
 @interface OpenCVWrapper : NSObject
 
 @property id<OpenCVWrapperDelegate> delegate;
--(void)findMarker:(CVPixelBufferRef)pixelBuffer withCameraIntrinsics:(matrix_float3x3)intrinsics  cameraSize:(CGSize)cameraSize;
+-(void)findMarker:(CVPixelBufferRef)pixelBuffer withCameraIntrinsics:(matrix_float3x3)intrinsics  cameraSize:(CGSize)cameraSize currentModel:(int)currentModel;
 @end
+
+// Used to hold the indices for special ARPens
+// Original model
+extern const int ORIGINAL_MODEL;
+// BackFrontSmall model
+extern const int SMALL_MODEL;
