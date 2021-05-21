@@ -327,7 +327,7 @@ class MarkerBox: SCNNode {
                 }
                 point.simdLocalRotate(by: quaternionFromTopMarkerToPenTip)
             case (.B_bottom):
-                point.position = SCNVector3(xTranslationAwayBack, yTranslationAwayBack, zTranslationAwayBack)
+                point.position = SCNVector3(-xTranslationAwayBack, yTranslationAwayBack, zTranslationAwayBack) // The x translation needs to be inverted as the marker is rotated compared to the others
                 point.eulerAngles.y = Float.pi
                 if orientationState == .HomeButtonLeft {
                     point.eulerAngles.z += Float.pi
