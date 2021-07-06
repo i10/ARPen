@@ -275,7 +275,8 @@ class MarkerBox: SCNNode {
         
         //apply smoothing to pen position & orientation
         penTipPosition = self.positionFilter.filteredPositionAfter(newPosition: penTipPosition)
-        penTipOrientation = self.positionFilter.filteredOrientationAfter(newOrientation: penTipOrientation)
+        //filtering of orientation disabled as implementation causes flips in the orientation
+        //penTipOrientation = self.positionFilter.filteredOrientationAfter(newOrientation: penTipOrientation)
         
         let returnNode = SCNNode()
         returnNode.position = penTipPosition
