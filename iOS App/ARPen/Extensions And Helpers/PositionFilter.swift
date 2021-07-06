@@ -107,6 +107,7 @@ class PositionFilter {
     }
     
     //smooth the orientation
+    //currently disables as it causes flips of the orientation
     func filteredOrientationAfter(newOrientation orientation : simd_quatf) -> simd_quatf {
         guard let previousOrientation = self.previousFilteredOrientation else {
             self.previousFilteredOrientation = orientation
