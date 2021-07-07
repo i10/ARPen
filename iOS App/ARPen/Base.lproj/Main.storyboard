@@ -663,7 +663,7 @@
         <!--Model List Table View Controller-->
         <scene sceneID="q2Q-7R-AIp">
             <objects>
-                <tableViewController id="xx0-tI-GAq" userLabel="Model List Table View Controller" customClass="ModelListViewController" customModule="ARPen" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="xx0-tI-GAq" customClass="ModelListTableViewController" customModule="ARPen" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wsM-RU-4lp">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -688,8 +688,8 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="xx0-tI-GAq" id="Qsa-bB-U8c"/>
-                            <outlet property="delegate" destination="xx0-tI-GAq" id="sIW-Yb-mBs"/>
+                            <outlet property="dataSource" destination="xx0-tI-GAq" id="DvF-RE-SfU"/>
+                            <outlet property="delegate" destination="xx0-tI-GAq" id="nC6-Gc-gqb"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="2WD-kq-2bs"/>
