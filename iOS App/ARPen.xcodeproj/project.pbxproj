@@ -95,7 +95,6 @@
 		4AFE55B525EE8D5D00333026 /* PointScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE55AF25EE8D5D00333026 /* PointScalingPlugin.swift */; };
 		4AFE55B625EE8D5D00333026 /* PinchScalingTechniquePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE55B025EE8D5D00333026 /* PinchScalingTechniquePlugin.swift */; };
 		4AFE55B725EE8D5D00333026 /* ScrollScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE55B125EE8D5D00333026 /* ScrollScalingPlugin.swift */; };
-		60D765E7264EAA2B00508004 /* ModelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D765E6264EAA2B00508004 /* ModelListViewController.swift */; };
 		750292912559C87A00963547 /* ARPPyramid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750292902559C87A00963547 /* ARPPyramid.swift */; };
 		75152A912573B8750051E15D /* PenRayScalingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A902573B8750051E15D /* PenRayScalingPlugin.swift */; };
 		75152A932573BAB30051E15D /* PenRayScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75152A922573BAB30051E15D /* PenRayScaler.swift */; };
