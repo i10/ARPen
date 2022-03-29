@@ -1,0 +1,196 @@
+PCBNEW-LibModule-V1  
+# encoding utf-8
+Units mm
+$INDEX
+XCVR_RN4871-V/RM118
+$EndINDEX
+$MODULE XCVR_RN4871-V/RM118
+Po 0 0 0 15 00000000 00000000 ~~
+Li XCVR_RN4871-V/RM118
+Cd 
+Sc 00000000
+At SMD
+Op 0 0 0
+.SolderMask 0
+.SolderPaste 0
+T0 -5.99409 3.26496 1.00152 1.00152 900 0.05 N V 21 "XCVR_RN4871-V/RM118"
+T1 5.96891 2.62672 1.00065 1.00065 900 0.05 N V 21 "VAL**"
+DP 0 0 0 0 4 0 24
+Dl -3.50681 -1.75
+Dl -1.5 -1.75
+Dl -1.5 1.15224
+Dl -3.50681 1.15224
+DP 0 0 0 0 4 0 24
+Dl -0.200301 -1.25
+Dl 3.5 -1.25
+Dl 3.5 4.25639
+Dl -0.200301 4.25639
+DS -4.5 5.75 4.5 5.75 0.127 27
+DS 4.5 5.75 4.5 -1.75 0.127 27
+DS 4.5 -1.75 4.5 -5.75 0.127 27
+DS 4.5 -5.75 -4.5 -5.75 0.127 27
+DS -4.5 -5.75 -4.5 -1.75 0.127 27
+DS -4.5 -1.75 -4.5 5.75 0.127 27
+DS -4.5 -1.75 4.5 -1.75 0.127 27
+DS -4.5 4.45 -4.5 5.75 0.127 21
+DS -4.5 5.75 -3.6 5.75 0.127 21
+DS 3.6 5.75 4.5 5.75 0.127 21
+DS 4.5 5.75 4.5 4.45 0.127 21
+DS 4.5 -5.75 4.5 -1.55 0.127 21
+DS 4.5 -5.75 -4.5 -5.75 0.127 21
+DS -4.5 -5.75 -4.5 -1.55 0.127 21
+DS -5.25 -6 5.25 -6 0.05 26
+DS 5.25 -6 5.25 6.5 0.05 26
+DS 5.25 6.5 -5.25 6.5 0.05 26
+DS -5.25 6.5 -5.25 -6 0.05 26
+DC -5 -1.9 -4.9 -1.9 0.2 21
+DP 0 0 0 0 4 0 24
+Dl -0.200081 -1.25
+Dl 3.5 -1.25
+Dl 3.5 4.25172
+Dl -0.200081 4.25172
+DP 0 0 0 0 4 0 24
+Dl -3.50207 -1.75
+Dl -1.5 -1.75
+Dl -1.5 1.15068
+Dl -3.50207 1.15068
+T2 -4.407550 -1.853170 1 1 0 .05 N V 51 "PCB~EDGE"
+DP 0 0 0 0 4 0 24
+Dl -3.50131 -1.75
+Dl -1.5 -1.75
+Dl -1.5 1.15043
+Dl -3.50131 1.15043
+DP 0 0 0 0 4 0 24
+Dl -0.200178 -1.25
+Dl 3.5 -1.25
+Dl 3.5 4.25378
+Dl -0.200178 4.25378
+$PAD
+Sh "5" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -4.25 3.85
+$EndPAD
+$PAD
+Sh "4" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -4.25 2.65
+$EndPAD
+$PAD
+Sh "3" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -4.25 1.45
+$EndPAD
+$PAD
+Sh "2" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -4.25 0.25
+$EndPAD
+$PAD
+Sh "1" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -4.25 -0.95
+$EndPAD
+$PAD
+Sh "6" R 1.5 0.7 0 0 2700
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -3 5.5
+$EndPAD
+$PAD
+Sh "7" R 1.5 0.7 0 0 2700
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -1.8 5.5
+$EndPAD
+$PAD
+Sh "8" R 1.5 0.7 0 0 2700
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -0.6 5.5
+$EndPAD
+$PAD
+Sh "9" R 1.5 0.7 0 0 2700
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 0.6 5.5
+$EndPAD
+$PAD
+Sh "10" R 1.5 0.7 0 0 2700
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 1.8 5.5
+$EndPAD
+$PAD
+Sh "11" R 1.5 0.7 0 0 2700
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 3 5.5
+$EndPAD
+$PAD
+Sh "12" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 4.25 3.85
+$EndPAD
+$PAD
+Sh "13" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 4.25 2.65
+$EndPAD
+$PAD
+Sh "14" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 4.25 1.45
+$EndPAD
+$PAD
+Sh "15" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 4.25 0.25
+$EndPAD
+$PAD
+Sh "16" R 1.5 0.7 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 4.25 -0.95
+$EndPAD
+$EndMODULE XCVR_RN4871-V/RM118
