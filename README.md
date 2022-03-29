@@ -26,6 +26,7 @@ Since we built a custom chip using the rn4871, you have to assemble the parts yo
 3. Build and program the custom chip for the ARPen. The process is documented [here][9] in chapter 3.
 4. Connect the momentary buttons (B1-B3) to their respective pins and the lithium-ion battery (110 mAh, 3.5V, [link to a sample battery][6]) to VCC and one of the GND pins. The last GND pin has to be connected to the GND cable from the buttons (see the last image).
 	![][image-7]
+	![][image-5]
 5. Place the chip and battery inside the box, and then glue the pen to the box. _Remember_ to disconnect the battery after using ARPen for sketching or modeling!
 
 ### 1.2 Setup using the "Read Bear Nano v2"
@@ -73,6 +74,6 @@ Feel free to [submit pull requests][3], [create issues][2] and spread the word! 
 [image-2]:	https://github.com/i10/ARPen/blob/master/Documentation/images/Bluetooth%20setup.png "Bluetooth Setup"
 [image-3]:  https://github.com/i10/ARPen/blob/master/Documentation/images/BLE%20mount%20setup.png "BLE Mount Setup"
 [image-4]:  https://github.com/i10/ARPen/blob/master/Documentation/images/Soldering_Setup.png "Soldering Setup"
-[image-5]: https://github.com/i10/ARPen/blob/redesign-integration/Documentation/images/rn4871/breadboard.png "Breadboard Setup"
-[image-6]: https://github.com/i10/ARPen/blob/redesign-integration/Documentation/images/rn4871/pinheader.png "Pinheader Connections"
-[image-7]: https://github.com/i10/ARPen/blob/redesign-integration/Documentation/images/rn4871/rn4871_digital.png "Pin Layout"
+[image-5]: https://github.com/i10/ARPen/blob/rn4871-integration/Documentation/images/rn4871/breadboard.png "Breadboard Setup"
+[image-6]: https://github.com/i10/ARPen/blob/rn4871-integration/Documentation/images/rn4871/pinheader.png "Pinheader Connections"
+[image-7]: https://github.com/i10/ARPen/blob/rn4871-integration/Documentation/images/rn4871/rn4871_digital.png "Pin Layout"
